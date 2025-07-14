@@ -1,0 +1,117 @@
+1格对应像素637.0-576.0 = 61.0
+324.0-263.0 = 61.0
+
+天体size = 1 时， scale = 0.605
+天体飞船数量显示字体大小 : 14 (13.915)
+缩放比例为1时的天体宽度的一半常量(godot)WIDTHCONSTANCE = 49/1.6 = 30.625
+只有一个飞船阵营的天体飞船数量标签未缩放前偏移量(godot) = 49
+两个及两个以上飞船阵营的天体飞船数量标签未缩放前偏移量(godot) = 91.875
+godot环大小 (142, 142)(对环的缩放比例为1时)
+godot环宽度 1
+画环:
+	缩放比例为1:
+		draw_circle(Vector2(0, 0), 71, Color.WHITE, false, 1, true)
+目前已发现在size = 1下的对环的缩放比例有1、0.5(对于缩放比例为0.5的，理论上scale要乘0.5)
+缩放比例为1:
+	star, teleport, castle
+缩放比例为0.5:
+	AddTower
+
+# 星辰远征原始阵营颜色
+var campcolor : Dictionary = {0 : Color("CCCCCC"), 1 : Color("5FB6FF"), 2 : Color("FF5D93"), 3 : Color("FE8B59"), 4 : Color("C6FA6C"), 5 : Color("CCCCCC"), 6 : Color("CCCCCC"), 7 : Color("000000"), 8 : Color("1B924B")}
+
+参数格式
+var starTypesGroup : Array = [StarTypeElement1, StarTypeElement2, ...]
+# StarTypeElement = [天体图样(路径(String)(可能要改成TypeEnum), 天体缩放比例(scale)(float), 天体类型(String), 大小类型(int), 名称(String), 特殊天体类型(String)]
+
+# mapnode基本内容: [
+# 天体自身信息: 天体图样(路径(String)), 天体缩放比例(scale)(float), 天体类型(type)(String), 大小类型(size_type)(int), 名称(String), 特殊天体类型(String),
+# 地图添加信息: 大小类型(size)(int)( = size_type), 天体阵营(camption), 天体舰队(Array),天体坐标(Vector2), 轨道信息(Array), 旋转角度(float), 
+# 特殊天体信息: 变形装置变形的天体的id们(Array), 射线炮数据(Array),
+# 其它信息: 是否为目标天体(bool)
+# ]
+(假如特殊天体类型为"UnknownStar"写入，否则为空数组)
+变形装置变形的天体的id们(Array)
+
+(假如特殊天体类型为"Lasergun"可填，否则为空数组)
+射线炮数据(Array)
+
+
+天体舰队群(star_fleets)(Array)
+var star_fleets : Array
+# star_fleet = [所在天体(tag)(String), 阵营id(int), 舰队中的飞船数量(int)]
+
+
+伽马射线:
+	<mapbuilding id="" type="Curse" size="1" x="13" y="4" camption="0" tag="S" orbit="0" orbitParam1="" orbitParam2="" orbitClockWise="False" fAngle="0" transformBulidingID="" curseDelay="10" />
+	camption为某个阵营时，可以协同那个阵营
+
+地图注释:
+<?xml version="1.0" encoding="utf-8"?>
+<map player_count="1" vertical="False" defaultAIStrategy="-1" teamAITypes="-1,-1,-1,-1,-1,-1,-1,-1,-1" teamJiemeng="">
+  <mapbuildings>
+	<mapbuilding type="star" size="7" tag="A" x="-5" y="-2" camption="1" fAngle="0" orbit="0" revospeed="10" orbitParam1="0,0" orbitParam2="0" orbitClockWise="False" />
+	<mapbuilding type="star" size="6" tag="B" x="-1" y="0" camption="0" fAngle="0" orbit="0" revospeed="10" orbitParam1="0,0" orbitParam2="0" orbitClockWise="False" />
+	<mapbuilding type="star" size="4" tag="1" x="2" y="3" camption="0" fAngle="0" orbit="0" revospeed="10" orbitParam1="0,0" orbitParam2="0" orbitClockWise="False" />
+	<mapbuilding type="star" size="2" tag="2" x="4" y="-2" camption="0" fAngle="0" orbit="0" revospeed="10" orbitParam1="0,0" orbitParam2="0" orbitClockWise="False" />
+  </mapbuildings>
+  <mapplayers>
+	<mapplayer tag="A" ship="60" camption="1" />
+  </mapplayers>
+  <candidates>
+	<candidate transformBulidingID="" />
+	<candidate lasergunAngle="" lasergunRotateSkip="" lasergunRange="" />
+	<candidate orbit="0" orbitParam1="" orbitParam2="" />
+	<candidate revospeed="10" />
+  </candidates>
+</map>
+<!--
+  <maplines>
+	<mapline point1="1" point2="2" />
+  </maplines>
+-->
+
+<!-- 所有属性的含义说明 -->
+<!--
+  <maplines>中
+	point1="" point2="" 设置两个障碍点的连线。
+
+  <map>中
+	player_count="" 为当前地图内有效势力数量，超出player_count范畴的势力在地图内不具有AI，也不需要消灭它，不过它的建筑是会攻击的。
+	defaultAIStrategy="" 设置关卡默认AI类型，对应编号aistrategy.xml里的编号，如果是-1就表示无默认AI，优先级比Level.xml内的 aitype="" 更高。
+	teamAITypes="" 设置各个势力对应的AI类型。其内填9个数字，对应9个势力（0号到8号），这些数字也是aistrategy.xml里的编号，优先级比Level.xml内的 aitype="" 更高。
+	teamJiemeng="" 设置势力的组队。每两个相邻数字为一组表示一队。例如，“1,2,1,3”表示蓝色和红色组队，蓝色和橙色组队，但红色和橙色没有组队。
+
+  <mapbuildings>中
+	type="" 设置天体类型。对应mapnode.xml里的 type=""
+	size="" 设置天体大小。对应mapnode.xml里的 sizeType=""
+	tag="" 设置天体标签。每个天体都必须有不同的标签。这个标签可以填任意数量的任意字符，例如填“1”，“A”，“,”，“α”，“啊”，“ADSSQasad34.，啊”，等等。
+	x="" y="" 设置天体的坐标。
+	camption="" 设置天体所属的势力。
+	fAngle="" 设置天体旋转角度。该属性可以用于标记焦土星球、目标天体，以及旋转反射镜、追踪炮。但是，不能用该属性旋转射线炮和粒子炮。
+
+	orbit="" revospeed="" orbitParam1="" orbitParam2="" orbitClockWise="" 这是一组表示天体轨道的属性，含义如下：
+	orbit="" 填0表示没有轨道，填1表示圆形轨道，填4表示椭圆轨道。
+	orbitParam1="" orbitParam2="" 用于设置椭圆的焦点坐标。如果是圆形轨道则只需在其中一项中填写圆心坐标。
+	orbitClockWise="" 填True是顺时针，填False是逆时针。
+	revospeed="" 表示天体运行的速度，它与角速度成正比，默认值是10。如果天体属性中没有revospeed=""这一项，那么它的值默认是10，但如果存在revospeed=""，不可以在其中不填任何数值。
+
+	另外还有如下可选项：
+	transformBulidingID="" 填写变形装置可以变形的天体的id（即mapnode.xml中天体的id），格式是“1,2,3”。注意，变形装置不能和粒子炮在同一个地图中共存。
+	lasergunAngle="" lasergunRange="" lasergunRotateSkip="" 这是三个针对射线炮的属性。
+	lasergunAngle="" 表示射线炮的初始旋转角度。
+	lasergunRotateSkip="" 表示射线炮的单次旋转角度。
+	lasergunRange="" 表示射线炮的总旋转角度。
+	注意，如果想让射线炮不旋转，不可以在两个属性同时填0，因为0不能除以0。正确的填法是在lasergunRotateSkip=""中填写一个比lasergunRange=""中大的数字。
+
+  <mapplayers>中
+	tag="" 表示对应天体的标签
+	ship="" 填写天体上拥有的飞船数量
+	camption="" 设置飞船所属的势力
+	
+	不用填:
+		id
+
+  <candidates>中
+	这里面的几个属性都是对于特殊天体的候选项，仅用于方便自制者进行地图的编辑，对游戏没有实际的作用，可以选择删除。
+-->

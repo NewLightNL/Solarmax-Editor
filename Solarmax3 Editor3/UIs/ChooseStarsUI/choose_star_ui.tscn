@@ -1,0 +1,68 @@
+[gd_scene load_steps=6 format=3 uid="uid://5xrqbdn5jbv0"]
+
+[ext_resource type="Script" uid="uid://3iao4mdtc2bu" path="res://Script/MapEditor1UIScripts/choose_star_ui.gd" id="1_0tucp"]
+[ext_resource type="PackedScene" uid="uid://6dv10iy8psos" path="res://UIs/ChooseStarsUI/Stars_slot.tscn" id="2_168fl"]
+[ext_resource type="Texture2D" uid="uid://267e471mvflc" path="res://UITexture/ChooseStarUIs/CloseChooseStarUI.tres" id="4_ni36l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tucp"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_168fl"]
+bg_color = Color(0, 0.625966, 0.994446, 1)
+
+[node name="ChooseStarUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0tucp")
+stars_slot = ExtResource("2_168fl")
+
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(400, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0tucp")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/PanelContainer"]
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_168fl")
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GridContainer" type="GridContainer" parent="Control/PanelContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="CloseChooseStarUIButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 776.0
+offset_top = 72.0
+offset_right = 884.0
+offset_bottom = 170.0
+scale = Vector2(0.7, 0.7)
+icon = ExtResource("4_ni36l")
+flat = true
+
+[connection signal="button_up" from="CloseChooseStarUIButton" to="." method="_on_close_choose_star_ui_button_button_up"]
