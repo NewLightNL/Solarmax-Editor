@@ -10,8 +10,8 @@ var campcolor : Dictionary = {0 : Color("CCCCCC"), 1 : Color("5FB6FF"),
 2 : Color("FF5D93"), 3 : Color("FE8B59"), 4 : Color("C6FA6C"),
 5 : Color("CCCCCC"), 6 : Color("CCCCCC"), 7 : Color("000000"),
 8 : Color("1B924B")}
-# 生成天体图案字典
-var star_pattern_dictionary : Dictionary = Load.init_star_pattern_dictionary()
+# 天体贴图字典
+var star_pattern_dictionary : Dictionary
 
 var star_types_information : Array = [["planet01", 0.4, "star", 1, "30人口星球", "null"],
 ["starbase", 1, "castle", 1, "太空堡垒", "null"]]
@@ -26,6 +26,8 @@ var editing_star_information : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# 初始化变量
+	star_pattern_dictionary = Load.init_star_pattern_dictionary()
 	# 初始化创建天体UI
 	$CreateUI_openButton.visible = false
 	$UI/CreateUI.visible = true
@@ -145,7 +147,8 @@ func _on_set_star_ship_button_button_up():
 		# 输入基本信息
 		set_star_ship_ui_node.have_camps = have_camps
 		set_star_ship_ui_node.campcolor = campcolor
-		#set_star_ship_ui_node.star_fleets = chosen_star[]
+		# 输入天体信息
+		set_star_ship_ui_node.this_star_fleets = chosen_star.this_star_fleets
 		$UI.add_child(set_star_ship_ui_node)
 
 

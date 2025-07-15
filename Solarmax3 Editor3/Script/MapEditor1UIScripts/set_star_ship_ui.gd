@@ -1,7 +1,7 @@
 extends Control
 
 signal this_star_fleets_set(this_star_fleets)
-# var this_star_fleets : Array 其元素相比于"star_fleets"的元素省略了天体的tag
+
 
 @export var star_fleet_information_unit : PackedScene
 @export var halo_drawing_center : PackedScene
@@ -16,9 +16,8 @@ var have_camps : Array
 var campcolor : Dictionary
 
 var chosen_star_type : Array
-var star_fleets : Array
-# star_fleet = [所在天体(tag)(String), 阵营id(int), 舰队中的飞船数量(int)]
-
+var this_star_fleets : Array #其元素相比于"star_fleets"的元素省略了天体的tag
+# this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 
 # 内部使用，并可以向外部输出
 var this_star_fleets_ordered : Array # 整理过后的该天体舰队数据，省略了天体的tag
@@ -35,7 +34,7 @@ func _ready():
 		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item("?", have_camps[-1]+1)
 		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.set_item_disabled(have_camps[-1]+1, true)
 		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(0)
-	if star_fleets.size() != 0:
+	if this_star_fleets.size() != 0:
 		organize_star_fleets()
 		update_star_preview()
 		update_star_fleets_list()
@@ -47,16 +46,16 @@ func organize_star_fleets():
 	# 整理star_fleets(第一阶段)
 	# 得到star_fleets里有哪些阵营
 	var camps : Array
-	for star_fleet in star_fleets:
-		if star_fleet[1] not in camps and star_fleet[1] != 0:
-			camps.append(star_fleet[1])
+	for this_star_fleet in this_star_fleets:
+		if this_star_fleet[0] not in camps and this_star_fleet[0] != 0:
+			camps.append(this_star_fleet[0])
 	camps.sort()
 	# 整理star_fleets(第二阶段)
 	for camp in camps:
 		var camp_ship_number : int = 0
-		for star_fleet in star_fleets:
-			if star_fleet[1] == camp and star_fleet[1] != 0:
-				camp_ship_number += star_fleet[2]
+		for this_star_fleet in this_star_fleets:
+			if this_star_fleet[0] == camp and this_star_fleet[0] != 0:
+				camp_ship_number += this_star_fleet[1]
 		if camp_ship_number >= 0:
 			this_star_fleets_ordered.append([camp, camp_ship_number])
 	# 检验star_fleets(第三阶段)
@@ -70,7 +69,7 @@ func organize_star_fleets():
 
 
 # 计算飞船数量点位位置
-func calculate_positions(camps_number : int):
+func calculate_positions(camps_number : int) -> Array :
 	var ship_number_positions : Array
 	var relative_star_position = $SetStarShipUIRect/StarShipPreview/ContainStar.position - $SetStarShipUIRect/StarShipPreview/ShipNumberLabels.position
 	if camps_number == 0:
@@ -117,7 +116,7 @@ func add_star_ship_labels(ship_number_positions):
 # 更新天体预览
 func update_star_preview():
 	# 获得飞船数量点位位置
-	var ship_number_positions = calculate_positions(this_star_fleets_ordered.size())
+	var ship_number_positions : Array = calculate_positions(this_star_fleets_ordered.size())
 	# 清除已有的飞船数量标签
 	if $SetStarShipUIRect/StarShipPreview/ShipNumberLabels.get_child_count() != 0:
 		for i in $SetStarShipUIRect/StarShipPreview/ShipNumberLabels.get_children():
@@ -134,17 +133,17 @@ func update_star_fleets_list():
 	for i in $StarFleetsUI/StarFleetsListScrollContainer/StarFleetsListVBoxContainer.get_children():
 			i.queue_free()
 	# 生成天体舰队列表
-	for star_fleet in star_fleets:
-		if star_fleet[2] >= 0:
+	for this_star_fleet in this_star_fleets:
+		if this_star_fleet[1] >= 0:
 			# 添加文字
-			var star_fleet_text : String = " 飞船数: %s ; 阵营id: %s ; 阵营颜色:" % [star_fleet[2], star_fleet[1]]
+			var star_fleet_text : String = " 飞船数: %s ; 阵营id: %s ; 阵营颜色:" % [this_star_fleet[1], this_star_fleet[0]]
 			var star_fleet_information_unit_node = star_fleet_information_unit.instantiate()
 			$StarFleetsUI/StarFleetsListScrollContainer/StarFleetsListVBoxContainer.add_child(star_fleet_information_unit_node)
 			star_fleet_information_unit_node.get_child(1).text = star_fleet_text
 			
 			# Stylebox设置
 			var star_fleet_camp_color_stylebox = StyleBoxFlat.new()
-			star_fleet_camp_color_stylebox.bg_color = campcolor[star_fleet[1]]
+			star_fleet_camp_color_stylebox.bg_color = campcolor[this_star_fleet[0]]
 			star_fleet_camp_color_stylebox.border_width_left = 2
 			star_fleet_camp_color_stylebox.border_width_top = 2
 			star_fleet_camp_color_stylebox.border_width_right = 2
@@ -156,11 +155,11 @@ func update_star_fleets_list():
 			star_fleet_camp_color_stylebox.corner_radius_bottom_right = 2
 			star_fleet_information_unit_node.get_child(2).add_theme_stylebox_override("panel", star_fleet_camp_color_stylebox)
 			
-			star_fleet_information_unit_node.star_fleet_with_self = [star_fleet, star_fleet_information_unit_node]
+			star_fleet_information_unit_node.star_fleet_with_self = [this_star_fleet, star_fleet_information_unit_node]
 			star_fleet_information_unit_node.delelte_star_fleet.connect(_delelte_star_fleet)
 
 # 计算环的参数
-func calculate_halo_arguments():
+func calculate_halo_arguments() -> Array:
 	var halo_arguments : Array
 	# 从PI/2开始先顺时针转半个步进角度，再逆时针开始画
 	var ship_number_summed : int = 0
@@ -203,14 +202,14 @@ func draw_halo(halo_arguments : Array, camps_number : int):
 # 删除舰队
 func _delelte_star_fleet(star_fleet_with_self):
 	var star_fleet_index = star_fleet_with_self[1].get_index()
-	star_fleets.remove_at(star_fleet_index)
+	this_star_fleets.remove_at(star_fleet_index)
 	organize_star_fleets()
 	update_star_preview()
 
 func _on_add_star_fleet_button_button_up():
 	var ship_number : int = int($SetStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text)
 	var ships_camp : int = int($SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text)
-	star_fleets.append(["A", ships_camp, ship_number])
+	this_star_fleets.append([ships_camp, ship_number])
 	organize_star_fleets()
 	update_star_preview()
 	update_star_fleets_list()

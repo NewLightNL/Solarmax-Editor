@@ -24,6 +24,7 @@ var campcolor : Dictionary = {0 : Color("CCCCCC"), 1 : Color("5FB6FF"), 2 : Colo
 var starTypesGroup : Array = [StarTypeElement1, StarTypeElement2, ...]
 # StarTypeElement = [天体图样(路径(String)(可能要改成TypeEnum), 天体缩放比例(scale)(float), 天体类型(String), 大小类型(int), 名称(String), 特殊天体类型(String)]
 
+
 # mapnode基本内容: [
 # 天体自身信息: 天体图样(路径(String)), 天体缩放比例(scale)(float), 天体类型(type)(String), 大小类型(size_type)(int), 名称(String), 特殊天体类型(String),
 # 地图添加信息: 大小类型(size)(int)( = size_type), 天体阵营(camption), 天体舰队(Array),天体坐标(Vector2), 轨道信息(Array), 旋转角度(float), 
@@ -41,6 +42,9 @@ var starTypesGroup : Array = [StarTypeElement1, StarTypeElement2, ...]
 var star_fleets : Array
 # star_fleet = [所在天体(tag)(String), 阵营id(int), 舰队中的飞船数量(int)]
 
+var this_star_fleets : Array
+this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
+# 其元素相比于"star_fleets"的元素省略了天体的tag
 
 伽马射线:
 	<mapbuilding id="" type="Curse" size="1" x="13" y="4" camption="0" tag="S" orbit="0" orbitParam1="" orbitParam2="" orbitClockWise="False" fAngle="0" transformBulidingID="" curseDelay="10" />
