@@ -1,43 +1,5 @@
 extends Node
 
-# 加载天体图样
-# 星球类
-var planet01Texture : Resource = load("res://Textures/StarTexture/Planets/planet01.png")
-var planet02Texture : Resource = load("res://Textures/StarTexture/Planets/planet02.png")
-var planet03Texture : Resource = load("res://Textures/StarTexture/Planets/planet03.png")
-var planet04Texture : Resource = load("res://Textures/StarTexture/Planets/planet04.png")
-var planet05Texture : Resource = load("res://Textures/StarTexture/Planets/planet05.png")
-var planet06Texture : Resource = load("res://Textures/StarTexture/Planets/planet06.png")
-var planet07Texture : Resource = load("res://Textures/StarTexture/Planets/planet07.png")
-var planet08Texture : Resource = load("res://Textures/StarTexture/Planets/planet08.png")
-var planet09Texture : Resource = load("res://Textures/StarTexture/Planets/planet09.png")
-# 其它类
-var AircraftCarrierTexture : Resource = load("res://Textures/StarTexture/AircraftCarrier.png")
-var AntiAttackshipTexture : Resource = load("res://Textures/StarTexture/AntiAttackship.png")
-var AntiCaptureshipTexture : Resource = load("res://Textures/StarTexture/AntiCaptureship.png")
-var AntiLifeshipTexture : Resource = load("res://Textures/StarTexture/AntiLifeship.png")
-var AntiSpeedshipTexture : Resource = load("res://Textures/StarTexture/AntiSpeedship.png")
-var ArsenalTexture : Resource = load("res://Textures/StarTexture/Arsenal.png")
-var AttackshipTexture : Resource = load("res://Textures/StarTexture/Attackship.png")
-var barrier_line_newTexture : Resource = load("res://Textures/StarTexture/barrier_line_new.png")
-var barrier_newTexture : Resource = load("res://Textures/StarTexture/barrier_new.png")
-var blackholeTexture : Resource = load("res://Textures/StarTexture/blackhole.png")
-var CaptureshipTexture : Resource = load("res://Textures/StarTexture/Captureship.png")
-var defenseTexture : Resource = load("res://Textures/StarTexture/defense.png")
-var dilatorTexture : Resource = load("res://Textures/StarTexture/dilator.png")
-var fixedwarpdoorTexture : Resource = load("res://Textures/StarTexture/fixedwarpdoor.png")
-var hiddenstarTexture : Resource = load("res://Textures/StarTexture/hiddenstar.png")
-var HouseTexture : Resource = load("res://Textures/StarTexture/House.png")
-var Lasercannon_newTexture : Resource = load("res://Textures/StarTexture/Lasercannon_new.png")
-var LifeshipTexture : Resource = load("res://Textures/StarTexture/Lifeship.png")
-var magicstarTexture : Resource = load("res://Textures/StarTexture/magicstar.png")
-var masterTexture : Resource = load("res://Textures/StarTexture/master.png")
-var powerTexture : Resource = load("res://Textures/StarTexture/power.png")
-var SpeedshipTexture : Resource = load("res://Textures/StarTexture/Speedship.png")
-var starbaseTexture : Resource = load("res://Textures/StarTexture/starbase.png")
-var towerTexture : Resource = load("res://Textures/StarTexture/tower.png")
-var warpTexture : Resource = load("res://Textures/StarTexture/warp.png")
-
 @export var choose_star_ui : PackedScene
 @export var set_star_ship_ui : PackedScene
 
@@ -49,19 +11,7 @@ var campcolor : Dictionary = {0 : Color("CCCCCC"), 1 : Color("5FB6FF"),
 5 : Color("CCCCCC"), 6 : Color("CCCCCC"), 7 : Color("000000"),
 8 : Color("1B924B")}
 # 天体
-var star_pattern_dictionary : Dictionary = { "planet01" : planet01Texture, 
-"planet02" : planet02Texture, "planet03" : planet03Texture, "planet04" : planet04Texture,
-"planet05" : planet05Texture, "planet06" : planet06Texture, "planet07" : planet07Texture,
-"planet08" : planet08Texture, "planet09" : planet09Texture, "AircraftCarrier" : AircraftCarrierTexture,
-"AntiAttackship" : AntiAttackshipTexture, "AntiCaptureship" : AntiCaptureshipTexture,
-"AntiLifeship" : AntiLifeshipTexture, "AntiSpeedship" : AntiSpeedshipTexture,
-"Arsenal" : ArsenalTexture, "Attackship" : AttackshipTexture, "barrier_line_new" : barrier_line_newTexture,
-"barrier_new" : barrier_newTexture, "blackhole" : blackholeTexture, "Captureship" : CaptureshipTexture,
-"defense" : defenseTexture, "dilator" : dilatorTexture, "fixedwarpdoor" : fixedwarpdoorTexture,
-"hiddenstar" : hiddenstarTexture, "House" : HouseTexture, "Lasercannon_new" : Lasercannon_newTexture,
-"Lifeship" : LifeshipTexture, "magicstar" : magicstarTexture, "master" : masterTexture,
-"power" : powerTexture, "Speedship" : SpeedshipTexture, "starbase" : starbaseTexture,
-"tower" : towerTexture, "warp" : warpTexture}
+var star_pattern_dictionary : Dictionary = Load.init_star_pattern_dictionary()
 
 var star_types_information : Array = [["planet01", 0.4, "star", 1, "30人口星球", "null"],
 ["starbase", 1, "castle", 1, "太空堡垒", "null"]]
