@@ -10,21 +10,15 @@ var campcolor : Dictionary = {0 : Color("CCCCCC"), 1 : Color("5FB6FF"),
 2 : Color("FF5D93"), 3 : Color("FE8B59"), 4 : Color("C6FA6C"),
 5 : Color("CCCCCC"), 6 : Color("CCCCCC"), 7 : Color("000000"),
 8 : Color("1B924B")}
-# 天体
+# 生成天体图案字典
 var star_pattern_dictionary : Dictionary = Load.init_star_pattern_dictionary()
 
 var star_types_information : Array = [["planet01", 0.4, "star", 1, "30人口星球", "null"],
 ["starbase", 1, "castle", 1, "太空堡垒", "null"]]
-# StarTypeElement = [天体图样名(pattern_name)(String), 天体缩放比例(scale)(float), 天体类型(type)(String), 大小类型(size_type)(int), 名称(String), 特殊天体类型(String)]
+# star_type_information = [天体图样名(pattern_name)(String), 天体缩放比例(scale)(float), 天体类型(type)(String), 大小类型(size_type)(int), 名称(String), 特殊天体类型(String)]
 
 var lately_chosen_stars : Array
-var chosen_star : Array
-# mapnode基本内容: [
-# 天体自身信息: 天体图样名(pattern_name)(String), 天体缩放比例(scale)(float), 天体类型(type)(String), 大小类型(size_type)(int), 名称(String), 特殊天体类型(String),
-# 地图添加信息: 大小类型(size)(int)( = size_type), 天体标签(tag)(String), 天体阵营(camption), 天体舰队(Array),天体坐标(Vector2), 轨道信息(Array), 旋转角度(float), 
-# 特殊天体信息: 变形装置变形的天体的id们(Array), 射线炮数据(Array),
-# 其它信息: 是否为目标天体(bool)
-# ]
+var chosen_star : MapNodeStar = MapNodeStar.new()
 
 var star_fleets : Array
 
@@ -73,7 +67,19 @@ func _choose_star(star_slot_information):
 	$UI/CreateUI/ChooseStar/ChoosedStarPicture.texture = star_pattern_dictionary[star_slot_information[0]]
 	$UI/CreateUI/ChooseStar/Name_bg/Name.text = star_slot_information[4]
 	
+	# 赋予被选中的天体属性
+	# star_slot_information = [天体图样名(pattern_name)(String)(index = 0), 
+	# 天体缩放比例(scale)(float)(index = 1), 天体类型(type)(String)(index = 2), 
+	# 大小类型(size_type)(int)(index = 3),名称(String)(index = 4),
+	# 特殊天体类型(String)(index = 5)]
+	chosen_star.pattern_name = star_slot_information[0]
+	chosen_star.star_scale = star_slot_information[1]
+	chosen_star.type = star_slot_information[2]
+	chosen_star.size_type = star_slot_information[3]
+	chosen_star.name = star_slot_information[4]
+	chosen_star.special_star_type = star_slot_information[5]
 	
+	# 添加选择的天体进入最近选择的天体
 	if lately_chosen_stars.size() < 5:
 		# 要修改的点: 在除了information的内容，还需要...也就是lately_chosen_star装的应该是mapnode基本内容
 		lately_chosen_stars.append(star_slot_information)
@@ -81,8 +87,8 @@ func _choose_star(star_slot_information):
 		lately_chosen_stars.append(star_slot_information)
 		lately_chosen_stars.remove_at(0)
 	
-	
 	# 最近选择的星球框显示(对lately_chosen_star数组从右往左读取)
+	# 可能要做清除?
 	for i in range(lately_chosen_stars.size()):
 		var slot = $UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar.get_child(i)
 		slot.get_child(0).texture = star_pattern_dictionary[lately_chosen_stars[-i-1][0]]
@@ -133,12 +139,14 @@ func _on_confirm_create_star_button_2_button_up():
 
 # 召唤设置天体飞船UI
 func _on_set_star_ship_button_button_up():
-	var set_star_ship_ui_node = set_star_ship_ui.instantiate()
-	$UI.add_child(set_star_ship_ui_node)
-	# 输入信息
-	set_star_ship_ui_node.have_camps = have_camps
-	set_star_ship_ui_node.campcolor = campcolor
-	set_star_ship_ui_node.star_fleets = star_fleets
+	if chosen_star.pattern_name != "":
+		var set_star_ship_ui_node = set_star_ship_ui.instantiate()
+		# 输入信息
+		# 输入基本信息
+		set_star_ship_ui_node.have_camps = have_camps
+		set_star_ship_ui_node.campcolor = campcolor
+		#set_star_ship_ui_node.star_fleets = chosen_star[]
+		$UI.add_child(set_star_ship_ui_node)
 
 
 # 获取天体飞船设置信息

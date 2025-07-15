@@ -10,10 +10,15 @@ signal this_star_fleets_set(this_star_fleets)
 var halo_drawer : Marker2D
 
 # 外部输入
-var star_fleets : Array
-# star_fleet = [所在天体(tag)(String), 阵营id(int), 舰队中的飞船数量(int)]
+# 基本信息
+var star_pattern_dictionary : Dictionary
 var have_camps : Array
 var campcolor : Dictionary
+
+var chosen_star_type : Array
+var star_fleets : Array
+# star_fleet = [所在天体(tag)(String), 阵营id(int), 舰队中的飞船数量(int)]
+
 
 # 内部使用，并可以向外部输出
 var this_star_fleets_ordered : Array # 整理过后的该天体舰队数据，省略了天体的tag
@@ -24,11 +29,12 @@ func _ready():
 	$SetStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text = "0"
 	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = "0"
 	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.clear()
-	for i in have_camps:
-		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item(str(i), i)
-	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item("?", have_camps[-1]+1)
-	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.set_item_disabled(have_camps[-1]+1, true)
-	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(0)
+	if have_camps.size() != 0:
+		for i in have_camps:
+			$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item(str(i), i)
+		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item("?", have_camps[-1]+1)
+		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.set_item_disabled(have_camps[-1]+1, true)
+		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(0)
 	if star_fleets.size() != 0:
 		organize_star_fleets()
 		update_star_preview()

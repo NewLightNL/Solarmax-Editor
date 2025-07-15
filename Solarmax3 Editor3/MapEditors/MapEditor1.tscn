@@ -44,6 +44,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xi8j7"]
+load_path = "res://.godot/imported/warp.png-525bf41015b57a45f65d86b108c74df4.ctex"
 
 [node name="Main1" type="Node"]
 script = ExtResource("1_j6763")
