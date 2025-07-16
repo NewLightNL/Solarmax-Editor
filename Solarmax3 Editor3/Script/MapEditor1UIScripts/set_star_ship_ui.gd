@@ -25,6 +25,9 @@ var this_star_fleets_ordered : Array # 整理过后的该天体舰队数据，�
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	star_pattern_dictionary = Load.init_star_pattern_dictionary()
+	have_camps = Load.get_map_editor_basic_information("have_camps")
+	campcolor = Load.get_map_editor_basic_information("campcolor")
 	$SetStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text = "0"
 	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = "0"
 	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.clear()
@@ -77,14 +80,14 @@ func calculate_positions(camps_number : int) -> Array :
 	elif camps_number == 1:
 		var ship_number_position : Vector2
 		# 天体中心相对节点(ShipNumberLabels)的位置 = ContainStar位置 - ShipNumberLabels位置
-		ship_number_position = relative_star_position + Vector2(0, 49.0/2.0)# /2要换成scale
+		ship_number_position = relative_star_position + Vector2(0, 79.0/2.0)# /2要换成scale
 		ship_number_positions.append(ship_number_position)
 		return ship_number_positions
 	elif camps_number == 2:
 		var ship_number_position1 : Vector2
 		var ship_number_position2 : Vector2
-		ship_number_position1 = relative_star_position + Vector2(0, 91.875/2)# /2要换成scale
-		ship_number_position2 = relative_star_position - Vector2(0, 91.875/2)# /2要换成scale
+		ship_number_position1 = relative_star_position + Vector2(0, 150.0/2)# /2要换成scale
+		ship_number_position2 = relative_star_position - Vector2(0, 150.0/2)# /2要换成scale
 		ship_number_positions.append(ship_number_position1)
 		ship_number_positions.append(ship_number_position2)
 		return ship_number_positions
@@ -93,7 +96,7 @@ func calculate_positions(camps_number : int) -> Array :
 			var ship_number_position : Vector2
 			var relative_ship_number_position : Vector2
 			var radian_divided = TAU/camps_number
-			relative_ship_number_position = Vector2(cos(PI/2 + radian_divided * i), -sin(PI/2 + radian_divided * i)) * 96/2# /2要换成scale
+			relative_ship_number_position = Vector2(cos(PI/2 + radian_divided * i), -sin(PI/2 + radian_divided * i)) * 150.0/2# /2要换成scale
 			ship_number_position = relative_star_position + relative_ship_number_position
 			ship_number_positions.append(ship_number_position)
 		return ship_number_positions
@@ -195,7 +198,7 @@ func draw_halo(halo_arguments : Array, camps_number : int):
 	$SetStarShipUIRect/StarShipPreview.add_child(halo_drawing_center_node)
 	halo_drawing_center_node.halo_arguments = halo_arguments
 	halo_drawing_center_node.camps_number = camps_number
-	halo_drawing_center_node.position = Vector2(128, 80)
+	halo_drawing_center_node.position = $SetStarShipUIRect/StarShipPreview/ContainStar.position
 	halo_drawing_center_node.queue_redraw()
 	halo_drawer = halo_drawing_center_node
 

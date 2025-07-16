@@ -18,6 +18,8 @@ config/icon="uid://dqvkc1l0577hv"
 
 [display]
 
+window/size/viewport_width=1880
+window/size/viewport_height=1058
 window/stretch/mode="viewport"
 
 [gui]

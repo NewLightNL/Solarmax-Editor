@@ -5,11 +5,8 @@ extends Node
 
 # 编辑器基本信息
 #阵营
-var have_camps : Array = [0, 1, 2, 3, 4, 5, 6, 7, 8]
-var campcolor : Dictionary = {0 : Color("CCCCCC"), 1 : Color("5FB6FF"),
-2 : Color("FF5D93"), 3 : Color("FE8B59"), 4 : Color("C6FA6C"),
-5 : Color("CCCCCC"), 6 : Color("CCCCCC"), 7 : Color("000000"),
-8 : Color("1B924B")}
+var have_camps : Array
+var campcolor : Dictionary
 # 天体贴图字典
 var star_pattern_dictionary : Dictionary
 
@@ -19,19 +16,24 @@ var star_types_information : Array = [["planet01", 0.4, "star", 1, "30人口星�
 
 var lately_chosen_stars : Array
 var chosen_star : MapNodeStar = MapNodeStar.new()
+var is_star_chosen : bool = false# 用于未来判断是否有天体被选择
 
 var star_fleets : Array
 
-var editing_star_information : Array 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# 初始化变量
 	star_pattern_dictionary = Load.init_star_pattern_dictionary()
+	have_camps = Load.get_map_editor_basic_information("have_camps")
+	campcolor = Load.get_map_editor_basic_information("campcolor")
+	check_initalisation()
+	
 	# 初始化创建天体UI
 	$CreateUI_openButton.visible = false
 	$UI/CreateUI.visible = true
-	editing_star_information = []
+	if is_star_chosen == false:
+		$UI/CreateUI/StarInformation/SetStarShipButton.disabled = true
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -47,8 +49,8 @@ func _process(delta):
 
 
 func _on_create_ui_close_button_button_up():
-	$CreateUI.visible = false
-	$UI/CreateUI_openButton.visible = true
+	$UI/CreateUI.visible = false
+	$CreateUI_openButton.visible = true
 
 
 func _on_create_ui_open_button_button_up():
@@ -82,7 +84,7 @@ func _choose_star(star_slot_information):
 	chosen_star.special_star_type = star_slot_information[5]
 	
 	# 添加选择的天体进入最近选择的天体
-	if lately_chosen_stars.size() < 5:
+	if lately_chosen_stars.size() < 6: # 6应改为最近选择的星球栏的格子数
 		# 要修改的点: 在除了information的内容，还需要...也就是lately_chosen_star装的应该是mapnode基本内容
 		lately_chosen_stars.append(star_slot_information)
 	else:
@@ -94,6 +96,10 @@ func _choose_star(star_slot_information):
 	for i in range(lately_chosen_stars.size()):
 		var slot = $UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar.get_child(i)
 		slot.get_child(0).texture = star_pattern_dictionary[lately_chosen_stars[-i-1][0]]
+	
+	is_star_chosen = true
+	if is_star_chosen == true:
+		$UI/CreateUI/StarInformation/SetStarShipButton.disabled = false
 
 
 
@@ -123,6 +129,10 @@ func _on_lately_chosen_star_button_button_up5():
 		$UI/CreateUI/ChooseStar/ChoosedStarPicture.texture = load(lately_chosen_stars[-5][0])
 		$UI/CreateUI/ChooseStar/Name_bg/Name.text = lately_chosen_stars[-5][4]
 
+func _on_lately_chosen_star_button_button_up6():
+	if lately_chosen_stars.size() >= 6:
+		$UI/CreateUI/ChooseStar/ChoosedStarPicture.texture = load(lately_chosen_stars[-6][0])
+		$UI/CreateUI/ChooseStar/Name_bg/Name.text = lately_chosen_stars[-6][4]
 
 # 生成天体
 func _on_create_star_button_button_up():
@@ -155,3 +165,14 @@ func _on_set_star_ship_button_button_up():
 # 获取天体飞船设置信息
 func get_star_fleets():
 	pass
+
+func check_initalisation():
+	if star_pattern_dictionary == {}:
+		assert(false, "初始化天体贴图数据失败，请检查天体贴图文件夹是否存在")
+	if have_camps == null:
+		assert(false, "初始化天体阵营数据失败，
+				请检查编辑器基本信息文件(res://GameInformation/MapEditor1BasicInformation.json)是否有问题")
+	if campcolor == null:
+		assert(false, "初始化数据失败，
+				请检查编辑器基本信息文件(res://GameInformation/MapEditor1BasicInformation.json)是否有问题")
+		# 应当弹出警告窗

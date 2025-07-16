@@ -9,4 +9,4 @@ func _draw():
 	# draw_arc()函数是顺时针画弧的
 	if camps_number >= 2:# 只有当阵营数达到2及2以上才会开始画环
 		for halo_argument in halo_arguments:
-			draw_arc(Vector2(0, 0), 71 * 0.5, -halo_argument[0], -halo_argument[1], 128, halo_argument[2], 1, true)
+			draw_arc(Vector2(0, 0), (231.0-3)/2 * 0.5, -halo_argument[0], -halo_argument[1], 128, halo_argument[2], 2, true)

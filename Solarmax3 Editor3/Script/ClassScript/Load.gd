@@ -4,7 +4,8 @@ class_name Load
 
 # 应注意: res:// 只在开发/运行时有效
 const starTexturePath : String = "res://Textures/StarTexture"
-const MAPEDITOR1_BASIC_INFORMATION : String = "res://GameInformation/MapEditor1SavedInformation/MapEditor1SavedInformation.json"
+const MAPEDITOR1_BASIC_INFORMATION : String = "res://GameInformation/MapEditor1BasicInformation.json"
+
 
 # 未来要修改文件夹, 增加在Texture增加文件夹BetaVersion1、3(测试版1、3)
 # 现在的纹理会被放入BetaVersion1(测试版1)
@@ -15,8 +16,8 @@ static func init_star_pattern_dictionary(path:String = starTexturePath) -> Dicti
 	# directory如果返回的是null, 也就是打开失败了
 	if directory == null:
 		# 正式上来时，要告知用户缺少文件
-		assert(false, "无法打开目录: " + path)# 如果无法打开，强制停止项目
-		return dictionary_result
+		assert(false, "无法打开目录: %s, 因为%s"% [path, directory.get_open_error()])# 如果无法打开，强制停止项目
+		return dictionary_result# 要返回错误原因
 	
 	# 初始化用于通过get_next()函数
 	# “流”是什么: 把读一点处理一点(以及相反的生成一点, 写入一点)的数据类型(或曰操作)抽象出来, 就是流
@@ -45,14 +46,16 @@ static func init_star_pattern_dictionary(path:String = starTexturePath) -> Dicti
 	
 	return dictionary_result
 
-func get_map_editor_basic_information(get_what_informtion : String):
+static func get_map_editor_basic_information(get_what_informtion : String):
+	const HAVE_CAMPS = "have_camps"
+	const CAMPCOLOR = "campcolor"
 	# 检验路径上有没有这个文件
 	if not FileAccess.file_exists(MAPEDITOR1_BASIC_INFORMATION):
 		assert(false, "在文件路径:%s上的保存文件不存在!" %MAPEDITOR1_BASIC_INFORMATION)
 		return "在文件路径:%s上的保存文件不存在!" %MAPEDITOR1_BASIC_INFORMATION
 	var information_file = FileAccess.open(MAPEDITOR1_BASIC_INFORMATION, FileAccess.READ)
 
-	# 获得json文件里每一行的信息
+	# 获得json文件里的信息
 	var information_json_string : String = information_file.get_as_text()
 	# 使用JSON类辅助解析
 	var json = JSON.new()
@@ -70,7 +73,10 @@ func get_map_editor_basic_information(get_what_informtion : String):
 				if i not in have_camps:
 					have_camps.append(int(i))
 			# 对数组进行排序，防止出现保存的阵营数据不是按从小到大的顺序
-			have_camps.sort()
+			have_camps.sort()# 功能可能冗余，到时候可能要删
 			return have_camps
 		"campcolor":
-			return information_data["campcolor"]
+			var campcolor : Dictionary
+			for key in information_data["campcolor"]:
+				campcolor[int(key)] = Color(information_data["campcolor"][key])
+			return campcolor
