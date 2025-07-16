@@ -9,7 +9,8 @@ var tag : String
 # 天体阵营
 var camption : int
 # 天体舰队
-var this_star_fleet : Array
+var this_star_fleets : Array
+# this_star_fleets = [this_star_fleet1, this_star_fleet2]
 # 天体坐标
 var star_position : Vector2
 # 轨道信息

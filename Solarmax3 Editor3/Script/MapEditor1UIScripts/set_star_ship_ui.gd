@@ -25,6 +25,9 @@ var this_star_fleets_ordered : Array # 整理过后的该天体舰队数据，�
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	star_pattern_dictionary = Load.init_star_pattern_dictionary()
+	have_camps = Load.get_map_editor_basic_information("have_camps")
+	campcolor = Load.get_map_editor_basic_information("campcolor")
 	$SetStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text = "0"
 	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = "0"
 	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.clear()

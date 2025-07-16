@@ -2,7 +2,6 @@
 extends Node2D
 class_name Star
 
-# 天体自身信息
 # 天体类型信息
 # 天体图样名
 var pattern_name : String
