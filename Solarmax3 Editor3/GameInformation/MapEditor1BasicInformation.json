@@ -1,0 +1,70 @@
+{
+	"have_camps": [
+		0,
+		1,
+		2,
+		3,
+		4,
+		5,
+		6,
+		7,
+		8
+	],
+	"campcolor": {
+		"0": "CCCCCC",
+		"1": "5FB6FF",
+		"2": "FF5D93",
+		"3": "FE8B59",
+		"4": "C6FA6C",
+		"5": "CCCCCC",
+		"6": "CCCCCC",
+		"7": "000000",
+		"8": "1B924B"
+	},
+	"stars_information": {
+		"star": {
+			"1": [
+				"planet01",
+				0.4,
+				"star",
+				1,
+				"30人口星球",
+				"null",
+				{
+					"scale_fix": [
+						1,
+						1
+					]
+				},
+				{
+					"offset_fix": [
+						0,
+						0
+					]
+				}
+			]
+		},
+		"castle": {
+			"1": [
+				"starbase",
+				1,
+				"castle",
+				1,
+				"太空堡垒",
+				"null",
+				{
+					"scale_fix": [
+						1,
+						1
+					]
+				},
+				{
+					"offset_fix": [
+						0,
+						0
+					]
+				}
+			]
+		}
+	}
+}

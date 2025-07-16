@@ -1,13 +1,32 @@
-1格对应像素637.0-576.0 = 61.0
-324.0-263.0 = 61.0
+测量出来的量:
+	1格对应像素637.0-576.0 = 61.0 更改后: 99.4
+	324.0-263.0 = 61.0 更改后: 99.4
+	(729.0-530.0)/2 = 199.0/2 = 99.5
+	(940.0 - 344.0)/6 = 596/6 = 99.3333...
+	
+	天体size = 1 时， scale = 0.605
+	更改后: scale = 1
 
-天体size = 1 时， scale = 0.605
-天体飞船数量显示字体大小 : 14 (13.915)
-缩放比例为1时的天体宽度的一半常量(godot)WIDTHCONSTANCE = 49/1.6 = 30.625
-只有一个飞船阵营的天体飞船数量标签未缩放前偏移量(godot) = 49
-两个及两个以上飞船阵营的天体飞船数量标签未缩放前偏移量(godot) = 91.875
-godot环大小 (142, 142)(对环的缩放比例为1时)
-godot环宽度 1
+	天体飞船数量显示字体大小 : 14 (13.915)
+	更改后: 23
+
+	缩放比例为1时的天体宽度的一半常量(godot)WIDTHCONSTANCE = 49/1.6 = 30.625
+	更改后: 79.0/1.6 = 49.375
+
+	只有一个飞船阵营的天体飞船数量标签未缩放前偏移量(godot) = 49
+	更改后: 809.0 - 730.0 = 79.0
+
+	两个及两个以上飞船阵营的天体飞船数量标签未缩放前偏移量(godot) = 91.875
+	更改后: 730.0 - 580.0 = 150
+
+	godot环大小 (142, 142)(对环的缩放比例为1时)
+	更改后(231.0, 231.0)
+
+	godot环宽度 1
+	更改后 3
+	测得环宽度:
+	477.0 - 471.0 = 6
+	
 画环:
 	缩放比例为1:
 		draw_circle(Vector2(0, 0), 71, Color.WHITE, false, 1, true)
@@ -20,9 +39,14 @@ godot环宽度 1
 # 星辰远征原始阵营颜色
 var campcolor : Dictionary = {0 : Color("CCCCCC"), 1 : Color("5FB6FF"), 2 : Color("FF5D93"), 3 : Color("FE8B59"), 4 : Color("C6FA6C"), 5 : Color("CCCCCC"), 6 : Color("CCCCCC"), 7 : Color("000000"), 8 : Color("1B924B")}
 
-参数格式
+参数格式:
 var starTypesGroup : Array = [StarTypeElement1, StarTypeElement2, ...]
 # StarTypeElement = [天体图样(路径(String)(可能要改成TypeEnum), 天体缩放比例(scale)(float), 天体类型(String), 大小类型(int), 名称(String), 特殊天体类型(String)]
+star_type_information = [天体图样名(pattern_name)(String),
+		天体缩放比例(scale)(float), 天体类型(type)(String), 
+		大小类型(size_type)(int), 名称(String), 特殊天体类型(String),
+		缩放修正(scale_fix: scale_fix_x, scale_fix_y)
+		偏移修正(offset_fix: offset_fix_x, offset_fix_y)]
 
 # mapnode基本内容: [
 # 天体自身信息: 天体图样(路径(String)), 天体缩放比例(scale)(float), 天体类型(type)(String), 大小类型(size_type)(int), 名称(String), 特殊天体类型(String),
@@ -36,11 +60,13 @@ var starTypesGroup : Array = [StarTypeElement1, StarTypeElement2, ...]
 (假如特殊天体类型为"Lasergun"可填，否则为空数组)
 射线炮数据(Array)
 
-
 天体舰队群(star_fleets)(Array)
 var star_fleets : Array
 # star_fleet = [所在天体(tag)(String), 阵营id(int), 舰队中的飞船数量(int)]
 
+var this_star_fleets : Array
+this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
+# 其元素相比于"star_fleets"的元素省略了天体的tag
 
 伽马射线:
 	<mapbuilding id="" type="Curse" size="1" x="13" y="4" camption="0" tag="S" orbit="0" orbitParam1="" orbitParam2="" orbitClockWise="False" fAngle="0" transformBulidingID="" curseDelay="10" />

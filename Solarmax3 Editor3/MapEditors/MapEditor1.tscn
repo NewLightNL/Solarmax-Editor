@@ -1,15 +1,12 @@
-[gd_scene load_steps=22 format=3 uid="uid://dy21eddlgx03s"]
+[gd_scene load_steps=17 format=3 uid="uid://dy21eddlgx03s"]
 
 [ext_resource type="Script" uid="uid://dyaxw4sxyg15t" path="res://Script/MapEditorsScripts/MapEditor1.gd" id="1_j6763"]
 [ext_resource type="Texture2D" uid="uid://c0epga0hwembj" path="res://BG3.png" id="1_jrnyp"]
 [ext_resource type="Texture2D" uid="uid://bnrotcivy3qgv" path="res://Templates/Template.png" id="2_6broh"]
 [ext_resource type="PackedScene" uid="uid://5xrqbdn5jbv0" path="res://UIs/ChooseStarsUI/choose_star_ui.tscn" id="2_hq2bi"]
-[ext_resource type="Texture2D" uid="uid://bryrv3nn37mbm" path="res://UITexture/CreateStarUIs/CreateUI_closeButton.png" id="3_6broh"]
-[ext_resource type="PackedScene" uid="uid://dg236strhcfuq" path="res://UIs/UI_Stars/set_star_ship_ui.tscn" id="3_20p2e"]
+[ext_resource type="PackedScene" uid="uid://dg236strhcfuq" path="res://UIs/SetStarShipUIs/set_star_ship_ui.tscn" id="3_20p2e"]
 [ext_resource type="Texture2D" uid="uid://bgmpnhmiqayf1" path="res://UITexture/CreateStarUIs/CreateUI_openButton.png" id="5_fijfr"]
-[ext_resource type="Texture2D" uid="uid://do200ud6pxnaj" path="res://UITexture/CreateStarUIs/CreateStarButtonBG.tres" id="7_hx8f0"]
-[ext_resource type="Texture2D" uid="uid://64r8l66w2ofc" path="res://UITexture/CreateStarUIs/LatelyChosenStarBG.tres" id="8_50lhw"]
-[ext_resource type="Texture2D" uid="uid://dmyu1xsgr8y4e" path="res://UITexture/CreateStarUIs/LatelyChosenStarButtonBG.tres" id="9_muc2p"]
+[ext_resource type="PackedScene" uid="uid://yec60pvu8b10" path="res://UIs/create_ui.tscn" id="6_3dly0"]
 [ext_resource type="Texture2D" uid="uid://qms5n616geu7" path="res://Templates/Template2.png" id="10_psej3"]
 [ext_resource type="Texture2D" uid="uid://c1u2iada7njrv" path="res://Textures/StarTexture/Planets/planet05.png" id="11_ty323"]
 [ext_resource type="Texture2D" uid="uid://b4v0gkrmxjsa" path="res://Templates/Template3.png" id="11_ub7nj"]
@@ -18,30 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://bqs6qqre3qbiu" path="res://Templates/Template6.png" id="14_20p2e"]
 [ext_resource type="Texture2D" uid="uid://b141tqmdctiya" path="res://Templates/Template7.png" id="15_jc7ik"]
 [ext_resource type="Texture2D" uid="uid://hxdip42sl23r" path="res://Templates/Template8.png" id="16_xi8j7"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1kjg"]
-bg_color = Color(0.244717, 0.63956, 0.870175, 1)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.000538102, 0.899817, 1, 1)
-border_blend = true
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psej3"]
-bg_color = Color(0.310617, 0.310617, 0.310617, 1)
-border_width_left = 5
-border_width_top = 5
-border_width_right = 5
-border_width_bottom = 5
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xi8j7"]
 load_path = "res://.godot/imported/warp.png-525bf41015b57a45f65d86b108c74df4.ctex"
@@ -52,404 +25,46 @@ choose_star_ui = ExtResource("2_hq2bi")
 set_star_ship_ui = ExtResource("3_20p2e")
 
 [node name="Background" type="Sprite2D" parent="."]
-scale = Vector2(0.5625, 0.421875)
+scale = Vector2(0.917969, 0.688802)
 texture = ExtResource("1_jrnyp")
 centered = false
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2(576, 324)
+position = Vector2(940, 529)
 
 [node name="Markers" type="Node2D" parent="."]
 visible = false
 metadata/_edit_lock_ = true
 
 [node name="Corner" type="Marker2D" parent="Markers"]
-position = Vector2(1152, 648)
+position = Vector2(1880, 1058)
 
 [node name="Center" type="Marker2D" parent="Markers"]
-position = Vector2(576, 324)
+position = Vector2(940, 530)
 
 [node name="Centerx_1" type="Marker2D" parent="Markers"]
-position = Vector2(637, 324)
+position = Vector2(1040, 530)
 
 [node name="Centery_1" type="Marker2D" parent="Markers"]
-position = Vector2(576, 263)
+position = Vector2(940, 430)
 
 [node name="CreateUI_openButton" type="Button" parent="."]
 visible = false
 anchors_preset = -1
-anchor_left = 0.896
-anchor_top = 0.397
-anchor_right = 1.022
-anchor_bottom = 0.594
-offset_left = 83.808
-offset_top = -0.256012
-offset_right = 83.866
-offset_bottom = 4.28497
+anchor_left = 0.981
+anchor_top = 0.431
+anchor_right = 0.981
+anchor_bottom = 0.431
+offset_left = -0.926147
+offset_top = -0.113007
+offset_right = 41.7198
+offset_bottom = 140.762
 icon = ExtResource("5_fijfr")
 flat = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="CreateUI" type="Control" parent="UI"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 832.0
-offset_right = 1149.0
-offset_bottom = 647.0
-
-[node name="CreateUIbg" type="ColorRect" parent="UI/CreateUI"]
-layout_mode = 0
-offset_right = 320.0
-offset_bottom = 648.0
-color = Color(0.356863, 0.356863, 0.356863, 0.572549)
-
-[node name="CreateUI_closeButton" type="Button" parent="UI/CreateUI"]
-layout_mode = 0
-offset_left = -36.0
-offset_top = 257.0
-offset_right = 4.0
-offset_bottom = 389.0
-icon = ExtResource("3_6broh")
-flat = true
-
-[node name="ChooseStar" type="Button" parent="UI/CreateUI"]
-layout_mode = 0
-offset_left = 40.0
-offset_top = 35.0
-offset_right = 280.0
-offset_bottom = 178.0
-flat = true
-
-[node name="ChooseStarButtonBG" type="TextureRect" parent="UI/CreateUI/ChooseStar"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_hx8f0")
-expand_mode = 1
-
-[node name="ChoosedStarPicture" type="TextureRect" parent="UI/CreateUI/ChooseStar"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -58.0
-offset_top = -58.0
-offset_right = 58.0
-offset_bottom = 58.0
-grow_horizontal = 2
-grow_vertical = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="Name_bg" type="Panel" parent="UI/CreateUI/ChooseStar"]
-custom_minimum_size = Vector2(0, 36)
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = 36.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_y1kjg")
-
-[node name="Name" type="Label" parent="UI/CreateUI/ChooseStar/Name_bg"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0.312466, 0.312466, 0.312466, 1)
-theme_override_colors/font_outline_color = Color(0.370364, 0.370364, 0.370364, 1)
-theme_override_font_sizes/font_size = 30
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_lock_ = true
-
-[node name="LatelyChosenStarBG" type="TextureRect" parent="UI/CreateUI"]
-layout_mode = 2
-anchor_left = 0.126
-anchor_top = 0.346
-anchor_right = 0.858
-anchor_bottom = 0.383
-offset_left = -24.942
-offset_top = -6.86201
-offset_right = 31.014
-offset_bottom = 37.199
-texture = ExtResource("8_50lhw")
-
-[node name="LatelyChosenStarBar" type="HBoxContainer" parent="UI/CreateUI/LatelyChosenStarBG"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 5
-
-[node name="LatelyChosenStarSlot1" type="MarginContainer" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar"]
-layout_mode = 2
-theme_override_constants/margin_left = 9
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 4
-
-[node name="LatelyChosenStarPicture" type="TextureRect" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot1"]
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot1"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("9_muc2p")
-expand_mode = 1
-metadata/_edit_lock_ = true
-
-[node name="LatelyChosenStarButton" type="Button" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot1/LatelyChosenStarButtonBG"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-offset_right = 50.0
-offset_bottom = 59.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
-
-[node name="LatelyChosenStarSlot2" type="MarginContainer" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 4
-
-[node name="LatelyChosenStarPicture" type="TextureRect" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot2"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot2"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("9_muc2p")
-expand_mode = 1
-metadata/_edit_lock_ = true
-
-[node name="LatelyChosenStarButton" type="Button" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot2/LatelyChosenStarButtonBG"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
-
-[node name="LatelyChosenStarSlot3" type="MarginContainer" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 4
-
-[node name="LatelyChosenStarPicture" type="TextureRect" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot3"]
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot3"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("9_muc2p")
-expand_mode = 1
-metadata/_edit_lock_ = true
-
-[node name="LatelyChosenStarButton" type="Button" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot3/LatelyChosenStarButtonBG"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
-
-[node name="LatelyChosenStarSlot4" type="MarginContainer" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 4
-
-[node name="LatelyChosenStarPicture" type="TextureRect" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot4"]
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot4"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("9_muc2p")
-expand_mode = 1
-metadata/_edit_lock_ = true
-
-[node name="LatelyChosenStarButton" type="Button" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot4/LatelyChosenStarButtonBG"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-offset_right = 50.0
-offset_bottom = 59.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
-
-[node name="LatelyChosenStarSlot5" type="MarginContainer" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar"]
-layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 4
-
-[node name="LatelyChosenStarPicture" type="TextureRect" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot5"]
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot5"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-size_flags_horizontal = 0
-texture = ExtResource("9_muc2p")
-expand_mode = 1
-metadata/_edit_lock_ = true
-
-[node name="LatelyChosenStarButton" type="Button" parent="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot5/LatelyChosenStarButtonBG"]
-custom_minimum_size = Vector2(50, 50)
-layout_mode = 2
-offset_right = 50.0
-offset_bottom = 59.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
-
-[node name="StarInformation" type="Control" parent="UI/CreateUI"]
-layout_mode = 1
-anchor_top = 0.445
-anchor_right = 1.0
-anchor_bottom = 0.867
-offset_left = 24.0
-offset_top = 0.0849915
-offset_right = -21.0
-offset_bottom = 0.0509644
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="StarInformationBG" type="Panel" parent="UI/CreateUI/StarInformation"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_psej3")
-
-[node name="SizeInputLabel" type="Label" parent="UI/CreateUI/StarInformation"]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 8.0
-offset_right = 143.0
-offset_bottom = 40.0
-text = "大小类型(size): "
-vertical_alignment = 1
-
-[node name="CamptionInputLabel" type="Label" parent="UI/CreateUI/StarInformation"]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 40.0
-offset_right = 189.0
-offset_bottom = 72.0
-text = "天体阵营(camption): "
-vertical_alignment = 1
-
-[node name="TagInputLabel" type="Label" parent="UI/CreateUI/StarInformation"]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 104.0
-offset_right = 133.0
-offset_bottom = 136.0
-text = "天体标签(tag): "
-vertical_alignment = 1
-
-[node name="LineEdit" type="LineEdit" parent="UI/CreateUI/StarInformation/TagInputLabel"]
-layout_mode = 0
-offset_left = 120.0
-offset_right = 244.0
-offset_bottom = 32.0
-text = "A"
-placeholder_text = "请输入天体标签"
-
-[node name="SetStarShipButton" type="Button" parent="UI/CreateUI/StarInformation"]
-layout_mode = 0
-offset_left = 12.0
-offset_top = 70.0
-offset_right = 122.0
-offset_bottom = 102.0
-theme_override_font_sizes/font_size = 17
-text = "天体飞船设置"
-
-[node name="ConfirmCreateStarUI" type="Control" parent="UI/CreateUI"]
-visible = false
-layout_mode = 1
-anchor_left = 0.076
-anchor_top = 0.878
-anchor_right = 0.934
-anchor_bottom = 0.977
-offset_left = -0.092001
-offset_top = -0.06604
-offset_right = -0.0780029
-offset_bottom = -0.119019
-
-[node name="CancelCreateStarButton" type="Button" parent="UI/CreateUI/ConfirmCreateStarUI"]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 8.0
-offset_right = 112.0
-offset_bottom = 56.0
-theme_override_font_sizes/font_size = 25
-text = "取消"
-
-[node name="ConfirmCreateStarButton2" type="Button" parent="UI/CreateUI/ConfirmCreateStarUI"]
-layout_mode = 0
-offset_left = 160.0
-offset_top = 8.0
-offset_right = 256.0
-offset_bottom = 56.0
-theme_override_font_sizes/font_size = 25
-text = "确认"
-
-[node name="CreateStarButton" type="Button" parent="UI/CreateUI"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.328
-anchor_top = 0.89
-anchor_right = 0.681
-anchor_bottom = 0.964
-offset_left = 0.0239944
-offset_top = 0.169983
-offset_right = 0.122986
-offset_bottom = 0.291992
-theme_override_font_sizes/font_size = 25
-text = "生成"
+[node name="CreateUI" parent="UI" instance=ExtResource("6_3dly0")]
 
 [node name="Templates" type="Node2D" parent="."]
 visible = false
@@ -458,32 +73,32 @@ visible = false
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template"]
-position = Vector2(576, 324)
-scale = Vector2(0.391718, 0.392015)
+position = Vector2(940.542, 528.748)
+scale = Vector2(0.639144, 0.639143)
 texture = ExtResource("2_6broh")
 
 [node name="Template2" type="Node2D" parent="Templates"]
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template2"]
-position = Vector2(576, 324)
-scale = Vector2(0.656632, 0.656364)
+position = Vector2(940, 530)
+scale = Vector2(1.07258, 1.07258)
 texture = ExtResource("10_psej3")
 
 [node name="Template3" type="Node2D" parent="Templates"]
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template3"]
-position = Vector2(575, 309)
-scale = Vector2(0.656428, 0.655706)
+position = Vector2(940, 506)
+scale = Vector2(1.072, 1.072)
 texture = ExtResource("11_ub7nj")
 
 [node name="Template4" type="Node2D" parent="Templates"]
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template4"]
-position = Vector2(576, 324)
-scale = Vector2(0.656379, 0.656)
+position = Vector2(940, 531)
+scale = Vector2(1.072, 1.072)
 texture = ExtResource("12_dsvh6")
 
 [node name="Control" type="Control" parent="Templates/Template4/Sprite2D"]
@@ -499,32 +114,31 @@ offset_bottom = 231.018
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template5"]
-position = Vector2(575, 309)
-scale = Vector2(0.656428, 0.655706)
+position = Vector2(940, 506)
+scale = Vector2(1.072, 1.072)
 texture = ExtResource("13_xi8j7")
 
 [node name="Template6" type="Node2D" parent="Templates"]
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template6"]
-position = Vector2(575, 309)
-scale = Vector2(0.656428, 0.655706)
+position = Vector2(940, 506)
+scale = Vector2(1.072, 1.072)
 texture = ExtResource("14_20p2e")
 
 [node name="Template7" type="Node2D" parent="Templates"]
 visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template7"]
-position = Vector2(575, 309)
-scale = Vector2(0.656428, 0.655706)
+position = Vector2(940, 506)
+scale = Vector2(1.072, 1.072)
 texture = ExtResource("15_jc7ik")
 
 [node name="Template8" type="Node2D" parent="Templates"]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template8"]
-position = Vector2(575, 309)
-scale = Vector2(0.656, 0.656)
+position = Vector2(940, 506)
+scale = Vector2(1.072, 1.072)
 texture = ExtResource("16_xi8j7")
 
 [node name="Measures" type="Node" parent="."]
@@ -535,59 +149,59 @@ texture = ExtResource("16_xi8j7")
 visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = 504.0
-offset_top = 252.0
-offset_right = 646.0
-offset_bottom = 394.0
-
-[node name="HaloMeasureRect3" type="Control" parent="Measures/HaloSizeMeasure"]
-visible = false
-layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -36.0
-offset_top = -37.0
-offset_right = 106.0
-offset_bottom = 105.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.5, 0.5)
+offset_left = 825.0
+offset_top = 413.0
+offset_right = 1056.0
+offset_bottom = 644.0
 
 [node name="HaloMeasureRect2" type="Control" parent="Measures/HaloSizeMeasure"]
 visible = false
 layout_mode = 3
 anchors_preset = 0
-offset_left = 140.0
-offset_top = 374.0
-offset_right = 281.89
-offset_bottom = 516.0
+offset_left = 228.0
+offset_top = 612.0
+offset_right = 459.0
+offset_bottom = 843.0
 
-[node name="HaloWithMeasure" type="Node" parent="Measures"]
-
-[node name="Marker2D" type="Marker2D" parent="Measures/HaloWithMeasure"]
+[node name="HaloMeasureRect3" type="Control" parent="Measures/HaloSizeMeasure"]
 visible = false
-position = Vector2(575, 288)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 882.0
+offset_top = 471.0
+offset_right = 1113.0
+offset_bottom = 702.0
+scale = Vector2(0.5, 0.5)
 
-[node name="Marker2D2" type="Marker2D" parent="Measures/HaloWithMeasure"]
+[node name="HaloWidthMeasure" type="Node" parent="Measures"]
+
+[node name="Marker2D" type="Marker2D" parent="Measures/HaloWidthMeasure"]
 visible = false
-position = Vector2(575, 290)
+position = Vector2(940, 477)
+
+[node name="Marker2D2" type="Marker2D" parent="Measures/HaloWidthMeasure"]
+visible = false
+position = Vector2(940, 471)
 
 [node name="StarSizeMeasure" type="Node" parent="Measures"]
 
 [node name="Planet(size=1)" type="Sprite2D" parent="Measures/StarSizeMeasure"]
 visible = false
-position = Vector2(210, 446)
-scale = Vector2(0.605, 0.605)
+position = Vector2(344, 729)
+texture = ExtResource("11_ty323")
+offset = Vector2(-1, -4)
+
+[node name="Planet(size=0dot5)" type="Sprite2D" parent="Measures/StarSizeMeasure"]
+visible = false
+position = Vector2(940, 530)
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("11_ty323")
 offset = Vector2(-1, -4)
 
 [node name="Planet(size=0dot4)" type="Sprite2D" parent="Measures/StarSizeMeasure"]
 visible = false
-position = Vector2(576, 324)
-scale = Vector2(0.242, 0.242)
+position = Vector2(903, 509)
+scale = Vector2(0.38, 0.38)
 texture = ExtResource("11_ty323")
 offset = Vector2(-1, -4)
 
@@ -602,7 +216,7 @@ offset = Vector2(-5, -8)
 
 [node name="ShipNumberLabelLocationMeasure" type="Marker2D" parent="Measures/ShipNumberLabelLoactionMeasures"]
 visible = false
-position = Vector2(210, 495)
+position = Vector2(340, 809)
 scale = Vector2(16, 16)
 
 [node name="ShipNumberLabelLocationMeasure2" type="Marker2D" parent="Measures/ShipNumberLabelLoactionMeasures"]
@@ -612,12 +226,12 @@ scale = Vector2(16, 16)
 
 [node name="ShipNumberLabelLocationMeasure3" type="Marker2D" parent="Measures/ShipNumberLabelLoactionMeasures"]
 visible = false
-position = Vector2(576, 373)
+position = Vector2(940, 605)
 scale = Vector2(10, 10)
 
 [node name="ShipNumberLabelLocationMeasure4" type="Marker2D" parent="Measures/ShipNumberLabelLoactionMeasures"]
 visible = false
-position = Vector2(576, 348.5)
+position = Vector2(340, 580)
 scale = Vector2(10, 10)
 
 [node name="ShipNumberMeasures" type="Node" parent="Measures"]
@@ -629,13 +243,13 @@ anchor_left = 0.152
 anchor_top = 0.725
 anchor_right = 0.214
 anchor_bottom = 0.802
-offset_left = -0.104004
-offset_top = 0.199982
-offset_right = -0.528015
-offset_bottom = 0.303955
+offset_left = -0.759979
+offset_top = 0.949951
+offset_right = -1.32001
+offset_bottom = 0.484009
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 23
 text = "17"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -647,13 +261,13 @@ anchor_left = 0.152
 anchor_top = 0.725
 anchor_right = 0.214
 anchor_bottom = 0.802
-offset_left = 365.896
-offset_top = -150.8
-offset_right = 365.472
-offset_bottom = -150.696
+offset_left = 596.24
+offset_top = -246.05
+offset_right = 595.816
+offset_bottom = -245.946
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 23
 text = "73"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -665,14 +279,14 @@ anchor_left = 0.152
 anchor_top = 0.725
 anchor_right = 0.214
 anchor_bottom = 0.802
-offset_left = 364.296
-offset_top = -121.8
-offset_right = 363.872
-offset_bottom = -121.696
+offset_left = -0.759979
+offset_top = -228.05
+offset_right = -1.32001
+offset_bottom = -228.516
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 14
-text = "11"
+theme_override_font_sizes/font_size = 23
+text = "41"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -784,7 +398,7 @@ position = Vector2(210, 447)
 
 [node name="StarLocation3" type="Marker2D" parent="Measures"]
 visible = false
-position = Vector2(210, 354.125)
+position = Vector2(344, 729)
 
 [node name="Label" type="Label" parent="Measures"]
 visible = false
@@ -798,14 +412,3 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="button_up" from="CreateUI_openButton" to="." method="_on_create_ui_open_button_button_up"]
-[connection signal="button_up" from="UI/CreateUI/CreateUI_closeButton" to="." method="_on_create_ui_close_button_button_up"]
-[connection signal="button_up" from="UI/CreateUI/ChooseStar" to="." method="_on_choose_star_button_up"]
-[connection signal="button_up" from="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot1/LatelyChosenStarButtonBG/LatelyChosenStarButton" to="." method="_on_lately_chosen_star_button_button_up1"]
-[connection signal="button_up" from="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot2/LatelyChosenStarButtonBG/LatelyChosenStarButton" to="." method="_on_lately_chosen_star_button_button_up2"]
-[connection signal="button_up" from="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot3/LatelyChosenStarButtonBG/LatelyChosenStarButton" to="." method="_on_lately_chosen_star_button_button_up3"]
-[connection signal="button_up" from="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot4/LatelyChosenStarButtonBG/LatelyChosenStarButton" to="." method="_on_lately_chosen_star_button_button_up4"]
-[connection signal="button_up" from="UI/CreateUI/LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot5/LatelyChosenStarButtonBG/LatelyChosenStarButton" to="." method="_on_lately_chosen_star_button_button_up5"]
-[connection signal="button_up" from="UI/CreateUI/StarInformation/SetStarShipButton" to="." method="_on_set_star_ship_button_button_up"]
-[connection signal="button_up" from="UI/CreateUI/ConfirmCreateStarUI/CancelCreateStarButton" to="." method="_on_cancel_create_star_button_button_up"]
-[connection signal="button_up" from="UI/CreateUI/ConfirmCreateStarUI/ConfirmCreateStarButton2" to="." method="_on_confirm_create_star_button_2_button_up"]
-[connection signal="button_up" from="UI/CreateUI/CreateStarButton" to="." method="_on_create_star_button_button_up"]

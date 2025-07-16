@@ -1,0 +1,206 @@
+[gd_scene load_steps=3 format=3 uid="uid://bflaaarpk23au"]
+
+[ext_resource type="Script" uid="uid://b6pa7cxkcsojo" path="res://Script/MapEditor1UIScripts/star_information_ui_script.gd" id="1_c8s5d"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psej3"]
+bg_color = Color(0.310617, 0.310617, 0.310617, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="StarInformation" type="Control" node_paths=PackedStringArray("star_size_input", "star_camption_input_lineEdit", "star_camption_input_optionButton")]
+layout_mode = 3
+anchor_left = 0.064
+anchor_top = 0.445
+anchor_right = 0.064
+anchor_bottom = 0.445
+offset_left = -120.32
+offset_top = -470.81
+offset_right = 263.68
+offset_bottom = -37.81
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c8s5d")
+star_size_input = NodePath("SizeInputLabel/StarCampInputOptionButton")
+star_camption_input_lineEdit = NodePath("CamptionInputLabel/StarCampInput")
+star_camption_input_optionButton = NodePath("CamptionInputLabel/StarCampInputOptionButton")
+
+[node name="StarInformationBG" type="Panel" parent="."]
+layout_mode = 1
+offset_right = 384.0
+offset_bottom = 433.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_psej3")
+
+[node name="SizeInputLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 17.0
+offset_right = 147.0
+offset_bottom = 49.0
+text = "大小类型(size): "
+vertical_alignment = 1
+
+[node name="StarCampInputOptionButton" type="OptionButton" parent="SizeInputLabel"]
+layout_mode = 0
+offset_left = 128.0
+offset_right = 176.0
+offset_bottom = 32.0
+
+[node name="CamptionInputLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 49.0
+offset_right = 193.0
+offset_bottom = 81.0
+text = "天体阵营(camption): "
+vertical_alignment = 1
+
+[node name="StarCampInput" type="LineEdit" parent="CamptionInputLabel"]
+layout_mode = 0
+offset_left = 172.0
+offset_right = 243.0
+offset_bottom = 32.0
+
+[node name="StarCampInputOptionButton" type="OptionButton" parent="CamptionInputLabel"]
+layout_mode = 0
+offset_left = 244.0
+offset_right = 292.0
+offset_bottom = 32.0
+
+[node name="SetStarShipButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 81.0
+offset_right = 126.0
+offset_bottom = 113.0
+theme_override_font_sizes/font_size = 16
+text = "天体飞船设置"
+
+[node name="TagInputLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 113.0
+offset_right = 137.0
+offset_bottom = 145.0
+text = "天体标签(tag): "
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="TagInputLabel"]
+layout_mode = 0
+offset_left = 120.0
+offset_right = 244.0
+offset_bottom = 32.0
+text = "A"
+placeholder_text = "请输入天体标签"
+
+[node name="MapNodeStarPositionInputLabel2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 153.0
+offset_right = 90.0
+offset_bottom = 185.0
+text = "天体坐标: "
+vertical_alignment = 1
+
+[node name="x" type="Label" parent="MapNodeStarPositionInputLabel2"]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 90.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 17
+text = "x:"
+vertical_alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="MapNodeStarPositionInputLabel2/x"]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 121.0
+offset_bottom = 32.0
+
+[node name="y" type="Label" parent="MapNodeStarPositionInputLabel2"]
+layout_mode = 0
+offset_left = 200.0
+offset_right = 226.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 17
+text = "y:"
+vertical_alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="MapNodeStarPositionInputLabel2/y"]
+layout_mode = 0
+offset_left = 32.0
+offset_right = 121.0
+offset_bottom = 32.0
+
+[node name="OrbitType" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 193.0
+offset_right = 144.0
+offset_bottom = 225.0
+text = "轨道类型(Orbit):"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="OrbitType"]
+layout_mode = 0
+offset_left = 128.0
+offset_right = 208.0
+offset_bottom = 32.0
+selected = 0
+item_count = 1
+popup/item_0/text = "无轨道"
+popup/item_0/id = 0
+
+[node name="OrbitEditButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 232.0
+offset_top = 193.0
+offset_right = 264.0
+offset_bottom = 225.0
+
+[node name="FAngle" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 233.0
+offset_right = 148.0
+offset_bottom = 265.0
+text = "旋转角度(角度制):"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="FAngle"]
+layout_mode = 0
+offset_left = 136.0
+offset_right = 207.0
+offset_bottom = 32.0
+
+[node name="IsTagetNode" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 273.0
+offset_right = 132.0
+offset_bottom = 305.0
+text = "是否为目标天体:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CheckButton" type="CheckButton" parent="IsTagetNode"]
+layout_mode = 0
+offset_left = 120.0
+offset_right = 164.0
+offset_bottom = 32.0
+alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 305.0
+offset_right = 128.0
+offset_bottom = 337.0
+text = "特殊天体设置"

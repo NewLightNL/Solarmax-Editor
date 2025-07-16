@@ -28,6 +28,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -273.0
+offset_right = 276.0
+offset_bottom = 303.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -57,12 +61,14 @@ columns = 3
 
 [node name="CloseChooseStarUIButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 776.0
-offset_top = 72.0
-offset_right = 884.0
-offset_bottom = 170.0
+offset_left = 536.0
+offset_top = 256.0
+offset_right = 684.0
+offset_bottom = 393.0
 scale = Vector2(0.7, 0.7)
 icon = ExtResource("4_ni36l")
 flat = true
+icon_alignment = 1
+expand_icon = true
 
 [connection signal="button_up" from="CloseChooseStarUIButton" to="." method="_on_close_choose_star_ui_button_button_up"]

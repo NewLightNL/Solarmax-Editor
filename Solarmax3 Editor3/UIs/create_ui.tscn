@@ -1,0 +1,350 @@
+[gd_scene load_steps=8 format=3 uid="uid://yec60pvu8b10"]
+
+[ext_resource type="Script" uid="uid://b8yl5hl4l6deh" path="res://Script/MapEditor1UIScripts/create_ui.gd" id="1_7s2en"]
+[ext_resource type="Texture2D" uid="uid://bryrv3nn37mbm" path="res://UITexture/CreateStarUIs/CreateUI_closeButton.png" id="1_atudw"]
+[ext_resource type="Texture2D" uid="uid://do200ud6pxnaj" path="res://UITexture/CreateStarUIs/CreateStarButtonBG.tres" id="2_ocacw"]
+[ext_resource type="Texture2D" uid="uid://64r8l66w2ofc" path="res://UITexture/CreateStarUIs/LatelyChosenStarBG.tres" id="3_7s2en"]
+[ext_resource type="Texture2D" uid="uid://dmyu1xsgr8y4e" path="res://UITexture/CreateStarUIs/LatelyChosenStarButtonBG.tres" id="4_etxj5"]
+[ext_resource type="PackedScene" uid="uid://bflaaarpk23au" path="res://UIs/star_information.tscn" id="6_etxj5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1kjg"]
+bg_color = Color(0.244717, 0.63956, 0.870175, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.000538102, 0.899817, 1, 1)
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="CreateUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1326.0
+offset_right = 1880.0
+offset_bottom = 1058.0
+script = ExtResource("1_7s2en")
+star_information_scene = ExtResource("6_etxj5")
+
+[node name="CreateUIbg" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -6.0
+offset_right = 554.0
+offset_bottom = 1057.0
+color = Color(0.356863, 0.356863, 0.356863, 0.572549)
+
+[node name="CreateUI_closeButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = -42.0
+offset_top = 461.0
+offset_right = -2.0
+offset_bottom = 593.0
+icon = ExtResource("1_atudw")
+flat = true
+
+[node name="ChooseStar" type="Button" parent="."]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 48.0
+offset_right = 466.0
+offset_bottom = 296.0
+flat = true
+
+[node name="ChooseStarButtonBG" type="TextureRect" parent="ChooseStar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.066
+anchor_top = 0.015
+anchor_right = 0.066
+anchor_bottom = 0.015
+offset_left = -25.344
+offset_top = -3.72
+offset_right = 358.656
+offset_bottom = 244.28
+texture = ExtResource("2_ocacw")
+expand_mode = 1
+
+[node name="ChoosedStarPicture" type="TextureRect" parent="ChooseStar"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.484
+anchor_right = 0.5
+anchor_bottom = 0.484
+offset_left = -72.0
+offset_top = -72.032
+offset_right = 72.0
+offset_bottom = 71.968
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Name_bg" type="Panel" parent="ChooseStar"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+offset_right = 384.0
+offset_bottom = 56.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_y1kjg")
+
+[node name="Name" type="Label" parent="ChooseStar/Name_bg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.312466, 0.312466, 0.312466, 1)
+theme_override_colors/font_outline_color = Color(0.370364, 0.370364, 0.370364, 1)
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LatelyChosenStarBG" type="TextureRect" parent="."]
+layout_mode = 2
+anchor_left = 0.059
+anchor_top = 0.336
+anchor_right = 0.059
+anchor_bottom = 0.336
+offset_left = 49.314
+offset_top = 4.51196
+offset_right = 433.314
+offset_bottom = 92.512
+texture = ExtResource("3_7s2en")
+
+[node name="LatelyChosenStarBar" type="HBoxContainer" parent="LatelyChosenStarBG"]
+layout_mode = 1
+offset_right = 289.0
+offset_bottom = 71.0
+theme_override_constants/separation = 5
+
+[node name="LatelyChosenStarSlot1" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 4
+
+[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot1"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot1"]
+custom_minimum_size = Vector2(55, 77)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_etxj5")
+expand_mode = 1
+
+[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot1/LatelyChosenStarButtonBG"]
+custom_minimum_size = Vector2(55, 77)
+layout_mode = 2
+offset_right = 55.0
+offset_bottom = 77.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="LatelyChosenStarSlot2" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 4
+
+[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot2"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot2"]
+custom_minimum_size = Vector2(55, 77)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_etxj5")
+expand_mode = 1
+
+[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot2/LatelyChosenStarButtonBG"]
+custom_minimum_size = Vector2(50, 77)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="LatelyChosenStarSlot3" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 4
+
+[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot3"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot3"]
+custom_minimum_size = Vector2(55, 77)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_etxj5")
+expand_mode = 1
+
+[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot3/LatelyChosenStarButtonBG"]
+custom_minimum_size = Vector2(55, 77)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="LatelyChosenStarSlot4" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 4
+
+[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot4"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot4"]
+custom_minimum_size = Vector2(55, 77)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_etxj5")
+expand_mode = 1
+
+[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot4/LatelyChosenStarButtonBG"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+offset_right = 50.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="LatelyChosenStarSlot5" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 4
+
+[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot5"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot5"]
+custom_minimum_size = Vector2(55, 77)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_etxj5")
+expand_mode = 1
+
+[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot5/LatelyChosenStarButtonBG"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+offset_right = 50.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="LatelyChosenStarSlot6" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 4
+
+[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot6"]
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot6"]
+custom_minimum_size = Vector2(55, 77)
+layout_mode = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_etxj5")
+expand_mode = 1
+
+[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot6/LatelyChosenStarButtonBG"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+offset_right = 50.0
+offset_bottom = 59.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="StarInformation" parent="." instance=ExtResource("6_etxj5")]
+layout_mode = 1
+offset_left = 46.544
+offset_top = 1.19
+offset_right = 430.544
+offset_bottom = 434.19
+
+[node name="ConfirmCreateStarUI" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.076
+anchor_top = 0.878
+anchor_right = 0.934
+anchor_bottom = 0.977
+offset_left = -0.092001
+offset_top = -0.06604
+offset_right = -0.0780029
+offset_bottom = -0.119019
+
+[node name="CancelCreateStarButton" type="Button" parent="ConfirmCreateStarUI"]
+layout_mode = 0
+offset_left = 63.988
+offset_top = 15.142
+offset_right = 159.988
+offset_bottom = 63.142
+theme_override_font_sizes/font_size = 25
+text = "取消"
+
+[node name="ConfirmCreateStarButton2" type="Button" parent="ConfirmCreateStarUI"]
+layout_mode = 0
+offset_left = 303.988
+offset_top = 15.142
+offset_right = 399.988
+offset_bottom = 63.142
+theme_override_font_sizes/font_size = 25
+text = "确认"
+
+[node name="CreateStarButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.328
+anchor_top = 0.89
+anchor_right = 0.328
+anchor_bottom = 0.89
+offset_left = 28.288
+offset_top = -5.62
+offset_right = 156.288
+offset_bottom = 58.38
+theme_override_font_sizes/font_size = 25
+text = "生成"

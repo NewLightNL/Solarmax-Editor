@@ -1,0 +1,258 @@
+[gd_scene load_steps=8 format=3 uid="uid://dg236strhcfuq"]
+
+[ext_resource type="Texture2D" uid="uid://c4h03s10yicqg" path="res://Textures/StarTexture/Planets/planet01.png" id="1_cfkbm"]
+[ext_resource type="Script" uid="uid://cy8b412rknbyd" path="res://Script/MapEditor1UIScripts/set_star_ship_ui.gd" id="1_ugw1q"]
+[ext_resource type="PackedScene" uid="uid://dlp0enqxnawmv" path="res://UIs/SetStarShipUIs/star_fleet_informaiton_unit.tscn" id="3_0ki3m"]
+[ext_resource type="PackedScene" uid="uid://lk1uxytqftqa" path="res://UIs/SetStarShipUIs/halo_drawing_center.tscn" id="4_3mhld"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugw1q"]
+bg_color = Color(0.380392, 0.639216, 0.768627, 0.607843)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.507528, 0.855987, 0.984725, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ki3m"]
+bg_color = Color(0, 0.643137, 0.929412, 0.490196)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.555012, 0.843143, 0.999106, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mhld"]
+bg_color = Color(0.32549, 0.32549, 0.32549, 0.831373)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.627635, 0.627635, 0.627635, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="SetStarShipUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ugw1q")
+star_fleet_information_unit = ExtResource("3_0ki3m")
+halo_drawing_center = ExtResource("4_3mhld")
+metadata/_edit_lock_ = true
+
+[node name="SetStarShipUIRect" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -260.0
+offset_right = 64.0
+offset_bottom = 252.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SetStarShipUIBG" type="Panel" parent="SetStarShipUIRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -44.0
+offset_top = -141.0
+offset_right = 60.0
+offset_bottom = -13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ugw1q")
+
+[node name="StarShipPreview" type="Control" parent="SetStarShipUIRect"]
+anchors_preset = 0
+offset_left = 64.0
+offset_top = 32.0
+offset_right = 320.0
+offset_bottom = 192.0
+
+[node name="StarShipPreviewBG" type="Panel" parent="SetStarShipUIRect/StarShipPreview"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -44.0
+offset_top = -109.0
+offset_right = 60.0
+offset_bottom = -77.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ki3m")
+
+[node name="ContainStar" type="Node2D" parent="SetStarShipUIRect/StarShipPreview"]
+position = Vector2(132, -13)
+
+[node name="StarTexture" type="Sprite2D" parent="SetStarShipUIRect/StarShipPreview/ContainStar"]
+self_modulate = Color(0.372549, 0.713726, 1, 1)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_cfkbm")
+
+[node name="ShipNumberLabels" type="Control" parent="SetStarShipUIRect/StarShipPreview"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HaloDrawingCenter" parent="SetStarShipUIRect/StarShipPreview" instance=ExtResource("4_3mhld")]
+position = Vector2(128, 80)
+
+[node name="AddStarFleetUI" type="Control" parent="SetStarShipUIRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 44.0
+offset_top = 131.0
+offset_right = -20.0
+offset_bottom = -141.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StarFleetShipNumberLabel" type="Label" parent="SetStarShipUIRect/AddStarFleetUI"]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 72.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 20
+text = "飞船数:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StarFleetShipNumberInput" type="LineEdit" parent="SetStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel"]
+layout_mode = 0
+offset_left = 72.0
+offset_right = 216.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 20
+
+[node name="StarFleetCampLabel" type="Label" parent="SetStarShipUIRect/AddStarFleetUI"]
+layout_mode = 0
+offset_top = 80.0
+offset_right = 72.0
+offset_bottom = 112.0
+theme_override_font_sizes/font_size = 20
+text = "飞船阵营:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StarFleetShipCampInput" type="LineEdit" parent="SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel"]
+layout_mode = 0
+offset_left = 88.0
+offset_right = 174.125
+offset_bottom = 35.0
+theme_override_font_sizes/font_size = 20
+
+[node name="StarFleetShipCampInputOptionButton" type="OptionButton" parent="SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel"]
+layout_mode = 0
+offset_left = 176.0
+offset_right = 224.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 20
+
+[node name="AddStarFleetButton" type="Button" parent="SetStarShipUIRect/AddStarFleetUI"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 176.0
+offset_right = 224.0
+offset_bottom = 232.0
+theme_override_font_sizes/font_size = 22
+text = "添加舰队"
+
+[node name="StarFleetsUI" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.566
+anchor_top = 0.121
+anchor_right = 0.804
+anchor_bottom = 0.726
+offset_left = -0.0800781
+offset_top = -0.0180054
+offset_right = 0.47998
+offset_bottom = 33.892
+
+[node name="StarFleetsUIBG" type="Panel" parent="StarFleetsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.048
+anchor_top = 0.034
+anchor_right = 1.0
+anchor_bottom = 0.984
+offset_left = 21.504
+offset_top = -22.916
+offset_bottom = -23.216
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3mhld")
+
+[node name="StarFleetsListUIBG" type="Panel" parent="StarFleetsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.054
+anchor_top = 0.095
+anchor_right = 0.946
+anchor_bottom = 0.902
+offset_left = -0.192001
+offset_top = -0.0300064
+offset_right = 0.191986
+offset_bottom = 0.0519409
+
+[node name="StarFleetsListLabel" type="Label" parent="StarFleetsUI"]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 16.0
+offset_right = 296.0
+offset_bottom = 49.0
+theme_override_font_sizes/font_size = 24
+text = "天体舰队列表"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StarFleetsListScrollContainer" type="ScrollContainer" parent="StarFleetsUI"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 64.0
+offset_right = 424.0
+offset_bottom = 608.0
+
+[node name="StarFleetsListVBoxContainer" type="VBoxContainer" parent="StarFleetsUI/StarFleetsListScrollContainer"]
+layout_mode = 2
+
+[node name="LeaveSetStarShipUIButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 704.0
+offset_top = 656.0
+offset_right = 920.0
+offset_bottom = 720.0
+theme_override_font_sizes/font_size = 19
+text = "退出天体飞船设置界面"
+
+[connection signal="focus_exited" from="SetStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput" to="." method="_on_star_fleet_ship_number_input_focus_exited"]
+[connection signal="focus_exited" from="SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput" to="." method="_on_star_fleet_ship_camp_input_focus_exited"]
+[connection signal="text_changed" from="SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput" to="." method="_on_star_fleet_ship_camp_input_text_changed"]
+[connection signal="item_selected" from="SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton" to="." method="_on_star_fleet_ship_camp_input_option_button_item_selected"]
+[connection signal="button_up" from="SetStarShipUIRect/AddStarFleetUI/AddStarFleetButton" to="." method="_on_add_star_fleet_button_button_up"]
+[connection signal="button_up" from="LeaveSetStarShipUIButton" to="." method="_on_leave_set_star_ship_ui_button_button_up"]
