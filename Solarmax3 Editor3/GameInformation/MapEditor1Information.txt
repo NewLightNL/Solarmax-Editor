@@ -43,14 +43,15 @@ var campcolor : Dictionary = {0 : Color("CCCCCC"), 1 : Color("5FB6FF"), 2 : Colo
 var starTypesGroup : Array = [StarTypeElement1, StarTypeElement2, ...]
 # StarTypeElement = [天体图样(路径(String)(可能要改成TypeEnum), 天体缩放比例(scale)(float), 天体类型(String), 大小类型(int), 名称(String), 特殊天体类型(String)]
 star_type_information = [天体图样名(pattern_name)(String),
-		天体缩放比例(scale)(float), 天体类型(type)(String), 
+		天体缩放比例(star_scale)(float), 天体类型(type)(String), 
 		大小类型(size_type)(int), 名称(String), 特殊天体类型(String),
 		缩放修正(scale_fix: scale_fix_x, scale_fix_y)
 		偏移修正(offset_fix: offset_fix_x, offset_fix_y)]
 
+
 # mapnode基本内容: [
 # 天体自身信息: 天体图样(路径(String)), 天体缩放比例(scale)(float), 天体类型(type)(String), 大小类型(size_type)(int), 名称(String), 特殊天体类型(String),
-# 地图添加信息: 大小类型(size)(int)( = size_type), 天体阵营(camption), 天体舰队(Array),天体坐标(Vector2), 轨道信息(Array), 旋转角度(float), 
+# 地图添加信息: 大小类型(size)(int)( = size_type), 天体阵营(star_camp), 天体舰队(Array),天体坐标(Vector2), 轨道信息(Array), 旋转角度(float), 
 # 特殊天体信息: 变形装置变形的天体的id们(Array), 射线炮数据(Array),
 # 其它信息: 是否为目标天体(bool)
 # ]

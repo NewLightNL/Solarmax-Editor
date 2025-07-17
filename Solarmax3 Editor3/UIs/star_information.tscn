@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bflaaarpk23au"]
+[gd_scene load_steps=4 format=3 uid="uid://bflaaarpk23au"]
 
 [ext_resource type="Script" uid="uid://b6pa7cxkcsojo" path="res://Script/MapEditor1UIScripts/star_information_ui_script.gd" id="1_c8s5d"]
+[ext_resource type="PackedScene" uid="uid://dg236strhcfuq" path="res://UIs/ConfigureStarShipUIs/configure_star_ship_ui.tscn" id="2_g55r5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psej3"]
 bg_color = Color(0.310617, 0.310617, 0.310617, 1)
@@ -13,7 +14,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="StarInformation" type="Control" node_paths=PackedStringArray("star_size_input", "star_camption_input_lineEdit", "star_camption_input_optionButton")]
+[node name="StarInformation" type="Control" node_paths=PackedStringArray("star_size_input_option_button", "star_camp_input_spinbox", "star_camp_input_option_button", "configure_star_ship_button", "star_tag_input_line_edit", "star_position_input_x", "star_position_input_y", "star_orbit_type_input_option_button", "configure_star_orbit_button", "star_fangle_input", "is_target_node_input", "configure_special_star_button")]
 layout_mode = 3
 anchor_left = 0.064
 anchor_top = 0.445
@@ -26,9 +27,19 @@ offset_bottom = -37.81
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c8s5d")
-star_size_input = NodePath("SizeInputLabel/StarCampInputOptionButton")
-star_camption_input_lineEdit = NodePath("CamptionInputLabel/StarCampInput")
-star_camption_input_optionButton = NodePath("CamptionInputLabel/StarCampInputOptionButton")
+configure_star_ship_ui = ExtResource("2_g55r5")
+star_size_input_option_button = NodePath("SizeInputLabel/StarSizeInputOptionButton")
+star_camp_input_spinbox = NodePath("CampInputLabel/StarCampInputSpinBox")
+star_camp_input_option_button = NodePath("CampInputLabel/StarCampInputOptionButton")
+configure_star_ship_button = NodePath("OrbitEditButton")
+star_tag_input_line_edit = NodePath("TagInputLabel/LineEdit")
+star_position_input_x = NodePath("MapNodeStarPositionInputLabel2/x/SpinBox")
+star_position_input_y = NodePath("MapNodeStarPositionInputLabel2/y/SpinBox")
+star_orbit_type_input_option_button = NodePath("OrbitType/OptionButton")
+configure_star_orbit_button = NodePath("OrbitEditButton")
+star_fangle_input = NodePath("FAngle/SpinBox")
+is_target_node_input = NodePath("IsTagetNode/CheckButton")
+configure_special_star_button = NodePath("ConfigureSpecialStarButton")
 
 [node name="StarInformationBG" type="Panel" parent="."]
 layout_mode = 1
@@ -45,13 +56,13 @@ offset_bottom = 49.0
 text = "大小类型(size): "
 vertical_alignment = 1
 
-[node name="StarCampInputOptionButton" type="OptionButton" parent="SizeInputLabel"]
+[node name="StarSizeInputOptionButton" type="OptionButton" parent="SizeInputLabel"]
 layout_mode = 0
 offset_left = 128.0
 offset_right = 176.0
 offset_bottom = 32.0
 
-[node name="CamptionInputLabel" type="Label" parent="."]
+[node name="CampInputLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 49.0
@@ -60,19 +71,20 @@ offset_bottom = 81.0
 text = "天体阵营(camption): "
 vertical_alignment = 1
 
-[node name="StarCampInput" type="LineEdit" parent="CamptionInputLabel"]
+[node name="StarCampInputSpinBox" type="SpinBox" parent="CampInputLabel"]
 layout_mode = 0
-offset_left = 172.0
-offset_right = 243.0
+offset_left = 176.0
+offset_right = 265.0
+offset_bottom = 31.0
+max_value = 2.14748e+09
+
+[node name="StarCampInputOptionButton" type="OptionButton" parent="CampInputLabel"]
+layout_mode = 0
+offset_left = 264.0
+offset_right = 312.0
 offset_bottom = 32.0
 
-[node name="StarCampInputOptionButton" type="OptionButton" parent="CamptionInputLabel"]
-layout_mode = 0
-offset_left = 244.0
-offset_right = 292.0
-offset_bottom = 32.0
-
-[node name="SetStarShipButton" type="Button" parent="."]
+[node name="ConfigureStarShipButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 81.0
@@ -121,11 +133,12 @@ layout_mode = 0
 offset_left = 32.0
 offset_right = 121.0
 offset_bottom = 32.0
+step = 0.001
 
 [node name="y" type="Label" parent="MapNodeStarPositionInputLabel2"]
 layout_mode = 0
-offset_left = 200.0
-offset_right = 226.0
+offset_left = 192.0
+offset_right = 218.0
 offset_bottom = 32.0
 theme_override_font_sizes/font_size = 17
 text = "y:"
@@ -136,6 +149,7 @@ layout_mode = 0
 offset_left = 32.0
 offset_right = 121.0
 offset_bottom = 32.0
+step = 0.001
 
 [node name="OrbitType" type="Label" parent="."]
 layout_mode = 0
@@ -174,11 +188,11 @@ text = "旋转角度(角度制):"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="FAngle"]
+[node name="SpinBox" type="SpinBox" parent="FAngle"]
 layout_mode = 0
 offset_left = 136.0
-offset_right = 207.0
-offset_bottom = 32.0
+offset_right = 225.0
+offset_bottom = 31.0
 
 [node name="IsTagetNode" type="Label" parent="."]
 layout_mode = 0
@@ -197,10 +211,14 @@ offset_right = 164.0
 offset_bottom = 32.0
 alignment = 1
 
-[node name="Button" type="Button" parent="."]
+[node name="ConfigureSpecialStarButton" type="Button" parent="."]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 305.0
 offset_right = 128.0
 offset_bottom = 337.0
 text = "特殊天体设置"
+
+[connection signal="changed" from="CampInputLabel/StarCampInputSpinBox" to="." method="_on_star_camp_input_spin_box_changed"]
+[connection signal="item_selected" from="CampInputLabel/StarCampInputOptionButton" to="." method="_on_star_camp_input_option_button_item_selected"]
+[connection signal="button_up" from="ConfigureStarShipButton" to="." method="_on_configure_star_ship_button_button_up"]

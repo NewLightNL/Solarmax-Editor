@@ -89,9 +89,8 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = 8.0
 offset_right = 384.0
-offset_bottom = 56.0
+offset_bottom = 48.0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_y1kjg")
 
@@ -116,7 +115,7 @@ anchor_top = 0.336
 anchor_right = 0.059
 anchor_bottom = 0.336
 offset_left = 49.314
-offset_top = 4.51196
+offset_top = 4.51199
 offset_right = 433.314
 offset_bottom = 92.512
 texture = ExtResource("3_7s2en")
@@ -301,9 +300,9 @@ flat = true
 [node name="StarInformation" parent="." instance=ExtResource("6_etxj5")]
 layout_mode = 1
 offset_left = 46.544
-offset_top = 1.19
+offset_top = -6.81
 offset_right = 430.544
-offset_bottom = 434.19
+offset_bottom = 426.19
 
 [node name="ConfirmCreateStarUI" type="Control" parent="."]
 visible = false

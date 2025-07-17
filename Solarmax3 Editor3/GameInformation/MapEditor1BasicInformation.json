@@ -23,48 +23,56 @@
 	},
 	"stars_information": {
 		"star": {
-			"1": [
-				"planet01",
-				0.4,
-				"star",
-				1,
-				"30人口星球",
-				"null",
-				{
-					"scale_fix": [
-						1,
-						1
-					]
-				},
-				{
-					"offset_fix": [
-						0,
-						0
-					]
-				}
-			]
+			"1": {
+				"pattern_name": "planet01",
+				"star_scale": 0.4,
+				"type": "star",
+				"size_type": 1,
+				"star_name": "30人口星球",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			},
+			"2": {
+				"pattern_name": "planet02",
+				"star_scale": 0.5,
+				"type": "star",
+				"size_type": 2,
+				"star_name": "40人口星球",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
 		},
 		"castle": {
-			"1": [
-				"starbase",
-				1,
-				"castle",
-				1,
-				"太空堡垒",
-				"null",
-				{
-					"scale_fix": [
-						1,
-						1
-					]
-				},
-				{
-					"offset_fix": [
-						0,
-						0
-					]
-				}
-			]
+			"1": {
+				"pattern_name": "starbase",
+				"star_scale": 1,
+				"type": "castle",
+				"size_type": 1,
+				"star_name": "太空堡垒",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
 		}
 	}
 }

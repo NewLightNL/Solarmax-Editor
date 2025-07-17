@@ -1,16 +1,16 @@
 extends Node
 
 @export var choose_star_ui : PackedScene
-@export var set_star_ship_ui : PackedScene
+
 
 # 编辑器基本信息
 #阵营
-var have_camps : Array
+var have_camps : Array[int]
 var campcolor : Dictionary
 # 天体贴图字典
 var star_pattern_dictionary : Dictionary
 # 天体
-var stars : Array
+var stars : Array[Star]
 
 var lately_chosen_stars : Array
 var chosen_star : MapNodeStar = MapNodeStar.new()
@@ -22,25 +22,24 @@ var star_fleets : Array
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# 初始化变量
+	# 加载编辑器基本信息
 	star_pattern_dictionary = Load.init_star_pattern_dictionary()
 	have_camps = Load.get_map_editor_basic_information("have_camps")
 	campcolor = Load.get_map_editor_basic_information("campcolor")
 	stars = Load.get_map_editor_basic_information("stars")
 	check_initalisation()
 	
+	# 处理变量
+	
+	
 	# 初始化创建天体UI
 	$CreateUI_openButton.visible = false
 	$UI/CreateUI.visible = true
-	if is_star_chosen == false:
-		$UI/CreateUI/StarInformation/SetStarShipButton.disabled = true
-	$UI/CreateUI/StarInformation/CamptionInputLabel/StarCampInput.text = "0"
-	$UI/CreateUI/StarInformation/CamptionInputLabel/StarCampInputOptionButton.clear()
-	if have_camps.size() != 0:
-		for i in have_camps:
-			$UI/CreateUI/StarInformation/CamptionInputLabel/StarCampInputOptionButton.add_item(str(i), i)
-		$UI/CreateUI/StarInformation/CamptionInputLabel/StarCampInputOptionButton.add_item("?", have_camps[-1]+1)
-		$UI/CreateUI/StarInformation/CamptionInputLabel/StarCampInputOptionButton.set_item_disabled(have_camps[-1]+1, true)
-		$UI/CreateUI/StarInformation/CamptionInputLabel/StarCampInputOptionButton.select(0)
+	#if is_star_chosen == false:
+		#$UI/CreateUI/StarInformation/SetStarShipButton.disabled = true
+	#$UI/CreateUI/StarInformation/CamptionInputLabel/StarCampInput.text = "0"
+	#$UI/CreateUI/StarInformation/CamptionInputLabel/StarCampInputOptionButton.clear()
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -161,17 +160,7 @@ func _on_confirm_create_star_button_2_button_up():
 	$UI/CreateUI/ConfirmCreateStarUI.visible = false
 	$UI/CreateUI/CreateStarButton.visible = true
 
-# 召唤设置天体飞船UI
-func _on_set_star_ship_button_button_up():
-	if chosen_star.pattern_name != "":
-		var set_star_ship_ui_node = set_star_ship_ui.instantiate()
-		# 输入信息
-		# 输入基本信息
-		set_star_ship_ui_node.have_camps = have_camps
-		set_star_ship_ui_node.campcolor = campcolor
-		# 输入天体信息
-		set_star_ship_ui_node.this_star_fleets = chosen_star.this_star_fleets
-		$UI.add_child(set_star_ship_ui_node)
+
 
 
 # 获取天体飞船设置信息
@@ -192,6 +181,7 @@ func check_initalisation():
 				请检查编辑器基本信息文件(res://GameInformation/MapEditor1BasicInformation.json)是否有问题")
 		# 应当弹出警告窗
 
+# 可能会废弃
 func decode_stars() -> Array:
 	var star_types_information : Array
 	for star in stars:

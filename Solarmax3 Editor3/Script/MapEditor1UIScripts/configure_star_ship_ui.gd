@@ -1,6 +1,6 @@
 extends Control
 
-signal this_star_fleets_set(this_star_fleets)
+signal configure_this_star_fleets(this_star_fleets)
 
 
 @export var star_fleet_information_unit : PackedScene
@@ -12,10 +12,10 @@ var halo_drawer : Marker2D
 # 外部输入
 # 基本信息
 var star_pattern_dictionary : Dictionary
-var have_camps : Array
+var have_camps : Array[int]
 var campcolor : Dictionary
 
-var chosen_star_type : Array
+var chosen_star : MapNodeStar
 var this_star_fleets : Array #其元素相比于"star_fleets"的元素省略了天体的tag
 # this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 
@@ -25,18 +25,18 @@ var this_star_fleets_ordered : Array # 整理过后的该天体舰队数据，�
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	star_pattern_dictionary = Load.init_star_pattern_dictionary()
-	have_camps = Load.get_map_editor_basic_information("have_camps")
-	campcolor = Load.get_map_editor_basic_information("campcolor")
-	$SetStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text = "0"
-	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = "0"
-	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.clear()
+	#star_pattern_dictionary = Load.init_star_pattern_dictionary()
+	#have_camps = Load.get_map_editor_basic_information("have_camps")
+	#campcolor = Load.get_map_editor_basic_information("campcolor")
+	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text = "0"
+	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = "0"
+	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.clear()
 	if have_camps.size() != 0:
 		for i in have_camps:
-			$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item(str(i), i)
-		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item("?", have_camps[-1]+1)
-		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.set_item_disabled(have_camps[-1]+1, true)
-		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(0)
+			$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item(str(i), i)
+		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item("?", have_camps[-1]+1)
+		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.set_item_disabled(have_camps[-1]+1, true)
+		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(0)
 	if this_star_fleets.size() != 0:
 		organize_star_fleets()
 		update_star_preview()
@@ -46,15 +46,8 @@ func _ready():
 # 整理star_fleets
 func organize_star_fleets():
 	this_star_fleets_ordered.clear()
-	# 整理star_fleets(第一阶段)
-	# 得到star_fleets里有哪些阵营
-	var camps : Array
-	for this_star_fleet in this_star_fleets:
-		if this_star_fleet[0] not in camps and this_star_fleet[0] != 0:
-			camps.append(this_star_fleet[0])
-	camps.sort()
 	# 整理star_fleets(第二阶段)
-	for camp in camps:
+	for camp in have_camps:
 		var camp_ship_number : int = 0
 		for this_star_fleet in this_star_fleets:
 			if this_star_fleet[0] == camp and this_star_fleet[0] != 0:
@@ -74,7 +67,7 @@ func organize_star_fleets():
 # 计算飞船数量点位位置
 func calculate_positions(camps_number : int) -> Array :
 	var ship_number_positions : Array
-	var relative_star_position = $SetStarShipUIRect/StarShipPreview/ContainStar.position - $SetStarShipUIRect/StarShipPreview/ShipNumberLabels.position
+	var relative_star_position = $ConfigureStarShipUIRect/StarShipPreview/ContainStar.position - $ConfigureStarShipUIRect/StarShipPreview/ShipNumberLabels.position
 	if camps_number == 0:
 		return ship_number_positions
 	elif camps_number == 1:
@@ -117,7 +110,7 @@ func add_star_ship_labels(ship_number_positions):
 		ship_number_label.text = camp_ship_number_showed
 		ship_number_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		ship_number_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		$SetStarShipUIRect/StarShipPreview/ShipNumberLabels.add_child(ship_number_label)
+		$ConfigureStarShipUIRect/StarShipPreview/ShipNumberLabels.add_child(ship_number_label)
 		ship_number_label.add_theme_color_override("font_color", campcolor[camp])
 		ship_number_label.position = ship_number_positions[index] - ship_number_label.size/2
 
@@ -126,8 +119,8 @@ func update_star_preview():
 	# 获得飞船数量点位位置
 	var ship_number_positions : Array = calculate_positions(this_star_fleets_ordered.size())
 	# 清除已有的飞船数量标签
-	if $SetStarShipUIRect/StarShipPreview/ShipNumberLabels.get_child_count() != 0:
-		for i in $SetStarShipUIRect/StarShipPreview/ShipNumberLabels.get_children():
+	if $ConfigureStarShipUIRect/StarShipPreview/ShipNumberLabels.get_child_count() != 0:
+		for i in $ConfigureStarShipUIRect/StarShipPreview/ShipNumberLabels.get_children():
 			i.queue_free()
 	# 生成飞船数量标签
 	add_star_ship_labels(ship_number_positions)
@@ -200,10 +193,10 @@ func draw_halo(halo_arguments : Array, camps_number : int):
 	if halo_drawer != null:
 		halo_drawer.queue_free()
 	var halo_drawing_center_node = halo_drawing_center.instantiate()
-	$SetStarShipUIRect/StarShipPreview.add_child(halo_drawing_center_node)
+	$ConfigureStarShipUIRect/StarShipPreview.add_child(halo_drawing_center_node)
 	halo_drawing_center_node.halo_arguments = halo_arguments
 	halo_drawing_center_node.camps_number = camps_number
-	halo_drawing_center_node.position = $SetStarShipUIRect/StarShipPreview/ContainStar.position
+	halo_drawing_center_node.position = $ConfigureStarShipUIRect/StarShipPreview/ContainStar.position
 	halo_drawing_center_node.queue_redraw()
 	halo_drawer = halo_drawing_center_node
 
@@ -215,36 +208,35 @@ func _delelte_star_fleet(star_fleet_with_self):
 	update_star_preview()
 
 func _on_add_star_fleet_button_button_up():
-	var ship_number : int = int($SetStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text)
-	var ships_camp : int = int($SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text)
+	var ship_number : int = int($ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text)
+	var ships_camp : int = int($ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text)
 	this_star_fleets.append([ships_camp, ship_number])
 	organize_star_fleets()
 	update_star_preview()
 	update_star_fleets_list()
 
 # 将舰队阵营的两个输入方式绑定
+# 舰队阵营输入框修正
 func _on_star_fleet_ship_camp_input_text_changed(new_text):
 	if int(new_text) >= 0 and int(new_text) in have_camps:
-		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(int(new_text))
+		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(int(new_text))
 	elif int(new_text) >= 0 and int(new_text) not in have_camps:
-		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(have_camps[-1]+1)
+		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(have_camps[-1]+1)
 	else:
-		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(0)
+		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(0)
+	if int(new_text) < 0 or int(new_text) > 2147483647:
+		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = "0"
 
 func _on_star_fleet_ship_camp_input_option_button_item_selected(index):
-	$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = $SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.get_item_text(index)
+	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = $ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.get_item_text(index)
 
 # 舰队信息输入框内容修正
 # 舰队飞船数量输入框修正
-func _on_star_fleet_ship_number_input_focus_exited():
-	if int($SetStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text) < 0 or int($SetStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text) > 2147483647:
-		$SetStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text = "0"
-# 舰队阵营输入框修正
-func _on_star_fleet_ship_camp_input_focus_exited():
-	if int($SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text) < 0 or int($SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text) > 2147483647:
-		$SetStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = "0"
+func _on_star_fleet_ship_number_input_text_changed(new_text):
+	if int(new_text) < 0 or int(new_text) > 2147483647:
+		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text = "0"
 
 
-func _on_leave_set_star_ship_ui_button_button_up():
-	emit_signal("this_star_fleets_set", this_star_fleets_ordered)
+func _on_leave_configure_star_ship_ui_button_button_up():
+	emit_signal("configure_this_star_fleets", this_star_fleets_ordered)
 	queue_free()

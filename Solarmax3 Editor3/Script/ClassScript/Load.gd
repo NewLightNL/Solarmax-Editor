@@ -1,4 +1,6 @@
 class_name Load
+## 加载地图编辑器的资源和信息的类
+
 # 建议预加载项与主体分离
 # UI，天体，各种控件也尽量都与主编辑器分离，MapEditor只作为启动以及管理中心
 
@@ -9,6 +11,7 @@ const MAPEDITOR1_BASIC_INFORMATION : String = "res://GameInformation/MapEditor1B
 
 # 未来要修改文件夹, 增加在Texture增加文件夹BetaVersion1、3(测试版1、3)
 # 现在的纹理会被放入BetaVersion1(测试版1)
+## 初始化天体贴图字典
 static func init_star_pattern_dictionary(path:String = starTexturePath) -> Dictionary:
 	var dictionary_result : Dictionary = {}
 	var directory = DirAccess.open(path) # 新建 DirAccess 对象并打开文件系统中的某个现存目录
@@ -46,6 +49,7 @@ static func init_star_pattern_dictionary(path:String = starTexturePath) -> Dicti
 	
 	return dictionary_result
 
+## 获取地图编辑器基本信息
 static func get_map_editor_basic_information(get_what_informtion : String):
 	# 检验路径上有没有这个文件
 	if not FileAccess.file_exists(MAPEDITOR1_BASIC_INFORMATION):
@@ -66,12 +70,12 @@ static func get_map_editor_basic_information(get_what_informtion : String):
 	match get_what_informtion:
 		"have_camps":
 			# int化
-			var have_camps : Array
+			var have_camps : Array[int]
 			for i in information_data["have_camps"]:
-				if i not in have_camps:
+				if int(i) not in have_camps:
 					have_camps.append(int(i))
 			# 对数组进行排序，防止出现保存的阵营数据不是按从小到大的顺序
-			have_camps.sort()# 功能可能冗余，到时候可能要删
+			have_camps.sort()
 			return have_camps
 		"campcolor":
 			var campcolor : Dictionary
@@ -79,7 +83,7 @@ static func get_map_editor_basic_information(get_what_informtion : String):
 				campcolor[int(key)] = Color(information_data["campcolor"][key])
 			return campcolor
 		"stars":
-			var stars : Array
+			var stars : Array[Star]
 			# 在stars_information里遍历
 			for star_type in information_data["stars_information"]:
 				var star_type_information : Dictionary = information_data["stars_information"][star_type]
@@ -93,15 +97,15 @@ static func get_map_editor_basic_information(get_what_informtion : String):
 					# 缩放修正(scale_fix: scale_fix_x, scale_fix_y)
 					# 偏移修正(offset_fix: offset_fix_x, offset_fix_y)]
 					var star = Star.new()
-					star.pattern_name = star_information[0]
-					star.star_scale = star_information[1]
-					star.type = star_information[2]
-					star.size_type = star_information[3]
-					star.star_name = star_information[4]
-					star.special_star_type = star_information[5]
-					var star_scale_fix = Vector2(star_information[6]["scale_fix"][0], star_information[6]["scale_fix"][1])
+					star.pattern_name = star_information["pattern_name"]
+					star.star_scale = star_information["star_scale"]
+					star.type = star_information["type"]
+					star.size_type = star_information["size_type"]
+					star.star_name = star_information["star_name"]
+					star.special_star_type = star_information["special_star_type"]
+					var star_scale_fix = Vector2(star_information["scale_fix"][0], star_information["scale_fix"][1])
 					star.scale_fix = star_scale_fix
-					var star_offset_fix = Vector2(star_information[7]["offset_fix"][0], star_information[7]["offset_fix"][1])
+					var star_offset_fix = Vector2(star_information["offset_fix"][0], star_information["offset_fix"][1])
 					star.offset_fix = star_offset_fix
 					stars.append(star)
 			return stars
