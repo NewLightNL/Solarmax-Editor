@@ -5,8 +5,7 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	stars = Load.get_map_editor_basic_information("stars")
-	print(Load.get_map_editor_basic_information("stars"))
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

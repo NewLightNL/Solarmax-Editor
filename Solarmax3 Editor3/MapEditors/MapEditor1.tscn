@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bnrotcivy3qgv" path="res://Templates/Template.png" id="2_6broh"]
 [ext_resource type="PackedScene" uid="uid://5xrqbdn5jbv0" path="res://UIs/ChooseStarsUI/choose_star_ui.tscn" id="2_hq2bi"]
 [ext_resource type="Texture2D" uid="uid://bgmpnhmiqayf1" path="res://UITexture/CreateStarUIs/CreateUI_openButton.png" id="5_fijfr"]
-[ext_resource type="PackedScene" uid="uid://yec60pvu8b10" path="res://UIs/create_ui.tscn" id="6_3dly0"]
+[ext_resource type="PackedScene" uid="uid://yec60pvu8b10" path="res://UIs/star_edit_ui.tscn" id="6_3dly0"]
 [ext_resource type="Texture2D" uid="uid://qms5n616geu7" path="res://Templates/Template2.png" id="10_psej3"]
 [ext_resource type="Texture2D" uid="uid://c1u2iada7njrv" path="res://Textures/StarTexture/Planets/planet05.png" id="11_ty323"]
 [ext_resource type="Texture2D" uid="uid://b4v0gkrmxjsa" path="res://Templates/Template3.png" id="11_ub7nj"]
@@ -46,7 +46,7 @@ position = Vector2(1040, 530)
 [node name="Centery_1" type="Marker2D" parent="Markers"]
 position = Vector2(940, 430)
 
-[node name="CreateUI_openButton" type="Button" parent="."]
+[node name="StarEditUIOpenButton" type="Button" parent="."]
 visible = false
 anchors_preset = -1
 anchor_left = 0.981
@@ -381,6 +381,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StarLocation" type="Marker2D" parent="Measures"]
+visible = false
 position = Vector2(576.024, 324)
 scale = Vector2(17, 17)
 
@@ -408,4 +409,4 @@ text = "41"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="button_up" from="CreateUI_openButton" to="." method="_on_create_ui_open_button_button_up"]
+[connection signal="button_up" from="StarEditUIOpenButton" to="." method="_on_star_edit_ui_open_button_button_up"]

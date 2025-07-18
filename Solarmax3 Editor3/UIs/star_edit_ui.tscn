@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://yec60pvu8b10"]
 
-[ext_resource type="Script" uid="uid://b8yl5hl4l6deh" path="res://Script/MapEditor1UIScripts/create_ui.gd" id="1_7s2en"]
+[ext_resource type="Script" uid="uid://b8yl5hl4l6deh" path="res://Script/MapEditor1UIScripts/star_edit_ui.gd" id="1_7s2en"]
 [ext_resource type="Texture2D" uid="uid://bryrv3nn37mbm" path="res://UITexture/CreateStarUIs/CreateUI_closeButton.png" id="1_atudw"]
 [ext_resource type="Texture2D" uid="uid://do200ud6pxnaj" path="res://UITexture/CreateStarUIs/CreateStarButtonBG.tres" id="2_ocacw"]
 [ext_resource type="Texture2D" uid="uid://64r8l66w2ofc" path="res://UITexture/CreateStarUIs/LatelyChosenStarBG.tres" id="3_7s2en"]
@@ -20,7 +20,7 @@ corner_radius_top_right = 6
 corner_radius_bottom_right = 6
 corner_radius_bottom_left = 6
 
-[node name="CreateUI" type="Control"]
+[node name="StarEditUI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 1326.0
@@ -29,19 +29,24 @@ offset_bottom = 1058.0
 script = ExtResource("1_7s2en")
 star_information_scene = ExtResource("6_etxj5")
 
-[node name="CreateUIbg" type="ColorRect" parent="."]
+[node name="StarEditUIbg" type="ColorRect" parent="."]
 layout_mode = 0
 offset_left = -6.0
 offset_right = 554.0
 offset_bottom = 1057.0
 color = Color(0.356863, 0.356863, 0.356863, 0.572549)
 
-[node name="CreateUI_closeButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = -42.0
-offset_top = 461.0
-offset_right = -2.0
-offset_bottom = 593.0
+[node name="StarEditUI_closeButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.076
+anchor_top = 0.436
+anchor_right = -0.076
+anchor_bottom = 0.436
+offset_left = 0.104004
+offset_top = -0.288025
+offset_right = 40.104
+offset_bottom = 131.712
 icon = ExtResource("1_atudw")
 flat = true
 
@@ -347,3 +352,5 @@ offset_right = 156.288
 offset_bottom = 58.38
 theme_override_font_sizes/font_size = 25
 text = "生成"
+
+[connection signal="button_up" from="StarEditUI_closeButton" to="." method="_on_star_edit_ui_close_button_button_up"]

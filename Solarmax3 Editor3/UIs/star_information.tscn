@@ -107,7 +107,6 @@ layout_mode = 0
 offset_left = 120.0
 offset_right = 244.0
 offset_bottom = 32.0
-text = "A"
 placeholder_text = "请输入天体标签"
 
 [node name="MapNodeStarPositionInputLabel2" type="Label" parent="."]
@@ -166,16 +165,12 @@ layout_mode = 0
 offset_left = 128.0
 offset_right = 208.0
 offset_bottom = 32.0
-selected = 0
-item_count = 1
-popup/item_0/text = "无轨道"
-popup/item_0/id = 0
 
 [node name="OrbitEditButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 232.0
+offset_left = 264.0
 offset_top = 193.0
-offset_right = 264.0
+offset_right = 296.0
 offset_bottom = 225.0
 
 [node name="FAngle" type="Label" parent="."]
@@ -219,6 +214,7 @@ offset_right = 128.0
 offset_bottom = 337.0
 text = "特殊天体设置"
 
+[connection signal="item_selected" from="SizeInputLabel/StarSizeInputOptionButton" to="." method="_on_star_size_input_option_button_item_selected"]
 [connection signal="changed" from="CampInputLabel/StarCampInputSpinBox" to="." method="_on_star_camp_input_spin_box_changed"]
 [connection signal="item_selected" from="CampInputLabel/StarCampInputOptionButton" to="." method="_on_star_camp_input_option_button_item_selected"]
 [connection signal="button_up" from="ConfigureStarShipButton" to="." method="_on_configure_star_ship_button_button_up"]

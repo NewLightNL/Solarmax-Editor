@@ -9,7 +9,6 @@ var campcolor : Dictionary
 var chosen_star : MapNodeStar
 
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -18,3 +17,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func _on_star_edit_ui_close_button_button_up():
+	visible = false
+	$"../../StarEditUIOpenButton".visible = true

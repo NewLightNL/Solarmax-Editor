@@ -24,8 +24,8 @@ func _ready():
 	# 初始化变量
 	# 加载编辑器基本信息
 	star_pattern_dictionary = Load.init_star_pattern_dictionary()
-	have_camps = Load.get_map_editor_basic_information("have_camps")
-	campcolor = Load.get_map_editor_basic_information("campcolor")
+	have_camps = Load.get_map_editor_basic_information("defined_camp_ids")
+	campcolor = Load.get_map_editor_basic_information("camp_colors")
 	stars = Load.get_map_editor_basic_information("stars")
 	check_initalisation()
 	
@@ -33,7 +33,7 @@ func _ready():
 	
 	
 	# 初始化创建天体UI
-	$CreateUI_openButton.visible = false
+	$StarEditUIOpenButton.visible = false
 	$UI/CreateUI.visible = true
 	#if is_star_chosen == false:
 		#$UI/CreateUI/StarInformation/SetStarShipButton.disabled = true
@@ -53,15 +53,6 @@ func _process(delta):
 	if Input.is_action_pressed("right"):
 		$Camera.position += Vector2(100, 0) * delta
 
-
-func _on_create_ui_close_button_button_up():
-	$UI/CreateUI.visible = false
-	$CreateUI_openButton.visible = true
-
-
-func _on_create_ui_open_button_button_up():
-	$CreateUI_openButton.visible = false
-	$UI/CreateUI.visible = true
 
 
 
@@ -200,3 +191,8 @@ func decode_stars() -> Array:
 				star_type, star_size_type, star_name, star_special_star_type]
 		star_types_information.append(star_type_information)
 	return star_types_information
+
+
+func _on_star_edit_ui_open_button_button_up():
+	$StarEditUIOpenButton.visible = false
+	$UI/CreateUI.visible = true

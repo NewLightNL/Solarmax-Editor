@@ -2,8 +2,8 @@ extends Star
 class_name MapNodeStar
 
 # 地图添加信息
-## 大小类型(不应修改)
-var size : int = size_type
+## 大小类型
+#var size : int = size_type
 ## 天体标签
 var tag : String
 ## 天体阵营

@@ -1,0 +1,31 @@
+{
+	"defined_camp_ids": [
+		0,
+		1,
+		2,
+		3,
+		4,
+		5,
+		6,
+		7,
+		8
+	],
+	"camp_colors": {
+		"0": "CCCCCC",
+		"1": "5FB6FF",
+		"2": "FF5D93",
+		"3": "FE8B59",
+		"4": "C6FA6C",
+		"5": "CCCCCC",
+		"6": "CCCCCC",
+		"7": "000000",
+		"8": "1B924B"
+	},
+	"orbit_types": {
+		"0": "no_orbit",
+		"1": "circle",
+		"2": "triangle",
+		"3": "quadrilateral",
+		"4": "ellipse"
+	}
+}

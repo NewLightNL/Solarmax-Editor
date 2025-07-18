@@ -23,6 +23,9 @@ var this_star_fleets : Array #其元素相比于"star_fleets"的元素省略了�
 var this_star_fleets_ordered : Array # 整理过后的该天体舰队数据，省略了天体的tag
 # this_star_fleet_ordered[阵营id(int), 舰队中的飞船数量(int)]
 
+# 内部
+var valid_camps_number : int
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#star_pattern_dictionary = Load.init_star_pattern_dictionary()
@@ -39,6 +42,7 @@ func _ready():
 		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(0)
 	if this_star_fleets.size() != 0:
 		organize_star_fleets()
+		update_valid_camps_number()
 		update_star_preview()
 		update_star_fleets_list()
 
@@ -46,15 +50,15 @@ func _ready():
 # 整理star_fleets
 func organize_star_fleets():
 	this_star_fleets_ordered.clear()
-	# 整理star_fleets(第二阶段)
+	# 整理star_fleets(第一阶段)
 	for camp in have_camps:
 		var camp_ship_number : int = 0
 		for this_star_fleet in this_star_fleets:
-			if this_star_fleet[0] == camp and this_star_fleet[0] != 0:
+			if this_star_fleet[0] == camp and this_star_fleet[1] != 0:
 				camp_ship_number += this_star_fleet[1]
-		if camp_ship_number >= 0:
+		if camp_ship_number > 0:
 			this_star_fleets_ordered.append([camp, camp_ship_number])
-	# 检验star_fleets(第三阶段)
+	# 检验star_fleets(第二阶段)
 	var this_star_fleets_ordered_should_be_removed : Array
 	#$WarningUI/ScrollContainer/WarningText.text = ""
 	for this_star_fleet_ordered in this_star_fleets_ordered:
@@ -65,18 +69,18 @@ func organize_star_fleets():
 
 
 # 计算飞船数量点位位置
-func calculate_positions(camps_number : int) -> Array :
+func calculate_positions() -> Array :
 	var ship_number_positions : Array
 	var relative_star_position = $ConfigureStarShipUIRect/StarShipPreview/ContainStar.position - $ConfigureStarShipUIRect/StarShipPreview/ShipNumberLabels.position
-	if camps_number == 0:
+	if valid_camps_number == 0:
 		return ship_number_positions
-	elif camps_number == 1:
+	elif valid_camps_number == 1:
 		var ship_number_position : Vector2
 		# 天体中心相对节点(ShipNumberLabels)的位置 = ContainStar位置 - ShipNumberLabels位置
 		ship_number_position = relative_star_position + Vector2(0, 79.0/2.0)# /2要换成scale
 		ship_number_positions.append(ship_number_position)
 		return ship_number_positions
-	elif camps_number == 2:
+	elif valid_camps_number == 2:
 		var ship_number_position1 : Vector2
 		var ship_number_position2 : Vector2
 		ship_number_position1 = relative_star_position + Vector2(0, 150.0/2)# /2要换成scale
@@ -85,10 +89,10 @@ func calculate_positions(camps_number : int) -> Array :
 		ship_number_positions.append(ship_number_position2)
 		return ship_number_positions
 	else:
-		for i in range(camps_number):
+		var radian_divided = TAU/valid_camps_number
+		for i in range(valid_camps_number):
 			var ship_number_position : Vector2
 			var relative_ship_number_position : Vector2
-			var radian_divided = TAU/camps_number
 			relative_ship_number_position = Vector2(cos(PI/2 + radian_divided * i), -sin(PI/2 + radian_divided * i)) * 150.0/2# /2要换成scale
 			ship_number_position = relative_star_position + relative_ship_number_position
 			ship_number_positions.append(ship_number_position)
@@ -98,26 +102,27 @@ func calculate_positions(camps_number : int) -> Array :
 func add_star_ship_labels(ship_number_positions):
 	var index : int = -1
 	for this_star_fleet_ordered in this_star_fleets_ordered:
-		index += 1
-		var ship_number_label = Label.new()
-		var camp_ship_number = this_star_fleet_ordered[1]
-		var camp = this_star_fleet_ordered[0]
-		var camp_ship_number_showed : String
-		if camp_ship_number < 10000000:
-			camp_ship_number_showed = str(camp_ship_number)# int
-		else:
-			camp_ship_number_showed = String.num_scientific(camp_ship_number)
-		ship_number_label.text = camp_ship_number_showed
-		ship_number_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-		ship_number_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-		$ConfigureStarShipUIRect/StarShipPreview/ShipNumberLabels.add_child(ship_number_label)
-		ship_number_label.add_theme_color_override("font_color", campcolor[camp])
-		ship_number_label.position = ship_number_positions[index] - ship_number_label.size/2
+		if this_star_fleet_ordered[0] != 0:
+			index += 1
+			var ship_number_label = Label.new()
+			var camp_ship_number = this_star_fleet_ordered[1]
+			var camp = this_star_fleet_ordered[0]
+			var camp_ship_number_showed : String
+			if camp_ship_number < 10000000:
+				camp_ship_number_showed = str(camp_ship_number)# int
+			else:
+				camp_ship_number_showed = String.num_scientific(camp_ship_number)
+			ship_number_label.text = camp_ship_number_showed
+			ship_number_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			ship_number_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+			$ConfigureStarShipUIRect/StarShipPreview/ShipNumberLabels.add_child(ship_number_label)
+			ship_number_label.add_theme_color_override("font_color", campcolor[camp])
+			ship_number_label.position = ship_number_positions[index] - ship_number_label.size/2
 
 # 更新天体预览
 func update_star_preview():
 	# 获得飞船数量点位位置
-	var ship_number_positions : Array = calculate_positions(this_star_fleets_ordered.size())
+	var ship_number_positions : Array = calculate_positions()
 	# 清除已有的飞船数量标签
 	if $ConfigureStarShipUIRect/StarShipPreview/ShipNumberLabels.get_child_count() != 0:
 		for i in $ConfigureStarShipUIRect/StarShipPreview/ShipNumberLabels.get_children():
@@ -126,7 +131,7 @@ func update_star_preview():
 	add_star_ship_labels(ship_number_positions)
 	# 画环
 	var halo_arguments = calculate_halo_arguments()
-	draw_halo(halo_arguments, this_star_fleets_ordered.size())
+	draw_halo(halo_arguments, valid_camps_number)
 
 # 更新天体舰队列表
 func update_star_fleets_list():
@@ -165,27 +170,31 @@ func calculate_halo_arguments() -> Array:
 	# 从PI/2开始先顺时针转半个步进角度，再逆时针开始画
 	var ship_number_summed : int = 0
 	for this_star_fleet_ordered in this_star_fleets_ordered:
-		ship_number_summed += this_star_fleet_ordered[1]
+		if this_star_fleet_ordered[0] != 0:
+			ship_number_summed += this_star_fleet_ordered[1]
 	var radian_element = TAU/ship_number_summed
 	var last_end_radian : float
+	var times : int = 0
 	for this_star_fleet_ordered in this_star_fleets_ordered:
-		var halo_argument : Array
-		var step_radian : float = this_star_fleet_ordered[1] * radian_element
-		var halo_start_radian : float
-		if this_star_fleet_ordered == this_star_fleets_ordered[0]:
-			if this_star_fleets_ordered.size() == 2:
-				halo_start_radian = PI * 3/2 - step_radian/2
+		if this_star_fleet_ordered[0] != 0:
+			times += 1
+			var halo_argument : Array
+			var step_radian : float = this_star_fleet_ordered[1] * radian_element
+			var halo_start_radian : float
+			if times == 1:
+				if valid_camps_number == 2:
+					halo_start_radian = PI * 3/2 - step_radian/2
+				else:
+					halo_start_radian = PI/2 - step_radian/2
 			else:
-				halo_start_radian = PI/2 - step_radian/2
-		else:
-			halo_start_radian = last_end_radian
-		var halo_end_radian : float = halo_start_radian + step_radian
-		var halo_arc_color : Color = campcolor[this_star_fleet_ordered[0]]
-		halo_argument.append(halo_start_radian)
-		halo_argument.append(halo_end_radian)
-		halo_argument.append(halo_arc_color)
-		last_end_radian = halo_end_radian
-		halo_arguments.append(halo_argument)
+				halo_start_radian = last_end_radian
+			var halo_end_radian : float = halo_start_radian + step_radian
+			var halo_arc_color : Color = campcolor[this_star_fleet_ordered[0]]
+			halo_argument.append(halo_start_radian)
+			halo_argument.append(halo_end_radian)
+			halo_argument.append(halo_arc_color)
+			last_end_radian = halo_end_radian
+			halo_arguments.append(halo_argument)
 	return halo_arguments
 
 # 画环
@@ -205,13 +214,16 @@ func _delelte_star_fleet(star_fleet_with_self):
 	var star_fleet_index = star_fleet_with_self[1].get_index()
 	this_star_fleets.remove_at(star_fleet_index)
 	organize_star_fleets()
+	update_valid_camps_number()
 	update_star_preview()
+	update_star_fleets_list()
 
 func _on_add_star_fleet_button_button_up():
 	var ship_number : int = int($ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text)
 	var ships_camp : int = int($ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text)
 	this_star_fleets.append([ships_camp, ship_number])
 	organize_star_fleets()
+	update_valid_camps_number()
 	update_star_preview()
 	update_star_fleets_list()
 
@@ -240,3 +252,11 @@ func _on_star_fleet_ship_number_input_text_changed(new_text):
 func _on_leave_configure_star_ship_ui_button_button_up():
 	emit_signal("configure_this_star_fleets", this_star_fleets_ordered)
 	queue_free()
+
+func update_valid_camps_number():
+	var valid_camps_number_process : int = 0
+	for i in this_star_fleets_ordered:
+		if i[0] != 0:
+			if i[1] != 0:
+				valid_camps_number_process += 1
+	valid_camps_number = valid_camps_number_process

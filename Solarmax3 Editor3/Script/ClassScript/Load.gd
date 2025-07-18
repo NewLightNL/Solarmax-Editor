@@ -1,18 +1,23 @@
 class_name Load
 ## 加载地图编辑器的资源和信息的类
 
+const INFO_STARS = "stars"
+const INFO_DEFINED_CAMP_IDS = "defined_camp_ids"
+const INFO_CAMP_COLORS = "camp_colors"
+const INFO_ORBIT_TYPES = "orbit_types"
+
 # 建议预加载项与主体分离
 # UI，天体，各种控件也尽量都与主编辑器分离，MapEditor只作为启动以及管理中心
 
 # 应注意: res:// 只在开发/运行时有效
-const starTexturePath : String = "res://Textures/StarTexture"
-const MAPEDITOR1_BASIC_INFORMATION : String = "res://GameInformation/MapEditor1BasicInformation.json"
-
+const _STARTEXTUREPATH : String = "res://Textures/StarTexture"
+const _MAPEDITOR1_BASIC_INFORMATION : String = "res://GameInformation/mapeditor1_basic_data.json"
+const _STARS_INFORMATION_PATH : String = "res://GameInformation/stars_data.json"
 
 # 未来要修改文件夹, 增加在Texture增加文件夹BetaVersion1、3(测试版1、3)
 # 现在的纹理会被放入BetaVersion1(测试版1)
 ## 初始化天体贴图字典
-static func init_star_pattern_dictionary(path:String = starTexturePath) -> Dictionary:
+static func init_star_pattern_dictionary(path:String = _STARTEXTUREPATH) -> Dictionary:
 	var dictionary_result : Dictionary = {}
 	var directory = DirAccess.open(path) # 新建 DirAccess 对象并打开文件系统中的某个现存目录
 	
@@ -50,13 +55,144 @@ static func init_star_pattern_dictionary(path:String = starTexturePath) -> Dicti
 	return dictionary_result
 
 ## 获取地图编辑器基本信息
-static func get_map_editor_basic_information(get_what_informtion : String):
-	# 检验路径上有没有这个文件
-	if not FileAccess.file_exists(MAPEDITOR1_BASIC_INFORMATION):
-		assert(false, "在文件路径:%s上的保存文件不存在!" %MAPEDITOR1_BASIC_INFORMATION)
-		return "在文件路径:%s上的保存文件不存在!" %MAPEDITOR1_BASIC_INFORMATION
-	var information_file = FileAccess.open(MAPEDITOR1_BASIC_INFORMATION, FileAccess.READ)
+static func get_map_editor_basic_information(get_what_information : String) -> Variant:
+	match get_what_information:
+		"stars":
+			return _load_stars_information()
+		"defined_camp_ids", "camp_colors", "orbit_types":
+			return _load_mapeditor_basic_information(get_what_information)
+		_:
+			push_error("未知信息类型: " + get_what_information)
+			return null
+	
 
+static func _load_stars_information() -> Array[Star]:
+	var stars_data =  _parse_json_data(_STARS_INFORMATION_PATH)
+	# 验证JSON数据结构
+	if stars_data == null:
+		return[]
+	
+	if not stars_data.has("stars_data"):
+		push_error("JSON字段缺少\"stars_data\"字段")
+		return []
+	
+	var stars : Array[Star] = []
+	
+	# 在stars_information里遍历
+	for star_type in stars_data["stars_data"]:
+		var type_data : Dictionary = stars_data["stars_data"][star_type]
+		# 在对应的天体类型(star_type)里遍历
+		for star_key in type_data:
+			var star_data = type_data[star_key]
+			var star = _parse_star_data(star_data)
+			if star != null:
+				stars.append(star)
+	
+	return stars
+
+
+static func _parse_star_data(star_data: Dictionary) -> Star:
+	# 检验必要字段
+	var required_keys = ["pattern_name", "star_scale", "type", "size_type",
+			"star_name", "special_star_type", "scale_fix", "offset_fix"]
+	
+	for key in required_keys:
+		if not star_data.has(key):
+			push_error("天体数据缺少字段" + key)
+			return null
+	
+	# 登记信息
+	# star_data = [天体图样名(pattern_name)(String),
+	# 天体缩放比例(scale)(float), 天体类型(type)(String), 
+	# 大小类型(size_type)(int), 名称(String), 特殊天体类型(String),
+	# 缩放修正(scale_fix: scale_fix_x, scale_fix_y)
+	# 偏移修正(offset_fix: offset_fix_x, offset_fix_y)]
+	var star = Star.new()
+	star.pattern_name = star_data["pattern_name"]
+	star.star_scale = star_data["star_scale"]
+	star.type = star_data["type"]
+	star.size_type = star_data["size_type"]
+	star.star_name = star_data["star_name"]
+	star.special_star_type = star_data["special_star_type"]
+	
+	if star_data["scale_fix"] is Array and star_data["scale_fix"].size() == 2:
+		star.scale_fix = Vector2(star_data["scale_fix"][0], star_data["scale_fix"][1])
+	else:
+		push_error("天体数据中scale_fix格式出错!")
+		return null
+	
+	if star_data["offset_fix"] is Array and star_data["offset_fix"].size() == 2:
+		star.offset_fix = Vector2(star_data["offset_fix"][0], star_data["offset_fix"][1])
+	else:
+		push_error("天体数据中offset_fix格式出错!")
+		return null
+	
+	return star
+
+
+static func _load_mapeditor_basic_information(information_type : String) -> Variant:
+	var mapeditor_basic_data = _parse_json_data(_MAPEDITOR1_BASIC_INFORMATION)
+	if mapeditor_basic_data == null:
+		push_error("地图编辑器基本信息获取失败!")
+		return null
+	match information_type:
+		"defined_camp_ids":
+			if not mapeditor_basic_data.has("defined_camp_ids"):
+				push_error("JSON缺少\"defined_camp_ids\"字段!")
+				return []
+			
+			if mapeditor_basic_data["defined_camp_ids"] is not Array:
+				push_error("阵营id数据格式出错!")
+				return []
+			
+			# camps_difined里的数字应全是整数
+			var camps_defined : Array[int] = []
+			for i in mapeditor_basic_data["defined_camp_ids"]:
+				if int(i) not in camps_defined:
+					camps_defined.append(int(i))
+			
+			# 对数组进行排序，防止出现保存的阵营数据不是按从小到大的顺序
+			camps_defined.sort()
+			return camps_defined
+		
+		"camp_colors":
+			if not mapeditor_basic_data.has("camp_colors"):
+				push_error("JSON缺少\"camp_colors\"字段!")
+				return {}
+			
+			if mapeditor_basic_data["camp_colors"] is not Dictionary:
+				push_error("阵营颜色数据格式出错!")
+				return {}
+			
+			var camp_colors : Dictionary
+			for campid in mapeditor_basic_data["camp_colors"]:
+				var campcolor_string = mapeditor_basic_data["camp_colors"][campid]
+				camp_colors[int(campid)] = Color(campcolor_string)
+			return camp_colors
+		"orbit_types":
+			if not mapeditor_basic_data.has("orbit_types"):
+				push_error("JSON缺少\"orbit_types\"字段!")
+				return {}
+			
+			if mapeditor_basic_data["orbit_types"] is not Dictionary:
+				push_error("轨道数据格式出错!")
+				return {}
+			
+			var orbit_types : Dictionary
+			for orbit_id in mapeditor_basic_data["orbit_types"]:
+				orbit_types[int(orbit_id)] = mapeditor_basic_data["orbit_types"][orbit_id]
+			return orbit_types
+	
+	push_error("加载编辑器基本信息失败!")
+	return null
+
+
+static func _parse_json_data(json_information_path : String) -> Dictionary:
+	# 检验路径上有没有这个文件
+	if not FileAccess.file_exists(json_information_path):
+		push_error("在文件路径:%s上的保存文件不存在!" %json_information_path)
+		return {}
+	var information_file = FileAccess.open(json_information_path, FileAccess.READ)
 	# 获得json文件里的信息
 	var information_json_string : String = information_file.get_as_text()
 	# 使用JSON类辅助解析
@@ -64,48 +200,6 @@ static func get_map_editor_basic_information(get_what_informtion : String):
 	# 是否成功解析
 	var parse_result = json.parse(information_json_string)
 	if not parse_result == OK:
-		assert(false, "解析文件信息失败！JSON Parse: Error: %s at line %s"%[json.get_error_message(), json.get_error_line()])
-		return
-	var information_data = json.data
-	match get_what_informtion:
-		"have_camps":
-			# int化
-			var have_camps : Array[int]
-			for i in information_data["have_camps"]:
-				if int(i) not in have_camps:
-					have_camps.append(int(i))
-			# 对数组进行排序，防止出现保存的阵营数据不是按从小到大的顺序
-			have_camps.sort()
-			return have_camps
-		"campcolor":
-			var campcolor : Dictionary
-			for key in information_data["campcolor"]:
-				campcolor[int(key)] = Color(information_data["campcolor"][key])
-			return campcolor
-		"stars":
-			var stars : Array[Star]
-			# 在stars_information里遍历
-			for star_type in information_data["stars_information"]:
-				var star_type_information : Dictionary = information_data["stars_information"][star_type]
-				# 在对应的天体类型(star_type)里遍历
-				for star_information_key in star_type_information:
-					var star_information = star_type_information[star_information_key]
-					# 登记信息
-					# star_type_information = [天体图样名(pattern_name)(String),
-					# 天体缩放比例(scale)(float), 天体类型(type)(String), 
-					# 大小类型(size_type)(int), 名称(String), 特殊天体类型(String),
-					# 缩放修正(scale_fix: scale_fix_x, scale_fix_y)
-					# 偏移修正(offset_fix: offset_fix_x, offset_fix_y)]
-					var star = Star.new()
-					star.pattern_name = star_information["pattern_name"]
-					star.star_scale = star_information["star_scale"]
-					star.type = star_information["type"]
-					star.size_type = star_information["size_type"]
-					star.star_name = star_information["star_name"]
-					star.special_star_type = star_information["special_star_type"]
-					var star_scale_fix = Vector2(star_information["scale_fix"][0], star_information["scale_fix"][1])
-					star.scale_fix = star_scale_fix
-					var star_offset_fix = Vector2(star_information["offset_fix"][0], star_information["offset_fix"][1])
-					star.offset_fix = star_offset_fix
-					stars.append(star)
-			return stars
+		push_error("解析文件信息失败！JSON Parse: Error: %s at line %s"%[json.get_error_message(), json.get_error_line()])
+		return {}
+	return json.data
