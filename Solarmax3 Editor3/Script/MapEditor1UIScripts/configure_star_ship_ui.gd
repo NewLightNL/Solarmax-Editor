@@ -1,7 +1,5 @@
 extends Control
 
-signal configure_this_star_fleets(this_star_fleets)
-
 
 @export var star_fleet_information_unit : PackedScene
 @export var halo_drawing_center : PackedScene
@@ -12,12 +10,11 @@ var halo_drawer : Marker2D
 # 外部输入
 # 基本信息
 var star_pattern_dictionary : Dictionary
-var have_camps : Array[int]
-var campcolor : Dictionary
+var defined_camp_ids : Array[int]
+var camp_colors : Dictionary
+var stars : Array[Star]
 
 var chosen_star : MapNodeStar
-var this_star_fleets : Array #其元素相比于"star_fleets"的元素省略了天体的tag
-# this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 
 # 内部使用，并可以向外部输出
 var this_star_fleets_ordered : Array # 整理过后的该天体舰队数据，省略了天体的tag
@@ -25,20 +22,23 @@ var this_star_fleets_ordered : Array # 整理过后的该天体舰队数据，�
 
 # 内部
 var valid_camps_number : int
+var this_star_fleets : Array #其元素相比于"star_fleets"的元素省略了天体的tag
+# this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready():
+	this_star_fleets = chosen_star.this_star_fleets
 	#star_pattern_dictionary = Load.init_star_pattern_dictionary()
-	#have_camps = Load.get_map_editor_basic_information("have_camps")
-	#campcolor = Load.get_map_editor_basic_information("campcolor")
+	#defined_camp_ids = Load.get_map_editor_basic_information("defined_camp_ids")
+	#camp_colors = Load.get_map_editor_basic_information("camp_colors")
 	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text = "0"
 	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = "0"
 	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.clear()
-	if have_camps.size() != 0:
-		for i in have_camps:
+	if defined_camp_ids.size() != 0:
+		for i in defined_camp_ids:
 			$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item(str(i), i)
-		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item("?", have_camps[-1]+1)
-		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.set_item_disabled(have_camps[-1]+1, true)
+		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.add_item("?", defined_camp_ids[-1]+1)
+		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.set_item_disabled(defined_camp_ids[-1]+1, true)
 		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(0)
 	if this_star_fleets.size() != 0:
 		organize_star_fleets()
@@ -51,7 +51,7 @@ func _ready():
 func organize_star_fleets():
 	this_star_fleets_ordered.clear()
 	# 整理star_fleets(第一阶段)
-	for camp in have_camps:
+	for camp in defined_camp_ids:
 		var camp_ship_number : int = 0
 		for this_star_fleet in this_star_fleets:
 			if this_star_fleet[0] == camp and this_star_fleet[1] != 0:
@@ -116,7 +116,7 @@ func add_star_ship_labels(ship_number_positions):
 			ship_number_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 			ship_number_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 			$ConfigureStarShipUIRect/StarShipPreview/ShipNumberLabels.add_child(ship_number_label)
-			ship_number_label.add_theme_color_override("font_color", campcolor[camp])
+			ship_number_label.add_theme_color_override("font_color", camp_colors[camp])
 			ship_number_label.position = ship_number_positions[index] - ship_number_label.size/2
 
 # 更新天体预览
@@ -149,7 +149,7 @@ func update_star_fleets_list():
 			
 			# Stylebox设置
 			var star_fleet_camp_color_stylebox = StyleBoxFlat.new()
-			star_fleet_camp_color_stylebox.bg_color = campcolor[this_star_fleet[0]]
+			star_fleet_camp_color_stylebox.bg_color = camp_colors[this_star_fleet[0]]
 			star_fleet_camp_color_stylebox.border_width_left = 2
 			star_fleet_camp_color_stylebox.border_width_top = 2
 			star_fleet_camp_color_stylebox.border_width_right = 2
@@ -189,7 +189,7 @@ func calculate_halo_arguments() -> Array:
 			else:
 				halo_start_radian = last_end_radian
 			var halo_end_radian : float = halo_start_radian + step_radian
-			var halo_arc_color : Color = campcolor[this_star_fleet_ordered[0]]
+			var halo_arc_color : Color = camp_colors[this_star_fleet_ordered[0]]
 			halo_argument.append(halo_start_radian)
 			halo_argument.append(halo_end_radian)
 			halo_argument.append(halo_arc_color)
@@ -230,10 +230,10 @@ func _on_add_star_fleet_button_button_up():
 # 将舰队阵营的两个输入方式绑定
 # 舰队阵营输入框修正
 func _on_star_fleet_ship_camp_input_text_changed(new_text):
-	if int(new_text) >= 0 and int(new_text) in have_camps:
+	if int(new_text) >= 0 and int(new_text) in defined_camp_ids:
 		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(int(new_text))
-	elif int(new_text) >= 0 and int(new_text) not in have_camps:
-		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(have_camps[-1]+1)
+	elif int(new_text) >= 0 and int(new_text) not in defined_camp_ids:
+		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(defined_camp_ids[-1]+1)
 	else:
 		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.select(0)
 	if int(new_text) < 0 or int(new_text) > 2147483647:
@@ -250,7 +250,8 @@ func _on_star_fleet_ship_number_input_text_changed(new_text):
 
 
 func _on_leave_configure_star_ship_ui_button_button_up():
-	emit_signal("configure_this_star_fleets", this_star_fleets_ordered)
+	chosen_star.this_star_fleets = this_star_fleets_ordered
+	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
 	queue_free()
 
 func update_valid_camps_number():

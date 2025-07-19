@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/image="uid://gyvpp6chgpo0"
 config/icon="uid://dqvkc1l0577hv"
 
+[autoload]
+
+Mapeditor1ShareData="*res://Script/MapEditorsScripts/MapEditor1/mapeditor1_share_data.gd"
+
 [display]
 
 window/size/viewport_width=1880

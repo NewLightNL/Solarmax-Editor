@@ -58,7 +58,7 @@ static func init_star_pattern_dictionary(path:String = _STARTEXTUREPATH) -> Dict
 static func get_map_editor_basic_information(get_what_information : String) -> Variant:
 	match get_what_information:
 		"stars":
-			return _load_stars_information()
+			return _load_stars()
 		"defined_camp_ids", "camp_colors", "orbit_types":
 			return _load_mapeditor_basic_information(get_what_information)
 		_:
@@ -66,7 +66,7 @@ static func get_map_editor_basic_information(get_what_information : String) -> V
 			return null
 	
 
-static func _load_stars_information() -> Array[Star]:
+static func _load_stars() -> Array[Star]:
 	var stars_data =  _parse_json_data(_STARS_INFORMATION_PATH)
 	# 验证JSON数据结构
 	if stars_data == null:

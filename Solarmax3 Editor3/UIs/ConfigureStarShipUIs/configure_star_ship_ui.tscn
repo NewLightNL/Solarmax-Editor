@@ -243,12 +243,12 @@ layout_mode = 2
 
 [node name="LeaveConfigureStarShipUIButton" type="Button" parent="."]
 layout_mode = 0
-offset_left = 704.0
+offset_left = 667.0
 offset_top = 656.0
-offset_right = 920.0
+offset_right = 960.0
 offset_bottom = 720.0
 theme_override_font_sizes/font_size = 19
-text = "退出天体飞船设置界面"
+text = "保存设置并退出天体飞船设置界面"
 
 [connection signal="text_changed" from="ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput" to="." method="_on_star_fleet_ship_number_input_text_changed"]
 [connection signal="text_changed" from="ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput" to="." method="_on_star_fleet_ship_camp_input_text_changed"]

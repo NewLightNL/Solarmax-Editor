@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dy21eddlgx03s"]
 
-[ext_resource type="Script" uid="uid://dyaxw4sxyg15t" path="res://Script/MapEditorsScripts/MapEditor1.gd" id="1_j6763"]
+[ext_resource type="Script" uid="uid://dyaxw4sxyg15t" path="res://Script/MapEditorsScripts/MapEditor1/MapEditor1.gd" id="1_j6763"]
 [ext_resource type="Texture2D" uid="uid://c0epga0hwembj" path="res://BG3.png" id="1_jrnyp"]
 [ext_resource type="Texture2D" uid="uid://bnrotcivy3qgv" path="res://Templates/Template.png" id="2_6broh"]
 [ext_resource type="Texture2D" uid="uid://bgmpnhmiqayf1" path="res://UITexture/CreateStarUIs/CreateUI_openButton.png" id="5_fijfr"]
