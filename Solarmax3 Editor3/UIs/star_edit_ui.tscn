@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://yec60pvu8b10"]
+[gd_scene load_steps=9 format=3 uid="uid://yec60pvu8b10"]
 
 [ext_resource type="Script" uid="uid://b8yl5hl4l6deh" path="res://Script/MapEditor1UIScripts/star_edit_ui.gd" id="1_7s2en"]
 [ext_resource type="Texture2D" uid="uid://bryrv3nn37mbm" path="res://UITexture/CreateStarUIs/CreateUI_closeButton.png" id="1_atudw"]
 [ext_resource type="Texture2D" uid="uid://do200ud6pxnaj" path="res://UITexture/CreateStarUIs/CreateStarButtonBG.tres" id="2_ocacw"]
+[ext_resource type="PackedScene" uid="uid://5xrqbdn5jbv0" path="res://UIs/ChooseStarsUI/choose_star_ui.tscn" id="3_6lh6g"]
 [ext_resource type="Texture2D" uid="uid://64r8l66w2ofc" path="res://UITexture/CreateStarUIs/LatelyChosenStarBG.tres" id="3_7s2en"]
 [ext_resource type="Texture2D" uid="uid://dmyu1xsgr8y4e" path="res://UITexture/CreateStarUIs/LatelyChosenStarButtonBG.tres" id="4_etxj5"]
 [ext_resource type="PackedScene" uid="uid://bflaaarpk23au" path="res://UIs/star_information.tscn" id="6_etxj5"]
@@ -28,6 +29,7 @@ offset_right = 1880.0
 offset_bottom = 1058.0
 script = ExtResource("1_7s2en")
 star_information_scene = ExtResource("6_etxj5")
+choose_star_ui = ExtResource("3_6lh6g")
 
 [node name="StarEditUIbg" type="ColorRect" parent="."]
 layout_mode = 0
@@ -72,7 +74,7 @@ offset_bottom = 244.28
 texture = ExtResource("2_ocacw")
 expand_mode = 1
 
-[node name="ChoosedStarPicture" type="TextureRect" parent="ChooseStar"]
+[node name="ChosenStarPicture" type="TextureRect" parent="ChooseStar"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -113,7 +115,7 @@ theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LatelyChosenStarBG" type="TextureRect" parent="."]
+[node name="RecentlyChosenStarBG" type="TextureRect" parent="."]
 layout_mode = 2
 anchor_left = 0.059
 anchor_top = 0.336
@@ -125,32 +127,32 @@ offset_right = 433.314
 offset_bottom = 92.512
 texture = ExtResource("3_7s2en")
 
-[node name="LatelyChosenStarBar" type="HBoxContainer" parent="LatelyChosenStarBG"]
+[node name="RecentlyChosenStarBar" type="HBoxContainer" parent="RecentlyChosenStarBG"]
 layout_mode = 1
 offset_right = 289.0
 offset_bottom = 71.0
 theme_override_constants/separation = 5
 
-[node name="LatelyChosenStarSlot1" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+[node name="RecentlyChosenStarSlot1" type="MarginContainer" parent="RecentlyChosenStarBG/RecentlyChosenStarBar"]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 4
 
-[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot1"]
+[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot1"]
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot1"]
+[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot1"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_etxj5")
 expand_mode = 1
 
-[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot1/LatelyChosenStarButtonBG"]
+[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot1/RecentlyChosenStarButtonBG"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 2
 offset_right = 55.0
@@ -159,27 +161,27 @@ grow_horizontal = 2
 grow_vertical = 2
 flat = true
 
-[node name="LatelyChosenStarSlot2" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+[node name="RecentlyChosenStarSlot2" type="MarginContainer" parent="RecentlyChosenStarBG/RecentlyChosenStarBar"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 4
 
-[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot2"]
+[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot2"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot2"]
+[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot2"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_etxj5")
 expand_mode = 1
 
-[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot2/LatelyChosenStarButtonBG"]
+[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot2/RecentlyChosenStarButtonBG"]
 custom_minimum_size = Vector2(50, 77)
 layout_mode = 1
 anchors_preset = 15
@@ -189,26 +191,26 @@ grow_horizontal = 2
 grow_vertical = 2
 flat = true
 
-[node name="LatelyChosenStarSlot3" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+[node name="RecentlyChosenStarSlot3" type="MarginContainer" parent="RecentlyChosenStarBG/RecentlyChosenStarBar"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 4
 
-[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot3"]
+[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot3"]
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot3"]
+[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot3"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_etxj5")
 expand_mode = 1
 
-[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot3/LatelyChosenStarButtonBG"]
+[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot3/RecentlyChosenStarButtonBG"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 1
 anchors_preset = 15
@@ -218,26 +220,26 @@ grow_horizontal = 2
 grow_vertical = 2
 flat = true
 
-[node name="LatelyChosenStarSlot4" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+[node name="RecentlyChosenStarSlot4" type="MarginContainer" parent="RecentlyChosenStarBG/RecentlyChosenStarBar"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 4
 
-[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot4"]
+[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot4"]
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot4"]
+[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot4"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_etxj5")
 expand_mode = 1
 
-[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot4/LatelyChosenStarButtonBG"]
+[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot4/RecentlyChosenStarButtonBG"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 offset_right = 50.0
@@ -246,26 +248,26 @@ grow_horizontal = 2
 grow_vertical = 2
 flat = true
 
-[node name="LatelyChosenStarSlot5" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+[node name="RecentlyChosenStarSlot5" type="MarginContainer" parent="RecentlyChosenStarBG/RecentlyChosenStarBar"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 4
 
-[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot5"]
+[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot5"]
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot5"]
+[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot5"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_etxj5")
 expand_mode = 1
 
-[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot5/LatelyChosenStarButtonBG"]
+[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot5/RecentlyChosenStarButtonBG"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 offset_right = 50.0
@@ -274,26 +276,26 @@ grow_horizontal = 2
 grow_vertical = 2
 flat = true
 
-[node name="LatelyChosenStarSlot6" type="MarginContainer" parent="LatelyChosenStarBG/LatelyChosenStarBar"]
+[node name="RecentlyChosenStarSlot6" type="MarginContainer" parent="RecentlyChosenStarBG/RecentlyChosenStarBar"]
 layout_mode = 2
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 4
 
-[node name="LatelyChosenStarPicture" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot6"]
+[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot6"]
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LatelyChosenStarButtonBG" type="TextureRect" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot6"]
+[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot6"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_etxj5")
 expand_mode = 1
 
-[node name="LatelyChosenStarButton" type="Button" parent="LatelyChosenStarBG/LatelyChosenStarBar/LatelyChosenStarSlot6/LatelyChosenStarButtonBG"]
+[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBG/RecentlyChosenStarBar/RecentlyChosenStarSlot6/RecentlyChosenStarButtonBG"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 offset_right = 50.0
@@ -330,7 +332,7 @@ offset_bottom = 63.142
 theme_override_font_sizes/font_size = 25
 text = "取消"
 
-[node name="ConfirmCreateStarButton2" type="Button" parent="ConfirmCreateStarUI"]
+[node name="ConfirmCreateStarButton" type="Button" parent="ConfirmCreateStarUI"]
 layout_mode = 0
 offset_left = 303.988
 offset_top = 15.142
@@ -354,3 +356,4 @@ theme_override_font_sizes/font_size = 25
 text = "生成"
 
 [connection signal="button_up" from="StarEditUI_closeButton" to="." method="_on_star_edit_ui_close_button_button_up"]
+[connection signal="button_up" from="ChooseStar" to="." method="_on_choose_star_button_up"]

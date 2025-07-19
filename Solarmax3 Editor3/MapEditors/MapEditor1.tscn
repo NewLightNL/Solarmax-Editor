@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dy21eddlgx03s"]
+[gd_scene load_steps=15 format=3 uid="uid://dy21eddlgx03s"]
 
 [ext_resource type="Script" uid="uid://dyaxw4sxyg15t" path="res://Script/MapEditorsScripts/MapEditor1.gd" id="1_j6763"]
 [ext_resource type="Texture2D" uid="uid://c0epga0hwembj" path="res://BG3.png" id="1_jrnyp"]
 [ext_resource type="Texture2D" uid="uid://bnrotcivy3qgv" path="res://Templates/Template.png" id="2_6broh"]
-[ext_resource type="PackedScene" uid="uid://5xrqbdn5jbv0" path="res://UIs/ChooseStarsUI/choose_star_ui.tscn" id="2_hq2bi"]
 [ext_resource type="Texture2D" uid="uid://bgmpnhmiqayf1" path="res://UITexture/CreateStarUIs/CreateUI_openButton.png" id="5_fijfr"]
 [ext_resource type="PackedScene" uid="uid://yec60pvu8b10" path="res://UIs/star_edit_ui.tscn" id="6_3dly0"]
 [ext_resource type="Texture2D" uid="uid://qms5n616geu7" path="res://Templates/Template2.png" id="10_psej3"]
@@ -20,7 +19,6 @@ load_path = "res://.godot/imported/warp.png-525bf41015b57a45f65d86b108c74df4.cte
 
 [node name="Main1" type="Node"]
 script = ExtResource("1_j6763")
-choose_star_ui = ExtResource("2_hq2bi")
 
 [node name="Background" type="Sprite2D" parent="."]
 scale = Vector2(0.917969, 0.688802)
@@ -62,7 +60,7 @@ flat = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="CreateUI" parent="UI" instance=ExtResource("6_3dly0")]
+[node name="StarEditUI" parent="UI" instance=ExtResource("6_3dly0")]
 
 [node name="Templates" type="Node2D" parent="."]
 visible = false

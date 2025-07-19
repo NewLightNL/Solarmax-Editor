@@ -31,3 +31,14 @@ var lasergun_information : Array
 # 其它信息
 ## 是否为目标天体
 var is_taget : bool
+
+
+func _init_from_star(base_star : Star):
+	self.pattern_name = base_star.pattern_name
+	self.star_scale = base_star.star_scale
+	self.type = base_star.type
+	self.size_type = base_star.size_type
+	self.star_name = base_star.star_name
+	self.special_star_type = base_star.special_star_type
+	self.scale_fix = base_star.scale_fix
+	self.offset_fix = base_star.offset_fix

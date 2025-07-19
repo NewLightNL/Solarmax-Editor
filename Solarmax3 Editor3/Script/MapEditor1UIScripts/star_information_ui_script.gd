@@ -66,10 +66,6 @@ func _ready():
 	configure_star_size_input_option_button()
 	configure_star_camp_input()
 	configure_star_orbit_type_input_option_button()
-	
-	
-	
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
