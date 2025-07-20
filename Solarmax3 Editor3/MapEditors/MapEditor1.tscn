@@ -58,9 +58,24 @@ offset_bottom = 140.762
 icon = ExtResource("5_fijfr")
 flat = true
 
+[node name="Map" type="Node2D" parent="."]
+position = Vector2(940, 530)
+
+[node name="Orbit" type="Node2D" parent="Map"]
+
+[node name="Stars" type="Node2D" parent="Map"]
+
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="StarEditUI" parent="UI" instance=ExtResource("6_3dly0")]
+
+[node name="ExportButton" type="Button" parent="UI"]
+offset_left = 31.0
+offset_top = 25.0
+offset_right = 119.0
+offset_bottom = 108.0
+theme_override_font_sizes/font_size = 40
+text = "导出"
 
 [node name="Templates" type="Node2D" parent="."]
 visible = false
@@ -408,3 +423,4 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="button_up" from="StarEditUIOpenButton" to="." method="_on_star_edit_ui_open_button_button_up"]
+[connection signal="button_up" from="UI/ExportButton" to="." method="_on_export_button_button_up"]

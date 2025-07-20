@@ -65,15 +65,15 @@ func _on_global_data_updated(key : String):
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if Input.is_action_pressed("up"):
-		$Camera.position -= Vector2(0, 100) * delta
-	if Input.is_action_pressed("down"):
-		$Camera.position += Vector2(0, 100) * delta
-	if Input.is_action_pressed("left"):
-		$Camera.position -= Vector2(100, 0) * delta
-	if Input.is_action_pressed("right"):
-		$Camera.position += Vector2(100, 0) * delta
+#func _process(delta):
+	#if Input.is_action_pressed("up"):
+		#$Camera.position -= Vector2(0, 100) * delta
+	#if Input.is_action_pressed("down"):
+		#$Camera.position += Vector2(0, 100) * delta
+	#if Input.is_action_pressed("left"):
+		#$Camera.position -= Vector2(100, 0) * delta
+	#if Input.is_action_pressed("right"):
+		#$Camera.position += Vector2(100, 0) * delta
 
 
 func initialize_ui():
@@ -101,3 +101,7 @@ func check_initalisation():
 func _on_star_edit_ui_open_button_button_up():
 	$StarEditUIOpenButton.visible = false
 	$UI/StarEditUI.visible = true
+
+
+func _on_export_button_button_up():
+	pass # Replace with function body.

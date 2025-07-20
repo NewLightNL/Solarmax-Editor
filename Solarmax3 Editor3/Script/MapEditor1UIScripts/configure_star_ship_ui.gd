@@ -175,6 +175,7 @@ func _delelte_star_fleet(star_fleet_with_self):
 	update_star_preview()
 	update_star_fleets_list()
 
+# 按起添加天体舰队按钮
 func _on_add_star_fleet_button_button_up():
 	var ship_number : int = int($ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text)
 	var ships_camp : int = int($ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text)
@@ -205,7 +206,7 @@ func _on_star_fleet_ship_number_input_text_changed(new_text):
 	if int(new_text) < 0 or int(new_text) > 2147483647:
 		$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text = "0"
 
-
+# 按起离开编辑天体舰队界面按钮
 func _on_leave_configure_star_ship_ui_button_button_up():
 	chosen_star.this_star_fleets = this_star_fleets_ordered
 	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)

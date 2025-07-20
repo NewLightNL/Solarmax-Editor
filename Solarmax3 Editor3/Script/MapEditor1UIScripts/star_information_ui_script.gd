@@ -151,15 +151,28 @@ func configure_star_orbit_type_input_option_button():
 		star_orbit_type_input_option_button.add_item(orbit_name, star_orbit_type_id)
 
 
+#func _on_star_size_input_option_button_item_selected(index):
+	#chosen_star.size_type = int(star_size_input_option_button.get_item_text(index))
+	#Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+
+
 # 将天体阵营的两个输入方式绑定
-func _on_star_camp_input_spin_box_changed():
-	if int(star_camp_input_spinbox.value) in defined_camp_ids:
-		star_camp_input_option_button.select(int(star_camp_input_spinbox.value))
+# 天体阵营输入方式1
+func _on_star_camp_input_spin_box_value_changed(value):
+	if int(value) in defined_camp_ids:
+		star_camp_input_option_button.select(int(value))
 	else:
 		star_camp_input_option_button.select(defined_camp_ids[-1]+1)
+	chosen_star.star_camp = int(value)
+	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
 
+
+# 天体阵营输入方式2
 func _on_star_camp_input_option_button_item_selected(index):
 	star_camp_input_spinbox.value = int(star_camp_input_option_button.get_item_text(index))
+	chosen_star.star_camp = int(star_camp_input_spinbox.value)
+	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+
 
 # 召唤设置天体飞船UI
 func _on_configure_star_ship_button_button_up():
@@ -174,5 +187,17 @@ func _on_configure_star_ship_button_button_up():
 		$"../..".add_child(configure_star_ship_ui_node)
 
 
-func _on_star_size_input_option_button_item_selected(index):
-	chosen_star.size_type = int(star_size_input_option_button.get_item_text(index))
+# 输入天体标签
+func _on_line_edit_text_changed(new_text):
+	chosen_star.tag = new_text
+	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+
+
+func _star_position_x_input(value):
+	chosen_star.star_position.x = value
+	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+
+
+func _star_position_y_input(value):
+	chosen_star.star_position.y = value
+	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)

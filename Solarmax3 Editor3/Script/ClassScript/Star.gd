@@ -48,7 +48,9 @@ func get_star_information() -> Array:
 	var star_size_type_info = size_type
 	var star_name_info = star_name
 	var star_special_star_type_info = special_star_type
+	var scale_fix_info = scale_fix
+	var offset_fix_info = offset_fix
 	var star_information : Array = [pattern_name_info, star_scale_info,
 			star_type_info, star_size_type_info, star_name_info,
-			star_special_star_type_info]
+			star_special_star_type_info, scale_fix_info, offset_fix_info]
 	return star_information

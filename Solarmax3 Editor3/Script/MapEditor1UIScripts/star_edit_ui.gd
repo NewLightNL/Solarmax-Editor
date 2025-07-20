@@ -1,9 +1,8 @@
 extends Control
 
-var shared_date : Resource
-
 @export var star_information_scene : PackedScene
 @export var choose_star_ui : PackedScene
+@export var map_node_star_scene : PackedScene
 
 # 交流变量
 var star_pattern_dictionary : Dictionary
@@ -17,6 +16,7 @@ var chosen_star : MapNodeStar
 
 # 内部
 var recently_chosen_stars : Array[Star]
+var map_node_path : NodePath = "../../Map"
 
 
 const  MAX_RECENT_STARS_NUMBER = 6
@@ -141,6 +141,8 @@ func _update_chosen_star(star : Star):
 	chosen_star.size_type = star_information[3]
 	chosen_star.name = star_information[4]
 	chosen_star.special_star_type = star_information[5]
+	chosen_star.scale_fix = star_information[6]
+	chosen_star.offset_fix = star_information[7]
 	
 	$StarInformation.update_star_information_ui()
 
@@ -156,12 +158,18 @@ func _on_recently_chosen_star_button_up(button_index : int):
 
 # 生成天体
 func _on_create_star_button_button_up():
-	if choose_star.pattern_name
-	
-	
-	
-	$UI/CreateUI/CreateStarButton.visible = false
-	$UI/CreateUI/ConfirmCreateStarUI.visible = true
+	if chosen_star != null:
+		if chosen_star.tag != "":
+			var map_node = get_node(map_node_path)
+			var map_node_star_node = map_node_star_scene.instantiate()
+			map_node.get_child(1).add_child(map_node_star_node)
+			map_node_star_node.duplicate_map_node_star(chosen_star)
+			map_node_star_node.update_map_node_star()
+		else:
+			push_error("天体标签不能为空!")
+		#map_node_star_node.get_child(0).queue_redraw()
+	#$UI/CreateUI/CreateStarButton.visible = false
+	#$UI/CreateUI/ConfirmCreateStarUI.visible = true
 
 # 确认生成天体
 func _on_cancel_create_star_button_button_up():
