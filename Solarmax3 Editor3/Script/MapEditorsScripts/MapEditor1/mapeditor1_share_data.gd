@@ -23,7 +23,7 @@ func init_editor_data():
 	emit_signal("editor_data_updated", "all_basic_information")
 
 
-var chosen_star : MapNodeStar = MapNodeStar.new()
+var chosen_star : MapNodeStar
 var is_star_chosen : bool = false# 用于未来判断是否有天体被选择
 var star_fleets : Array
 

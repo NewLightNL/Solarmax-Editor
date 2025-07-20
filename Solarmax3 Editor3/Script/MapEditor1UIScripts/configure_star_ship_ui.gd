@@ -164,50 +164,7 @@ func update_star_fleets_list():
 			star_fleet_information_unit_node.star_fleet_with_self = [this_star_fleet, star_fleet_information_unit_node]
 			star_fleet_information_unit_node.delelte_star_fleet.connect(_delelte_star_fleet)
 
-# 计算环的参数
-func calculate_halo_arguments() -> Array:
-	var halo_arguments : Array
-	# 从PI/2开始先顺时针转半个步进角度，再逆时针开始画
-	var ship_number_summed : int = 0
-	for this_star_fleet_ordered in this_star_fleets_ordered:
-		if this_star_fleet_ordered[0] != 0:
-			ship_number_summed += this_star_fleet_ordered[1]
-	var radian_element = TAU/ship_number_summed
-	var last_end_radian : float
-	var times : int = 0
-	for this_star_fleet_ordered in this_star_fleets_ordered:
-		if this_star_fleet_ordered[0] != 0:
-			times += 1
-			var halo_argument : Array
-			var step_radian : float = this_star_fleet_ordered[1] * radian_element
-			var halo_start_radian : float
-			if times == 1:
-				if valid_camps_number == 2:
-					halo_start_radian = PI * 3/2 - step_radian/2
-				else:
-					halo_start_radian = PI/2 - step_radian/2
-			else:
-				halo_start_radian = last_end_radian
-			var halo_end_radian : float = halo_start_radian + step_radian
-			var halo_arc_color : Color = camp_colors[this_star_fleet_ordered[0]]
-			halo_argument.append(halo_start_radian)
-			halo_argument.append(halo_end_radian)
-			halo_argument.append(halo_arc_color)
-			last_end_radian = halo_end_radian
-			halo_arguments.append(halo_argument)
-	return halo_arguments
 
-# 画环
-func draw_halo(halo_arguments : Array, camps_number : int):
-	if halo_drawer != null:
-		halo_drawer.queue_free()
-	var halo_drawing_center_node = halo_drawing_center.instantiate()
-	$ConfigureStarShipUIRect/StarShipPreview.add_child(halo_drawing_center_node)
-	halo_drawing_center_node.halo_arguments = halo_arguments
-	halo_drawing_center_node.camps_number = camps_number
-	halo_drawing_center_node.position = $ConfigureStarShipUIRect/StarShipPreview/ContainStar.position
-	halo_drawing_center_node.queue_redraw()
-	halo_drawer = halo_drawing_center_node
 
 # 删除舰队
 func _delelte_star_fleet(star_fleet_with_self):
@@ -253,6 +210,52 @@ func _on_leave_configure_star_ship_ui_button_button_up():
 	chosen_star.this_star_fleets = this_star_fleets_ordered
 	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
 	queue_free()
+
+# 计算环的参数
+func calculate_halo_arguments() -> Array:
+	var halo_arguments : Array
+	# 从PI/2开始先顺时针转半个步进角度，再逆时针开始画
+	var ship_number_summed : int = 0
+	for this_star_fleet_ordered in this_star_fleets_ordered:
+		if this_star_fleet_ordered[0] != 0:
+			ship_number_summed += this_star_fleet_ordered[1]
+	var radian_element = TAU/ship_number_summed
+	var last_end_radian : float
+	var times : int = 0
+	for this_star_fleet_ordered in this_star_fleets_ordered:
+		if this_star_fleet_ordered[0] != 0:
+			times += 1
+			var halo_argument : Array
+			var step_radian : float = this_star_fleet_ordered[1] * radian_element
+			var halo_start_radian : float
+			if times == 1:
+				if valid_camps_number == 2:
+					halo_start_radian = PI * 3/2 - step_radian/2
+				else:
+					halo_start_radian = PI/2 - step_radian/2
+			else:
+				halo_start_radian = last_end_radian
+			var halo_end_radian : float = halo_start_radian + step_radian
+			var halo_arc_color : Color = camp_colors[this_star_fleet_ordered[0]]
+			halo_argument.append(halo_start_radian)
+			halo_argument.append(halo_end_radian)
+			halo_argument.append(halo_arc_color)
+			last_end_radian = halo_end_radian
+			halo_arguments.append(halo_argument)
+	return halo_arguments
+
+# 画环
+func draw_halo(halo_arguments : Array, camps_number : int):
+	if halo_drawer != null:
+		halo_drawer.queue_free()
+	var halo_drawing_center_node = halo_drawing_center.instantiate()
+	$ConfigureStarShipUIRect/StarShipPreview.add_child(halo_drawing_center_node)
+	halo_drawing_center_node.halo_arguments = halo_arguments
+	halo_drawing_center_node.camps_number = camps_number
+	halo_drawing_center_node.position = $ConfigureStarShipUIRect/StarShipPreview/ContainStar.position
+	halo_drawing_center_node.queue_redraw()
+	halo_drawer = halo_drawing_center_node
+
 
 func update_valid_camps_number():
 	var valid_camps_number_process : int = 0

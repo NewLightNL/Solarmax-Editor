@@ -169,6 +169,7 @@ static func _load_mapeditor_basic_information(information_type : String) -> Vari
 				var campcolor_string = mapeditor_basic_data["camp_colors"][campid]
 				camp_colors[int(campid)] = Color(campcolor_string)
 			return camp_colors
+		
 		"orbit_types":
 			if not mapeditor_basic_data.has("orbit_types"):
 				push_error("JSON缺少\"orbit_types\"字段!")

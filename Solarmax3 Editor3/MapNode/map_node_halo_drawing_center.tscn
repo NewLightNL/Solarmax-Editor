@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bokt0b574qaxk"]
+
+[ext_resource type="Script" uid="uid://c4haiew626a82" path="res://Script/MapEditor1UIScripts/halo_drawing_center_draw_halo.gd" id="1_aooyd"]
+
+[node name="HaloDrawingCenter" type="Marker2D"]
+script = ExtResource("1_aooyd")

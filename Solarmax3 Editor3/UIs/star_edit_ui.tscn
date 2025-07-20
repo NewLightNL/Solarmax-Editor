@@ -357,3 +357,4 @@ text = "生成"
 
 [connection signal="button_up" from="StarEditUI_closeButton" to="." method="_on_star_edit_ui_close_button_button_up"]
 [connection signal="button_up" from="ChooseStar" to="." method="_on_choose_star_button_up"]
+[connection signal="button_up" from="CreateStarButton" to="." method="_on_create_star_button_button_up"]

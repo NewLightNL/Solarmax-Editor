@@ -152,11 +152,14 @@ func _on_recently_chosen_star_button_up(button_index : int):
 		var star = recently_chosen_stars[index]
 		_update_star_display(star)
 		_update_chosen_star(star)
-		
 
 
 # 生成天体
 func _on_create_star_button_button_up():
+	if choose_star.pattern_name
+	
+	
+	
 	$UI/CreateUI/CreateStarButton.visible = false
 	$UI/CreateUI/ConfirmCreateStarUI.visible = true
 
@@ -169,8 +172,3 @@ func _on_cancel_create_star_button_button_up():
 func _on_confirm_create_star_button_2_button_up():
 	$UI/CreateUI/ConfirmCreateStarUI.visible = false
 	$UI/CreateUI/CreateStarButton.visible = true
-
-
-# 获取天体飞船设置信息
-func get_star_fleets():
-	pass
