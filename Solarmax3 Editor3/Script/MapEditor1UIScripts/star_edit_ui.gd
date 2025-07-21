@@ -36,7 +36,7 @@ func _ready():
 	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
 	chosen_star = MapNodeStar.new()
 	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
-	$StarInformation.update_star_information_ui()
+	#$StarInformation.update_star_information_ui()
 	#stars = Load.get_map_editor_basic_information("stars")
 	#star_pattern_dictionary = Load.init_star_pattern_dictionary()
 	#camp_colors = Load.get_map_editor_basic_information("camp_colors")
@@ -63,6 +63,8 @@ func _on_global_data_updated(key : String):
 			orbit_types = Mapeditor1ShareData.orbit_types
 		"chosen_star":
 			chosen_star = Mapeditor1ShareData.chosen_star
+		"stars_dictionary":
+			pass
 		_:
 			push_error("数据更新出错，请检查要提交的内容名是否正确")
 
@@ -82,30 +84,35 @@ func _on_star_edit_ui_close_button_button_up():
 	visible = false
 	star_editUI_open_button.visible = true
 
-
+# 当按起选择天体按钮时
 func _on_choose_star_button_up():
 	var choose_star_ui_node = choose_star_ui.instantiate()
 	choose_star_ui_node.star_pattern_dictionary = star_pattern_dictionary
 	choose_star_ui_node.stars = stars
 	var UI_node = $".."
 	UI_node.add_child(choose_star_ui_node)
-	for starslot in choose_star_ui_node.get_star_slots():
-		starslot.deliver_slot_star.connect(_choose_star)
 
 
-func _choose_star(slot_star : Star):
-	_update_star_display(slot_star)
-	_update_chosen_star(slot_star)
-	_add_to_recently_chosen_stars(slot_star)
+func _choose_star(star : Star):
+	_update_star_display(star)
+	_update_chosen_star(star)
+	_add_to_recently_chosen_stars(star)
 	_update_recently_chosen_stars_display()
 
 
-func _add_to_recently_chosen_stars(star : Star):
+func _add_to_recently_chosen_stars(star : Star) -> void:
 	# 移除重复项
 	# 降序检测，防止删了后超范围
 	for i in range(recently_chosen_stars.size() - 1, -1, -1):
-		if recently_chosen_stars[i] == star:
-			recently_chosen_stars.remove_at(i)
+		var recently_chosen_star_info : Array = recently_chosen_stars[i].get_star_information()
+		var star_info : Array = star.get_star_information()
+		if recently_chosen_star_info.size() == star_info.size():
+			for j in range(star_info.size()):
+				if star_info[j] == recently_chosen_star_info[j]:
+					recently_chosen_stars.remove_at(i)
+		else:
+			push_error("最近选择的天体信息或提交的天体信息残缺")
+			return
 	
 	recently_chosen_stars.append(star)
 	
@@ -157,9 +164,17 @@ func _on_recently_chosen_star_button_up(button_index : int):
 
 
 # 生成天体
-func _on_create_star_button_button_up():
+func _on_create_star_button_button_up() -> void:
 	if chosen_star != null:
 		if chosen_star.tag != "":
+			# tag查重
+			for star in get_node(map_node_path).get_child(1).get_children():
+				if star == null:
+					continue
+				if chosen_star.tag == star.tag:
+					push_error("天体标签不能重复")
+					return
+			
 			var map_node = get_node(map_node_path)
 			var map_node_star_node = map_node_star_scene.instantiate()
 			map_node.get_child(1).add_child(map_node_star_node)

@@ -77,6 +77,14 @@ offset_bottom = 108.0
 theme_override_font_sizes/font_size = 40
 text = "导出"
 
+[node name="ShowStarListButton" type="Button" parent="UI"]
+offset_left = 1192.0
+offset_top = 32.0
+offset_right = 1283.0
+offset_bottom = 118.0
+theme_override_font_sizes/font_size = 30
+text = "天体"
+
 [node name="Templates" type="Node2D" parent="."]
 visible = false
 

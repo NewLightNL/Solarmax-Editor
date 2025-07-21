@@ -59,6 +59,8 @@ static func get_map_editor_basic_information(get_what_information : String) -> V
 	match get_what_information:
 		"stars":
 			return _load_stars()
+		"stars_dictionary":
+			return _load_stars_dictionary()
 		"defined_camp_ids", "camp_colors", "orbit_types":
 			return _load_mapeditor_basic_information(get_what_information)
 		_:
@@ -89,6 +91,33 @@ static func _load_stars() -> Array[Star]:
 				stars.append(star)
 	
 	return stars
+
+
+static func _load_stars_dictionary() -> Dictionary:
+	var stars_data =  _parse_json_data(_STARS_INFORMATION_PATH)
+	# 验证JSON数据结构
+	if stars_data == null:
+		return{}
+	
+	if not stars_data.has("stars_data"):
+		push_error("JSON字段缺少\"stars_data\"字段")
+		return {}
+	
+	var stars_dictionary : Dictionary = {}
+	
+	# 在stars_data里遍历
+	for star_type in stars_data["stars_data"]:
+		var type_data : Dictionary = stars_data["stars_data"][star_type]
+		var type_stars : Array[Star] = []
+		# 在对应的天体类型(star_type)里遍历
+		for star_key in type_data:
+			var star_data = type_data[star_key]
+			var star = _parse_star_data(star_data)
+			if star != null:
+				type_stars.append(star)
+		stars_dictionary[star_type] = type_stars
+	
+	return stars_dictionary
 
 
 static func _parse_star_data(star_data: Dictionary) -> Star:

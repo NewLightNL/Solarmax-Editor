@@ -58,7 +58,7 @@ func _on_global_data_updated(key : String):
 			star_pattern_dictionary = Mapeditor1ShareData.star_pattern_dictionary
 			stars = Mapeditor1ShareData.stars
 			orbit_types = Mapeditor1ShareData.orbit_types
-		"chosen_star", "is_star_chosen", "star_fleets":
+		"chosen_star", "is_star_chosen", "star_fleets", "stars_dictionary":
 			pass
 		_:
 			push_error("数据更新出错，请检查要提交的内容名是否正确")
@@ -104,4 +104,7 @@ func _on_star_edit_ui_open_button_button_up():
 
 
 func _on_export_button_button_up():
-	pass # Replace with function body.
+	var stars_should_be_saved : Array[MapNodeStar]
+	for star in $Map/Stars.get_children():
+		stars_should_be_saved.append(star)
+	Save.save_map_node_stars(stars_should_be_saved)

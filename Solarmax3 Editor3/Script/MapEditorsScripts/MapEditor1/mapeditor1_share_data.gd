@@ -8,6 +8,7 @@ var camp_colors : Dictionary
 var star_pattern_dictionary : Dictionary
 # 天体们
 var stars : Array[Star]
+var stars_dictionary : Dictionary
 # 轨道类型
 var orbit_types : Dictionary
 
@@ -18,6 +19,7 @@ func init_editor_data():
 	defined_camp_ids = Load.get_map_editor_basic_information("defined_camp_ids")
 	camp_colors = Load.get_map_editor_basic_information("camp_colors")
 	stars = Load.get_map_editor_basic_information("stars")
+	stars_dictionary = Load.get_map_editor_basic_information("stars_dictionary")
 	orbit_types = Load.get_map_editor_basic_information("orbit_types")
 	
 	emit_signal("editor_data_updated", "all_basic_information")
@@ -37,6 +39,8 @@ func data_updated(key : String, value):
 			star_pattern_dictionary = value
 		"stars":
 			stars = value
+		"stars_dictionary":
+			stars_dictionary = value
 		"orbit_types":
 			orbit_types = value
 		"chosen_star":

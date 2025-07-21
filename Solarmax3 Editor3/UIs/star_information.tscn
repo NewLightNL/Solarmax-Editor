@@ -61,7 +61,6 @@ layout_mode = 0
 offset_left = 128.0
 offset_right = 176.0
 offset_bottom = 32.0
-disabled = true
 
 [node name="CampInputLabel" type="Label" parent="."]
 layout_mode = 0
@@ -224,6 +223,7 @@ offset_bottom = 337.0
 disabled = true
 text = "特殊天体设置"
 
+[connection signal="item_selected" from="SizeInputLabel/StarSizeInputOptionButton" to="." method="_on_star_size_input_option_button_item_selected"]
 [connection signal="value_changed" from="CampInputLabel/StarCampInputSpinBox" to="." method="_on_star_camp_input_spin_box_value_changed"]
 [connection signal="item_selected" from="CampInputLabel/StarCampInputOptionButton" to="." method="_on_star_camp_input_option_button_item_selected"]
 [connection signal="button_up" from="ConfigureStarShipButton" to="." method="_on_configure_star_ship_button_button_up"]

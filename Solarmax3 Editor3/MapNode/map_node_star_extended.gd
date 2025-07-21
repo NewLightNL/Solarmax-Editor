@@ -48,7 +48,8 @@ func _update_map_node_star_showing_property():
 
 
 func _update_map_node_star_position():
-	var map_position = star_position * MAPUNITLENTH
+	var x_axis_flip : Transform2D = Transform2D(Vector2(1, 0), Vector2(0, -1), Vector2.ZERO)
+	var map_position = star_position * MAPUNITLENTH * x_axis_flip
 	self.position = map_position
 
 
@@ -58,7 +59,7 @@ func _update_map_node_star_orbit():
 
 func _update_map_node_star_showing_picture():
 	_map_node_star_sprite.texture = star_pattern_dictionary[pattern_name]
-	var raw_scale = star_scale * Vector2.ONE
+	var raw_scale = self.star_scale * Vector2.ONE
 	var scale_processed = Vector2(raw_scale.x * scale_fix.x, raw_scale.y * scale_fix.y)
 	_map_node_star_sprite.scale = scale_processed
 	_map_node_star_sprite.offset = offset_fix
@@ -125,6 +126,7 @@ func draw_halo(halo_arguments : Array, valid_camps_number : int):
 	add_child(halo_drawing_center_node)
 	halo_drawing_center_node.halo_arguments = halo_arguments
 	halo_drawing_center_node.camps_number = valid_camps_number
+	halo_drawing_center_node.star_scale = self.star_scale
 	halo_drawing_center_node.position = Vector2(0, 0)
 	halo_drawing_center_node.queue_redraw()
 	_halo_drawer = halo_drawing_center_node
@@ -136,8 +138,8 @@ func _update_star_ui():
 
 
 func _reset_star_ui():
-	_star_ui.position = Vector2(-231.0/2, -231.0/2)# 231.0/2应改为对应正确的数值
-	_star_ui.size = Vector2(231, 231)
+	_star_ui.position = Vector2(-231.0/2, -231.0/2) * self.star_scale
+	_star_ui.size = Vector2(231, 231) * self.star_scale
 
 
 func _configure_star_ship_number_labels():
@@ -155,14 +157,14 @@ func calculate_ship_number_lable_positions(valid_camps_number : int) -> Array :
 		return ship_number_positions
 	elif valid_camps_number == 1:
 		var ship_number_position : Vector2
-		ship_number_position = relative_star_position + Vector2(0, 79.0/2.0)# /2要换成scale
+		ship_number_position = relative_star_position + Vector2(0, 79.0) * self.star_scale
 		ship_number_positions.append(ship_number_position)
 		return ship_number_positions
 	elif valid_camps_number == 2:
 		var ship_number_position1 : Vector2
 		var ship_number_position2 : Vector2
-		ship_number_position1 = relative_star_position + Vector2(0, 150.0/2)# /2要换成scale
-		ship_number_position2 = relative_star_position - Vector2(0, 150.0/2)# /2要换成scale
+		ship_number_position1 = relative_star_position + Vector2(0, 150.0) * self.star_scale
+		ship_number_position2 = relative_star_position - Vector2(0, 150.0) * self.star_scale
 		ship_number_positions.append(ship_number_position1)
 		ship_number_positions.append(ship_number_position2)
 		return ship_number_positions

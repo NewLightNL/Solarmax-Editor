@@ -46,7 +46,6 @@ func _ready():
 		update_star_preview()
 		update_star_fleets_list()
 
-
 # 整理star_fleets
 func organize_star_fleets():
 	this_star_fleets_ordered.clear()
@@ -59,14 +58,10 @@ func organize_star_fleets():
 		if camp_ship_number > 0:
 			this_star_fleets_ordered.append([camp, camp_ship_number])
 	# 检验star_fleets(第二阶段)
-	var this_star_fleets_ordered_should_be_removed : Array
 	#$WarningUI/ScrollContainer/WarningText.text = ""
-	for this_star_fleet_ordered in this_star_fleets_ordered:
-		if this_star_fleet_ordered[1] > 2147483647:
-			this_star_fleets_ordered_should_be_removed.append(this_star_fleet_ordered)
-	for this_star_fleet_ordered_should_be_removed in this_star_fleets_ordered_should_be_removed:
-		this_star_fleets_ordered.erase(this_star_fleet_ordered_should_be_removed)
-
+	for i in range(this_star_fleets_ordered.size() - 1, -1, -1):
+		if this_star_fleets_ordered[i][1] > 2147483647 or this_star_fleets_ordered[i][1] < 0:
+			this_star_fleets_ordered.remove_at(i)
 
 # 计算飞船数量点位位置
 func calculate_positions() -> Array :
@@ -163,8 +158,6 @@ func update_star_fleets_list():
 			
 			star_fleet_information_unit_node.star_fleet_with_self = [this_star_fleet, star_fleet_information_unit_node]
 			star_fleet_information_unit_node.delelte_star_fleet.connect(_delelte_star_fleet)
-
-
 
 # 删除舰队
 func _delelte_star_fleet(star_fleet_with_self):

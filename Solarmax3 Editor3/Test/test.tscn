@@ -1,8 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://x1xyl3c2x2mf"]
+[gd_scene load_steps=4 format=3 uid="uid://x1xyl3c2x2mf"]
 
 [ext_resource type="Script" uid="uid://dxg0lqj0f2ic5" path="res://Test/test.gd" id="1_37kl0"]
+[ext_resource type="Script" uid="uid://buxfjfomdpdie" path="res://Test/h_slider.gd" id="2_jda1s"]
+[ext_resource type="Script" uid="uid://c06k3pwk5bn1f" path="res://Test/h_slider_2.gd" id="3_1ihti"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_37kl0")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="HSlider" type="HSlider" parent="."]
+offset_left = 40.0
+offset_top = 32.0
+offset_right = 312.0
+offset_bottom = 48.0
+script = ExtResource("2_jda1s")
+
+[node name="HSlider2" type="HSlider" parent="."]
+offset_left = 40.0
+offset_top = 64.0
+offset_right = 312.0
+offset_bottom = 80.0
+value = 10.0
+script = ExtResource("3_1ihti")

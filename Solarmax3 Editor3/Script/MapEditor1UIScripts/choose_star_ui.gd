@@ -9,20 +9,34 @@ var stars : Array[Star]
 
 # 内部
 @onready var star_slots_container = $Control/PanelContainer/ScrollContainer/MarginContainer/GridContainer
+var stars_dictionary : Dictionary
+
 
 func _ready():
-	for star in stars:
+	#Mapeditor1ShareData.editor_data_updated.connect(_get_information)
+	stars_dictionary = Mapeditor1ShareData.stars_dictionary
+	for type_stars_name in stars_dictionary:
 		var stars_slot_node = stars_slot.instantiate()
-		var star_information : Array = star.get_star_information()
+		var represent_star = stars_dictionary[type_stars_name][0]
+		var star_information : Array = represent_star.get_star_information()
 		stars_slot_node.get_child(0).get_child(0).texture = star_pattern_dictionary[star_information[0]]
+		stars_slot_node.get_child(0).get_child(1).text = str(stars_dictionary[type_stars_name].size())
 		stars_slot_node.get_child(1).get_child(0).text = star_information[4]
-		stars_slot_node.slot_star = star
-		
 		star_slots_container.add_child(stars_slot_node)
+		stars_slot_node.get_child(2).button_up.connect(_star_chosen.bind(represent_star))
 
 
-func get_star_slots() -> Array[Node]:
-	return star_slots_container.get_children()
+#func _get_information():
+	#stars_dictionary = Mapeditor1ShareData.stars_dictionary
+
+
+func _star_chosen(slot_star : Star):
+	var star_edit_ui = $"../StarEditUI"
+	star_edit_ui.call("_choose_star", slot_star)
+
+
+#func get_star_slots() -> Array[Node]:
+	#return star_slots_container.get_children()
 
 
 func _on_close_choose_star_ui_button_button_up():

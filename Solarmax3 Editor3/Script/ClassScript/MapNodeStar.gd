@@ -11,6 +11,7 @@ var star_camp : int
 ## 天体舰队
 var this_star_fleets : Array
 # this_star_fleets = [this_star_fleet1, this_star_fleet2]
+# this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 ## 天体坐标
 var star_position : Vector2
 ## 轨道信息
@@ -33,7 +34,7 @@ var lasergun_information : Array
 var is_taget : bool
 
 
-func _init_from_star(base_star : Star):
+func copy_information_from_star(base_star : Star):
 	self.pattern_name = base_star.pattern_name
 	self.star_scale = base_star.star_scale
 	self.type = base_star.type
@@ -55,10 +56,21 @@ func duplicate_map_node_star(map_node_star : MapNodeStar):
 	self.offset_fix = map_node_star.offset_fix
 	self.tag = map_node_star.tag
 	self.star_camp = map_node_star.star_camp
-	self.this_star_fleets = map_node_star.this_star_fleets
+	# 复合类型数组，需要拷贝
+	var this_star_fleets_duplicated = map_node_star.this_star_fleets.duplicate(true)
+	self.this_star_fleets = this_star_fleets_duplicated
+	
 	self.star_position = map_node_star.star_position
-	self.orbit_information = map_node_star.orbit_information
+	
+	var orbit_information_duplicated = map_node_star.orbit_information.duplicate(true)
+	self.orbit_information = orbit_information_duplicated
+	
 	self.fAngle = map_node_star.fAngle
-	self.transformBulidingID = map_node_star.transformBulidingID
-	self.lasergun_information = map_node_star.lasergun_information
+	
+	var transformBulidingID_duplicated = map_node_star.transformBulidingID.duplicate(true)
+	self.transformBulidingID = transformBulidingID_duplicated
+	
+	var lasergun_information_duplicated = map_node_star.lasergun_information.duplicate(true)
+	self.lasergun_information = lasergun_information_duplicated
+	
 	self.is_taget = map_node_star.is_taget

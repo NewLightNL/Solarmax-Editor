@@ -1,7 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://6dv10iy8psos"]
 
-[ext_resource type="Script" uid="uid://cd6l0xhnsowj7" path="res://Script/MapEditor1UIScripts/stars_slot.gd" id="1_1jiai"]
 [ext_resource type="Texture2D" uid="uid://du74kml6l6odg" path="res://UITexture/ChooseStarUIs/Stars_slot.tres" id="1_f0auj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_inrrf"]
+font_size = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f0auj"]
 bg_color = Color(0.244717, 0.63956, 0.870175, 1)
@@ -23,7 +25,6 @@ anchor_right = 0.098
 anchor_bottom = 0.193
 offset_right = -0.240005
 offset_bottom = -0.194
-script = ExtResource("1_1jiai")
 
 [node name="Star_slot" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(103, 97)
@@ -50,6 +51,19 @@ offset_bottom = 210.0
 scale = Vector2(0.7, 0.7)
 expand_mode = 1
 stretch_mode = 5
+
+[node name="StarTypeNumberLabel" type="Label" parent="Star_slot"]
+layout_mode = 0
+offset_left = 135.616
+offset_top = 16.7795
+offset_right = 175.616
+offset_bottom = 56.7795
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+label_settings = SubResource("LabelSettings_inrrf")
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
 
 [node name="Name_bg" type="Panel" parent="."]
 custom_minimum_size = Vector2(0, 20)
@@ -90,5 +104,3 @@ offset_bottom = 0.0379944
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
-
-[connection signal="button_up" from="ChooseStarButton" to="." method="_on_choose_star_button_button_up"]
