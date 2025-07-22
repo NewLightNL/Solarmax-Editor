@@ -123,7 +123,7 @@ static func _load_stars_dictionary() -> Dictionary:
 static func _parse_star_data(star_data: Dictionary) -> Star:
 	# 检验必要字段
 	var required_keys = ["pattern_name", "star_scale", "type", "size_type",
-			"star_name", "special_star_type", "scale_fix", "offset_fix"]
+			"star_name", "special_star_type", "scale_fix", "offset_fix", "rotation_fix_degree"]
 	
 	for key in required_keys:
 		if not star_data.has(key):
@@ -143,7 +143,7 @@ static func _parse_star_data(star_data: Dictionary) -> Star:
 	star.size_type = star_data["size_type"]
 	star.star_name = star_data["star_name"]
 	star.special_star_type = star_data["special_star_type"]
-	
+	# 未来在这里可能要解决引用问题
 	if star_data["scale_fix"] is Array and star_data["scale_fix"].size() == 2:
 		star.scale_fix = Vector2(star_data["scale_fix"][0], star_data["scale_fix"][1])
 	else:
@@ -154,6 +154,12 @@ static func _parse_star_data(star_data: Dictionary) -> Star:
 		star.offset_fix = Vector2(star_data["offset_fix"][0], star_data["offset_fix"][1])
 	else:
 		push_error("天体数据中offset_fix格式出错!")
+		return null
+	
+	if star_data["rotation_fix_degree"] is float:
+		star.rotation_fix_degree = star_data["rotation_fix_degree"]
+	else:
+		push_error("天体数据中rotation_fix_degree格式出错!")
 		return null
 	
 	return star

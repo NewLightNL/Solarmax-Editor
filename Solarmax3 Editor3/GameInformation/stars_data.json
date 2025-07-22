@@ -6,119 +6,126 @@
 				"star_scale": 0.4,
 				"type": "star",
 				"size_type": 1,
-				"star_name": "30人口星球",
+				"star_name": "30星球",
 				"special_star_type": "null",
 				"scale_fix": [
 					1,
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"2": {
 				"pattern_name": "planet02",
 				"star_scale": 0.5,
 				"type": "star",
 				"size_type": 2,
-				"star_name": "40人口星球",
+				"star_name": "40星球",
 				"special_star_type": "null",
 				"scale_fix": [
 					1,
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"3": {
 				"pattern_name": "planet01",
 				"star_scale": 0.6,
 				"type": "star",
 				"size_type": 3,
-				"star_name": "50人口星球",
+				"star_name": "50星球",
 				"special_star_type": "null",
 				"scale_fix": [
 					1,
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"4": {
 				"pattern_name": "planet01",
 				"star_scale": 0.7,
 				"type": "star",
 				"size_type": 4,
-				"star_name": "60人口星球",
+				"star_name": "60星球",
 				"special_star_type": "null",
 				"scale_fix": [
 					1,
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"5": {
 				"pattern_name": "planet01",
 				"star_scale": 0.8,
 				"type": "star",
 				"size_type": 5,
-				"star_name": "70人口星球",
+				"star_name": "70星球",
 				"special_star_type": "null",
 				"scale_fix": [
 					1,
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"6": {
 				"pattern_name": "planet01",
 				"star_scale": 0.9,
 				"type": "star",
 				"size_type": 6,
-				"star_name": "80人口星球",
+				"star_name": "80星球",
 				"special_star_type": "null",
 				"scale_fix": [
 					1,
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"7": {
 				"pattern_name": "planet01",
 				"star_scale": 1,
 				"type": "star",
 				"size_type": 7,
-				"star_name": "90人口星球",
+				"star_name": "90星球",
 				"special_star_type": "null",
 				"scale_fix": [
 					1,
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"teleport": {
 			"1": {
 				"pattern_name": "warp",
 				"star_scale": 0.65,
-				"type": "teleport,",
+				"type": "teleport",
 				"size_type": 1,
 				"star_name": "传送门",
 				"special_star_type": "null",
@@ -127,9 +134,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-4,
+					-8
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"tower": {
@@ -145,9 +153,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-7.5,
+					-8.5
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"castle": {
@@ -163,9 +172,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-7.5,
+					-7
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"barrier": {
@@ -181,9 +191,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4.5
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"defense": {
@@ -200,8 +211,9 @@
 				],
 				"offset_fix": [
 					0,
-					0
-				]
+					6
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"Lasercannon": {
@@ -218,8 +230,9 @@
 				],
 				"offset_fix": [
 					0,
-					0
-				]
+					-1.5
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"Twist": {
@@ -235,9 +248,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					0.5,
+					-4
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"AddTower": {
@@ -254,8 +268,9 @@
 				],
 				"offset_fix": [
 					0,
-					0
-				]
+					-4
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"UnknownStar": {
@@ -267,13 +282,14 @@
 				"star_name": "变形装置",
 				"special_star_type": "UnknownStar",
 				"scale_fix": [
-					1,
-					1
+					2,
+					2
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-0.5,
+					-2
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"Lasergun": {
@@ -289,9 +305,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					0.5,
+					3.0
+				],
+				"rotation_fix_degree": 11.3
 			}
 		},
 		"Mirror": {
@@ -307,9 +324,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1.0,
+					9.5
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"Gunturret": {
@@ -325,9 +343,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					0.5,
+					3.0
+				],
+				"rotation_fix_degree": 11.3
 			}
 		},
 		"Diffusion": {
@@ -343,9 +362,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					0.5,
+					-3.0
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"Cannon": {
@@ -363,7 +383,8 @@
 				"offset_fix": [
 					0,
 					0
-				]
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"shipyard": {
@@ -381,7 +402,8 @@
 				"offset_fix": [
 					0,
 					0
-				]
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"supplyship": {
@@ -399,7 +421,8 @@
 				"offset_fix": [
 					0,
 					0
-				]
+				],
+				"rotation_fix_degree": 0
 			}
 		},
 		"dirtstar": {
@@ -415,9 +438,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"2": {
 				"pattern_name": "planet09",
@@ -431,9 +455,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"3": {
 				"pattern_name": "planet09",
@@ -447,9 +472,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"4": {
 				"pattern_name": "planet09",
@@ -463,9 +489,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"5": {
 				"pattern_name": "planet09",
@@ -479,9 +506,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"6": {
 				"pattern_name": "planet09",
@@ -495,9 +523,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			},
 			"7": {
 				"pattern_name": "planet09",
@@ -511,9 +540,10 @@
 					1
 				],
 				"offset_fix": [
-					0,
-					0
-				]
+					-1,
+					-4
+				],
+				"rotation_fix_degree": 0
 			}
 		}
 	}

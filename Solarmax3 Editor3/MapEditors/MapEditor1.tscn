@@ -2,21 +2,19 @@
 
 [ext_resource type="Script" uid="uid://dyaxw4sxyg15t" path="res://Script/MapEditorsScripts/MapEditor1/MapEditor1.gd" id="1_j6763"]
 [ext_resource type="Texture2D" uid="uid://c0epga0hwembj" path="res://BG3.png" id="1_jrnyp"]
-[ext_resource type="Texture2D" uid="uid://bnrotcivy3qgv" path="res://Templates/Template.png" id="2_6broh"]
 [ext_resource type="PackedScene" uid="uid://culp22sestpbo" path="res://UIs/MapNodeStarList/map_node_star_list_unit.tscn" id="2_ax0xe"]
 [ext_resource type="Texture2D" uid="uid://bgmpnhmiqayf1" path="res://UITexture/CreateStarUIs/CreateUI_openButton.png" id="5_fijfr"]
 [ext_resource type="PackedScene" uid="uid://yec60pvu8b10" path="res://UIs/star_edit_ui.tscn" id="6_3dly0"]
-[ext_resource type="Texture2D" uid="uid://qms5n616geu7" path="res://Templates/Template2.png" id="10_psej3"]
-[ext_resource type="Texture2D" uid="uid://c1u2iada7njrv" path="res://Textures/StarTexture/Planets/planet05.png" id="11_ty323"]
+[ext_resource type="Texture2D" uid="uid://btbt31disgktw" path="res://Templates/template9.png" id="11_ty323"]
 [ext_resource type="Texture2D" uid="uid://b4v0gkrmxjsa" path="res://Templates/Template3.png" id="11_ub7nj"]
-[ext_resource type="Texture2D" uid="uid://cixbwk0mrdtej" path="res://Templates/Template4.png" id="12_dsvh6"]
+[ext_resource type="Texture2D" uid="uid://df6nf5hjp3guc" path="res://Templates/template10.png" id="12_ub7nj"]
+[ext_resource type="Texture2D" uid="uid://bphee78vpe4cb" path="res://Textures/StarTexture/Speedship.png" id="13_ax0xe"]
 [ext_resource type="Texture2D" uid="uid://c4c0xeitnjh1m" path="res://Templates/Template5.png" id="13_xi8j7"]
 [ext_resource type="Texture2D" uid="uid://bqs6qqre3qbiu" path="res://Templates/Template6.png" id="14_20p2e"]
+[ext_resource type="Texture2D" uid="uid://cqa2ncy2pb2xt" path="res://Textures/StarTexture/Attackship.png" id="14_ax0xe"]
+[ext_resource type="Texture2D" uid="uid://cvvla8pd7jw7q" path="res://Textures/StarTexture/Captureship.png" id="15_3dly0"]
 [ext_resource type="Texture2D" uid="uid://b141tqmdctiya" path="res://Templates/Template7.png" id="15_jc7ik"]
 [ext_resource type="Texture2D" uid="uid://hxdip42sl23r" path="res://Templates/Template8.png" id="16_xi8j7"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xi8j7"]
-load_path = "res://.godot/imported/warp.png-525bf41015b57a45f65d86b108c74df4.ctex"
 
 [node name="Main1" type="Node"]
 script = ExtResource("1_j6763")
@@ -114,45 +112,18 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="Templates" type="Node2D" parent="."]
-
-[node name="Template" type="Node2D" parent="Templates"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Templates/Template"]
-position = Vector2(940.542, 528.748)
-scale = Vector2(0.639144, 0.639143)
-texture = ExtResource("2_6broh")
-
-[node name="Template2" type="Node2D" parent="Templates"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Templates/Template2"]
-position = Vector2(940, 530)
-scale = Vector2(1.07258, 1.07258)
-texture = ExtResource("10_psej3")
+visible = false
 
 [node name="Template3" type="Node2D" parent="Templates"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template3"]
 position = Vector2(940, 506)
 scale = Vector2(1.072, 1.072)
 texture = ExtResource("11_ub7nj")
 
-[node name="Template4" type="Node2D" parent="Templates"]
-
-[node name="Sprite2D" type="Sprite2D" parent="Templates/Template4"]
-position = Vector2(940, 531)
-scale = Vector2(1.072, 1.072)
-texture = ExtResource("12_dsvh6")
-
-[node name="Control" type="Control" parent="Templates/Template4/Sprite2D"]
-custom_minimum_size = Vector2(95.274, 95.274)
-layout_mode = 3
-anchors_preset = 0
-offset_left = -603.517
-offset_top = 135.744
-offset_right = -508.243
-offset_bottom = 231.018
-
 [node name="Template5" type="Node2D" parent="Templates"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template5"]
 position = Vector2(940, 506)
@@ -160,6 +131,7 @@ scale = Vector2(1.072, 1.072)
 texture = ExtResource("13_xi8j7")
 
 [node name="Template6" type="Node2D" parent="Templates"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template6"]
 position = Vector2(940, 506)
@@ -167,6 +139,7 @@ scale = Vector2(1.072, 1.072)
 texture = ExtResource("14_20p2e")
 
 [node name="Template7" type="Node2D" parent="Templates"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template7"]
 position = Vector2(940, 506)
@@ -174,11 +147,26 @@ scale = Vector2(1.072, 1.072)
 texture = ExtResource("15_jc7ik")
 
 [node name="Template8" type="Node2D" parent="Templates"]
+visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template8"]
 position = Vector2(940, 506)
 scale = Vector2(1.072, 1.072)
 texture = ExtResource("16_xi8j7")
+
+[node name="Template9" type="Node2D" parent="Templates"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Templates/Template9"]
+position = Vector2(940, 504)
+scale = Vector2(1.05856, 1.05747)
+texture = ExtResource("11_ty323")
+
+[node name="Template10" type="Node2D" parent="Templates"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Templates/Template10"]
+position = Vector2(940, 504)
+scale = Vector2(1.05856, 1.05747)
+texture = ExtResource("12_ub7nj")
 
 [node name="Measures" type="Node" parent="."]
 
@@ -224,32 +212,52 @@ position = Vector2(940, 471)
 
 [node name="StarSizeMeasure" type="Node" parent="Measures"]
 
-[node name="Planet(size=1)" type="Sprite2D" parent="Measures/StarSizeMeasure"]
+[node name="Sprite2D" type="Sprite2D" parent="Measures/StarSizeMeasure"]
 visible = false
-position = Vector2(344, 729)
-texture = ExtResource("11_ty323")
-offset = Vector2(-1, -4)
+position = Vector2(641.8, 231.8)
+rotation = 0.197222
+texture = ExtResource("13_ax0xe")
+offset = Vector2(0.5, 3)
 
-[node name="Planet(size=0dot5)" type="Sprite2D" parent="Measures/StarSizeMeasure"]
+[node name="Sprite2D2" type="Sprite2D" parent="Measures/StarSizeMeasure"]
+visible = false
+position = Vector2(940, 231.8)
+texture = ExtResource("14_ax0xe")
+offset = Vector2(-1, 9.5)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Measures/StarSizeMeasure"]
+visible = false
+position = Vector2(1238.2, 231.8)
+rotation = 0.197222
+texture = ExtResource("13_ax0xe")
+offset = Vector2(0.5, 3)
+
+[node name="Sprite2D4" type="Sprite2D" parent="Measures/StarSizeMeasure"]
+visible = false
+position = Vector2(641.8, 530)
+texture = ExtResource("15_3dly0")
+offset = Vector2(0.5, -3)
+
+[node name="Sprite2D5" type="Sprite2D" parent="Measures/StarSizeMeasure"]
 visible = false
 position = Vector2(940, 530)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("11_ty323")
-offset = Vector2(-1, -4)
 
-[node name="Planet(size=0dot4)" type="Sprite2D" parent="Measures/StarSizeMeasure"]
+[node name="Sprite2D6" type="Sprite2D" parent="Measures/StarSizeMeasure"]
 visible = false
-position = Vector2(903, 509)
-scale = Vector2(0.38, 0.38)
-texture = ExtResource("11_ty323")
-offset = Vector2(-1, -4)
+position = Vector2(1238.2, 530)
 
-[node name="Teleport(size=1)" type="Sprite2D" parent="Measures/StarSizeMeasure"]
+[node name="Sprite2D7" type="Sprite2D" parent="Measures/StarSizeMeasure"]
 visible = false
-position = Vector2(576, 324)
-scale = Vector2(0.601, 0.601)
-texture = SubResource("CompressedTexture2D_xi8j7")
-offset = Vector2(-5, -8)
+position = Vector2(641.8, 828.2)
+
+[node name="Sprite2D8" type="Sprite2D" parent="Measures/StarSizeMeasure"]
+visible = false
+position = Vector2(940, 828.2)
+
+[node name="Sprite2D9" type="Sprite2D" parent="Measures/StarSizeMeasure"]
+visible = false
+position = Vector2(1238.2, 828.2)
+scale = Vector2(2, 2)
 
 [node name="ShipNumberLabelLoactionMeasures" type="Node" parent="Measures"]
 
@@ -423,21 +431,48 @@ vertical_alignment = 1
 
 [node name="StarLocation" type="Marker2D" parent="Measures"]
 visible = false
-position = Vector2(576.024, 324)
-scale = Vector2(17, 17)
-
-[node name="StarLocation4" type="Marker2D" parent="Measures"]
-visible = false
-position = Vector2(576, 278)
+position = Vector2(641.8, 231.8)
 scale = Vector2(17, 17)
 
 [node name="StarLocation2" type="Marker2D" parent="Measures"]
 visible = false
-position = Vector2(210, 447)
+position = Vector2(940, 231.8)
+scale = Vector2(17, 17)
 
 [node name="StarLocation3" type="Marker2D" parent="Measures"]
 visible = false
-position = Vector2(344, 729)
+position = Vector2(1238.2, 231.8)
+scale = Vector2(17, 17)
+
+[node name="StarLocation4" type="Marker2D" parent="Measures"]
+visible = false
+position = Vector2(641.8, 530)
+scale = Vector2(17, 17)
+
+[node name="StarLocation5" type="Marker2D" parent="Measures"]
+visible = false
+position = Vector2(940, 530)
+scale = Vector2(17, 17)
+
+[node name="StarLocation6" type="Marker2D" parent="Measures"]
+visible = false
+position = Vector2(1238.2, 530)
+scale = Vector2(17, 17)
+
+[node name="StarLocation7" type="Marker2D" parent="Measures"]
+visible = false
+position = Vector2(641.8, 828.2)
+scale = Vector2(17, 17)
+
+[node name="StarLocation8" type="Marker2D" parent="Measures"]
+visible = false
+position = Vector2(940, 828.2)
+scale = Vector2(17, 17)
+
+[node name="StarLocation9" type="Marker2D" parent="Measures"]
+visible = false
+position = Vector2(1238.2, 828.2)
+scale = Vector2(17, 17)
 
 [node name="Label" type="Label" parent="Measures"]
 visible = false

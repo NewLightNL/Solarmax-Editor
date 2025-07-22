@@ -129,10 +129,21 @@ func _update_recently_chosen_stars_display():
 		var star_information : Array = recently_chosen_stars[star_index].get_star_information()
 		slot.get_child(0).texture = star_pattern_dictionary[
 				star_information[0]]
+		var recently_chosen_star = recently_chosen_stars[star_index]
+		if recently_chosen_star.special_star_type == "dirt":
+			slot.get_child(0).flip_v = true
+			slot.get_child(0).flip_h = true
+		else:
+			slot.get_child(0).flip_v = false
+			slot.get_child(0).flip_h = false
 
 # 最近选择的星球框显示(对lately_chosen_star数组从右往左读取)
 func _update_star_display(star : Star):
 	var star_infomation = star.get_star_information()
+	if star.special_star_type == "dirt":
+		chosen_star_picture.rotation = PI
+	else:
+		chosen_star_picture.rotation = 0
 	chosen_star_picture.texture = star_pattern_dictionary[star_infomation[0]]
 	chosen_star_name_label.text = star_infomation[4]
 
@@ -168,7 +179,7 @@ func _on_recently_chosen_star_button_up(button_index : int):
 # 生成天体
 func _on_create_star_button_button_up() -> void:
 	if chosen_star != null:
-		if chosen_star.tag != "":
+		if chosen_star.tag != "" and chosen_star.type != "":
 			# tag查重
 			for star in get_node(map_node_path).get_child(1).get_children():
 				if star == null:
@@ -183,7 +194,7 @@ func _on_create_star_button_button_up() -> void:
 			map_node_star_node.duplicate_map_node_star(chosen_star)
 			map_node_star_node.update_map_node_star()
 		else:
-			push_error("天体标签不能为空!")
+			push_error("天体标签不能为空或不能不选天体就生成!")
 		#map_node_star_node.get_child(0).queue_redraw()
 	#$UI/CreateUI/CreateStarButton.visible = false
 	#$UI/CreateUI/ConfirmCreateStarUI.visible = true

@@ -26,6 +26,8 @@ var special_star_type : String
 var scale_fix : Vector2
 ## 位置修正
 var offset_fix : Vector2
+## 旋转修正
+var rotation_fix_degree : float
 
 func _init(
 		pattern_name_info : String = "",
@@ -36,7 +38,8 @@ func _init(
 		special_star_type_info : String = "",
 		scale_fix_info : Vector2 = Vector2.ZERO,
 		offset_fix_info : Vector2 = Vector2.ZERO,
-		):
+		rotation_fix_degree_info : float = 0,
+):
 	pattern_name = pattern_name_info
 	star_scale = star_scale_info
 	type = type_info
@@ -45,6 +48,7 @@ func _init(
 	special_star_type = special_star_type_info
 	scale_fix = scale_fix_info
 	offset_fix = offset_fix_info
+	rotation_fix_degree = rotation_fix_degree_info
 
 
 func get_star_information() -> Array:
@@ -56,7 +60,16 @@ func get_star_information() -> Array:
 	var star_special_star_type_info = special_star_type
 	var scale_fix_info = scale_fix
 	var offset_fix_info = offset_fix
-	var star_information : Array = [pattern_name_info, star_scale_info,
-			star_type_info, star_size_type_info, star_name_info,
-			star_special_star_type_info, scale_fix_info, offset_fix_info]
+	var rotation_fix_degree_info = rotation_fix_degree
+	var star_information : Array = [
+			pattern_name_info,
+			star_scale_info,
+			star_type_info,
+			star_size_type_info,
+			star_name_info,
+			star_special_star_type_info,
+			scale_fix_info,
+			offset_fix_info,
+			rotation_fix_degree_info,
+	]
 	return star_information
