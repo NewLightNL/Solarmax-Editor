@@ -15,6 +15,12 @@ var size_type : int
 var star_name : String
 ## 特殊天体类型
 var special_star_type : String
+# 特殊天体类型(special_star_type): 
+	# null(无)
+	# dirt(焦土类)
+	# Lasergun(射线炮)
+	# UnknownStar(变形装置)
+	# barrier(障碍点)
 # 天体修正信息
 ## 缩放修正
 var scale_fix : Vector2

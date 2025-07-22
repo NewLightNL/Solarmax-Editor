@@ -18,6 +18,8 @@ var is_star_chosen : bool = false# 用于未来判断是否有天体被选择
 
 var star_fleets : Array
 
+# 临时
+@export var map_node_star_list_unit : PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -99,7 +101,7 @@ func check_initalisation():
 
 
 func _on_star_edit_ui_open_button_button_up():
-	$StarEditUIOpenButton.visible = false
+	$UI/StarEditUIOpenButton.visible = false
 	$UI/StarEditUI.visible = true
 
 
@@ -108,3 +110,42 @@ func _on_export_button_button_up():
 	for star in $Map/Stars.get_children():
 		stars_should_be_saved.append(star)
 	Save.save_map_node_stars(stars_should_be_saved)
+
+
+func _on_show_star_list_button_button_up():
+	$UI/MapNodeStarListWindow.show()
+	var map_node_stars = $Map/Stars.get_children()
+	var map_node_star_list = $UI/MapNodeStarListWindow/Control/ScrollContainer/MapNodeStarListVBoxContainer
+	for i in map_node_star_list.get_children():
+		i.queue_free()
+	for map_node_star in map_node_stars:
+		var context_format : String = "  天体名: %s ; 天体类型: %s ; 大小类型: %s ; 天体标签: %s ; 坐标: (%s, %s) ; 阵营: %s  "
+		var context = context_format % [
+				map_node_star.star_name,
+				map_node_star.type,
+				map_node_star.size_type,
+				map_node_star.tag,
+				map_node_star.star_position.x,
+				map_node_star.star_position.y,
+				map_node_star.star_camp,
+				]
+		var map_node_star_list_unit_node = map_node_star_list_unit.instantiate()
+		map_node_star_list_unit_node.text = context
+		map_node_star_list.add_child(map_node_star_list_unit_node)
+
+# 天体类型信息
+	#var type : String
+	#var size_type : int
+	#var star_name : String
+	#var tag : String
+	#var star_camp : int
+	#var this_star_fleets : Array
+	#var star_position : Vector2
+	#var orbit_information : Array
+	#var fAngle : float
+	#var transformBulidingID : Array
+	#var lasergun_information : Array
+	#var is_taget : bool
+
+func _on_map_node_star_list_window_close_requested():
+	$UI/MapNodeStarListWindow.hide()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dy21eddlgx03s"]
+[gd_scene load_steps=16 format=3 uid="uid://dy21eddlgx03s"]
 
 [ext_resource type="Script" uid="uid://dyaxw4sxyg15t" path="res://Script/MapEditorsScripts/MapEditor1/MapEditor1.gd" id="1_j6763"]
 [ext_resource type="Texture2D" uid="uid://c0epga0hwembj" path="res://BG3.png" id="1_jrnyp"]
 [ext_resource type="Texture2D" uid="uid://bnrotcivy3qgv" path="res://Templates/Template.png" id="2_6broh"]
+[ext_resource type="PackedScene" uid="uid://culp22sestpbo" path="res://UIs/MapNodeStarList/map_node_star_list_unit.tscn" id="2_ax0xe"]
 [ext_resource type="Texture2D" uid="uid://bgmpnhmiqayf1" path="res://UITexture/CreateStarUIs/CreateUI_openButton.png" id="5_fijfr"]
 [ext_resource type="PackedScene" uid="uid://yec60pvu8b10" path="res://UIs/star_edit_ui.tscn" id="6_3dly0"]
 [ext_resource type="Texture2D" uid="uid://qms5n616geu7" path="res://Templates/Template2.png" id="10_psej3"]
@@ -19,6 +20,7 @@ load_path = "res://.godot/imported/warp.png-525bf41015b57a45f65d86b108c74df4.cte
 
 [node name="Main1" type="Node"]
 script = ExtResource("1_j6763")
+map_node_star_list_unit = ExtResource("2_ax0xe")
 
 [node name="Background" type="Sprite2D" parent="."]
 scale = Vector2(0.917969, 0.688802)
@@ -44,7 +46,16 @@ position = Vector2(1040, 530)
 [node name="Centery_1" type="Marker2D" parent="Markers"]
 position = Vector2(940, 430)
 
-[node name="StarEditUIOpenButton" type="Button" parent="."]
+[node name="Map" type="Node2D" parent="."]
+position = Vector2(940, 530)
+
+[node name="Orbit" type="Node2D" parent="Map"]
+
+[node name="Stars" type="Node2D" parent="Map"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="StarEditUIOpenButton" type="Button" parent="UI"]
 visible = false
 anchors_preset = -1
 anchor_left = 0.981
@@ -58,15 +69,6 @@ offset_bottom = 140.762
 icon = ExtResource("5_fijfr")
 flat = true
 
-[node name="Map" type="Node2D" parent="."]
-position = Vector2(940, 530)
-
-[node name="Orbit" type="Node2D" parent="Map"]
-
-[node name="Stars" type="Node2D" parent="Map"]
-
-[node name="UI" type="CanvasLayer" parent="."]
-
 [node name="StarEditUI" parent="UI" instance=ExtResource("6_3dly0")]
 
 [node name="ExportButton" type="Button" parent="UI"]
@@ -74,7 +76,7 @@ offset_left = 31.0
 offset_top = 25.0
 offset_right = 119.0
 offset_bottom = 108.0
-theme_override_font_sizes/font_size = 40
+theme_override_font_sizes/font_size = 30
 text = "导出"
 
 [node name="ShowStarListButton" type="Button" parent="UI"]
@@ -85,11 +87,35 @@ offset_bottom = 118.0
 theme_override_font_sizes/font_size = 30
 text = "天体"
 
-[node name="Templates" type="Node2D" parent="."]
+[node name="MapNodeStarListWindow" type="Window" parent="UI"]
+title = "地图天体列表"
+position = Vector2i(1209, 80)
+size = Vector2i(500, 700)
 visible = false
+popup_window = true
+
+[node name="Control" type="Control" parent="UI/MapNodeStarListWindow"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/MapNodeStarListWindow/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MapNodeStarListVBoxContainer" type="VBoxContainer" parent="UI/MapNodeStarListWindow/Control/ScrollContainer"]
+layout_mode = 2
+
+[node name="Templates" type="Node2D" parent="."]
 
 [node name="Template" type="Node2D" parent="Templates"]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template"]
 position = Vector2(940.542, 528.748)
@@ -97,7 +123,6 @@ scale = Vector2(0.639144, 0.639143)
 texture = ExtResource("2_6broh")
 
 [node name="Template2" type="Node2D" parent="Templates"]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template2"]
 position = Vector2(940, 530)
@@ -105,7 +130,6 @@ scale = Vector2(1.07258, 1.07258)
 texture = ExtResource("10_psej3")
 
 [node name="Template3" type="Node2D" parent="Templates"]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template3"]
 position = Vector2(940, 506)
@@ -113,7 +137,6 @@ scale = Vector2(1.072, 1.072)
 texture = ExtResource("11_ub7nj")
 
 [node name="Template4" type="Node2D" parent="Templates"]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template4"]
 position = Vector2(940, 531)
@@ -130,7 +153,6 @@ offset_right = -508.243
 offset_bottom = 231.018
 
 [node name="Template5" type="Node2D" parent="Templates"]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template5"]
 position = Vector2(940, 506)
@@ -138,7 +160,6 @@ scale = Vector2(1.072, 1.072)
 texture = ExtResource("13_xi8j7")
 
 [node name="Template6" type="Node2D" parent="Templates"]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template6"]
 position = Vector2(940, 506)
@@ -146,7 +167,6 @@ scale = Vector2(1.072, 1.072)
 texture = ExtResource("14_20p2e")
 
 [node name="Template7" type="Node2D" parent="Templates"]
-visible = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template7"]
 position = Vector2(940, 506)
@@ -430,5 +450,7 @@ text = "41"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="button_up" from="StarEditUIOpenButton" to="." method="_on_star_edit_ui_open_button_button_up"]
+[connection signal="button_up" from="UI/StarEditUIOpenButton" to="." method="_on_star_edit_ui_open_button_button_up"]
 [connection signal="button_up" from="UI/ExportButton" to="." method="_on_export_button_button_up"]
+[connection signal="button_up" from="UI/ShowStarListButton" to="." method="_on_show_star_list_button_button_up"]
+[connection signal="close_requested" from="UI/MapNodeStarListWindow" to="." method="_on_map_node_star_list_window_close_requested"]

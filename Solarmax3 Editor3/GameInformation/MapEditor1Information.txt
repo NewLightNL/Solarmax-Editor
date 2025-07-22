@@ -1,11 +1,14 @@
 待解决的问题:
-	0. 添加合法天体类型
-	1. 解决引用问题
+	1. 解决引用问题(初步解决)
 	2. 坐标图绘制
 	3. 解决未选择天体时的设置，不知道如果未选择天体时点击生成会不会出现问题，
 		以及未选择天体时，所有按钮应该是灰色的
-	4. 解决最近选择的天体栏问题
-
+	4. 飞船配置界面预览问题
+	5. 关卡配置问题。如: 玩家数量(包括自动生成)，结盟
+	6. 增加轨道类型功能
+	7. 弹出警告弹窗
+	8. 添加天体列表功能
+	9. 测量天体数据，使偏移、缩放比例正确
 
 # 注意事项:
 	需要手动改player_count
@@ -75,6 +78,14 @@ star_type_information = [天体图样名(pattern_name)(String),
 (假如特殊天体类型为"Lasergun"可填，否则为空数组)
 射线炮数据(Array)
 
+特殊天体类型(special_star_type): 
+	null(无)
+	dirt(焦土类)
+	Lasergun(射线炮)
+	UnknownStar(变形装置)
+	barrier(障碍点)
+
+
 天体舰队群(star_fleets)(Array)
 var star_fleets : Array
 # star_fleet = [所在天体(tag)(String), 阵营id(int), 舰队中的飞船数量(int)]
@@ -82,6 +93,7 @@ var star_fleets : Array
 var this_star_fleets : Array
 this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 # 其元素相比于"star_fleets"的元素省略了天体的tag
+
 
 伽马射线:
 	<mapbuilding id="" type="Curse" size="1" x="13" y="4" camption="0" tag="S" orbit="0" orbitParam1="" orbitParam2="" orbitClockWise="False" fAngle="0" transformBulidingID="" curseDelay="10" />

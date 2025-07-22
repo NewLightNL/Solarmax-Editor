@@ -28,7 +28,7 @@ const  MAX_RECENT_STARS_NUMBER = 6
 @onready var recently_chosen_star_bar = $RecentlyChosenStarBG/RecentlyChosenStarBar
 @onready var create_star_button = $CreateStarButton
 @onready var confirm_create_star_ui = $ConfirmCreateStarUI
-@onready var star_editUI_open_button = $"../../StarEditUIOpenButton"
+@onready var star_editUI_open_button = $"../StarEditUIOpenButton"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -107,9 +107,11 @@ func _add_to_recently_chosen_stars(star : Star) -> void:
 		var recently_chosen_star_info : Array = recently_chosen_stars[i].get_star_information()
 		var star_info : Array = star.get_star_information()
 		if recently_chosen_star_info.size() == star_info.size():
-			for j in range(star_info.size()):
-				if star_info[j] == recently_chosen_star_info[j]:
-					recently_chosen_stars.remove_at(i)
+			if (
+				star_info[2] == recently_chosen_star_info[2]
+				and star_info[3] == recently_chosen_star_info[3]
+			):
+				recently_chosen_stars.remove_at(i)
 		else:
 			push_error("最近选择的天体信息或提交的天体信息残缺")
 			return
@@ -146,7 +148,7 @@ func _update_chosen_star(star : Star):
 	chosen_star.star_scale = star_information[1]
 	chosen_star.type = star_information[2]
 	chosen_star.size_type = star_information[3]
-	chosen_star.name = star_information[4]
+	chosen_star.star_name = star_information[4]
 	chosen_star.special_star_type = star_information[5]
 	chosen_star.scale_fix = star_information[6]
 	chosen_star.offset_fix = star_information[7]

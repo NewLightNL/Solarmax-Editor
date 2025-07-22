@@ -17,8 +17,16 @@ var orbit_types : Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$HSlider.duplicate_value($HSlider2)
-	#var format = "<mapbuilding type=\"%s\" size=\"7\" tag=\"A\" x=\"-5\" y=\"-2\" camption=\"1\" fAngle=\"0\" orbit=\"0\" revospeed=\"10\" orbitParam1=\"0,0\" orbitParam2=\"0\" rbitClockWise=\"False\" />"\
+	pass
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+# 废弃代码
+#var format = "<mapbuilding type=\"%s\" size=\"7\" tag=\"A\" x=\"-5\" y=\"-2\" camption=\"1\" fAngle=\"0\" orbit=\"0\" revospeed=\"10\" orbitParam1=\"0,0\" orbitParam2=\"0\" rbitClockWise=\"False\" />"\
 			#%"star"
 	#stars = Mapeditor1ShareData.stars
 	#Mapeditor1ShareData.init_editor_data()
@@ -34,6 +42,9 @@ func _ready():
 	#$MapNodeStar._init_from_star(stars[0])
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+func _on_window_close_requested():
+	$Window.hide()
+
+
+func _on_button_button_up():
+	$Window.show()

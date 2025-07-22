@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://culp22sestpbo"]
+
+[node name="MapNodeStarListUnit" type="Label"]
+theme_override_font_sizes/font_size = 23
+text = " 天体名: 30人口星球 ; 天体类型: star ; 大小类型: 1 ; 天体标签: A ; 坐标: (0, 0) ; 阵营: 0"
+vertical_alignment = 1
+
+[node name="MapNodeStarListUnitBG" type="Panel" parent="."]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -32,6 +32,122 @@
 					0,
 					0
 				]
+			},
+			"3": {
+				"pattern_name": "planet01",
+				"star_scale": 0.6,
+				"type": "star",
+				"size_type": 3,
+				"star_name": "50人口星球",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			},
+			"4": {
+				"pattern_name": "planet01",
+				"star_scale": 0.7,
+				"type": "star",
+				"size_type": 4,
+				"star_name": "60人口星球",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			},
+			"5": {
+				"pattern_name": "planet01",
+				"star_scale": 0.8,
+				"type": "star",
+				"size_type": 5,
+				"star_name": "70人口星球",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			},
+			"6": {
+				"pattern_name": "planet01",
+				"star_scale": 0.9,
+				"type": "star",
+				"size_type": 6,
+				"star_name": "80人口星球",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			},
+			"7": {
+				"pattern_name": "planet01",
+				"star_scale": 1,
+				"type": "star",
+				"size_type": 7,
+				"star_name": "90人口星球",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"teleport": {
+			"1": {
+				"pattern_name": "warp",
+				"star_scale": 0.65,
+				"type": "teleport,",
+				"size_type": 1,
+				"star_name": "传送门",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"tower": {
+			"1": {
+				"pattern_name": "tower",
+				"star_scale": 0.5,
+				"type": "tower",
+				"size_type": 1,
+				"star_name": "炮塔",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
 			}
 		},
 		"castle": {
@@ -42,6 +158,354 @@
 				"size_type": 1,
 				"star_name": "太空堡垒",
 				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"barrier": {
+			"1": {
+				"pattern_name": "barrier_new",
+				"star_scale": 0.25,
+				"type": "barrier",
+				"size_type": 1,
+				"star_name": "障碍点",
+				"special_star_type": "barrier",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"defense": {
+			"1": {
+				"pattern_name": "magicstar",
+				"star_scale": 0.5,
+				"type": "defense",
+				"size_type": 1,
+				"star_name": "黑洞武器",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"Lasercannon": {
+			"1": {
+				"pattern_name": "Lasercannon_new",
+				"star_scale": 0.5,
+				"type": "Lasercannon",
+				"size_type": 1,
+				"star_name": "脉冲炮",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"Twist": {
+			"1": {
+				"pattern_name": "AntiLifeship",
+				"star_scale": 0.5,
+				"type": "Twist",
+				"size_type": 1,
+				"star_name": "捕获塔",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"AddTower": {
+			"1": {
+				"pattern_name": "AircraftCarrier",
+				"star_scale": 0.5,
+				"type": "AddTower",
+				"size_type": 1,
+				"star_name": "航母",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"UnknownStar": {
+			"1": {
+				"pattern_name": "AntiCaptureship",
+				"star_scale": 0.6,
+				"type": "UnknownStar",
+				"size_type": 1,
+				"star_name": "变形装置",
+				"special_star_type": "UnknownStar",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"Lasergun": {
+			"1": {
+				"pattern_name": "Speedship",
+				"star_scale": 0.5,
+				"type": "Lasergun",
+				"size_type": 1,
+				"star_name": "射线炮",
+				"special_star_type": "Lasergun",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"Mirror": {
+			"1": {
+				"pattern_name": "Attackship",
+				"star_scale": 0.4,
+				"type": "Mirror",
+				"size_type": 1,
+				"star_name": "反射镜",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"Gunturret": {
+			"1": {
+				"pattern_name": "Speedship",
+				"star_scale": 0.5,
+				"type": "Gunturret",
+				"size_type": 1,
+				"star_name": "追踪炮",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"Diffusion": {
+			"1": {
+				"pattern_name": "Captureship",
+				"star_scale": 0.5,
+				"type": "Diffusion",
+				"size_type": 1,
+				"star_name": "扩散装置",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"Cannon": {
+			"1": {
+				"pattern_name": "AntiSpeedship",
+				"star_scale": 0.5,
+				"type": "Cannon",
+				"size_type": 1,
+				"star_name": "粒子炮",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"shipyard": {
+			"1": {
+				"pattern_name": "hiddenstar",
+				"star_scale": 0.5,
+				"type": "shipyard",
+				"size_type": 1,
+				"star_name": "造船厂",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"supplyship": {
+			"1": {
+				"pattern_name": "Lifeship",
+				"star_scale": 0.7,
+				"type": "supplyship",
+				"size_type": 1,
+				"star_name": "补给舰",
+				"special_star_type": "null",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			}
+		},
+		"dirtstar": {
+			"1": {
+				"pattern_name": "planet09",
+				"star_scale": 0.4,
+				"type": "dirtstar",
+				"size_type": 1,
+				"star_name": "30焦土星球",
+				"special_star_type": "dirt",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			},
+			"2": {
+				"pattern_name": "planet09",
+				"star_scale": 0.5,
+				"type": "dirtstar",
+				"size_type": 2,
+				"star_name": "40焦土星球",
+				"special_star_type": "dirt",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			},
+			"3": {
+				"pattern_name": "planet09",
+				"star_scale": 0.6,
+				"type": "dirtstar",
+				"size_type": 3,
+				"star_name": "50焦土星球",
+				"special_star_type": "dirt",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			},
+			"4": {
+				"pattern_name": "planet09",
+				"star_scale": 0.7,
+				"type": "dirtstar",
+				"size_type": 4,
+				"star_name": "60焦土星球",
+				"special_star_type": "dirt",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			},
+			"5": {
+				"pattern_name": "planet09",
+				"star_scale": 0.8,
+				"type": "dirtstar",
+				"size_type": 5,
+				"star_name": "70焦土星球",
+				"special_star_type": "dirt",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			},
+			"6": {
+				"pattern_name": "planet09",
+				"star_scale": 0.9,
+				"type": "dirtstar",
+				"size_type": 6,
+				"star_name": "80焦土星球",
+				"special_star_type": "dirt",
+				"scale_fix": [
+					1,
+					1
+				],
+				"offset_fix": [
+					0,
+					0
+				]
+			},
+			"7": {
+				"pattern_name": "planet09",
+				"star_scale": 1,
+				"type": "dirtstar",
+				"size_type": 7,
+				"star_name": "90焦土星球",
+				"special_star_type": "dirt",
 				"scale_fix": [
 					1,
 					1
