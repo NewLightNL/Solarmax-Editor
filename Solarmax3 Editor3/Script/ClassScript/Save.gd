@@ -1,13 +1,13 @@
 class_name Save
 
 
-const FILE_PATH = "user://saved_map_information.xml"
+#const FILE_PATH = "user://saved_map_information.xml"
 
 
-static func save_map_node_stars(map_node_stars_should_be_saved : Array[MapNodeStar]):
+static func save_map_node_stars(map_node_stars_should_be_saved : Array[MapNodeStar], file_path):
 	var star_info = _convert_map_node_stars_to_string(map_node_stars_should_be_saved)
 	#print(star_info)
-	var file = FileAccess.open(FILE_PATH, FileAccess.WRITE)
+	var file = FileAccess.open(file_path, FileAccess.WRITE)
 	file.store_string(star_info)
 	file.close()
 

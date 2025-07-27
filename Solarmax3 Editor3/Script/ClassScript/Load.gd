@@ -44,11 +44,32 @@ static func init_star_pattern_dictionary(path:String = _STARTEXTUREPATH) -> Dict
 			var get_planets : Dictionary = init_star_pattern_dictionary(full_path) # 递归子文件夹
 			dictionary_result.merge(get_planets) # 添加星球
 		else:
-			if full_path.right(7) != ".import":# 不加载引擎内自己添加的.import文件
-				var star_texture = ResourceLoader.load(full_path)# 获得天体纹理
-				if star_texture != null : # ResourceLoader.load()方法访问失败会返回null
-					var star_texture_name = file_name.left(-4) # 获得天体贴图名称
-					dictionary_result[star_texture_name] = star_texture
+			if full_path.right(4) == ".png":# 当加载的是.png时
+				var star_texture_name = file_name.left(-4) # 获得天体贴图名称
+				if not dictionary_result.has(star_texture_name):
+					var star_texture = ResourceLoader.load(full_path)# 获得天体纹理
+					if star_texture != null : # ResourceLoader.load()方法访问失败会返回null
+						dictionary_result[star_texture_name] = star_texture
+					else:
+						push_error("天体贴图访问失败! 访问路径: %s" % full_path)
+				#else:
+					#print("字典中已含这个键%s" % star_texture_name)
+			elif full_path.right(7) == ".import":# 当加载的是.import时(导出后的文件名)
+				# 截断.import
+				full_path = full_path.left(-7)
+				file_name = file_name.left(-7)
+				
+				var star_texture_name = file_name.left(-4) # 获得天体贴图名称
+				if not dictionary_result.has(star_texture_name):
+					var star_texture = ResourceLoader.load(full_path)# 获得天体纹理
+					if star_texture != null : # ResourceLoader.load()方法访问失败会返回null
+						dictionary_result[star_texture_name] = star_texture
+					else:
+						push_error("天体贴图访问失败! 访问路径: %s" % full_path)
+				#else:
+					#print("字典中已含这个键%s" % star_texture_name)
+			else:
+				push_error("有未知类型的文件进入图片文件夹! 文件路径: %s" % full_path)
 		file_name = directory.get_next()
 	directory.list_dir_end()# 结束访问文件夹的流
 	

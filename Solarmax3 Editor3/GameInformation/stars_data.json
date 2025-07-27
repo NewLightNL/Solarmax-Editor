@@ -377,12 +377,12 @@
 				"star_name": "粒子炮",
 				"special_star_type": "null",
 				"scale_fix": [
-					1,
-					1
+					0.99,
+					0.99
 				],
 				"offset_fix": [
-					0,
-					0
+					0.1,
+					-3.2
 				],
 				"rotation_fix_degree": 0
 			}

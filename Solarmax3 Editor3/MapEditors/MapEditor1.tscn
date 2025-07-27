@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dy21eddlgx03s"]
+[gd_scene load_steps=19 format=3 uid="uid://dy21eddlgx03s"]
 
 [ext_resource type="Script" uid="uid://dyaxw4sxyg15t" path="res://Script/MapEditorsScripts/MapEditor1/MapEditor1.gd" id="1_j6763"]
 [ext_resource type="Texture2D" uid="uid://c0epga0hwembj" path="res://BG3.png" id="1_jrnyp"]
@@ -14,7 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://cqa2ncy2pb2xt" path="res://Textures/StarTexture/Attackship.png" id="14_ax0xe"]
 [ext_resource type="Texture2D" uid="uid://cvvla8pd7jw7q" path="res://Textures/StarTexture/Captureship.png" id="15_3dly0"]
 [ext_resource type="Texture2D" uid="uid://b141tqmdctiya" path="res://Templates/Template7.png" id="15_jc7ik"]
+[ext_resource type="Texture2D" uid="uid://bnccc4llql326" path="res://Textures/StarTexture/AntiSpeedship.png" id="16_20p2e"]
 [ext_resource type="Texture2D" uid="uid://hxdip42sl23r" path="res://Templates/Template8.png" id="16_xi8j7"]
+[ext_resource type="Texture2D" uid="uid://b25swkj2qo5re" path="res://Textures/StarTexture/hiddenstar.png" id="17_jc7ik"]
+[ext_resource type="Texture2D" uid="uid://ds322bs86iur7" path="res://Textures/StarTexture/Lifeship.png" id="18_o276r"]
 
 [node name="Main1" type="Node"]
 script = ExtResource("1_j6763")
@@ -111,8 +114,16 @@ grow_vertical = 2
 [node name="MapNodeStarListVBoxContainer" type="VBoxContainer" parent="UI/MapNodeStarListWindow/Control/ScrollContainer"]
 layout_mode = 2
 
+[node name="SaveWindow" type="FileDialog" parent="UI"]
+title = "保存地图文件"
+position = Vector2i(75, 100)
+ok_button_text = "保存"
+dialog_hide_on_ok = true
+cancel_button_text = "取消"
+access = 2
+filters = PackedStringArray("*.xml")
+
 [node name="Templates" type="Node2D" parent="."]
-visible = false
 
 [node name="Template3" type="Node2D" parent="Templates"]
 visible = false
@@ -213,51 +224,47 @@ position = Vector2(940, 471)
 [node name="StarSizeMeasure" type="Node" parent="Measures"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Measures/StarSizeMeasure"]
-visible = false
 position = Vector2(641.8, 231.8)
 rotation = 0.197222
 texture = ExtResource("13_ax0xe")
 offset = Vector2(0.5, 3)
 
 [node name="Sprite2D2" type="Sprite2D" parent="Measures/StarSizeMeasure"]
-visible = false
 position = Vector2(940, 231.8)
 texture = ExtResource("14_ax0xe")
 offset = Vector2(-1, 9.5)
 
 [node name="Sprite2D3" type="Sprite2D" parent="Measures/StarSizeMeasure"]
-visible = false
 position = Vector2(1238.2, 231.8)
 rotation = 0.197222
 texture = ExtResource("13_ax0xe")
 offset = Vector2(0.5, 3)
 
 [node name="Sprite2D4" type="Sprite2D" parent="Measures/StarSizeMeasure"]
-visible = false
 position = Vector2(641.8, 530)
 texture = ExtResource("15_3dly0")
 offset = Vector2(0.5, -3)
 
 [node name="Sprite2D5" type="Sprite2D" parent="Measures/StarSizeMeasure"]
-visible = false
 position = Vector2(940, 530)
 
 [node name="Sprite2D6" type="Sprite2D" parent="Measures/StarSizeMeasure"]
-visible = false
 position = Vector2(1238.2, 530)
 
 [node name="Sprite2D7" type="Sprite2D" parent="Measures/StarSizeMeasure"]
-visible = false
 position = Vector2(641.8, 828.2)
+scale = Vector2(0.99, 0.99)
+texture = ExtResource("16_20p2e")
+offset = Vector2(0.1, -3.2)
 
 [node name="Sprite2D8" type="Sprite2D" parent="Measures/StarSizeMeasure"]
-visible = false
 position = Vector2(940, 828.2)
+texture = ExtResource("17_jc7ik")
 
 [node name="Sprite2D9" type="Sprite2D" parent="Measures/StarSizeMeasure"]
-visible = false
 position = Vector2(1238.2, 828.2)
 scale = Vector2(2, 2)
+texture = ExtResource("18_o276r")
 
 [node name="ShipNumberLabelLoactionMeasures" type="Node" parent="Measures"]
 
@@ -430,47 +437,38 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StarLocation" type="Marker2D" parent="Measures"]
-visible = false
 position = Vector2(641.8, 231.8)
 scale = Vector2(17, 17)
 
 [node name="StarLocation2" type="Marker2D" parent="Measures"]
-visible = false
 position = Vector2(940, 231.8)
 scale = Vector2(17, 17)
 
 [node name="StarLocation3" type="Marker2D" parent="Measures"]
-visible = false
 position = Vector2(1238.2, 231.8)
 scale = Vector2(17, 17)
 
 [node name="StarLocation4" type="Marker2D" parent="Measures"]
-visible = false
 position = Vector2(641.8, 530)
 scale = Vector2(17, 17)
 
 [node name="StarLocation5" type="Marker2D" parent="Measures"]
-visible = false
 position = Vector2(940, 530)
 scale = Vector2(17, 17)
 
 [node name="StarLocation6" type="Marker2D" parent="Measures"]
-visible = false
 position = Vector2(1238.2, 530)
 scale = Vector2(17, 17)
 
 [node name="StarLocation7" type="Marker2D" parent="Measures"]
-visible = false
 position = Vector2(641.8, 828.2)
 scale = Vector2(17, 17)
 
 [node name="StarLocation8" type="Marker2D" parent="Measures"]
-visible = false
 position = Vector2(940, 828.2)
 scale = Vector2(17, 17)
 
 [node name="StarLocation9" type="Marker2D" parent="Measures"]
-visible = false
 position = Vector2(1238.2, 828.2)
 scale = Vector2(17, 17)
 
@@ -489,3 +487,5 @@ vertical_alignment = 1
 [connection signal="button_up" from="UI/ExportButton" to="." method="_on_export_button_button_up"]
 [connection signal="button_up" from="UI/ShowStarListButton" to="." method="_on_show_star_list_button_button_up"]
 [connection signal="close_requested" from="UI/MapNodeStarListWindow" to="." method="_on_map_node_star_list_window_close_requested"]
+[connection signal="close_requested" from="UI/SaveWindow" to="." method="_on_file_dialog_close_requested"]
+[connection signal="confirmed" from="UI/SaveWindow" to="." method="_on_save_window_confirmed"]

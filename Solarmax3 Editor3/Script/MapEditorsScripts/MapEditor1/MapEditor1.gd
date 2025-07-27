@@ -26,6 +26,8 @@ func _ready():
 	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
 	Mapeditor1ShareData.init_editor_data()
 	
+	
+	$UI/SaveWindow.set_ok_button_text("保存")
 	# 初始化变量
 	# 加载编辑器基本信息
 	#check_initalisation()
@@ -106,10 +108,7 @@ func _on_star_edit_ui_open_button_button_up():
 
 
 func _on_export_button_button_up():
-	var stars_should_be_saved : Array[MapNodeStar]
-	for star in $Map/Stars.get_children():
-		stars_should_be_saved.append(star)
-	Save.save_map_node_stars(stars_should_be_saved)
+	$UI/SaveWindow.show()
 
 
 func _on_show_star_list_button_button_up():
@@ -149,3 +148,17 @@ func _on_show_star_list_button_button_up():
 
 func _on_map_node_star_list_window_close_requested():
 	$UI/MapNodeStarListWindow.hide()
+
+
+func _on_file_dialog_close_requested():
+	$UI/MapNodeStarListWindow.hide()
+
+
+func _on_save_window_confirmed():
+	var saved_path : String = $UI/SaveWindow.current_path
+	print(saved_path)
+	if saved_path != "":
+		var stars_should_be_saved : Array[MapNodeStar]
+		for star in $Map/Stars.get_children():
+			stars_should_be_saved.append(star)
+		Save.save_map_node_stars(stars_should_be_saved, saved_path)
