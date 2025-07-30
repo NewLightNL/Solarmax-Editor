@@ -2,10 +2,9 @@ extends Control
 
 
 @export var star_fleet_information_unit : PackedScene
-@export var halo_drawing_center : PackedScene
 
 # 存储画环的节点
-var halo_drawer : Marker2D
+@export var halo_drawer : Marker2D
 
 # 外部输入
 # 基本信息
@@ -25,6 +24,7 @@ var valid_camps_number : int
 var this_star_fleets : Array #其元素相比于"star_fleets"的元素省略了天体的tag
 # this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 
+@onready var star_container : Node2D = $ConfigureStarShipUIRect/StarShipPreview/ContainStar
 
 func _ready():
 	this_star_fleets = chosen_star.this_star_fleets
@@ -240,15 +240,19 @@ func calculate_halo_arguments() -> Array:
 
 # 画环
 func draw_halo(halo_arguments : Array, camps_number : int):
-	if halo_drawer != null:
-		halo_drawer.queue_free()
-	var halo_drawing_center_node = halo_drawing_center.instantiate()
-	$ConfigureStarShipUIRect/StarShipPreview.add_child(halo_drawing_center_node)
-	halo_drawing_center_node.halo_arguments = halo_arguments
-	halo_drawing_center_node.camps_number = camps_number
-	halo_drawing_center_node.position = $ConfigureStarShipUIRect/StarShipPreview/ContainStar.position
-	halo_drawing_center_node.queue_redraw()
-	halo_drawer = halo_drawing_center_node
+	#if halo_drawer != null:
+		#halo_drawer.queue_free()
+	#var halo_drawing_center_node = halo_drawing_center.instantiate()
+	#$ConfigureStarShipUIRect/StarShipPreview.add_child(halo_drawing_center_node)
+	#halo_drawing_center_node.halo_arguments = halo_arguments
+	#halo_drawing_center_node.camps_number = camps_number
+	#halo_drawing_center_node.position = $ConfigureStarShipUIRect/StarShipPreview/ContainStar.position
+	#halo_drawing_center_node.queue_redraw()
+	#halo_drawer = halo_drawing_center_node
+	halo_drawer.halo_arguments = halo_arguments
+	halo_drawer.camps_number = camps_number
+	halo_drawer.position = star_container.position
+	halo_drawer.queue_redraw()
 
 
 func update_valid_camps_number():

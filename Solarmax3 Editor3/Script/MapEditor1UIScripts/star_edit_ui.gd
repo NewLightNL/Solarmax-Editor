@@ -16,8 +16,7 @@ var chosen_star : MapNodeStar
 
 # 内部
 var recently_chosen_stars : Array[Star]
-var map_node_path : NodePath = "../../Map"
-var Main1_node_path : NodePath = "../.."
+
 
 
 const  MAX_RECENT_STARS_NUMBER = 6
@@ -28,12 +27,15 @@ const  MAX_RECENT_STARS_NUMBER = 6
 @onready var chosen_star_name_label = $ChooseStar/Name_bg/Name
 @onready var recently_chosen_star_bar = $RecentlyChosenStarBG/RecentlyChosenStarBar
 @onready var create_star_button = $CreateStarButton
-@onready var confirm_create_star_ui = $ConfirmCreateStarUI
 
+
+@onready var map_node : Node2D = $"../../Map"
+@onready var Main1_node : Node = $"../.."
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
+	$"../../Map".create_star.connect(_create_star_feedback)
 	
 	#$StarInformation.update_star_information_ui()
 	#stars = Load.get_map_editor_basic_information("stars")
@@ -81,7 +83,7 @@ func _initialize_recently_chosen_star_button():
 # 关闭UI
 func _on_star_edit_ui_close_button_button_up():
 	visible = false
-	get_node(Main1_node_path).show_star_edit_ui_open_button()
+	Main1_node.show_star_edit_ui_open_button()
 
 
 # 当按起选择天体按钮时
@@ -177,26 +179,17 @@ func _on_recently_chosen_star_button_up(button_index : int):
 # 应移到MapEditor1里
 # 生成天体
 func _on_create_star_button_button_up() -> void:
-	if chosen_star != null:
-		if chosen_star.tag != "" and chosen_star.type != "":
-			# tag查重
-			for star in get_node(map_node_path).get_child(1).get_children():
-				if star == null:
-					continue
-				if chosen_star.tag == star.tag:
-					push_error("天体标签不能重复")
-					return
-			
-			var map_node = get_node(map_node_path)
-			var map_node_star_node = map_node_star_scene.instantiate()
-			map_node.get_child(1).add_child(map_node_star_node)
-			map_node_star_node.duplicate_map_node_star(chosen_star)
-			map_node_star_node.update_map_node_star()
-		else:
-			push_error("天体标签不能为空或不能不选天体就生成!")
-		#map_node_star_node.get_child(0).queue_redraw()
-	#$UI/CreateUI/CreateStarButton.visible = false
-	#$UI/CreateUI/ConfirmCreateStarUI.visible = true
+	map_node.get_mapnodestar(chosen_star)
+	map_node.create_mapnodestar()
+
+
+func _create_star_feedback(is_success : bool, context : String):
+	if is_success == true:
+		pass
+	else:
+		# 呼出警告界面
+		push_error("创建天体失败！原因：" + context)
+
 
 # 确认生成天体
 func _on_cancel_create_star_button_button_up():

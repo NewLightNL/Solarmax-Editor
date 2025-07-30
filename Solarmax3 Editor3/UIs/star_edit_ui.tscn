@@ -333,36 +333,6 @@ offset_bottom = 58.38
 theme_override_font_sizes/font_size = 25
 text = "生成"
 
-[node name="ConfirmCreateStarUI" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchor_left = 0.076
-anchor_top = 0.878
-anchor_right = 0.934
-anchor_bottom = 0.977
-offset_left = -0.104
-offset_top = 0.0759888
-offset_right = -0.436035
-offset_bottom = -25.666
-
-[node name="CancelCreateStarButton" type="Button" parent="ConfirmCreateStarUI"]
-layout_mode = 0
-offset_left = 63.988
-offset_top = 15.142
-offset_right = 159.988
-offset_bottom = 63.142
-theme_override_font_sizes/font_size = 25
-text = "取消"
-
-[node name="ConfirmCreateStarButton" type="Button" parent="ConfirmCreateStarUI"]
-layout_mode = 0
-offset_left = 303.988
-offset_top = 15.142
-offset_right = 399.988
-offset_bottom = 63.142
-theme_override_font_sizes/font_size = 25
-text = "确认"
-
 [connection signal="button_up" from="StarEditUI_closeButton" to="." method="_on_star_edit_ui_close_button_button_up"]
 [connection signal="button_up" from="ChooseStar" to="." method="_on_choose_star_button_up"]
 [connection signal="button_up" from="CreateStarButton" to="." method="_on_create_star_button_button_up"]

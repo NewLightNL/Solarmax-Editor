@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://c4h03s10yicqg" path="res://Textures/StarTexture/Planets/planet01.png" id="1_cfkbm"]
 [ext_resource type="Script" uid="uid://cy8b412rknbyd" path="res://Script/MapEditor1UIScripts/configure_star_ship_ui.gd" id="1_ugw1q"]
 [ext_resource type="PackedScene" uid="uid://dlp0enqxnawmv" path="res://UIs/ConfigureStarShipUIs/star_fleet_informaiton_unit.tscn" id="3_0ki3m"]
-[ext_resource type="PackedScene" uid="uid://lk1uxytqftqa" path="res://UIs/ConfigureStarShipUIs/halo_drawing_center.tscn" id="4_3mhld"]
+[ext_resource type="Script" uid="uid://c4haiew626a82" path="res://Script/MapEditor1UIScripts/halo_drawing_center_draw_halo.gd" id="4_3ohxx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugw1q"]
 bg_color = Color(0.380392, 0.639216, 0.768627, 0.607843)
@@ -42,7 +42,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="ConfigureStarShipUI" type="Control"]
+[node name="ConfigureStarShipUI" type="Control" node_paths=PackedStringArray("halo_drawer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,7 +51,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ugw1q")
 star_fleet_information_unit = ExtResource("3_0ki3m")
-halo_drawing_center = ExtResource("4_3mhld")
+halo_drawer = NodePath("ConfigureStarShipUIRect/StarShipPreview/HaloDrawingCenter")
 metadata/_edit_lock_ = true
 
 [node name="ConfigureStarShipUIRect" type="Control" parent="."]
@@ -117,8 +117,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HaloDrawingCenter" parent="ConfigureStarShipUIRect/StarShipPreview" instance=ExtResource("4_3mhld")]
+[node name="HaloDrawingCenter" type="Marker2D" parent="ConfigureStarShipUIRect/StarShipPreview"]
 position = Vector2(128, 80)
+script = ExtResource("4_3ohxx")
 
 [node name="AddStarFleetUI" type="Control" parent="ConfigureStarShipUIRect"]
 layout_mode = 1

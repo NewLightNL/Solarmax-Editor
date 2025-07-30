@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://binldjwnoxwjq"]
+[gd_scene load_steps=4 format=3 uid="uid://binldjwnoxwjq"]
 
 [ext_resource type="Script" uid="uid://cs8xmtqi8yiqy" path="res://MapNode/map_node_star_extended.gd" id="1_pgljj"]
 [ext_resource type="PackedScene" uid="uid://bokt0b574qaxk" path="res://MapNode/map_node_halo_drawing_center.tscn" id="2_mnfgt"]
+[ext_resource type="Script" uid="uid://b0lxeahn18y57" path="res://MapNode/orbit_drawer.gd" id="3_pgljj"]
 
 [node name="MapNodeStar" type="Node2D"]
 script = ExtResource("1_pgljj")
 halo_drawing_center = ExtResource("2_mnfgt")
 metadata/_custom_type_script = "uid://dqttewalk2ltr"
+
+[node name="OrbitDrawer" type="Marker2D" parent="."]
+script = ExtResource("3_pgljj")
 
 [node name="MapNodeStarSprite" type="Sprite2D" parent="."]
 

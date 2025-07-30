@@ -136,7 +136,7 @@ func _on_file_dialog_close_requested():
 
 func _on_save_window_confirmed():
 	var saved_path : String = $UI/SaveWindow.current_path
-	print(saved_path)
+	
 	if saved_path != "":
 		var stars_should_be_saved : Array[MapNodeStar]
 		for star in $Map/Stars.get_children():

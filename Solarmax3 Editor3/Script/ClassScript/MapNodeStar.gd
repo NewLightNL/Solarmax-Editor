@@ -15,8 +15,9 @@ var this_star_fleets : Array
 ## 天体坐标
 var star_position : Vector2
 ## 轨道信息
-var orbit_information : Array
-# [轨道类型(int), 轨道参数1(Vector2)， 轨道参数2(Vector2)]
+var orbit_type : int
+var orbit_param1 : Vector2
+var orbit_param2 : Vector2
 ## 旋转角度
 var fAngle : float
 # 特殊天体信息
@@ -45,32 +46,66 @@ func copy_information_from_star(base_star : Star):
 	self.offset_fix = base_star.offset_fix
 
 
-func duplicate_map_node_star(map_node_star : MapNodeStar):
-	self.pattern_name = map_node_star.pattern_name
-	self.star_scale = map_node_star.star_scale
-	self.type = map_node_star.type
-	self.size_type = map_node_star.size_type
-	self.star_name = map_node_star.star_name
-	self.special_star_type = map_node_star.special_star_type
-	self.scale_fix = map_node_star.scale_fix
-	self.offset_fix = map_node_star.offset_fix
-	self.tag = map_node_star.tag
-	self.star_camp = map_node_star.star_camp
+func duplicate_map_node_star() -> MapNodeStar:
+	var rt_mapnodestar : MapNodeStar = MapNodeStar.new()
+	
+	rt_mapnodestar.pattern_name = self.pattern_name
+	rt_mapnodestar.star_scale = self.star_scale
+	rt_mapnodestar.type = self.type
+	rt_mapnodestar.size_type = self.size_type
+	rt_mapnodestar.star_name = self.star_name
+	rt_mapnodestar.special_star_type = self.special_star_type
+	rt_mapnodestar.scale_fix = self.scale_fix
+	rt_mapnodestar.offset_fix = self.offset_fix
+	rt_mapnodestar.tag = self.tag
+	rt_mapnodestar.star_camp = self.star_camp
 	# 复合类型数组，需要拷贝
-	var this_star_fleets_duplicated = map_node_star.this_star_fleets.duplicate(true)
+	var this_star_fleets_duplicated = self.this_star_fleets.duplicate(true)
+	rt_mapnodestar.this_star_fleets = this_star_fleets_duplicated
+	
+	rt_mapnodestar.star_position = self.star_position
+	rt_mapnodestar.orbit_type = self.orbit_type
+	rt_mapnodestar.orbit_param1 = self.orbit_param1
+	rt_mapnodestar.orbit_param2 = self.orbit_param2
+	rt_mapnodestar.fAngle = self.fAngle
+	
+	var transformBulidingID_duplicated = self.transformBulidingID.duplicate(true)
+	rt_mapnodestar.transformBulidingID = transformBulidingID_duplicated
+	
+	var lasergun_information_duplicated = self.lasergun_information.duplicate(true)
+	rt_mapnodestar.lasergun_information = lasergun_information_duplicated
+	
+	rt_mapnodestar.is_taget = self.is_taget
+	
+	return rt_mapnodestar
+
+
+func copy_map_node_star(map_node_star_copied) -> void:
+	self.pattern_name = map_node_star_copied.pattern_name
+	self.star_scale = map_node_star_copied.star_scale
+	self.type = map_node_star_copied.type
+	self.size_type = map_node_star_copied.size_type
+	self.star_name = map_node_star_copied.star_name
+	self.special_star_type = map_node_star_copied.special_star_type
+	self.scale_fix = map_node_star_copied.scale_fix
+	self.offset_fix = map_node_star_copied.offset_fix
+	self.tag = map_node_star_copied.tag
+	self.star_camp = map_node_star_copied.star_camp
+	# 复合类型数组，需要拷贝
+	var this_star_fleets_duplicated = map_node_star_copied.this_star_fleets.duplicate(true)
 	self.this_star_fleets = this_star_fleets_duplicated
 	
-	self.star_position = map_node_star.star_position
+	self.star_position = map_node_star_copied.star_position
+	self.orbit_type = map_node_star_copied.orbit_type
+	self.orbit_param1 = map_node_star_copied.orbit_param1
+	self.orbit_param2 = map_node_star_copied.orbit_param2
+	self.fAngle = map_node_star_copied.fAngle
 	
-	var orbit_information_duplicated = map_node_star.orbit_information.duplicate(true)
-	self.orbit_information = orbit_information_duplicated
-	
-	self.fAngle = map_node_star.fAngle
-	
-	var transformBulidingID_duplicated = map_node_star.transformBulidingID.duplicate(true)
+	var transformBulidingID_duplicated = map_node_star_copied.transformBulidingID.duplicate(true)
 	self.transformBulidingID = transformBulidingID_duplicated
 	
-	var lasergun_information_duplicated = map_node_star.lasergun_information.duplicate(true)
+	var lasergun_information_duplicated = map_node_star_copied.lasergun_information.duplicate(true)
 	self.lasergun_information = lasergun_information_duplicated
 	
-	self.is_taget = map_node_star.is_taget
+	self.is_taget = map_node_star_copied.is_taget
+	

@@ -2,11 +2,7 @@ extends MapNodeStar
 
 
 # 私有
-@onready var _halo_drawer : Marker2D = $HaloDrawingCenter
-@onready var _map_node_star_sprite : Sprite2D = $MapNodeStarSprite
-@onready var _star_ui : Control = $StarUI
-@onready var _star_fleets_label : Control = $StarUI/StarFleetsLabel
-#@onready var _star_ui_position_node : Marker2D = $ControlMeasure/StarUIPosition
+
 var _ui_last_position : Vector2
 const MAPUNITLENTH = 99.4
 # 外部输入数据
@@ -15,11 +11,19 @@ var camp_colors : Dictionary
 
 @export var halo_drawing_center : PackedScene
 
+@onready var _halo_drawer : Marker2D = $HaloDrawingCenter
+@onready var _map_node_star_sprite : Sprite2D = $MapNodeStarSprite
+@onready var _star_ui : Control = $StarUI
+@onready var _star_fleets_label : Control = $StarUI/StarFleetsLabel
+@onready var _orbit_drawer : Node2D = $OrbitDrawer
+
 
 func _ready():
-	#Mapeditor1ShareData.init_editor_data()
+	Mapeditor1ShareData.init_editor_data()
 	star_pattern_dictionary = Mapeditor1ShareData.star_pattern_dictionary
 	camp_colors = Mapeditor1ShareData.camp_colors
+	
+	update_map_node_star()
 	#var stars = Mapeditor1ShareData.stars
 	#_init_from_star(stars[0])
 
@@ -37,12 +41,12 @@ func _update_ui_children():
 func update_map_node_star():
 	_update_map_node_star_showing_property()
 	_call_draw_halo()
+	_call_draw_orbit()
 	_update_star_ui()
 
 
 func _update_map_node_star_showing_property():
 	_update_map_node_star_position()
-	_update_map_node_star_orbit()
 	_update_map_node_star_showing_picture()
 	_update_map_node_star_showing_camp()
 
@@ -52,9 +56,6 @@ func _update_map_node_star_position():
 	var map_position = star_position * MAPUNITLENTH * x_axis_flip
 	self.position = map_position
 
-
-func _update_map_node_star_orbit():
-	pass
 
 
 func _update_map_node_star_showing_picture():
@@ -74,6 +75,14 @@ func _call_draw_halo():
 	var valid_camps_number = _get_valid_camps_number()
 	var halo_arguments = _calculate_halo_arguments(valid_camps_number)
 	draw_halo(halo_arguments, valid_camps_number)
+
+
+func _call_draw_orbit():
+	_orbit_drawer.orbit_type = self.orbit_type
+	_orbit_drawer.star_position = self.star_position
+	_orbit_drawer.orbit_param1 = self.orbit_param1
+	_orbit_drawer.orbit_param2 = self.orbit_param2
+	_orbit_drawer.queue_redraw()
 
 
 func _get_valid_camps_number() -> int:
