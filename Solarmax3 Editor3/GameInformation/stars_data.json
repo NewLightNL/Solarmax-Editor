@@ -401,7 +401,7 @@
 				],
 				"offset_fix": [
 					0,
-					0
+					-1.2
 				],
 				"rotation_fix_degree": 0
 			}
@@ -420,7 +420,7 @@
 				],
 				"offset_fix": [
 					0,
-					0
+					-3.0
 				],
 				"rotation_fix_degree": 0
 			}

@@ -36,6 +36,21 @@ extends Control
 ## 特殊类型天体设置按钮
 @export var configure_special_star_button : Button
 
+@onready var ui_list : Array[Node] = [star_size_input_option_button,
+	star_size_input_option_button,
+	star_camp_input_spinbox,
+	star_camp_input_option_button,
+	configure_star_ship_button,
+	star_tag_input_line_edit,
+	star_position_input_x,
+	star_position_input_y,
+	star_orbit_type_input_option_button,
+	configure_star_orbit_button,
+	star_fangle_input,
+	is_target_node_input,
+	configure_special_star_button,
+]
+
 # 交流变量
 # 基本信息
 var defined_camp_ids : Array[int]
@@ -60,6 +75,8 @@ func _ready():
 	star_position_input_x.value = 0.0
 	star_position_input_y.value = 0.0
 	$SizeInputLabel/StarSizeInputOptionButton.clear()
+	
+	lock_uis()
 
 
 #func _initialize_basic_information():
@@ -68,6 +85,22 @@ func _ready():
 	#stars = Mapeditor1ShareData.stars
 	#orbit_types = Mapeditor1ShareData.orbit_types
 	#stars_dictionary = Mapeditor1ShareData.stars_dictionary
+
+
+func lock_uis():
+	for i in ui_list:
+		if i is SpinBox or i is LineEdit:
+			i.editable = false
+		else:
+			i.disabled = true
+
+
+func unlock_uis():
+	for i in ui_list:
+		if i is SpinBox or i is LineEdit:
+			i.editable = true
+		else:
+			i.disabled = false
 
 
 func _on_global_data_updated(key : String):
@@ -130,6 +163,7 @@ func configure_star_size_input_option_button():
 			star_size_input_option_button.add_item(str(star.size_type), star.size_type)
 		var chosen_star_index = star_size_input_option_button.get_item_index(chosen_star.size_type)
 		star_size_input_option_button.select(chosen_star_index)
+
 
 # 配置天体阵营输入按钮
 func configure_star_camp_input():

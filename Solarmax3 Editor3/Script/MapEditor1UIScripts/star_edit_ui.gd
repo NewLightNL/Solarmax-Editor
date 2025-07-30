@@ -17,6 +17,7 @@ var chosen_star : MapNodeStar
 # 内部
 var recently_chosen_stars : Array[Star]
 var map_node_path : NodePath = "../../Map"
+var Main1_node_path : NodePath = "../.."
 
 
 const  MAX_RECENT_STARS_NUMBER = 6
@@ -28,14 +29,12 @@ const  MAX_RECENT_STARS_NUMBER = 6
 @onready var recently_chosen_star_bar = $RecentlyChosenStarBG/RecentlyChosenStarBar
 @onready var create_star_button = $CreateStarButton
 @onready var confirm_create_star_ui = $ConfirmCreateStarUI
-@onready var star_editUI_open_button = $"../StarEditUIOpenButton"
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
-	chosen_star = MapNodeStar.new()
-	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	
 	#$StarInformation.update_star_information_ui()
 	#stars = Load.get_map_editor_basic_information("stars")
 	#star_pattern_dictionary = Load.init_star_pattern_dictionary()
@@ -82,7 +81,8 @@ func _initialize_recently_chosen_star_button():
 # 关闭UI
 func _on_star_edit_ui_close_button_button_up():
 	visible = false
-	star_editUI_open_button.visible = true
+	get_node(Main1_node_path).show_star_edit_ui_open_button()
+
 
 # 当按起选择天体按钮时
 func _on_choose_star_button_up():
@@ -149,21 +149,20 @@ func _update_star_display(star : Star):
 
 
 func _update_chosen_star(star : Star):
-	# 赋予被选中的天体属性
-	# star_slot_information = [天体图样名(pattern_name)(String)(index = 0), 
-	# 天体缩放比例(scale)(float)(index = 1), 天体类型(type)(String)(index = 2), 
-	# 大小类型(size_type)(int)(index = 3),名称(String)(index = 4),
-	# 特殊天体类型(String)(index = 5)]
-	var star_information : Array = star.get_star_information()
-	chosen_star.pattern_name = star_information[0]
-	chosen_star.star_scale = star_information[1]
-	chosen_star.type = star_information[2]
-	chosen_star.size_type = star_information[3]
-	chosen_star.star_name = star_information[4]
-	chosen_star.special_star_type = star_information[5]
-	chosen_star.scale_fix = star_information[6]
-	chosen_star.offset_fix = star_information[7]
+	chosen_star = MapNodeStar.new()
 	
+	# 赋予被选中的天体属性
+	chosen_star.pattern_name = star.pattern_name
+	chosen_star.star_scale = star.star_scale
+	chosen_star.type = star.type
+	chosen_star.size_type = star.size_type
+	chosen_star.star_name = star.star_name
+	chosen_star.special_star_type = star.special_star_type
+	chosen_star.scale_fix = star.scale_fix
+	chosen_star.offset_fix = star.offset_fix
+	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	
+	$StarInformation.unlock_uis()
 	$StarInformation.update_star_information_ui()
 
 
@@ -175,7 +174,7 @@ func _on_recently_chosen_star_button_up(button_index : int):
 		_update_star_display(star)
 		_update_chosen_star(star)
 
-
+# 应移到MapEditor1里
 # 生成天体
 func _on_create_star_button_button_up() -> void:
 	if chosen_star != null:

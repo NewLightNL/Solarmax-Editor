@@ -21,27 +21,22 @@ var star_fleets : Array
 # 临时
 @export var map_node_star_list_unit : PackedScene
 
+@onready var star_edit_ui_open_button : Button = $UI/EditorUI/StarEditUIOpenButton
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
-	Mapeditor1ShareData.init_editor_data()
-	
-	
-	$UI/SaveWindow.set_ok_button_text("保存")
 	# 初始化变量
+	# 链接全局变量
+	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
 	# 加载编辑器基本信息
+	Mapeditor1ShareData.init_editor_data()
+	# 检查初始化
 	#check_initalisation()
+	# 处理变量...
 	
-	# 处理变量
-	
-	
-	# 初始化创建天体UI
-	#$StarEditUIOpenButton.visible = false
-	#$UI/CreateUI.visible = true
-	#if is_star_chosen == false:
-		#$UI/CreateUI/StarInformation/SetStarShipButton.disabled = true
-	#$UI/CreateUI/StarInformation/CamptionInputLabel/StarCampInput.text = "0"
-	#$UI/CreateUI/StarInformation/CamptionInputLabel/StarCampInputOptionButton.clear()
+	# 初始化界面
+	$UI/SaveWindow.set_ok_button_text("保存")
 
 
 func _on_global_data_updated(key : String):
@@ -68,7 +63,6 @@ func _on_global_data_updated(key : String):
 			push_error("数据更新出错，请检查要提交的内容名是否正确")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 	#if Input.is_action_pressed("up"):
 		#$Camera.position -= Vector2(0, 100) * delta
@@ -79,13 +73,6 @@ func _on_global_data_updated(key : String):
 	#if Input.is_action_pressed("right"):
 		#$Camera.position += Vector2(100, 0) * delta
 
-
-func initialize_ui():
-	$UI/StarEditUI.star_pattern_dictionary = star_pattern_dictionary
-	$UI/StarEditUI.defined_camp_ids = defined_camp_ids
-	$UI/StarEditUI.camp_colors = camp_colors
-	$UI/StarEditUI.stars = stars
-	$UI/StarEditUI.orbit_types = orbit_types
 
 func check_initalisation():
 	if star_pattern_dictionary == {}:
@@ -102,9 +89,15 @@ func check_initalisation():
 		# 应当弹出警告窗
 
 
+# 展开天体编辑UI
 func _on_star_edit_ui_open_button_button_up():
-	$UI/StarEditUIOpenButton.visible = false
+	star_edit_ui_open_button.visible = false
 	$UI/StarEditUI.visible = true
+
+
+# 显示展开天体编辑UI按钮
+func show_star_edit_ui_open_button():
+	star_edit_ui_open_button.visible = true
 
 
 func _on_export_button_button_up():
@@ -120,31 +113,18 @@ func _on_show_star_list_button_button_up():
 	for map_node_star in map_node_stars:
 		var context_format : String = "  天体名: %s ; 天体类型: %s ; 大小类型: %s ; 天体标签: %s ; 坐标: (%s, %s) ; 阵营: %s  "
 		var context = context_format % [
-				map_node_star.star_name,
-				map_node_star.type,
-				map_node_star.size_type,
-				map_node_star.tag,
-				map_node_star.star_position.x,
-				map_node_star.star_position.y,
-				map_node_star.star_camp,
-				]
+			map_node_star.star_name,
+			map_node_star.type,
+			map_node_star.size_type,
+			map_node_star.tag,
+			map_node_star.star_position.x,
+			map_node_star.star_position.y,
+			map_node_star.star_camp,
+		]
 		var map_node_star_list_unit_node = map_node_star_list_unit.instantiate()
 		map_node_star_list_unit_node.text = context
 		map_node_star_list.add_child(map_node_star_list_unit_node)
 
-# 天体类型信息
-	#var type : String
-	#var size_type : int
-	#var star_name : String
-	#var tag : String
-	#var star_camp : int
-	#var this_star_fleets : Array
-	#var star_position : Vector2
-	#var orbit_information : Array
-	#var fAngle : float
-	#var transformBulidingID : Array
-	#var lasergun_information : Array
-	#var is_taget : bool
 
 func _on_map_node_star_list_window_close_requested():
 	$UI/MapNodeStarListWindow.hide()
@@ -162,3 +142,10 @@ func _on_save_window_confirmed():
 		for star in $Map/Stars.get_children():
 			stars_should_be_saved.append(star)
 		Save.save_map_node_stars(stars_should_be_saved, saved_path)
+
+
+func _on_show_grid_button_button_up() -> void:
+	if $Map/Coordinates.visible == true:
+		$Map/Coordinates.visible = false
+	else:
+		$Map/Coordinates.visible = true
