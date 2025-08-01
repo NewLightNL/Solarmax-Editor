@@ -1,15 +1,13 @@
 extends MapNodeStar
 
+const MAPUNITLENTH = 99.4
 
-# 私有
+@export var halo_drawing_center : PackedScene
 
 var _ui_last_position : Vector2
-const MAPUNITLENTH = 99.4
 # 外部输入数据
 var star_pattern_dictionary : Dictionary
 var camp_colors : Dictionary
-
-@export var halo_drawing_center : PackedScene
 
 @onready var _halo_drawer : Marker2D = $HaloDrawingCenter
 @onready var _map_node_star_sprite : Sprite2D = $MapNodeStarSprite
@@ -64,6 +62,17 @@ func _update_map_node_star_showing_picture():
 	var scale_processed = Vector2(raw_scale.x * scale_fix.x, raw_scale.y * scale_fix.y)
 	_map_node_star_sprite.scale = scale_processed
 	_map_node_star_sprite.offset = offset_fix
+	
+	if self.is_taget == true:
+		# 对于可旋转天体，要用障碍点标记
+		# 对于自带旋转的天体?
+		self.fAngle = 90
+		_map_node_star_sprite.rotation_degrees = self.rotation_fix_degree + self.fAngle
+	else:
+		# 对于不旋转天体，则恢复0度
+		# 对于旋转天体，则去掉障碍点，保持其旋转角度
+		self.fAngle = 0
+		_map_node_star_sprite.rotation_degrees = self.rotation_fix_degree + self.fAngle
 
 
 func _update_map_node_star_showing_camp():
@@ -78,11 +87,14 @@ func _call_draw_halo():
 
 
 func _call_draw_orbit():
-	_orbit_drawer.orbit_type = self.orbit_type
-	_orbit_drawer.star_position = self.star_position
-	_orbit_drawer.orbit_param1 = self.orbit_param1
-	_orbit_drawer.orbit_param2 = self.orbit_param2
-	_orbit_drawer.queue_redraw()
+	if self.orbit_type != "":
+		_orbit_drawer.orbit_type = self.orbit_type
+		_orbit_drawer.star_position = self.star_position
+		_orbit_drawer.orbit_param1 = self.orbit_param1
+		_orbit_drawer.orbit_param2 = self.orbit_param2
+		_orbit_drawer.queue_redraw()
+	else:
+		push_error("天体没有轨道类型!")
 
 
 func _get_valid_camps_number() -> int:

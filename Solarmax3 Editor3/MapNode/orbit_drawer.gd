@@ -42,7 +42,7 @@ func _draw_orbit():
 
 func _draw_circle():
 	var radius = star_position_converted.distance_to(orbit_param1_converted)
-	var center_position = orbit_param1_converted
+	var center_position = orbit_param1_converted - star_position_converted
 	draw_circle(center_position, radius, ORBIT_COLOR, false, ORBIT_WIDTH, true)
 
 
@@ -51,9 +51,9 @@ func _draw_triangle():
 	var vertex_vector2 : Vector2 = vertex_vector1.rotated(2 * PI / 3)
 	var vertex_vector3 : Vector2 = vertex_vector1.rotated(2 * PI * (2.0 / 3.0))
 	
-	var vertex1_position : Vector2 = vertex_vector1 + orbit_param1_converted
-	var vertex2_position : Vector2 = vertex_vector2 + orbit_param1_converted
-	var vertex3_position : Vector2 = vertex_vector3 + orbit_param1_converted
+	var vertex1_position : Vector2 = vertex_vector1 + orbit_param1_converted - star_position_converted
+	var vertex2_position : Vector2 = vertex_vector2 + orbit_param1_converted - star_position_converted
+	var vertex3_position : Vector2 = vertex_vector3 + orbit_param1_converted - star_position_converted
 	
 	var vertex_positions : PackedVector2Array = [
 		vertex1_position,
@@ -70,10 +70,10 @@ func _draw_square():
 	var vertex_vector3 : Vector2 = vertex_vector1.rotated(2 * PI * (2.0 / 4.0))
 	var vertex_vector4 : Vector2 = vertex_vector1.rotated(2 * PI * (3.0 / 4.0))
 	
-	var vertex1_position : Vector2 = vertex_vector1 + orbit_param1_converted
-	var vertex2_position : Vector2 = vertex_vector2 + orbit_param1_converted
-	var vertex3_position : Vector2 = vertex_vector3 + orbit_param1_converted
-	var vertex4_position : Vector2 = vertex_vector4 + orbit_param1_converted
+	var vertex1_position : Vector2 = vertex_vector1 + orbit_param1_converted - star_position_converted
+	var vertex2_position : Vector2 = vertex_vector2 + orbit_param1_converted - star_position_converted
+	var vertex3_position : Vector2 = vertex_vector3 + orbit_param1_converted - star_position_converted
+	var vertex4_position : Vector2 = vertex_vector4 + orbit_param1_converted - star_position_converted
 	
 	var vertex_positions : PackedVector2Array = [
 		vertex1_position,
@@ -116,6 +116,6 @@ func _draw_ellipse():
 		var vertex_positions : PackedVector2Array = []
 		for vertex_vector in vertex_vectors:
 			vertex_vector = vertex_vector.rotated(ellipse_rotation_radian)
-			var vertex_position = vertex_vector + ellipes_center
+			var vertex_position = vertex_vector + ellipes_center - star_position_converted
 			vertex_positions.append(vertex_position)
 		draw_polyline(vertex_positions, ORBIT_COLOR, ORBIT_WIDTH, true)

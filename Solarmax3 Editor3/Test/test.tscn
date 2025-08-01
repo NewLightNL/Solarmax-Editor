@@ -1,12 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://x1xyl3c2x2mf"]
+[gd_scene load_steps=2 format=3 uid="uid://x1xyl3c2x2mf"]
 
 [ext_resource type="Script" uid="uid://dxg0lqj0f2ic5" path="res://Test/test.gd" id="1_37kl0"]
-[ext_resource type="Script" uid="uid://b0lxeahn18y57" path="res://MapNode/orbit_drawer.gd" id="2_lxp54"]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_37kl0")
-
-[node name="OrbitDrawer" type="Marker2D" parent="."]
-script = ExtResource("2_lxp54")
 
 [node name="Camera2D" type="Camera2D" parent="."]

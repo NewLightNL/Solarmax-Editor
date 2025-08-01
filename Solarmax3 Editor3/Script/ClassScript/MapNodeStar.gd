@@ -15,7 +15,7 @@ var this_star_fleets : Array
 ## 天体坐标
 var star_position : Vector2
 ## 轨道信息
-var orbit_type : int
+var orbit_type : String
 var orbit_param1 : Vector2
 var orbit_param2 : Vector2
 ## 旋转角度
@@ -35,7 +35,7 @@ var lasergun_information : Array
 var is_taget : bool
 
 
-func copy_information_from_star(base_star : Star):
+func copy_information_from_star(base_star : Star) -> void:
 	self.pattern_name = base_star.pattern_name
 	self.star_scale = base_star.star_scale
 	self.type = base_star.type
@@ -44,6 +44,7 @@ func copy_information_from_star(base_star : Star):
 	self.special_star_type = base_star.special_star_type
 	self.scale_fix = base_star.scale_fix
 	self.offset_fix = base_star.offset_fix
+	self.rotation_fix_degree = base_star.rotation_fix_degree
 
 
 func duplicate_map_node_star() -> MapNodeStar:
@@ -57,6 +58,7 @@ func duplicate_map_node_star() -> MapNodeStar:
 	rt_mapnodestar.special_star_type = self.special_star_type
 	rt_mapnodestar.scale_fix = self.scale_fix
 	rt_mapnodestar.offset_fix = self.offset_fix
+	rt_mapnodestar.rotation_fix_degree = self.rotation_fix_degree
 	rt_mapnodestar.tag = self.tag
 	rt_mapnodestar.star_camp = self.star_camp
 	# 复合类型数组，需要拷贝
@@ -80,7 +82,7 @@ func duplicate_map_node_star() -> MapNodeStar:
 	return rt_mapnodestar
 
 
-func copy_map_node_star(map_node_star_copied) -> void:
+func copy_map_node_star(map_node_star_copied : MapNodeStar) -> void:
 	self.pattern_name = map_node_star_copied.pattern_name
 	self.star_scale = map_node_star_copied.star_scale
 	self.type = map_node_star_copied.type
@@ -89,6 +91,7 @@ func copy_map_node_star(map_node_star_copied) -> void:
 	self.special_star_type = map_node_star_copied.special_star_type
 	self.scale_fix = map_node_star_copied.scale_fix
 	self.offset_fix = map_node_star_copied.offset_fix
+	self.rotation_fix_degree = map_node_star_copied.rotation_fix_degree
 	self.tag = map_node_star_copied.tag
 	self.star_camp = map_node_star_copied.star_camp
 	# 复合类型数组，需要拷贝

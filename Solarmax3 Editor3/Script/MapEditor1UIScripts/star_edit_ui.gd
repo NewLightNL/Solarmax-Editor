@@ -1,5 +1,9 @@
 extends Control
 
+signal change_object_visibility(object_name: String, visibile : bool)
+signal switch_object_visibility(object_name: String)
+
+
 @export var star_information_scene : PackedScene
 @export var choose_star_ui : PackedScene
 @export var map_node_star_scene : PackedScene
@@ -17,25 +21,26 @@ var chosen_star : MapNodeStar
 # 内部
 var recently_chosen_stars : Array[Star]
 
-
-
-const  MAX_RECENT_STARS_NUMBER = 6
+const  MAX_RECENT_STARS_NUMBER = 5
 
 # UI节点引用
 @onready var choose_star = $ChooseStar
 @onready var chosen_star_picture = $ChooseStar/ChosenStarPicture
 @onready var chosen_star_name_label = $ChooseStar/Name_bg/Name
-@onready var recently_chosen_star_bar = $RecentlyChosenStarBG/RecentlyChosenStarBar
+@onready var recently_chosen_stars_box = $RecentlyChosenStarBG
 @onready var create_star_button = $CreateStarButton
 
 
 @onready var map_node : Node2D = $"../../Map"
 @onready var Main1_node : Node = $"../.."
+@onready var ui_node : CanvasLayer = $".."
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
-	$"../../Map".create_star.connect(_create_star_feedback)
+	$"../../Map"._on_create_star.connect(_create_star_feedback)
+	$StarInformation.show_orbit_setting_window.connect(_on_change_object_visibility.bind("OrbitSettingWindow", true))
+	$StarInformation.switch_star_preview_state.connect(_on_switch_object_visibility.bind("PreviewStar"))
 	
 	#$StarInformation.update_star_information_ui()
 	#stars = Load.get_map_editor_basic_information("stars")
@@ -72,18 +77,19 @@ func _on_global_data_updated(key : String):
 
 # 初始化最近选择的天体UI按钮
 func _initialize_recently_chosen_star_button():
-	for i in range(1, 7):
-		var slot = recently_chosen_star_bar.get_node("RecentlyChosenStarSlot%d"%i)
+	for i in range(1, MAX_RECENT_STARS_NUMBER + 1):
+		var slot = recently_chosen_stars_box.get_node("RecentlyChosenStarSlot%d"%i)
 		var button : Button = slot.get_node("RecentlyChosenStarButtonBG/RecentlyChosenStarButton")
 		if button != null:
 			button.button_up.connect(_on_recently_chosen_star_button_up.bind(i))
 		else:
 			push_error("最近选择的天体按钮获取失败")
 
+# 改成发射关闭UI信号更好
 # 关闭UI
 func _on_star_edit_ui_close_button_button_up():
 	visible = false
-	Main1_node.show_star_edit_ui_open_button()
+	ui_node.show_star_edit_ui_open_button()
 
 
 # 当按起选择天体按钮时
@@ -98,27 +104,28 @@ func _on_choose_star_button_up():
 func _choose_star(star : Star):
 	_update_star_display(star)
 	_update_chosen_star(star)
-	_add_to_recently_chosen_stars(star)
+	_add_to_recently_chosen_stars(chosen_star)
 	_update_recently_chosen_stars_display()
 
 
-func _add_to_recently_chosen_stars(star : Star) -> void:
+func _add_to_recently_chosen_stars(recent_chosen_star : MapNodeStar) -> void:
+	var chosen_star_duplicate = recent_chosen_star.duplicate_map_node_star()
 	# 移除重复项
 	# 降序检测，防止删了后超范围
-	for i in range(recently_chosen_stars.size() - 1, -1, -1):
-		var recently_chosen_star_info : Array = recently_chosen_stars[i].get_star_information()
-		var star_info : Array = star.get_star_information()
-		if recently_chosen_star_info.size() == star_info.size():
-			if (
-				star_info[2] == recently_chosen_star_info[2]
-				and star_info[3] == recently_chosen_star_info[3]
-			):
-				recently_chosen_stars.remove_at(i)
-		else:
-			push_error("最近选择的天体信息或提交的天体信息残缺")
-			return
+	#for i in range(recently_chosen_stars.size() - 1, -1, -1):
+		#var recently_chosen_star_info : Array = recently_chosen_stars[i].get_star_information()
+		#var star_info : Array = chosen_star_duplicate.get_star_information()
+		#if recently_chosen_star_info.size() == star_info.size():
+			#if (
+				#star_info[2] == recently_chosen_star_info[2]
+				#and star_info[3] == recently_chosen_star_info[3]
+			#):
+				#recently_chosen_stars.remove_at(i)
+		#else:
+			#push_error("最近选择的天体信息或提交的天体信息残缺")
+			#return
 	
-	recently_chosen_stars.append(star)
+	recently_chosen_stars.append(chosen_star_duplicate)
 	
 	if recently_chosen_stars.size() > MAX_RECENT_STARS_NUMBER:
 		recently_chosen_stars.remove_at(0)
@@ -126,7 +133,7 @@ func _add_to_recently_chosen_stars(star : Star) -> void:
 
 func _update_recently_chosen_stars_display():
 	for i in range(min(recently_chosen_stars.size(), MAX_RECENT_STARS_NUMBER)):
-		var slot = recently_chosen_star_bar.get_child(i)
+		var slot = recently_chosen_stars_box.get_child(i)
 		var star_index = recently_chosen_stars.size() - i - 1
 		var star_information : Array = recently_chosen_stars[star_index].get_star_information()
 		slot.get_child(0).texture = star_pattern_dictionary[
@@ -154,18 +161,15 @@ func _update_chosen_star(star : Star):
 	chosen_star = MapNodeStar.new()
 	
 	# 赋予被选中的天体属性
-	chosen_star.pattern_name = star.pattern_name
-	chosen_star.star_scale = star.star_scale
-	chosen_star.type = star.type
-	chosen_star.size_type = star.size_type
-	chosen_star.star_name = star.star_name
-	chosen_star.special_star_type = star.special_star_type
-	chosen_star.scale_fix = star.scale_fix
-	chosen_star.offset_fix = star.offset_fix
-	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	if star is MapNodeStar:
+		chosen_star.copy_map_node_star(star)
+		Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	else:
+		chosen_star.copy_information_from_star(star)
+		Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
 	
-	$StarInformation.unlock_uis()
 	$StarInformation.update_star_information_ui()
+	$StarInformation.unlock_uis()
 
 
 # 最近选择的天体按钮被按起
@@ -179,7 +183,6 @@ func _on_recently_chosen_star_button_up(button_index : int):
 # 应移到MapEditor1里
 # 生成天体
 func _on_create_star_button_button_up() -> void:
-	map_node.get_mapnodestar(chosen_star)
 	map_node.create_mapnodestar()
 
 
@@ -191,12 +194,8 @@ func _create_star_feedback(is_success : bool, context : String):
 		push_error("创建天体失败！原因：" + context)
 
 
-# 确认生成天体
-func _on_cancel_create_star_button_button_up():
-	$UI/CreateUI/ConfirmCreateStarUI.visible = false
-	$UI/CreateUI/CreateStarButton.visible = true
+func _on_change_object_visibility(object_name : String, visibility : bool):
+	emit_signal("change_object_visibility", object_name, visibility)
 
-# 取消生成天体
-func _on_confirm_create_star_button_2_button_up():
-	$UI/CreateUI/ConfirmCreateStarUI.visible = false
-	$UI/CreateUI/CreateStarButton.visible = true
+func _on_switch_object_visibility(object_name : String):
+	emit_signal("switch_object_visibility", object_name)

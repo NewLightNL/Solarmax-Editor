@@ -63,8 +63,11 @@ script = ExtResource("4_20p2e")
 
 [node name="Stars" type="Node2D" parent="Map"]
 
+[node name="PreviewStar" type="Node2D" parent="Map"]
+
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("10_5mykn")
+map_node_star_list_unit = ExtResource("2_ax0xe")
 
 [node name="EditorUI" type="Control" parent="UI"]
 layout_mode = 3
@@ -106,6 +109,7 @@ offset_top = 136.0
 offset_right = 1280.0
 offset_bottom = 224.0
 theme_override_font_sizes/font_size = 30
+disabled = true
 text = "视图"
 
 [node name="MapSettingButton" type="Button" parent="UI/EditorUI"]
@@ -115,6 +119,7 @@ offset_top = 248.0
 offset_right = 1280.0
 offset_bottom = 336.0
 theme_override_font_sizes/font_size = 20
+disabled = true
 text = "地图设置"
 
 [node name="AddInfoButton" type="Button" parent="UI/EditorUI"]
@@ -124,6 +129,7 @@ offset_top = 360.0
 offset_right = 1280.0
 offset_bottom = 448.0
 theme_override_font_sizes/font_size = 11
+disabled = true
 text = "添加自定义内容"
 
 [node name="ShowGridButton" type="Button" parent="UI/EditorUI"]
@@ -134,6 +140,16 @@ offset_right = 1280.0
 offset_bottom = 560.0
 theme_override_font_sizes/font_size = 30
 text = "网格"
+
+[node name="BarrierLineConnectButton" type="Button" parent="UI/EditorUI"]
+layout_mode = 0
+offset_left = 1192.0
+offset_top = 584.0
+offset_right = 1280.0
+offset_bottom = 672.0
+theme_override_font_sizes/font_size = 16
+disabled = true
+text = "连接障碍线"
 
 [node name="ExportButton" type="Button" parent="UI/EditorUI"]
 layout_mode = 0
@@ -151,6 +167,7 @@ offset_top = 136.0
 offset_right = 120.0
 offset_bottom = 224.0
 theme_override_font_sizes/font_size = 30
+disabled = true
 text = "导入"
 
 [node name="EditorSettingButton" type="Button" parent="UI/EditorUI"]
@@ -160,6 +177,7 @@ offset_top = 248.0
 offset_right = 120.0
 offset_bottom = 336.0
 theme_override_font_sizes/font_size = 16
+disabled = true
 text = "编辑器设置"
 
 [node name="StarEditUI" parent="UI" instance=ExtResource("6_3dly0")]
@@ -204,9 +222,12 @@ position = Vector2i(1248, 224)
 [node name="OrbitSettingWindow" type="ConfirmationDialog" parent="UI"]
 title = "设置轨道"
 position = Vector2i(1465, 700)
-size = Vector2i(300, 150)
+size = Vector2i(320, 160)
 exclusive = false
 unresizable = true
+ok_button_text = "确认"
+dialog_close_on_escape = false
+cancel_button_text = "取消"
 script = ExtResource("13_j5np3")
 
 [node name="Control" type="Control" parent="UI/OrbitSettingWindow"]
@@ -215,9 +236,9 @@ anchor_top = 0.04
 anchor_right = 0.96
 anchor_bottom = 0.76
 offset_left = 8.0
-offset_top = 2.0
-offset_right = 4.0
-offset_bottom = -12.0
+offset_top = 1.6
+offset_right = 4.80002
+offset_bottom = -9.6
 
 [node name="StarPositionLabel" type="Label" parent="UI/OrbitSettingWindow/Control"]
 layout_mode = 0
@@ -227,41 +248,94 @@ text = "天体坐标: (0, 0)"
 
 [node name="OrbitParam1Label" type="Label" parent="UI/OrbitSettingWindow/Control"]
 layout_mode = 0
-offset_top = 30.0
-offset_right = 73.0
-offset_bottom = 52.0
-text = "焦点1坐标:"
+offset_left = -1.0
+offset_top = 28.0
+offset_right = 78.0
+offset_bottom = 60.0
+text = "焦点1 坐标:"
+vertical_alignment = 1
 
-[node name="x_input" type="SpinBox" parent="UI/OrbitSettingWindow/Control/OrbitParam1Label"]
+[node name="x" type="Label" parent="UI/OrbitSettingWindow/Control/OrbitParam1Label"]
 layout_mode = 0
-offset_left = 73.0
-offset_right = 161.5
-offset_bottom = 30.0
+offset_left = 88.0
+offset_right = 105.0
+offset_bottom = 32.0
+text = "x:"
+vertical_alignment = 1
 
-[node name="y_input" type="SpinBox" parent="UI/OrbitSettingWindow/Control/OrbitParam1Label"]
+[node name="x_input" type="SpinBox" parent="UI/OrbitSettingWindow/Control/OrbitParam1Label/x"]
 layout_mode = 0
-offset_left = 162.0
-offset_right = 250.5
-offset_bottom = 30.0
+offset_left = 17.0
+offset_right = 106.0
+offset_bottom = 32.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 1.0
+
+[node name="y" type="Label" parent="UI/OrbitSettingWindow/Control/OrbitParam1Label"]
+layout_mode = 0
+offset_left = 200.0
+offset_right = 217.0
+offset_bottom = 32.0
+text = "y:"
+vertical_alignment = 1
+
+[node name="y_input" type="SpinBox" parent="UI/OrbitSettingWindow/Control/OrbitParam1Label/y"]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 105.0
+offset_bottom = 32.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 1.0
 
 [node name="OrbitParam2Label" type="Label" parent="UI/OrbitSettingWindow/Control"]
 layout_mode = 0
-offset_top = 66.0
-offset_right = 82.0
-offset_bottom = 88.0
+offset_left = -1.0
+offset_top = 68.0
+offset_right = 81.0
+offset_bottom = 100.0
 text = "焦点2坐标:"
+vertical_alignment = 1
 
-[node name="x_input" type="SpinBox" parent="UI/OrbitSettingWindow/Control/OrbitParam2Label"]
+[node name="x" type="Label" parent="UI/OrbitSettingWindow/Control/OrbitParam2Label"]
 layout_mode = 0
-offset_left = 73.0
-offset_right = 161.5
-offset_bottom = 30.0
+offset_left = 87.0
+offset_right = 104.0
+offset_bottom = 32.0
+text = "x:"
+vertical_alignment = 1
 
-[node name="y_input" type="SpinBox" parent="UI/OrbitSettingWindow/Control/OrbitParam2Label"]
+[node name="x_input" type="SpinBox" parent="UI/OrbitSettingWindow/Control/OrbitParam2Label/x"]
 layout_mode = 0
-offset_left = 162.0
-offset_right = 250.5
+offset_left = 16.0
+offset_right = 105.0
+offset_bottom = 32.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 1.0
+
+[node name="y" type="Label" parent="UI/OrbitSettingWindow/Control/OrbitParam2Label"]
+layout_mode = 0
+offset_left = 200.0
+offset_right = 217.0
 offset_bottom = 30.0
+text = "y:"
+vertical_alignment = 1
+
+[node name="y_input" type="SpinBox" parent="UI/OrbitSettingWindow/Control/OrbitParam2Label/y"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = -2.0
+offset_right = 106.0
+offset_bottom = 30.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 1.0
 
 [node name="Templates" type="Node2D" parent="."]
 visible = false
@@ -645,10 +719,16 @@ text = "41"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="button_up" from="UI/EditorUI/StarEditUIOpenButton" to="." method="_on_star_edit_ui_open_button_button_up"]
-[connection signal="button_up" from="UI/EditorUI/ShowStarListButton" to="." method="_on_show_star_list_button_button_up"]
-[connection signal="button_up" from="UI/EditorUI/ShowGridButton" to="." method="_on_show_grid_button_button_up"]
-[connection signal="button_up" from="UI/EditorUI/ExportButton" to="." method="_on_export_button_button_up"]
-[connection signal="close_requested" from="UI/MapNodeStarListWindow" to="." method="_on_map_node_star_list_window_close_requested"]
-[connection signal="close_requested" from="UI/SaveWindow" to="." method="_on_file_dialog_close_requested"]
-[connection signal="confirmed" from="UI/SaveWindow" to="." method="_on_save_window_confirmed"]
+[connection signal="button_up" from="UI/EditorUI/StarEditUIOpenButton" to="UI" method="_on_star_edit_ui_open_button_button_up"]
+[connection signal="button_up" from="UI/EditorUI/ShowStarListButton" to="UI" method="_on_show_star_list_button_button_up"]
+[connection signal="button_up" from="UI/EditorUI/ShowGridButton" to="UI" method="_on_show_grid_button_button_up"]
+[connection signal="button_up" from="UI/EditorUI/ExportButton" to="UI" method="_on_export_button_button_up"]
+[connection signal="close_requested" from="UI/MapNodeStarListWindow" to="UI" method="_on_map_node_star_list_window_close_requested"]
+[connection signal="close_requested" from="UI/SaveWindow" to="UI" method="_on_save_window_close_requested"]
+[connection signal="confirmed" from="UI/SaveWindow" to="UI" method="_on_save_window_confirmed"]
+[connection signal="canceled" from="UI/OrbitSettingWindow" to="UI/OrbitSettingWindow" method="_on_canceled"]
+[connection signal="visibility_changed" from="UI/OrbitSettingWindow" to="UI/OrbitSettingWindow" method="_on_visibility_changed"]
+[connection signal="value_changed" from="UI/OrbitSettingWindow/Control/OrbitParam1Label/x/x_input" to="UI/OrbitSettingWindow" method="_on_orbit_param1_x_input_value_changed"]
+[connection signal="value_changed" from="UI/OrbitSettingWindow/Control/OrbitParam1Label/y/y_input" to="UI/OrbitSettingWindow" method="_on_orbit_param1_y_input_value_changed"]
+[connection signal="value_changed" from="UI/OrbitSettingWindow/Control/OrbitParam2Label/x/x_input" to="UI/OrbitSettingWindow" method="_on_orbit_param2_x_input_value_changed"]
+[connection signal="value_changed" from="UI/OrbitSettingWindow/Control/OrbitParam2Label/y/y_input" to="UI/OrbitSettingWindow" method="_on_orbit_param2_y_input_value_changed"]

@@ -1,30 +1,24 @@
 extends Control
 
-#var shared_date : Resource
+signal show_orbit_setting_window
+signal switch_star_preview_state
 
-@export_group("界面")
+
 ## 天体飞船设置UI
 @export var configure_star_ship_ui : PackedScene
 
-@export_group("", "")
 ## 天体大小输入
 @export var star_size_input_option_button : OptionButton
-
-@export_group("天体阵营输入")
+## 天体阵营输入
 @export var star_camp_input_spinbox : SpinBox
 @export var star_camp_input_option_button : OptionButton
-
-@export_group("", "")
 ## 天体飞船设置按钮
 @export var configure_star_ship_button : Button
 ## 天体标签输入
 @export var star_tag_input_line_edit : LineEdit
-
-@export_group("天体坐标输入")
+## 天体坐标输入
 @export var star_position_input_x : SpinBox
 @export var star_position_input_y : SpinBox
-
-@export_group("", "")
 ## 天体轨道类型输入
 @export var star_orbit_type_input_option_button : OptionButton
 ## 天体轨道设置按钮
@@ -35,8 +29,14 @@ extends Control
 @export var is_target_node_input : CheckButton
 ## 特殊类型天体设置按钮
 @export var configure_special_star_button : Button
+## 天体是否为目标天体设置按钮
+@export var is_target_check_Button : CheckButton
+## 天体预览开关
+@export var star_preview_switch_button : Button
 
-@onready var ui_list : Array[Node] = [star_size_input_option_button,
+
+@onready var ui_list : Array[Node] = [
+	star_size_input_option_button,
 	star_size_input_option_button,
 	star_camp_input_spinbox,
 	star_camp_input_option_button,
@@ -49,6 +49,7 @@ extends Control
 	star_fangle_input,
 	is_target_node_input,
 	configure_special_star_button,
+	star_preview_switch_button,
 ]
 
 # 交流变量
@@ -96,11 +97,14 @@ func lock_uis():
 
 
 func unlock_uis():
-	for i in ui_list:
-		if i is SpinBox or i is LineEdit:
-			i.editable = true
-		else:
-			i.disabled = false
+	if chosen_star != null:
+		for i in ui_list:
+			if i is SpinBox or i is LineEdit:
+				i.editable = true
+			else:
+				i.disabled = false
+	else:
+		push_error("天体信息界面没有被选择的天体信息!")
 
 
 func _on_global_data_updated(key : String):
@@ -124,35 +128,15 @@ func _on_global_data_updated(key : String):
 		_:
 			push_error("数据更新出错，请检查要提交的内容名是否正确")
 
+
 # 不仅应该在更改选择天体时被召唤，还应该在生成后被召唤
 func update_star_information_ui():
-	#get_star_size_types()
 	configure_star_size_input_option_button()
 	configure_star_camp_input()
 	# 位置也应该修改
 	configure_star_orbit_type_input_option_button()
+	update_is_target_check_button()
 
-# 设置被选择天体属性
-#func set_chosen_star(chosen_star_import : MapNodeStar):
-	#chosen_star = chosen_star_import
-	## 设置默认属性
-	#chosen_star.size_type = star_size_types[0]
-	#chosen_star.star_camp = defined_camp_ids[0]
-	#chosen_star.this_star_fleets = []
-	#chosen_star.tag = ""
-	#var star_position_x = star_position_input_x.value
-	#var star_potition_y = star_position_input_y.value
-	#chosen_star.star_position = Vector2(star_position_x, star_potition_y)
-	#Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
-
-# 获取天体类型
-#func get_star_size_types():
-	#var star_size_types_process : Array[int]
-	#for star in stars:
-		#if star.type == chosen_star.type:
-			#star_size_types_process.append(star.size_type)
-	#star_size_types_process.sort()
-	#star_size_types =  star_size_types_process
 
 # 配置天体大小类型选择按钮
 func configure_star_size_input_option_button():
@@ -199,6 +183,14 @@ func configure_star_orbit_type_input_option_button():
 			_:
 				push_error("天体轨道类型信息出错!")
 		star_orbit_type_input_option_button.add_item(orbit_name, star_orbit_type_id)
+	star_orbit_type_input_option_button.select(0)
+	if chosen_star.orbit_type == "":
+		chosen_star.orbit_type = "no_orbit"
+	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+
+
+func update_is_target_check_button():
+	is_target_check_Button.button_pressed = chosen_star.is_taget
 
 
 #func _on_star_size_input_option_button_item_selected(index):
@@ -206,7 +198,6 @@ func configure_star_orbit_type_input_option_button():
 	#Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
 
 
-# 将天体阵营的两个输入方式绑定
 # 天体阵营输入方式1
 func _on_star_camp_input_spin_box_value_changed(value):
 	if int(value) in defined_camp_ids:
@@ -251,8 +242,34 @@ func _star_position_y_input(value):
 
 
 func _on_star_size_input_option_button_item_selected(index):
+	# 需要研究代码逻辑
 	var new_type_chosen_star : MapNodeStar = MapNodeStar.new()
 	new_type_chosen_star.copy_information_from_star(stars_dictionary[chosen_star.type][index]) 
 	var star_edit_ui = $".."
 	star_edit_ui.call("_choose_star", new_type_chosen_star)
 	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+
+
+func _on_orbit_type_option_button_item_selected(index: int) -> void:
+	var orbit_type = orbit_types[int(index)]
+	chosen_star.orbit_type = orbit_type
+	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+
+
+func _on_orbit_edit_button_button_up() -> void:
+	emit_signal("show_orbit_setting_window")
+
+
+func _on_is_target_check_button_button_up() -> void:
+	if chosen_star.is_taget == true:
+		chosen_star.is_taget = false
+		is_target_check_Button.button_pressed = false
+		Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	else:
+		chosen_star.is_taget = true
+		is_target_check_Button.button_pressed = true
+		Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+
+
+func _on_star_preview_switch_button_button_up() -> void:
+	emit_signal("switch_star_preview_state")

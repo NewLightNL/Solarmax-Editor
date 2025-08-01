@@ -17,11 +17,10 @@ func _ready():
 	stars_dictionary = Mapeditor1ShareData.stars_dictionary
 	for type_stars_name in stars_dictionary:
 		var stars_slot_node = stars_slot.instantiate()
-		var represent_star = stars_dictionary[type_stars_name][0] # 避免了不同天体类型天体数不同的问题
-		var star_information : Array = represent_star.get_star_information()
-		stars_slot_node.get_child(0).get_child(0).texture = star_pattern_dictionary[star_information[0]]
+		var represent_star : Star = stars_dictionary[type_stars_name][0] # 避免了不同天体类型天体数不同的问题
+		stars_slot_node.get_child(0).get_child(0).texture = star_pattern_dictionary[represent_star.pattern_name]
 		stars_slot_node.get_child(0).get_child(1).text = str(stars_dictionary[type_stars_name].size())
-		stars_slot_node.get_child(1).get_child(0).text = star_information[4]
+		stars_slot_node.get_child(1).get_child(0).text = represent_star.star_name
 		star_slots_container.add_child(stars_slot_node)
 		stars_slot_node.get_child(2).button_up.connect(_star_chosen.bind(represent_star))
 		if represent_star.special_star_type == "dirt":
