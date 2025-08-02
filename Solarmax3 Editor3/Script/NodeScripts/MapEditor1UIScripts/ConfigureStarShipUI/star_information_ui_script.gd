@@ -1,8 +1,7 @@
 extends Control
 
 signal show_orbit_setting_window
-signal switch_star_preview_state
-
+signal change_star_preview_state(object_name : String, change_to_what_visibility : bool)
 
 ## 天体飞船设置UI
 @export var configure_star_ship_ui : PackedScene
@@ -34,6 +33,10 @@ signal switch_star_preview_state
 ## 天体预览开关
 @export var star_preview_switch_button : Button
 
+var star_preview_state : bool = false :
+	set(value):
+		star_preview_state = value
+		update_switch_star_preview_button()
 
 @onready var ui_list : Array[Node] = [
 	star_size_input_option_button,
@@ -72,6 +75,7 @@ var chosen_star : MapNodeStar
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
+	
 	#_initialize_basic_information()
 	star_position_input_x.value = 0.0
 	star_position_input_y.value = 0.0
@@ -136,6 +140,7 @@ func update_star_information_ui():
 	# 位置也应该修改
 	configure_star_orbit_type_input_option_button()
 	update_is_target_check_button()
+	update_switch_star_preview_button()
 
 
 # 配置天体大小类型选择按钮
@@ -184,13 +189,18 @@ func configure_star_orbit_type_input_option_button():
 				push_error("天体轨道类型信息出错!")
 		star_orbit_type_input_option_button.add_item(orbit_name, star_orbit_type_id)
 	star_orbit_type_input_option_button.select(0)
-	if chosen_star.orbit_type == "":
-		chosen_star.orbit_type = "no_orbit"
 	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
 
 
 func update_is_target_check_button():
 	is_target_check_Button.button_pressed = chosen_star.is_taget
+
+
+func update_switch_star_preview_button():
+	if star_preview_state == false:
+		star_preview_switch_button.text = "启用天体预览"
+	else:
+		star_preview_switch_button.text = "关闭天体预览"
 
 
 #func _on_star_size_input_option_button_item_selected(index):
@@ -217,12 +227,6 @@ func _on_star_camp_input_option_button_item_selected(index):
 func _on_configure_star_ship_button_button_up():
 	if chosen_star.pattern_name != "":
 		var configure_star_ship_ui_node = configure_star_ship_ui.instantiate()
-		# 输入信息
-		# 输入基本信息
-		configure_star_ship_ui_node.defined_camp_ids = defined_camp_ids
-		configure_star_ship_ui_node.camp_colors = camp_colors
-		# 输入天体
-		configure_star_ship_ui_node.chosen_star = chosen_star
 		$"../..".add_child(configure_star_ship_ui_node)
 
 # 输入天体标签
@@ -257,7 +261,7 @@ func _on_orbit_type_option_button_item_selected(index: int) -> void:
 
 
 func _on_orbit_edit_button_button_up() -> void:
-	emit_signal("show_orbit_setting_window")
+	emit_signal("show_orbit_setting_window", "OrbitSettingWindow", true)
 
 
 func _on_is_target_check_button_button_up() -> void:
@@ -272,4 +276,8 @@ func _on_is_target_check_button_button_up() -> void:
 
 
 func _on_star_preview_switch_button_button_up() -> void:
-	emit_signal("switch_star_preview_state")
+	if star_preview_state == true:
+		emit_signal("change_star_preview_state", "PreviewStar", false)
+	else:
+		emit_signal("change_star_preview_state", "PreviewStar", true)
+	

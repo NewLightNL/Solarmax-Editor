@@ -5,26 +5,26 @@ class_name MapNodeStar
 ## 大小类型
 #var size : int = size_type
 ## 天体标签
-var tag : String
+var tag : String = ""
 ## 天体阵营
-var star_camp : int
+var star_camp : int = 0
 ## 天体舰队
-var this_star_fleets : Array
+var this_star_fleets : Array = []
 # this_star_fleets = [this_star_fleet1, this_star_fleet2]
 # this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 ## 天体坐标
-var star_position : Vector2
+var star_position : Vector2 = Vector2.ZERO
 ## 轨道信息
-var orbit_type : String
-var orbit_param1 : Vector2
-var orbit_param2 : Vector2
+var orbit_type : String = "no_orbit"
+var orbit_param1 : Vector2 = Vector2.ZERO
+var orbit_param2 : Vector2 = Vector2.ZERO
 ## 旋转角度
-var fAngle : float
+var fAngle : float = 0.0
 # 特殊天体信息
 ## 变形装置变形的天体的id们
-var transformBulidingID : Array
+var transformBulidingID : Array = []
 ## 射线炮数据(Array)
-var lasergun_information : Array
+var lasergun_information : Array = []
 # [lasergunAngle : int, lasergunRotateSkip : int, lasergunRange : int]
 # lasergunAngle="" 表示射线炮的初始旋转角度。
 # lasergunRotateSkip="" 表示射线炮的单次旋转角度。
@@ -32,7 +32,7 @@ var lasergun_information : Array
 # 注意，如果想让射线炮不旋转，不可以在两个属性同时填0，因为0不能除以0。正确的填法是在lasergunRotateSkip=""中填写一个比lasergunRange=""中大的数字。
 # 其它信息
 ## 是否为目标天体
-var is_taget : bool
+var is_taget : bool = false
 
 
 func copy_information_from_star(base_star : Star) -> void:

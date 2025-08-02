@@ -1,5 +1,7 @@
 extends Node
 
+signal editor_data_updated(key)
+
 # 被定义的阵营
 var defined_camp_ids : Array[int]
 # 阵营颜色
@@ -11,8 +13,9 @@ var stars : Array[Star]
 var stars_dictionary : Dictionary
 # 轨道类型
 var orbit_types : Dictionary
+var chosen_star : MapNodeStar
+var star_fleets : Array
 
-signal editor_data_updated(key)
 
 func init_editor_data():
 	star_pattern_dictionary = Load.init_star_pattern_dictionary()
@@ -24,10 +27,6 @@ func init_editor_data():
 	
 	emit_signal("editor_data_updated", "all_basic_information")
 
-
-var chosen_star : MapNodeStar
-var is_star_chosen : bool = false# 用于未来判断是否有天体被选择
-var star_fleets : Array
 
 func data_updated(key : String, value):
 	match key:
@@ -45,8 +44,6 @@ func data_updated(key : String, value):
 			orbit_types = value
 		"chosen_star":
 			chosen_star = value
-		"is_star_chosen":
-			is_star_chosen = value
 		"star_fleets":
 			star_fleets = value
 		_:

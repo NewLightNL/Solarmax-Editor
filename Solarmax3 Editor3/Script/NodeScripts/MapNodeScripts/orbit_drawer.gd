@@ -92,7 +92,7 @@ func _draw_ellipse():
 	var focal_distance= orbit_param1_converted.distance_to(orbit_param2_converted)
 	var distance_summed = distance1 + distance2
 	if is_equal_approx(focal_distance, distance_summed):
-		draw_line(orbit_param1_converted, orbit_param2_converted, ORBIT_COLOR, ORBIT_WIDTH, true)
+		draw_line(orbit_param1_converted - star_position_converted, orbit_param2_converted - star_position_converted, ORBIT_COLOR, ORBIT_WIDTH, true)
 	else:
 		var major_axis_length = distance1 + distance2
 		var semi_major_axis_length = major_axis_length / 2

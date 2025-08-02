@@ -17,13 +17,13 @@ var orbit_types : Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$OrbitDrawer.orbit_type = "ellipse"
-	$OrbitDrawer.star_position = Vector2(-40, 80)
-	$OrbitDrawer.orbit_param1 = Vector2(-60, 20)
-	$OrbitDrawer.orbit_param2 = Vector2(80, 60)
-	$OrbitDrawer.queue_redraw()
+	$Button.test.connect(check.bind("1"))
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
+
+
+func check(a, b):
+	print(a, b)

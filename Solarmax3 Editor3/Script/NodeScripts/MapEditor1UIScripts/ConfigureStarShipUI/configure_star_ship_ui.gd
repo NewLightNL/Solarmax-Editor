@@ -6,12 +6,10 @@ extends Control
 # 存储画环的节点
 @export var halo_drawer : Marker2D
 
-# 外部输入
 # 基本信息
 var star_pattern_dictionary : Dictionary
 var defined_camp_ids : Array[int]
 var camp_colors : Dictionary
-var stars : Array[Star]
 
 var chosen_star : MapNodeStar
 
@@ -27,10 +25,12 @@ var this_star_fleets : Array #其元素相比于"star_fleets"的元素省略了�
 @onready var star_container : Node2D = $ConfigureStarShipUIRect/StarShipPreview/ContainStar
 
 func _ready():
+	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
+	defined_camp_ids = Mapeditor1ShareData.defined_camp_ids
+	camp_colors = Mapeditor1ShareData.camp_colors
+	star_pattern_dictionary = Mapeditor1ShareData.star_pattern_dictionary
+	chosen_star = Mapeditor1ShareData.chosen_star
 	this_star_fleets = chosen_star.this_star_fleets
-	#star_pattern_dictionary = Load.init_star_pattern_dictionary()
-	#defined_camp_ids = Load.get_map_editor_basic_information("defined_camp_ids")
-	#camp_colors = Load.get_map_editor_basic_information("camp_colors")
 	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text = "0"
 	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = "0"
 	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton.clear()
@@ -45,6 +45,23 @@ func _ready():
 		update_valid_camps_number()
 		update_star_preview()
 		update_star_fleets_list()
+
+
+func _on_global_data_updated(key : String):
+	match key:
+		"defined_camp_ids":
+			defined_camp_ids = Mapeditor1ShareData.defined_camp_ids
+		"camp_colors":
+			camp_colors = Mapeditor1ShareData.camp_colors
+		"star_pattern_dictionary":
+			star_pattern_dictionary = Mapeditor1ShareData.star_pattern_dictionary
+		"chosen_star":
+			chosen_star = Mapeditor1ShareData.chosen_star
+		"stars", "orbit_types", "all_basic_information", "stars_dictionary", "star_fleets":
+			pass
+		_:
+			push_error("数据更新出错，请检查要提交的内容名是否正确")
+
 
 # 整理star_fleets
 func organize_star_fleets():
@@ -116,6 +133,18 @@ func add_star_ship_labels(ship_number_positions):
 
 # 更新天体预览
 func update_star_preview():
+	var star_preview : Sprite2D = null
+	if (
+			star_container.get_child_count() == 1
+			and star_container.get_child(0) is Sprite2D
+	):
+		star_preview = star_container.get_child(0)
+	else:
+		push_error("天体飞船配置界面的天体贴图配置有问题!")
+		return
+	star_preview.texture = star_pattern_dictionary[chosen_star.pattern_name]
+	star_preview.offset = chosen_star.offset_fix
+	
 	# 获得飞船数量点位位置
 	var ship_number_positions : Array = calculate_positions()
 	# 清除已有的飞船数量标签

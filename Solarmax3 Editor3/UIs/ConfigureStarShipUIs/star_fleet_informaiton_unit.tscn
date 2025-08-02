@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dlp0enqxnawmv"]
 
 [ext_resource type="Texture2D" uid="uid://bv613kye8vfae" path="res://UITexture/delete_this_fleet_button.tres" id="1_bl8dx"]
-[ext_resource type="Script" uid="uid://cksj17aqcmn6d" path="res://Script/MapEditor1UIScripts/star_fleet_informaiton_unit.gd" id="1_jvre8"]
+[ext_resource type="Script" uid="uid://cksj17aqcmn6d" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/star_fleet_informaiton_unit.gd" id="1_jvre8"]
 
 [node name="StarFleetInformaiton" type="Control"]
 custom_minimum_size = Vector2(0, 40)

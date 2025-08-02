@@ -55,7 +55,6 @@ func _update_map_node_star_position():
 	self.position = map_position
 
 
-
 func _update_map_node_star_showing_picture():
 	_map_node_star_sprite.texture = star_pattern_dictionary[pattern_name]
 	var raw_scale = self.star_scale * Vector2.ONE

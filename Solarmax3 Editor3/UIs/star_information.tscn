@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bflaaarpk23au"]
 
-[ext_resource type="Script" uid="uid://b6pa7cxkcsojo" path="res://Script/MapEditor1UIScripts/star_information_ui_script.gd" id="1_c8s5d"]
+[ext_resource type="Script" uid="uid://b6pa7cxkcsojo" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/star_information_ui_script.gd" id="1_c8s5d"]
 [ext_resource type="PackedScene" uid="uid://dg236strhcfuq" path="res://UIs/ConfigureStarShipUIs/configure_star_ship_ui.tscn" id="2_g55r5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psej3"]
@@ -227,7 +227,7 @@ offset_left = 16.0
 offset_top = 352.0
 offset_right = 128.0
 offset_bottom = 392.0
-text = "天体预览开关"
+text = "启用天体预览"
 
 [connection signal="item_selected" from="SizeInputLabel/StarSizeInputOptionButton" to="." method="_on_star_size_input_option_button_item_selected"]
 [connection signal="value_changed" from="CampInputLabel/StarCampInputSpinBox" to="." method="_on_star_camp_input_spin_box_value_changed"]

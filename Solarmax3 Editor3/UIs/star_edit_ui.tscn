@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://yec60pvu8b10"]
 
-[ext_resource type="Script" uid="uid://b8yl5hl4l6deh" path="res://Script/MapEditor1UIScripts/star_edit_ui.gd" id="1_7s2en"]
+[ext_resource type="Script" uid="uid://b8yl5hl4l6deh" path="res://Script/NodeScripts/MapEditor1UIScripts/star_edit_ui.gd" id="1_7s2en"]
 [ext_resource type="Texture2D" uid="uid://bryrv3nn37mbm" path="res://UITexture/CreateStarUIs/CreateUI_closeButton.png" id="1_atudw"]
 [ext_resource type="Texture2D" uid="uid://do200ud6pxnaj" path="res://UITexture/CreateStarUIs/CreateStarButtonBG.tres" id="2_ocacw"]
 [ext_resource type="PackedScene" uid="uid://5xrqbdn5jbv0" path="res://UIs/ChooseStarsUI/choose_star_ui.tscn" id="3_6lh6g"]

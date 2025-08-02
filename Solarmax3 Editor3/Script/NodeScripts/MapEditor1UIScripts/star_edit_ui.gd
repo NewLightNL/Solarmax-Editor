@@ -35,13 +35,14 @@ const  MAX_RECENT_STARS_NUMBER = 5
 @onready var Main1_node : Node = $"../.."
 @onready var ui_node : CanvasLayer = $".."
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
-	$"../../Map"._on_create_star.connect(_create_star_feedback)
-	$StarInformation.show_orbit_setting_window.connect(_on_change_object_visibility.bind("OrbitSettingWindow", true))
-	$StarInformation.switch_star_preview_state.connect(_on_switch_object_visibility.bind("PreviewStar"))
-	
+	map_node.create_star.connect(_create_star_feedback)
+	ui_node.feedback.connect(_on_get_feedback)
+	$StarInformation.show_orbit_setting_window.connect(_on_change_object_visibility)
+	$StarInformation.change_star_preview_state.connect(_on_change_object_visibility)
 	#$StarInformation.update_star_information_ui()
 	#stars = Load.get_map_editor_basic_information("stars")
 	#star_pattern_dictionary = Load.init_star_pattern_dictionary()
@@ -161,11 +162,12 @@ func _update_chosen_star(star : Star):
 	chosen_star = MapNodeStar.new()
 	
 	# 赋予被选中的天体属性
-	if star is MapNodeStar:
+	if star is MapNodeStar:# 应该为最近选择的天体栏单独做一个上传被选择的天体方法
 		chosen_star.copy_map_node_star(star)
 		Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
 	else:
 		chosen_star.copy_information_from_star(star)
+		
 		Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
 	
 	$StarInformation.update_star_information_ui()
@@ -197,5 +199,33 @@ func _create_star_feedback(is_success : bool, context : String):
 func _on_change_object_visibility(object_name : String, visibility : bool):
 	emit_signal("change_object_visibility", object_name, visibility)
 
+
 func _on_switch_object_visibility(object_name : String):
 	emit_signal("switch_object_visibility", object_name)
+
+
+func _on_get_feedback(what_feedback : String, context : String):
+	match what_feedback:
+		"star_preview_state":
+			match context:
+				"true", "false":
+					parse_feedback(what_feedback, context)
+				_:
+					push_error("发送了错误的反馈内容!")
+
+
+func parse_feedback(what_feedback : String, context : String) -> void:
+	match what_feedback:
+		"star_preview_state":
+			var star_preview_state : bool
+			if context == "true":
+				star_preview_state = true
+			elif context == "false":
+				star_preview_state = false
+			else:
+				push_error("反馈内容有问题!无法转换反馈内容!")
+				return
+			
+			$StarInformation.star_preview_state = star_preview_state
+		_:
+			push_error("未知反馈内容!")

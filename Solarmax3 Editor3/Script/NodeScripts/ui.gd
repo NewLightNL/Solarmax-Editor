@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+signal feedback(method : String, context : String)
+
 @export var map_node_star_list_unit : PackedScene
 
 
@@ -26,6 +28,7 @@ extends CanvasLayer
 func _ready() -> void:
 	$StarEditUI.change_object_visibility.connect(change_object_visbile)
 	$StarEditUI.switch_object_visibility.connect(switch_object_visibility)
+	$"../Map".feedback.connect(_on_get_feedback)
 
 
 func change_object_visbile( 
@@ -35,16 +38,35 @@ func change_object_visbile(
 	match object_name:
 		"OrbitSettingWindow":
 			$OrbitSettingWindow.visible = object_visible
+		"PreviewStar":
+			$"../Map".change_star_preview_visibility(object_visible)
 		_:
 			pass
 
 
 func switch_object_visibility(object_name : String):
 	match object_name:
-		"PreviewStar":
-			$"../Map".change_star_preview_visibility()
 		_:
 			pass
+
+
+func code_and_emit_feedback(what_feedback : String, context : String):
+	match what_feedback:
+		"star_preview_state":
+			match context:
+				"true", "false":
+					emit_signal("feedback", "star_preview_state", context)
+				_:
+					push_error("发送了错误的反馈内容")
+			
+
+
+func _on_get_feedback(get_feedback : String, context : String):
+	match get_feedback:
+		"star_preview_state":
+			code_and_emit_feedback(get_feedback, context)
+		_:
+			push_error("获得了未知反馈")
 
 
 # 展开天体编辑UI
