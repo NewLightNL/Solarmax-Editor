@@ -125,10 +125,7 @@ func _on_save_window_confirmed():
 
 
 func _on_show_grid_button_button_up() -> void:
-	if $"../Map/Coordinates".visible == true:
-		$"../Map/Coordinates".visible = false
-	else:
-		$"../Map/Coordinates".visible = true
+	$"../Map/Coordinates".update_grid()
 
 
 func _on_save_window_close_requested() -> void:
