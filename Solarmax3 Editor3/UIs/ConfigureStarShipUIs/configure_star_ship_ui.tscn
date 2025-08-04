@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dg236strhcfuq"]
+[gd_scene load_steps=7 format=3 uid="uid://dg236strhcfuq"]
 
-[ext_resource type="Texture2D" uid="uid://c4h03s10yicqg" path="res://Textures/StarTexture/Planets/planet01.png" id="1_cfkbm"]
 [ext_resource type="Script" uid="uid://cy8b412rknbyd" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/configure_star_ship_ui.gd" id="1_ugw1q"]
 [ext_resource type="PackedScene" uid="uid://dlp0enqxnawmv" path="res://UIs/ConfigureStarShipUIs/star_fleet_informaiton_unit.tscn" id="3_0ki3m"]
-[ext_resource type="Script" uid="uid://c4haiew626a82" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/halo_drawing_center_draw_halo.gd" id="4_3ohxx"]
+[ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="3_gf3wg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugw1q"]
 bg_color = Color(0.380392, 0.639216, 0.768627, 0.607843)
@@ -42,7 +41,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="ConfigureStarShipUI" type="Control" node_paths=PackedStringArray("halo_drawer")]
+[node name="ConfigureStarShipUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -51,93 +50,73 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ugw1q")
 star_fleet_information_unit = ExtResource("3_0ki3m")
-halo_drawer = NodePath("ConfigureStarShipUIRect/StarShipPreview/HaloDrawingCenter")
 metadata/_edit_lock_ = true
 
 [node name="ConfigureStarShipUIRect" type="Control" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -260.0
-offset_right = 64.0
-offset_bottom = 252.0
-grow_horizontal = 2
-grow_vertical = 2
+anchor_left = 0.306
+anchor_top = 0.121
+anchor_right = 0.566
+anchor_bottom = 0.726
+offset_left = 0.719971
+offset_top = -0.0180054
+offset_right = -0.0800781
+offset_bottom = -0.108032
 
-[node name="SetStarShipUIBG" type="Panel" parent="ConfigureStarShipUIRect"]
+[node name="ConfigureStarShipUIBG" type="Panel" parent="ConfigureStarShipUIRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -44.0
-offset_top = -141.0
-offset_right = 60.0
-offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ugw1q")
 
 [node name="StarShipPreview" type="Control" parent="ConfigureStarShipUIRect"]
-anchors_preset = 0
-offset_left = 64.0
-offset_top = 32.0
-offset_right = 320.0
-offset_bottom = 192.0
-
-[node name="StarShipPreviewBG" type="Panel" parent="ConfigureStarShipUIRect/StarShipPreview"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -44.0
-offset_top = -109.0
-offset_right = 60.0
-offset_bottom = -77.0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = -64.0
+offset_bottom = -384.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StarShipPreviewBG" type="Panel" parent="ConfigureStarShipUIRect/StarShipPreview"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0ki3m")
 
-[node name="ContainStar" type="Node2D" parent="ConfigureStarShipUIRect/StarShipPreview"]
-position = Vector2(132, -13)
+[node name="StarContainer" type="Node2D" parent="ConfigureStarShipUIRect/StarShipPreview"]
+position = Vector2(176, 96)
 
-[node name="StarTexture" type="Sprite2D" parent="ConfigureStarShipUIRect/StarShipPreview/ContainStar"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_cfkbm")
-
-[node name="ShipNumberLabels" type="Control" parent="ConfigureStarShipUIRect/StarShipPreview"]
-z_index = 1
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HaloDrawingCenter" type="Marker2D" parent="ConfigureStarShipUIRect/StarShipPreview"]
-position = Vector2(128, 80)
-script = ExtResource("4_3ohxx")
+[node name="MapNodeStar" parent="ConfigureStarShipUIRect/StarShipPreview/StarContainer" instance=ExtResource("3_gf3wg")]
 
 [node name="AddStarFleetUI" type="Control" parent="ConfigureStarShipUIRect"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 44.0
-offset_top = 131.0
-offset_right = -20.0
-offset_bottom = -141.0
+anchor_left = 0.18
+anchor_top = 0.425
+anchor_right = 0.836
+anchor_bottom = 0.8
+offset_left = 0.159996
+offset_right = 0.0319824
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="StarFleetShipNumberLabel" type="Label" parent="ConfigureStarShipUIRect/AddStarFleetUI"]
-layout_mode = 0
-offset_top = 16.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.067
+anchor_bottom = 0.067
+offset_top = -0.0799999
 offset_right = 72.0
-offset_bottom = 48.0
+offset_bottom = 31.92
 theme_override_font_sizes/font_size = 20
 text = "飞船数:"
 horizontal_alignment = 1
@@ -151,17 +130,21 @@ offset_bottom = 32.0
 theme_override_font_sizes/font_size = 20
 
 [node name="StarFleetCampLabel" type="Label" parent="ConfigureStarShipUIRect/AddStarFleetUI"]
-layout_mode = 0
-offset_top = 80.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.333
+anchor_bottom = 0.333
+offset_top = 0.0800018
 offset_right = 72.0
-offset_bottom = 112.0
+offset_bottom = 32.08
 theme_override_font_sizes/font_size = 20
 text = "飞船阵营:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="StarFleetShipCampInput" type="LineEdit" parent="ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
 offset_left = 88.0
 offset_right = 174.125
 offset_bottom = 35.0
@@ -175,11 +158,15 @@ offset_bottom = 32.0
 theme_override_font_sizes/font_size = 20
 
 [node name="AddStarFleetButton" type="Button" parent="ConfigureStarShipUIRect/AddStarFleetUI"]
-layout_mode = 0
-offset_left = 72.0
-offset_top = 176.0
-offset_right = 224.0
-offset_bottom = 232.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.225
+anchor_top = 0.733
+anchor_right = 0.7
+anchor_bottom = 0.967
+offset_top = 0.0799866
+offset_right = -1.52588e-05
+offset_bottom = -0.0800171
 theme_override_font_sizes/font_size = 22
 text = "添加舰队"
 
@@ -209,20 +196,22 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3mhld")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.054
-anchor_top = 0.095
-anchor_right = 0.946
-anchor_bottom = 0.945
-offset_left = -0.192001
-offset_top = -0.0300064
-offset_right = 0.134888
-offset_bottom = 0.242004
+anchor_top = 0.1
+anchor_right = 0.947
+anchor_bottom = 0.95
+offset_left = -0.352007
+offset_right = -0.136139
 
 [node name="StarFleetsListLabel" type="Label" parent="StarFleetsUI"]
-layout_mode = 0
-offset_left = 176.0
-offset_top = 16.0
-offset_right = 320.0
-offset_bottom = 49.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.361
+anchor_top = 0.025
+anchor_right = 0.656
+anchor_bottom = 0.077
+offset_left = -0.16806
+offset_right = -0.128082
+offset_bottom = -0.280006
 theme_override_font_sizes/font_size = 24
 text = "天体舰队列表"
 horizontal_alignment = 1
@@ -230,22 +219,43 @@ vertical_alignment = 1
 
 [node name="StarFleetsListScrollContainer" type="ScrollContainer" parent="StarFleetsUI"]
 layout_mode = 2
-offset_left = 24.0
-offset_top = 64.0
-offset_right = 424.0
-offset_bottom = 608.0
+anchor_left = 0.049
+anchor_top = 0.1
+anchor_right = 0.951
+anchor_bottom = 0.95
+offset_left = 0.0879936
+offset_right = -0.0881348
 
 [node name="StarFleetsListVBoxContainer" type="VBoxContainer" parent="StarFleetsUI/StarFleetsListScrollContainer"]
 layout_mode = 2
 
 [node name="LeaveConfigureStarShipUIButton" type="Button" parent="."]
-layout_mode = 0
-offset_left = 667.0
-offset_top = 656.0
-offset_right = 960.0
-offset_bottom = 720.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.355
+anchor_top = 0.62
+anchor_right = 0.511
+anchor_bottom = 0.681
+offset_left = -0.400024
+offset_top = 0.039978
+offset_right = -0.680054
+offset_bottom = -0.498047
 theme_override_font_sizes/font_size = 19
 text = "保存设置并退出天体飞船设置界面"
+
+[node name="Control" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 632.0
+offset_top = 816.0
+offset_right = 1040.0
+offset_bottom = 1088.0
+
+[node name="CheckBox" type="CheckBox" parent="Control"]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+scale = Vector2(2, 2)
+icon_alignment = 1
 
 [connection signal="text_changed" from="ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput" to="." method="_on_star_fleet_ship_number_input_text_changed"]
 [connection signal="text_changed" from="ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput" to="." method="_on_star_fleet_ship_camp_input_text_changed"]

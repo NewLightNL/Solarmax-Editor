@@ -1,6 +1,5 @@
 extends Node2D
 
-
 const ORBIT_COLOR : Color = Color(0.8, 0.8, 0.8, 0.5)
 const ORBIT_WIDTH : float = 1
 const UNIT_WIDTH : float = 99.4
@@ -8,12 +7,15 @@ const UNIT_WIDTH : float = 99.4
 var orbit_type : String
 var star_position : Vector2 :
 	set(value):
+		star_position = value
 		star_position_converted = Vector2(value.x, - value.y) * UNIT_WIDTH
 var orbit_param1 : Vector2:
 	set(value):
+		orbit_param1 = value
 		orbit_param1_converted = Vector2(value.x, - value.y) * UNIT_WIDTH
 var orbit_param2 : Vector2:
 	set(value):
+		orbit_param2 = value
 		orbit_param2_converted = Vector2(value.x, - value.y) * UNIT_WIDTH
 
 var star_position_converted : Vector2

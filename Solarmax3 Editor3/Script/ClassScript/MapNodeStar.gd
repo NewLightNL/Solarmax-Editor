@@ -1,6 +1,8 @@
 extends Star
 class_name MapNodeStar
 
+const MAPUNITLENTH = 99.4
+
 # 地图添加信息
 ## 大小类型
 #var size : int = size_type
@@ -9,11 +11,15 @@ var tag : String = ""
 ## 天体阵营
 var star_camp : int = 0
 ## 天体舰队
-var this_star_fleets : Array = []
+var this_star_fleets : Array[Dictionary] = []
+# [{"camp_id" : ..., "ship_number" : ...}]
 # this_star_fleets = [this_star_fleet1, this_star_fleet2]
 # this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 ## 天体坐标
-var star_position : Vector2 = Vector2.ZERO
+var star_position : Vector2 = Vector2.ZERO:
+	set(value):
+		star_position = value
+		
 ## 轨道信息
 var orbit_type : String = "no_orbit"
 var orbit_param1 : Vector2 = Vector2.ZERO
@@ -111,4 +117,9 @@ func copy_map_node_star(map_node_star_copied : MapNodeStar) -> void:
 	self.lasergun_information = lasergun_information_duplicated
 	
 	self.is_taget = map_node_star_copied.is_taget
-	
+
+
+func _update_map_node_star_position():
+	var x_axis_flip : Transform2D = Transform2D(Vector2(1, 0), Vector2(0, -1), Vector2.ZERO)
+	var map_position = star_position * MAPUNITLENTH * x_axis_flip
+	self.position = map_position
