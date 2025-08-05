@@ -1,9 +1,5 @@
 extends MapNodeStar
 
-const MAPUNITLENTH = 99.4
-
-@export var halo_drawing_center : PackedScene
-
 var _ui_last_position : Vector2
 # 外部输入数据
 var star_pattern_dictionary : Dictionary
@@ -44,15 +40,8 @@ func update_map_node_star():
 
 
 func _update_map_node_star_showing_property():
-	_update_map_node_star_position()
 	_update_map_node_star_showing_picture()
 	_update_map_node_star_showing_camp()
-
-
-func _update_map_node_star_position():
-	var x_axis_flip : Transform2D = Transform2D(Vector2(1, 0), Vector2(0, -1), Vector2.ZERO)
-	var map_position = star_position * MAPUNITLENTH * x_axis_flip
-	self.position = map_position
 
 
 func _update_map_node_star_showing_picture():
@@ -79,12 +68,6 @@ func _update_map_node_star_showing_camp():
 	_map_node_star_sprite.modulate = camp_color
 
 
-func _call_draw_halo():
-	var valid_camps_number = _get_valid_camps_number()
-	var halo_arguments = _calculate_halo_arguments(valid_camps_number)
-	draw_halo(halo_arguments, valid_camps_number)
-
-
 func _call_draw_orbit():
 	if self.orbit_type != "":
 		_orbit_drawer.orbit_type = self.orbit_type
@@ -105,61 +88,19 @@ func _get_valid_camps_number() -> int:
 	return valid_camps_number_process
 
 
-# 计算环的参数
-func _calculate_halo_arguments(valid_camps_number : int) -> Array:
-	var halo_arguments : Array
-	# 从PI/2开始先顺时针转半个步进角度，再逆时针开始画
-	var ship_number_summed : int = 0
-	for this_star_fleet in this_star_fleets:
-		if this_star_fleet[0] != 0:
-			ship_number_summed += this_star_fleet[1]
-	var radian_element = TAU/ship_number_summed
-	var last_end_radian : float
-	var times : int = 0
-	for this_star_fleet in this_star_fleets:
-		if this_star_fleet[0] != 0:
-			times += 1
-			var halo_argument : Array
-			var step_radian : float = this_star_fleet[1] * radian_element
-			var halo_start_radian : float
-			if times == 1:
-				if valid_camps_number == 2:
-					halo_start_radian = PI * 3/2 - step_radian/2
-				else:
-					halo_start_radian = PI/2 - step_radian/2
-			else:
-				halo_start_radian = last_end_radian
-			var halo_end_radian : float = halo_start_radian + step_radian
-			var halo_arc_color : Color = camp_colors[this_star_fleet[0]]
-			halo_argument.append(halo_start_radian)
-			halo_argument.append(halo_end_radian)
-			halo_argument.append(halo_arc_color)
-			last_end_radian = halo_end_radian
-			halo_arguments.append(halo_argument)
-	return halo_arguments
-
-
-func draw_halo(halo_arguments : Array, valid_camps_number : int):
+func _call_draw_halo():
 	if _halo_drawer != null:
-		_halo_drawer.queue_free()
-	var halo_drawing_center_node = halo_drawing_center.instantiate()
-	add_child(halo_drawing_center_node)
-	halo_drawing_center_node.halo_arguments = halo_arguments
-	halo_drawing_center_node.camps_number = valid_camps_number
-	halo_drawing_center_node.star_scale = self.star_scale
-	halo_drawing_center_node.position = Vector2(0, 0)
-	halo_drawing_center_node.queue_redraw()
-	_halo_drawer = halo_drawing_center_node
+		_halo_drawer.draw_halo(this_star_fleets, star_scale)
+	else:
+		push_error("天体缺少画环节点!")
 
 
 func _update_star_ui():
-	_reset_star_ui()
+	
 	_configure_star_ship_number_labels()
 
+# .............................
 
-func _reset_star_ui():
-	_star_ui.position = Vector2(-231.0/2, -231.0/2) * self.star_scale
-	_star_ui.size = Vector2(231, 231) * self.star_scale
 
 
 func _configure_star_ship_number_labels():
@@ -218,7 +159,7 @@ func add_star_ship_labels(ship_number_positions):
 			$StarUI/StarFleetsLabel.add_child(ship_number_label)
 			ship_number_label.add_theme_color_override("font_color", camp_colors[camp])
 			ship_number_label.position = ship_number_positions[index] - ship_number_label.size/2
-
+# ......................
 
 func _on_delete_button_button_up():
 	queue_free()
