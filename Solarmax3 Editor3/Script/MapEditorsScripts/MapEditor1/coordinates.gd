@@ -11,11 +11,13 @@ const ORIGIN : Vector2 = Vector2(0, 0)
 const UNIT_WIDTH : float = 99.4
 # 可能会有更好看的颜色
 const AXIS_COLOR : Color = Color.WHITE
-const GRID_COLOR : Color = Color(1, 1, 1, 0.5)
+const GRID_COLOR : Color = Color(0.5, 0.5, 1, 0.85)
+const TINY_COLOR : Color = Color(1, 1, 1, 0.15)
 
 var axis_width = 2
 var grid_line_width = 1
-
+# 网格内分段线数
+var grid_line_count = 0
 
 func _draw():
 	_draw_axis()
@@ -49,11 +51,28 @@ func _draw_axis():
 
 func _draw_grid():
 	# 绘制列线
-	for i in range(-x_maximum_number, x_maximum_number + 1):
-		if i != 0:
-			draw_line(Vector2(i * UNIT_WIDTH, (y_maximum_number + 0.2) * UNIT_WIDTH), Vector2(i * UNIT_WIDTH, -((y_maximum_number + 0.2) * UNIT_WIDTH)), GRID_COLOR, grid_line_width, true)
-	
+	for i in range(-x_maximum_number * grid_line_count, x_maximum_number * grid_line_count + 1):
+		if i == 0:
+			continue
+		draw_line(Vector2(i * UNIT_WIDTH / grid_line_count , (y_maximum_number + 0.2) * UNIT_WIDTH), Vector2(i * UNIT_WIDTH / grid_line_count, -((y_maximum_number + 0.2) * UNIT_WIDTH)), TINY_COLOR, grid_line_width, true)
+		if i % grid_line_count == 0:
+			draw_line(Vector2(i * UNIT_WIDTH / grid_line_count , (y_maximum_number + 0.2) * UNIT_WIDTH), Vector2(i * UNIT_WIDTH / grid_line_count, -((y_maximum_number + 0.2) * UNIT_WIDTH)), GRID_COLOR, grid_line_width, true)
+
 	# 绘制行线
-	for i in range(-y_maximum_number, y_maximum_number + 1):
-		if i != 0:
-			draw_line(Vector2( -(x_maximum_number + 0.2) * UNIT_WIDTH, i * UNIT_WIDTH), Vector2((x_maximum_number + 0.2) * UNIT_WIDTH, i * UNIT_WIDTH), GRID_COLOR, grid_line_width, true)
+	for i in range(-y_maximum_number * grid_line_count, y_maximum_number * grid_line_count + 1):
+		if i == 0:
+			continue
+		draw_line(Vector2( -(x_maximum_number + 0.2) * UNIT_WIDTH, i * UNIT_WIDTH / grid_line_count), Vector2((x_maximum_number + 0.2) * UNIT_WIDTH, i * UNIT_WIDTH / grid_line_count), TINY_COLOR, grid_line_width, true)
+		if i % grid_line_count == 0:
+			draw_line(Vector2( -(x_maximum_number + 0.2) * UNIT_WIDTH, i * UNIT_WIDTH / grid_line_count), Vector2((x_maximum_number + 0.2) * UNIT_WIDTH, i * UNIT_WIDTH / grid_line_count), GRID_COLOR, grid_line_width, true)
+
+
+func update_grid():
+	if (grid_line_count == 4):
+		visible = false
+		grid_line_count = 0
+	else:
+		# 因为不知道怎么触发重绘，索性就这样了
+		visible = false
+		visible = true
+		grid_line_count += 1
