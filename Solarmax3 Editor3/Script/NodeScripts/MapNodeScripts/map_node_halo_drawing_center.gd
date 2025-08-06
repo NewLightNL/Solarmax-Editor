@@ -117,7 +117,7 @@ func _process_halo_arguments(this_star_fleets_info : Array[Dictionary]) -> void:
 	var radian_element = TAU/ship_number_summed
 	var last_end_radian : float = 0.0
 	for this_star_fleet in this_star_fleets_info:
-		if this_star_fleet[0] != 0:
+		if this_star_fleet["camp_id"] != 0:
 			var halo_argument : Array
 			var halo_start_radian : float
 			var step_radian : float = this_star_fleet["ship_number"] * radian_element
@@ -143,7 +143,7 @@ func _process_halo_arguments(this_star_fleets_info : Array[Dictionary]) -> void:
 			else:
 				push_error("舰队阵营数量有问题!")
 			var halo_end_radian : float = halo_start_radian + step_radian
-			var halo_arc_color : Color = camp_colors[this_star_fleet[0]]
+			var halo_arc_color : Color = camp_colors[this_star_fleet["camp_id"]]
 			halo_argument.append(halo_start_radian)
 			halo_argument.append(halo_end_radian)
 			halo_argument.append(halo_arc_color)

@@ -17,13 +17,7 @@ var orbit_types : Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Button.test.connect(check.bind("1"))
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
 	pass
-
-
-func check(a, b):
-	print(a, b)
+	#var sprite2D : Sprite2D = $Sprite2D
+	#var blue_value = 1.0
+	#sprite2D.material.set_shader_parameter("blue", blue_value)

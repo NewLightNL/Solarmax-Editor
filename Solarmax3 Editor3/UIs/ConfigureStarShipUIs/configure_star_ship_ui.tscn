@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dg236strhcfuq"]
+[gd_scene load_steps=10 format=3 uid="uid://dg236strhcfuq"]
 
 [ext_resource type="Script" uid="uid://cy8b412rknbyd" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/configure_star_ship_ui.gd" id="1_ugw1q"]
 [ext_resource type="PackedScene" uid="uid://dlp0enqxnawmv" path="res://UIs/ConfigureStarShipUIs/star_fleet_informaiton_unit.tscn" id="3_0ki3m"]
 [ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="3_gf3wg"]
+[ext_resource type="Script" uid="uid://capcv3711hy4o" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ship_number_input_line_edit.gd" id="4_3ohxx"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugw1q"]
 bg_color = Color(0.380392, 0.639216, 0.768627, 0.607843)
@@ -40,6 +41,29 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p7sli"]
+bg_color = Color(0.314316, 0.314316, 0.314316, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gf3wg"]
+bg_color = Color(0.8, 0.8, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="ConfigureStarShipUI" type="Control"]
 layout_mode = 3
@@ -243,22 +267,96 @@ offset_bottom = -0.498047
 theme_override_font_sizes/font_size = 19
 text = "保存设置并退出天体飞船设置界面"
 
-[node name="Control" type="Control" parent="."]
+[node name="ConfigureStarShipUIRect2" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 0
 offset_left = 632.0
 offset_top = 816.0
 offset_right = 1040.0
 offset_bottom = 1088.0
 
-[node name="CheckBox" type="CheckBox" parent="Control"]
+[node name="ConfigueCampShipUnit" type="Control" parent="ConfigureStarShipUIRect2"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.647
+offset_bottom = 0.0159912
+
+[node name="BG" type="Panel" parent="ConfigureStarShipUIRect2/ConfigueCampShipUnit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_p7sli")
+
+[node name="Context" type="Control" parent="ConfigureStarShipUIRect2/ConfigueCampShipUnit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ConfigureStarShipUIRect2/ConfigueCampShipUnit/Context"]
 layout_mode = 0
-offset_right = 24.0
-offset_bottom = 24.0
-scale = Vector2(2, 2)
-icon_alignment = 1
+offset_right = 85.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 20
+text = "阵营颜色:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="ConfigureStarShipUIRect2/ConfigueCampShipUnit/Context/Label"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 88.0
+offset_right = 136.0
+offset_bottom = 48.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gf3wg")
+
+[node name="Label2" type="Label" parent="ConfigureStarShipUIRect2/ConfigueCampShipUnit/Context"]
+layout_mode = 0
+offset_left = 152.0
+offset_right = 192.0
+offset_bottom = 48.0
+text = "阵营id:0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="ConfigureStarShipUIRect2/ConfigueCampShipUnit/Context"]
+layout_mode = 0
+offset_top = 64.0
+offset_right = 40.0
+offset_bottom = 112.0
+text = "飞船数:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="ConfigureStarShipUIRect2/ConfigueCampShipUnit/Context/Label3"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 10.0
+offset_right = 145.0
+offset_bottom = 40.0
+max_value = 2.14748e+09
+update_on_text_changed = true
+
+[node name="LineEdit" type="LineEdit" parent="ConfigureStarShipUIRect2/ConfigueCampShipUnit/Context/Label3"]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 48.0
+offset_right = 126.5
+offset_bottom = 78.0
+script = ExtResource("4_3ohxx")
 
 [connection signal="text_changed" from="ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput" to="." method="_on_star_fleet_ship_number_input_text_changed"]
 [connection signal="text_changed" from="ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput" to="." method="_on_star_fleet_ship_camp_input_text_changed"]
 [connection signal="item_selected" from="ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInputOptionButton" to="." method="_on_star_fleet_ship_camp_input_option_button_item_selected"]
 [connection signal="button_up" from="ConfigureStarShipUIRect/AddStarFleetUI/AddStarFleetButton" to="." method="_on_add_star_fleet_button_button_up"]
 [connection signal="button_up" from="LeaveConfigureStarShipUIButton" to="." method="_on_leave_configure_star_ship_ui_button_button_up"]
+[connection signal="gui_input" from="ConfigureStarShipUIRect2/ConfigueCampShipUnit/Context/Label3/LineEdit" to="ConfigureStarShipUIRect2/ConfigueCampShipUnit/Context/Label3/LineEdit" method="_on_gui_input"]

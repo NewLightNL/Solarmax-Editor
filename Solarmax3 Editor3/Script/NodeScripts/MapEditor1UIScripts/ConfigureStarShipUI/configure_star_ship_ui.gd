@@ -70,8 +70,8 @@ func organize_star_fleets():
 	for camp in defined_camp_ids:
 		var camp_ship_number : int = 0
 		for this_star_fleet in this_star_fleets:
-			if this_star_fleet[0] == camp and this_star_fleet[1] != 0:
-				camp_ship_number += this_star_fleet[1]
+			if this_star_fleet["camp_id"] == camp and this_star_fleet["ship_number"] != 0:
+				camp_ship_number += this_star_fleet["ship_number"]
 		if camp_ship_number > 0:
 			this_star_fleets_ordered.append([camp, camp_ship_number])
 	# 检验star_fleets(第二阶段)
@@ -164,16 +164,18 @@ func update_star_fleets_list():
 			i.queue_free()
 	# 生成天体舰队列表
 	for this_star_fleet in this_star_fleets:
-		if this_star_fleet[1] >= 0:
+		if this_star_fleet["ship_number"] >= 0:
 			# 添加文字
-			var star_fleet_text : String = " 飞船数: %s ; 阵营id: %s ; 阵营颜色:" % [this_star_fleet[1], this_star_fleet[0]]
+			var star_fleet_text : String = " 飞船数: %s ; 阵营id: %s ; 阵营颜色:" % [this_star_fleet["ship_number"], this_star_fleet["camp_id"]]
 			var star_fleet_information_unit_node = star_fleet_information_unit.instantiate()
 			$StarFleetsUI/StarFleetsListScrollContainer/StarFleetsListVBoxContainer.add_child(star_fleet_information_unit_node)
 			star_fleet_information_unit_node.get_child(1).text = star_fleet_text
 			
+			var star_fleet_camp_color_stylebox_d : StyleBoxFlat = load("res://Resources/StyleBoxes/show_camp_color_style_box_flat.tres")
+			star_fleet_camp_color_stylebox_d = star_fleet_camp_color_stylebox_d.duplicate()
 			# Stylebox设置
 			var star_fleet_camp_color_stylebox = StyleBoxFlat.new()
-			star_fleet_camp_color_stylebox.bg_color = camp_colors[this_star_fleet[0]]
+			star_fleet_camp_color_stylebox.bg_color = camp_colors[this_star_fleet["camp_id"]]
 			star_fleet_camp_color_stylebox.border_width_left = 2
 			star_fleet_camp_color_stylebox.border_width_top = 2
 			star_fleet_camp_color_stylebox.border_width_right = 2
