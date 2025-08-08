@@ -1,0 +1,153 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuk3gflxdaj76"]
+
+[ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="1_dpxci"]
+[ext_resource type="Script" uid="uid://b2an77g6b6wps" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/new/star_preview_control_script.gd" id="1_fwcpf"]
+[ext_resource type="PackedScene" uid="uid://d33684bsww03p" path="res://UIs/ConfigureStarShipUIs/new/configue_camp_ship_unit.tscn" id="6_lg6i2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwcpf"]
+bg_color = Color(0.380392, 0.639216, 0.768627, 0.607843)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.507528, 0.855987, 0.984725, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hsxdc"]
+bg_color = Color(0, 0.643137, 0.929412, 0.490196)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.555012, 0.843143, 0.999106, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uyjqm"]
+bg_color = Color(0.32549, 0.32549, 0.32549, 0.831373)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.627635, 0.627635, 0.627635, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ConfigureStarFleetsUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="StarPreviewControl" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.34
+anchor_top = 0.244
+anchor_right = 0.523
+anchor_bottom = 0.756
+offset_left = -0.200012
+offset_top = -0.152008
+offset_right = 0.76001
+offset_bottom = 0.152039
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fwcpf")
+
+[node name="ConfigureStarShipUIBG" type="Panel" parent="StarPreviewControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fwcpf")
+metadata/_edit_lock_ = true
+
+[node name="StarShipPreviewBG" type="Panel" parent="StarPreviewControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.186
+anchor_top = 0.118
+anchor_right = 0.814
+anchor_bottom = 0.517
+offset_left = 0.0159988
+offset_top = 0.0440063
+offset_right = -0.0159912
+offset_bottom = -0.21405
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hsxdc")
+metadata/_edit_lock_ = true
+
+[node name="MapNodeStar" parent="StarPreviewControl" instance=ExtResource("1_dpxci")]
+position = Vector2(172, 172)
+
+[node name="FleetsSettingUI" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 983.0
+offset_top = 258.0
+offset_right = 1351.0
+offset_bottom = 800.0
+metadata/_edit_lock_ = true
+
+[node name="FleetsSettingUIBG" type="Panel" parent="FleetsSettingUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uyjqm")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FleetsSettingUI"]
+layout_mode = 2
+offset_left = 17.0
+offset_top = 22.0
+offset_right = 352.0
+offset_bottom = 518.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="FleetsSettingUI/ScrollContainer"]
+layout_mode = 2
+
+[node name="ConfigueCampShipUnit" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
+layout_mode = 2
+
+[node name="ConfigueCampShipUnit2" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
+layout_mode = 2
+
+[node name="ConfigueCampShipUnit3" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
+layout_mode = 2
+
+[node name="ConfigueCampShipUnit4" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
+layout_mode = 2
+
+[node name="ConfigueCampShipUnit5" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
+layout_mode = 2
+
+[node name="ConfigueCampShipUnit6" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
+layout_mode = 2
+
+[node name="LeaveButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.374
+anchor_top = 0.59
+anchor_right = 0.489
+anchor_bottom = 0.658
+offset_left = 0.880005
+offset_top = -0.220032
+offset_right = 0.679932
+offset_bottom = -0.164063
+theme_override_font_sizes/font_size = 22
+text = "保存并离开"

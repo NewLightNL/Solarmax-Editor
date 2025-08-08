@@ -1,0 +1,179 @@
+[gd_scene load_steps=7 format=3 uid="uid://d33684bsww03p"]
+
+[ext_resource type="Script" uid="uid://saxjemeqfn8x" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/configue_camp_ship_unit_script.gd" id="1_m0f27"]
+[ext_resource type="Script" uid="uid://dudn40350l04k" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/configue_camp_ship_ui_script.gd" id="2_77xcw"]
+[ext_resource type="Script" uid="uid://capcv3711hy4o" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/ship_number_input_line_edit.gd" id="3_lr0t7"]
+[ext_resource type="Script" uid="uid://d3n2r2y45fmyj" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/ship_number_growth_script.gd" id="4_fhyxo"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jda1s"]
+bg_color = Color(0.314316, 0.314316, 0.314316, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ihti"]
+bg_color = Color(0.8, 0.8, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="ConfigueCampShipUnit" type="Control"]
+custom_minimum_size = Vector2(296, 216)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 296.0
+offset_bottom = 216.0
+script = ExtResource("1_m0f27")
+metadata/_edit_use_anchors_ = true
+
+[node name="BG" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jda1s")
+metadata/_edit_lock_ = true
+
+[node name="ConfigueCampShipUI" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_77xcw")
+metadata/_edit_lock_ = true
+
+[node name="CampColorLabel" type="Label" parent="ConfigueCampShipUI"]
+layout_mode = 0
+offset_right = 85.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 20
+text = "阵营颜色:"
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="CampColorPanel" type="Panel" parent="ConfigueCampShipUI/CampColorLabel"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 88.0
+offset_right = 127.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1ihti")
+metadata/_edit_lock_ = true
+
+[node name="CampIDLabel" type="Label" parent="ConfigueCampShipUI"]
+layout_mode = 0
+offset_left = 136.0
+offset_right = 202.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 20
+text = "阵营ID: 0"
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="ShipNumberLabel" type="Label" parent="ConfigueCampShipUI"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 65.0
+offset_bottom = 92.0
+theme_override_font_sizes/font_size = 20
+text = "飞船数:"
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="ShipNumberLineEdit" type="LineEdit" parent="ConfigueCampShipUI/ShipNumberLabel"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 20
+script = ExtResource("3_lr0t7")
+max_value = 2.14748e+09
+metadata/_edit_use_anchors_ = true
+
+[node name="ShipNumberDifference" type="Control" parent="ConfigueCampShipUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("4_fhyxo")
+metadata/_edit_lock_ = true
+
+[node name="ShipNumberDifferenceBG" type="Panel" parent="ConfigueCampShipUI/ShipNumberDifference"]
+layout_mode = 1
+offset_left = 104.0
+offset_top = 128.0
+offset_right = 160.0
+offset_bottom = 184.0
+metadata/_edit_lock_ = true
+
+[node name="ShipNumberDifferenceLabel" type="Label" parent="ConfigueCampShipUI/ShipNumberDifference"]
+layout_mode = 1
+offset_left = 104.0
+offset_top = 128.0
+offset_right = 160.0
+offset_bottom = 184.0
+text = "-/+
+1"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="ShipNumberDifferenceHSlider" type="HSlider" parent="ConfigueCampShipUI/ShipNumberDifference"]
+layout_mode = 0
+offset_top = 104.0
+offset_right = 264.0
+offset_bottom = 120.0
+min_value = 1.0
+value = 1.0
+exp_edit = true
+rounded = true
+metadata/_edit_use_anchors_ = true
+
+[node name="AddButton" type="Button" parent="ConfigueCampShipUI/ShipNumberDifference"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 128.0
+offset_right = 248.0
+offset_bottom = 184.0
+text = "+"
+metadata/_edit_use_anchors_ = true
+
+[node name="DecreaseButton" type="Button" parent="ConfigueCampShipUI/ShipNumberDifference"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 128.0
+offset_right = 72.0
+offset_bottom = 184.0
+text = "-"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="text_changed" from="ConfigueCampShipUI/ShipNumberLabel/ShipNumberLineEdit" to="ConfigueCampShipUI/ShipNumberLabel/ShipNumberLineEdit" method="_on_text_changed"]
+[connection signal="value_changed" from="ConfigueCampShipUI/ShipNumberDifference/ShipNumberDifferenceHSlider" to="ConfigueCampShipUI/ShipNumberDifference" method="_on_ship_number_difference_h_slider_value_changed"]
+[connection signal="button_up" from="ConfigueCampShipUI/ShipNumberDifference/AddButton" to="ConfigueCampShipUI/ShipNumberDifference" method="_on_add_button_button_up"]
+[connection signal="button_up" from="ConfigueCampShipUI/ShipNumberDifference/DecreaseButton" to="ConfigueCampShipUI/ShipNumberDifference" method="_on_decrease_button_button_up"]

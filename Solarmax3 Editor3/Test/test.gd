@@ -17,7 +17,7 @@ var orbit_types : Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-	#var sprite2D : Sprite2D = $Sprite2D
-	#var blue_value = 1.0
-	#sprite2D.material.set_shader_parameter("blue", blue_value)
+	var a : Vector2 = Vector2(1, 2)
+	var b : Vector2 = Vector2(3, 4)
+	var c = a * b
+	print(c)

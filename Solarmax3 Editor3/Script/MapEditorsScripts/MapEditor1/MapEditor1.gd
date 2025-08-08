@@ -29,8 +29,6 @@ func _ready():
 	# 初始化变量
 	# 链接全局变量
 	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
-	# 加载编辑器基本信息
-	Mapeditor1ShareData.init_editor_data()
 	# 检查初始化
 	#check_initalisation()
 	# 处理变量...

@@ -4,7 +4,11 @@ const UISTANDARDSIZE : Vector2 = Vector2(231.0, 231.0)
 var camp_colors : Dictionary
 
 func _ready() -> void:
+	_pull_map_editor_shared_data()
 	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
+
+
+func _pull_map_editor_shared_data():
 	camp_colors = Mapeditor1ShareData.camp_colors
 
 
@@ -44,7 +48,7 @@ func _update_star_ui_rect(star_scale : float):
 	self.position = -(UISTANDARDSIZE / 2) * star_scale
 	self.size = UISTANDARDSIZE * star_scale
 
-
+# 计算与生成应该分开
 func _update_star_fleets_label(this_star_fleets_info : Array[Dictionary]):
 	# 检验传入参数
 	for this_star_fleet in this_star_fleets_info:

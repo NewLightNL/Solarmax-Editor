@@ -1,6 +1,5 @@
 extends MapNodeStar
 
-var _ui_last_position : Vector2
 # 外部输入数据
 var star_pattern_dictionary : Dictionary
 var camp_colors : Dictionary
@@ -13,19 +12,13 @@ var camp_colors : Dictionary
 
 
 func _ready():
-	Mapeditor1ShareData.init_editor_data()
+	_pull_map_editor_shared_data()
+	update_map_node_star()
+
+
+func _pull_map_editor_shared_data():
 	star_pattern_dictionary = Mapeditor1ShareData.star_pattern_dictionary
 	camp_colors = Mapeditor1ShareData.camp_colors
-	
-	update_map_node_star()
-	#var stars = Mapeditor1ShareData.stars
-	#_init_from_star(stars[0])
-
-
-func _process(delta):
-	if _star_ui.position != _ui_last_position:
-		_update_ui_children()
-	_ui_last_position = _star_ui.position
 
 
 func _update_ui_children():
@@ -33,39 +26,31 @@ func _update_ui_children():
 
 
 func update_map_node_star():
-	_update_map_node_star_showing_property()
+	_update_map_node_star_sprite()
 	_call_draw_halo()
 	_call_draw_orbit()
 	_update_star_ui()
 
 
-func _update_map_node_star_showing_property():
-	_update_map_node_star_showing_picture()
-	_update_map_node_star_showing_camp()
-
-
-func _update_map_node_star_showing_picture():
-	_map_node_star_sprite.texture = star_pattern_dictionary[pattern_name]
-	var raw_scale = self.star_scale * Vector2.ONE
-	var scale_processed = Vector2(raw_scale.x * scale_fix.x, raw_scale.y * scale_fix.y)
-	_map_node_star_sprite.scale = scale_processed
-	_map_node_star_sprite.offset = offset_fix
-	
-	if self.is_taget == true:
-		# 对于可旋转天体，要用障碍点标记
-		# 对于自带旋转的天体?
-		self.fAngle = 90
-		_map_node_star_sprite.rotation_degrees = self.rotation_fix_degree + self.fAngle
+func _update_map_node_star_sprite():
+	if _map_node_star_sprite != null:
+		var star_pattern : CompressedTexture2D
+		if star_pattern_dictionary.has(pattern_name):
+			star_pattern = star_pattern_dictionary[pattern_name]
+		else:
+			push_error("天体图案字典里找不到该天体图案！")
+			star_pattern = null
+		_map_node_star_sprite.update_sprite(
+				star_pattern,
+				star_scale,
+				scale_fix,
+				offset_fix,
+				rotation_fix_degree,
+				fAngle,
+				camp_colors[star_camp],
+		)
 	else:
-		# 对于不旋转天体，则恢复0度
-		# 对于旋转天体，则去掉障碍点，保持其旋转角度
-		self.fAngle = 0
-		_map_node_star_sprite.rotation_degrees = self.rotation_fix_degree + self.fAngle
-
-
-func _update_map_node_star_showing_camp():
-	var camp_color : Color = camp_colors[star_camp]
-	_map_node_star_sprite.modulate = camp_color
+		push_error("缺少天体精灵!")
 
 
 func _call_draw_orbit():
@@ -89,6 +74,6 @@ func _call_draw_halo():
 func _update_star_ui():
 	_star_ui.update_star_ui(star_scale, this_star_fleets)
 
-
+# 不应该直接获取删除按钮发出的信息
 func _on_delete_button_button_up():
 	queue_free()

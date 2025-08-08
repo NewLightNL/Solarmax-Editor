@@ -1,0 +1,175 @@
+[gd_scene load_steps=7 format=3 uid="uid://x1xyl3c2x2mf"]
+
+[ext_resource type="Script" uid="uid://dxg0lqj0f2ic5" path="res://Test/test.gd" id="1_37kl0"]
+[ext_resource type="Script" uid="uid://saxjemeqfn8x" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/configue_camp_ship_unit_script.gd" id="2_1ihti"]
+[ext_resource type="Script" uid="uid://capcv3711hy4o" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/ship_number_input_line_edit.gd" id="2_lxp54"]
+[ext_resource type="Script" uid="uid://dudn40350l04k" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/configue_camp_ship_ui_script.gd" id="3_su4bj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jda1s"]
+bg_color = Color(0.314316, 0.314316, 0.314316, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ihti"]
+bg_color = Color(0.8, 0.8, 0.8, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_37kl0")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ConfigueCampShipUnit" type="Control" parent="."]
+layout_mode = 3
+anchor_right = 0.725
+anchor_bottom = 0.706
+offset_left = -192.0
+offset_top = -112.0
+offset_right = 104.0
+offset_bottom = 144.0
+script = ExtResource("2_1ihti")
+
+[node name="BG" type="Panel" parent="ConfigueCampShipUnit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jda1s")
+metadata/_edit_lock_ = true
+
+[node name="ConfigueCampShipUI" type="Control" parent="ConfigueCampShipUnit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_su4bj")
+metadata/_edit_lock_ = true
+
+[node name="CampColorLabel" type="Label" parent="ConfigueCampShipUnit/ConfigueCampShipUI"]
+layout_mode = 0
+offset_right = 85.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 20
+text = "阵营颜色:"
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="CampColorPanel" type="Panel" parent="ConfigueCampShipUnit/ConfigueCampShipUI/CampColorLabel"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 88.0
+offset_right = 127.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1ihti")
+metadata/_edit_lock_ = true
+
+[node name="CampIDLabel" type="Label" parent="ConfigueCampShipUnit/ConfigueCampShipUI"]
+layout_mode = 0
+offset_left = 136.0
+offset_right = 202.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 20
+text = "阵营id:0"
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="ShipNumberLabel" type="Label" parent="ConfigueCampShipUnit/ConfigueCampShipUI"]
+layout_mode = 0
+offset_top = 48.0
+offset_right = 65.0
+offset_bottom = 92.0
+theme_override_font_sizes/font_size = 20
+text = "飞船数:"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ShipNumberLineEdit" type="LineEdit" parent="ConfigueCampShipUnit/ConfigueCampShipUI/ShipNumberLabel"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 4.0
+offset_right = 264.0
+offset_bottom = 44.0
+theme_override_font_sizes/font_size = 20
+script = ExtResource("2_lxp54")
+max_value = 2.14748e+09
+
+[node name="AddButton" type="Button" parent="ConfigueCampShipUnit/ConfigueCampShipUI"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 176.0
+offset_right = 240.0
+offset_bottom = 216.0
+text = "+"
+
+[node name="DecreaseButton" type="Button" parent="ConfigueCampShipUnit/ConfigueCampShipUI"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 176.0
+offset_right = 64.0
+offset_bottom = 216.0
+text = "-"
+
+[node name="HSlider" type="HSlider" parent="ConfigueCampShipUnit/ConfigueCampShipUI"]
+layout_mode = 0
+offset_top = 104.0
+offset_right = 264.0
+offset_bottom = 120.0
+min_value = 1.0
+value = 1.0
+exp_edit = true
+rounded = true
+
+[node name="Control" type="Control" parent="ConfigueCampShipUnit/ConfigueCampShipUI"]
+anchors_preset = 0
+offset_left = 104.0
+offset_top = 128.0
+offset_right = 160.0
+offset_bottom = 184.0
+
+[node name="Panel" type="Panel" parent="ConfigueCampShipUnit/ConfigueCampShipUI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="ConfigueCampShipUnit/ConfigueCampShipUI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "+1"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[connection signal="text_changed" from="ConfigueCampShipUnit/ConfigueCampShipUI/ShipNumberLabel/ShipNumberLineEdit" to="ConfigueCampShipUnit/ConfigueCampShipUI/ShipNumberLabel/ShipNumberLineEdit" method="_on_text_changed"]
+[connection signal="value_changed" from="ConfigueCampShipUnit/ConfigueCampShipUI/HSlider" to="ConfigueCampShipUnit/ConfigueCampShipUI" method="_on_h_slider_value_changed"]

@@ -17,15 +17,17 @@ var chosen_star : MapNodeStar
 var star_fleets : Array
 
 
-func init_editor_data():
+func _init() -> void:
+	_initialize_editor_data()
+
+
+func _initialize_editor_data():
 	star_pattern_dictionary = Load.init_star_pattern_dictionary()
 	defined_camp_ids = Load.get_map_editor_basic_information("defined_camp_ids")
 	camp_colors = Load.get_map_editor_basic_information("camp_colors")
 	stars = Load.get_map_editor_basic_information("stars")
 	stars_dictionary = Load.get_map_editor_basic_information("stars_dictionary")
 	orbit_types = Load.get_map_editor_basic_information("orbit_types")
-	
-	emit_signal("editor_data_updated", "all_basic_information")
 
 
 func data_updated(key : String, value):

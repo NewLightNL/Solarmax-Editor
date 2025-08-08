@@ -1,0 +1,178 @@
+[gd_scene load_steps=7 format=3 uid="uid://dg236strhcfuq"]
+
+[ext_resource type="Script" uid="uid://cy8b412rknbyd" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/configure_star_ship_ui.gd" id="1_02urw"]
+[ext_resource type="PackedScene" uid="uid://dlp0enqxnawmv" path="res://UIs/ConfigureStarShipUIs/star_fleet_informaiton_unit.tscn" id="2_lcee4"]
+[ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="3_hwlnd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugw1q"]
+bg_color = Color(0.380392, 0.639216, 0.768627, 0.607843)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.507528, 0.855987, 0.984725, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ki3m"]
+bg_color = Color(0, 0.643137, 0.929412, 0.490196)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.555012, 0.843143, 0.999106, 1)
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3mhld"]
+bg_color = Color(0.32549, 0.32549, 0.32549, 0.831373)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.627635, 0.627635, 0.627635, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="ConfigureStarShipUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_02urw")
+star_fleet_information_unit = ExtResource("2_lcee4")
+metadata/_edit_lock_ = true
+
+[node name="ConfigureStarShipUIRect" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.306
+anchor_top = 0.121
+anchor_right = 0.566
+anchor_bottom = 0.726
+offset_left = 0.719971
+offset_top = -0.0180054
+offset_right = -0.0800781
+offset_bottom = -0.108032
+
+[node name="ConfigureStarShipUIBG" type="Panel" parent="ConfigureStarShipUIRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ugw1q")
+metadata/_edit_lock_ = true
+
+[node name="StarShipPreview" type="Control" parent="ConfigureStarShipUIRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = -63.9999
+offset_bottom = -216.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="StarShipPreviewBG" type="Panel" parent="ConfigureStarShipUIRect/StarShipPreview"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0ki3m")
+metadata/_edit_lock_ = true
+
+[node name="StarContainer" type="Node2D" parent="ConfigureStarShipUIRect/StarShipPreview"]
+position = Vector2(176, 176)
+metadata/_edit_lock_ = true
+
+[node name="MapNodeStar" parent="ConfigureStarShipUIRect/StarShipPreview/StarContainer" instance=ExtResource("3_hwlnd")]
+
+[node name="StarFleetsUI" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.566
+anchor_top = 0.121
+anchor_right = 0.826
+anchor_bottom = 0.726
+offset_left = -0.0800781
+offset_top = -0.0180054
+offset_right = -0.880005
+offset_bottom = -0.108032
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StarFleetsUIBG" type="Panel" parent="StarFleetsUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3mhld")
+
+[node name="StarFleetsListUIBG" type="Panel" parent="StarFleetsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.054
+anchor_top = 0.1
+anchor_right = 0.947
+anchor_bottom = 0.95
+offset_left = -0.352007
+offset_right = -0.136139
+
+[node name="StarFleetsListLabel" type="Label" parent="StarFleetsUI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.361
+anchor_top = 0.025
+anchor_right = 0.656
+anchor_bottom = 0.077
+offset_left = -24.1679
+offset_right = 23.872
+offset_bottom = -0.279999
+theme_override_font_sizes/font_size = 24
+text = "天体舰队设置列表"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StarFleetsListScrollContainer" type="ScrollContainer" parent="StarFleetsUI"]
+layout_mode = 2
+anchor_left = 0.049
+anchor_top = 0.1
+anchor_right = 0.951
+anchor_bottom = 0.95
+offset_left = 0.0879936
+offset_right = -0.0881348
+
+[node name="StarFleetsListVBoxContainer" type="VBoxContainer" parent="StarFleetsUI/StarFleetsListScrollContainer"]
+layout_mode = 2
+
+[node name="LeaveConfigureStarShipUIButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.353
+anchor_top = 0.582
+anchor_right = 0.509
+anchor_bottom = 0.643
+offset_left = 0.359985
+offset_top = 0.243958
+offset_right = 0.0800171
+offset_bottom = -0.294006
+theme_override_font_sizes/font_size = 19
+text = "保存设置并退出天体飞船设置界面"
+
+[connection signal="button_up" from="LeaveConfigureStarShipUIButton" to="." method="_on_leave_configure_star_ship_ui_button_button_up"]
