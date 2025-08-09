@@ -15,7 +15,7 @@ var ship_number : int
 
 
 func _ready() -> void:
-	Mapeditor1ShareData.editor_data_updated.connect(_on_mapeditor1_shared_data_updated)
+	Mapeditor1ShareData.shared_data_updated.connect(_on_mapeditor1_shared_data_updated)
 	ship_number_line_edit.value_changed.connect(_on_ship_number_line_edit_value_changed)
 	ship_number_difference_control.ship_number_added_to_difference.connect(_on_ship_number_added_to_difference)
 	_pull_mapeditor_shared_data()

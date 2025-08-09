@@ -32,8 +32,8 @@ var chosen_star : MapNodeStar:
 func _ready() -> void:
 	initial_variants()
 	
-
-	Mapeditor1ShareData.connect("editor_data_updated", _on_global_data_updated)
+	# ?这里的信号连接方式可能要改一下
+	Mapeditor1ShareData.connect("shared_data_updated", _on_global_data_updated)
 
 
 func initial_variants():

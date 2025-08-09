@@ -66,13 +66,13 @@ func _call_draw_orbit():
 
 func _call_draw_halo():
 	if _halo_drawer != null:
-		_halo_drawer.draw_halo(this_star_fleets, star_scale)
+		_halo_drawer.draw_halo(this_star_fleets_dictionaries, star_scale)
 	else:
 		push_error("天体缺少画环节点!")
 
 
 func _update_star_ui():
-	_star_ui.update_star_ui(star_scale, this_star_fleets)
+	_star_ui.update_star_ui(star_scale, this_star_fleets_dictionaries)
 
 # 不应该直接获取删除按钮发出的信息
 func _on_delete_button_button_up():

@@ -11,7 +11,7 @@ var initial_orbit_settings : Dictionary
 
 
 func _ready() -> void:
-	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
+	Mapeditor1ShareData.shared_data_updated.connect(_on_global_data_updated)
 
 
 func _on_global_data_updated(key : String):

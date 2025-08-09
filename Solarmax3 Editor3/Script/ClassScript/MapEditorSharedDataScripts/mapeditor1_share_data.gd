@@ -1,6 +1,6 @@
 extends Node
 
-signal editor_data_updated(key)
+signal shared_data_updated(key)
 
 # 被定义的阵营
 var defined_camp_ids : Array[int]
@@ -50,4 +50,4 @@ func data_updated(key : String, value):
 			star_fleets = value
 		_:
 			push_error("数据更新出错，请检查要提交的内容名是否正确")
-	emit_signal("editor_data_updated", key)
+	emit_signal("shared_data_updated", key)

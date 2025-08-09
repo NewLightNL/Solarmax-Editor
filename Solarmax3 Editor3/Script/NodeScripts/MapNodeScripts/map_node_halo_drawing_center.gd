@@ -9,9 +9,13 @@ var _halo_arguments : Array
 # halo_argument = [起始弧度, 终止弧度, 颜色]
 # 可能要改为{radian_info : [起始弧度, 终止弧度], arc_color : ...}?
 
-
+# 要修改读取天体舰队方式 
 func _ready() -> void:
-	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
+	Mapeditor1ShareData.shared_data_updated.connect(_on_global_data_updated)
+	_pull_map_editor_shared_data()
+
+
+func _pull_map_editor_shared_data():
 	camp_colors = Mapeditor1ShareData.camp_colors
 
 
@@ -58,55 +62,58 @@ func draw_halo(this_star_fleets_info : Array, star_scale_info : float) -> void:
 
 func _process_halo_arguments(this_star_fleets_info : Array[Dictionary]) -> void:
 	# 检验传入参数
-	for this_star_fleet in this_star_fleets_info:
-		if (
-				not this_star_fleet.has("camp_id")
-				or not this_star_fleet.has("ship_number")
-		):
-			push_error("环参数缺键!")
-			return
-		else:
-			if (
-					this_star_fleet["camp_id"] is not int
-					or this_star_fleet["ship_number"] is not int
-			):
-				push_error("环参数内容有问题!")
-				return
-			else:
-				if (
-						this_star_fleet["ship_number"] > 2147483647
-						or this_star_fleet["ship_number"] < 0
-				):
-					push_error("campid为%sd的舰队数量有问题!" % this_star_fleet["camp_id"])
-					return
+	#for this_star_fleet in this_star_fleets_info:
+		#if (
+				#not this_star_fleet.has("camp_id")
+				#or not this_star_fleet.has("ship_number")
+		#):
+			#push_error("环参数缺键!")
+			#return
+		#else:
+			#if (
+					#this_star_fleet["camp_id"] is not int
+					#or this_star_fleet["ship_number"] is not int
+			#):
+				#push_error("环参数内容有问题!")
+				#return
+			#else:
+				#if (
+						#this_star_fleet["ship_number"] > 2147483647
+						#or this_star_fleet["ship_number"] < 0
+				#):
+					#push_error("campid为%sd的舰队数量有问题!" % this_star_fleet["camp_id"])
+					#return
 	# 了解舰队信息
-	var ship_number_summed : int = 0
-	var camps_having_ship_id_sorted : Array[int] = []
-	for this_star_fleet in this_star_fleets_info:
-		if (
-				this_star_fleet["camp_id"] != 0
-				and this_star_fleet["ship_number"] > 0
-		):
-			ship_number_summed += this_star_fleet["ship_number"]
-			camps_having_ship_id_sorted.append(this_star_fleet["ship_number"])
-			camps_having_ship_id_sorted.sort()
-	# 整理舰队信息(只会得到阵营id不为0且有飞船的舰队)
-	var this_star_fleets_sorted : Array[Dictionary]
-	for index in camps_having_ship_id_sorted:
-		var this_star_fleet : Dictionary
-		this_star_fleet["camp_id"] = index
-		for this_star_fleet_info in this_star_fleets_info:
-			if this_star_fleet_info["camp_id"] == index:
-				if not this_star_fleet.has("ship_number"):
-					this_star_fleet["ship_number"] = this_star_fleet_info["camp_id"]
-				else:
-					this_star_fleet["ship_number"] += this_star_fleet_info["camp_id"]
-		this_star_fleets_sorted.append(this_star_fleet)
+	#var ship_number_summed : int = 0
+	#var camps_having_ship_id_sorted : Array[int] = []
+	#for this_star_fleet in this_star_fleets_info:
+		#if (
+				#this_star_fleet["camp_id"] != 0
+				#and this_star_fleet["ship_number"] > 0
+		#):
+			#ship_number_summed += this_star_fleet["ship_number"]
+			#camps_having_ship_id_sorted.append(this_star_fleet["ship_number"])
+			#camps_having_ship_id_sorted.sort()
+	## 整理舰队信息(只会得到阵营id不为0且有飞船的舰队)
+	#var this_star_fleets_sorted : Array[Dictionary]
+	#for index in camps_having_ship_id_sorted:
+		#var this_star_fleet : Dictionary
+		#this_star_fleet["camp_id"] = index
+		#for this_star_fleet_info in this_star_fleets_info:
+			#if this_star_fleet_info["camp_id"] == index:
+				#if not this_star_fleet.has("ship_number"):
+					#this_star_fleet["ship_number"] = this_star_fleet_info["camp_id"]
+				#else:
+					#this_star_fleet["ship_number"] += this_star_fleet_info["camp_id"]
+		#this_star_fleets_sorted.append(this_star_fleet)
+	
+	this_star_fleets_info = FleetsInformationValidator.validate_star_fleets_dictionaries(
+	this_star_fleets_info,
+	FleetsInformationValidator.FilterFlags.FILTER_CAMP_ZERO_AND_SHIP_NUMBER_ZERO
+	)
+	
 	# 如果没有阵营有飞船或者只有一个阵营有飞船，就不画环
-	if (
-			camps_having_ship_id_sorted.size() <= 0
-			or camps_having_ship_id_sorted.size() == 1
-	):
+	if camps_number.size() <= 1:
 		_is_to_draw_halo = false
 		return
 	else:

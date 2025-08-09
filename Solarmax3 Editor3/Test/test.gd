@@ -17,7 +17,4 @@ var orbit_types : Dictionary
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var a : Vector2 = Vector2(1, 2)
-	var b : Vector2 = Vector2(3, 4)
-	var c = a * b
-	print(c)
+	$Button.button_up.connect($Node2D.print_text)

@@ -31,7 +31,7 @@ static func _convert_map_node_stars_to_string(map_node_stars_should_be_saved : A
 	xml_content += "\t<mapplayers>\n"
 	for map_node_star in map_node_stars_should_be_saved:
 		var ship_format = "<mapplayer tag=\"%s\" ship=\"%s\" camption=\"%s\" />"
-		var this_star_fleets : Array = map_node_star.this_star_fleets
+		var this_star_fleets : Array = map_node_star.this_star_fleets_dictionaries
 		for this_star_fleet in this_star_fleets:
 			var fleet_tag : String = map_node_star.tag
 			var ship_number : int = this_star_fleet[1]

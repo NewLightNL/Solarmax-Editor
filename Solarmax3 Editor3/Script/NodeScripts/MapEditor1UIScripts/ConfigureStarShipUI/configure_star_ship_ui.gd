@@ -25,7 +25,7 @@ var this_star_fleets : Array #其元素相比于"star_fleets"的元素省略了�
 @onready var star_container : Node2D = $ConfigureStarShipUIRect/StarShipPreview/ContainStar
 
 func _ready():
-	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
+	Mapeditor1ShareData.shared_data_updated.connect(_on_global_data_updated)
 	defined_camp_ids = Mapeditor1ShareData.defined_camp_ids
 	camp_colors = Mapeditor1ShareData.camp_colors
 	star_pattern_dictionary = Mapeditor1ShareData.star_pattern_dictionary

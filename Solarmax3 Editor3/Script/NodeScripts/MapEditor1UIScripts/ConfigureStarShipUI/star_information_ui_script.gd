@@ -74,7 +74,7 @@ var chosen_star : MapNodeStar
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
+	Mapeditor1ShareData.shared_data_updated.connect(_on_global_data_updated)
 	
 	#_initialize_basic_information()
 	star_position_input_x.value = 0.0

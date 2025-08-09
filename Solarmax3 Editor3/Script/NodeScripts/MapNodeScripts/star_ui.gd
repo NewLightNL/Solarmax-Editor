@@ -5,7 +5,7 @@ var camp_colors : Dictionary
 
 func _ready() -> void:
 	_pull_map_editor_shared_data()
-	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
+	Mapeditor1ShareData.shared_data_updated.connect(_on_global_data_updated)
 
 
 func _pull_map_editor_shared_data():

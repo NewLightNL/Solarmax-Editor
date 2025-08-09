@@ -28,7 +28,7 @@ var star_fleets : Array
 func _ready():
 	# 初始化变量
 	# 链接全局变量
-	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
+	Mapeditor1ShareData.shared_data_updated.connect(_on_global_data_updated)
 	# 检查初始化
 	#check_initalisation()
 	# 处理变量...

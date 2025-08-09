@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cuk3gflxdaj76"]
+[gd_scene load_steps=9 format=3 uid="uid://cuk3gflxdaj76"]
 
 [ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="1_dpxci"]
-[ext_resource type="Script" uid="uid://b2an77g6b6wps" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/new/star_preview_control_script.gd" id="1_fwcpf"]
+[ext_resource type="Script" uid="uid://b2an77g6b6wps" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureStarFleetsUIScripts/star_preview_control_script.gd" id="1_fwcpf"]
+[ext_resource type="Script" uid="uid://bmubu67cugwox" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureStarFleetsUIScripts/configure_star_fleets_ui_script.gd" id="1_uyjqm"]
+[ext_resource type="Script" uid="uid://b52eusxsavpq4" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureStarFleetsUIScripts/fleets_setting_ui_script.gd" id="4_lg6i2"]
 [ext_resource type="PackedScene" uid="uid://d33684bsww03p" path="res://UIs/ConfigureStarShipUIs/new/configue_camp_ship_unit.tscn" id="6_lg6i2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwcpf"]
@@ -48,6 +50,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_uyjqm")
 metadata/_edit_lock_ = true
 
 [node name="StarPreviewControl" type="Control" parent="."]
@@ -99,6 +102,8 @@ offset_left = 983.0
 offset_top = 258.0
 offset_right = 1351.0
 offset_bottom = 800.0
+script = ExtResource("4_lg6i2")
+configure_camp_ship_unit = ExtResource("6_lg6i2")
 metadata/_edit_lock_ = true
 
 [node name="FleetsSettingUIBG" type="Panel" parent="FleetsSettingUI"]
@@ -151,3 +156,5 @@ offset_right = 0.679932
 offset_bottom = -0.164063
 theme_override_font_sizes/font_size = 22
 text = "保存并离开"
+
+[connection signal="button_up" from="LeaveButton" to="." method="_on_leave_button_button_up"]

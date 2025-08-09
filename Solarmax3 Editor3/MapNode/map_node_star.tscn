@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cs8xmtqi8yiqy" path="res://Script/NodeScripts/MapNodeScripts/map_node_star_extended.gd" id="1_pgljj"]
 [ext_resource type="Script" uid="uid://dw1ooqdu8mabk" path="res://Script/NodeScripts/MapNodeScripts/map_node_star_sprite_script.gd" id="3_gp0vk"]
 [ext_resource type="Script" uid="uid://b0lxeahn18y57" path="res://Script/NodeScripts/MapNodeScripts/orbit_drawer.gd" id="3_pgljj"]
-[ext_resource type="Texture2D" uid="uid://cagy6b17f8c7w" path="res://Textures/StarTexture/master.png" id="4_7dyjc"]
 [ext_resource type="Script" uid="uid://btkwj8wb7i2w" path="res://Script/NodeScripts/MapNodeScripts/star_ui.gd" id="4_esgpg"]
+[ext_resource type="Texture2D" uid="uid://sjqksr3gdgfn" path="res://Textures/StarTexture/ErrorStarTexture/ErrorStar .png" id="4_gp0vk"]
 [ext_resource type="Script" uid="uid://xaieehsc3tms" path="res://Script/NodeScripts/MapNodeScripts/map_node_halo_drawing_center.gd" id="4_y1hkh"]
 
 [node name="MapNodeStar" type="Node2D"]
@@ -16,7 +16,7 @@ script = ExtResource("3_pgljj")
 
 [node name="MapNodeStarSprite" type="Sprite2D" parent="."]
 script = ExtResource("3_gp0vk")
-error_star_texture = ExtResource("4_7dyjc")
+error_star_texture = ExtResource("4_gp0vk")
 
 [node name="HaloDrawingCenter" type="Marker2D" parent="."]
 script = ExtResource("4_y1hkh")
@@ -43,5 +43,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
-
-[connection signal="button_up" from="StarUI/DeleteButton" to="." method="_on_delete_button_button_up"]

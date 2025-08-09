@@ -1,25 +1,23 @@
-extends Star
-class_name MapNodeStar
+@icon("res://Textures/IconTexture/planetRandom.png")
+class_name MapNodeStar extends Star
 
 const MAPUNITLENTH = 99.4
 
 # 地图添加信息
-## 大小类型
-#var size : int = size_type
 ## 天体标签
 var tag : String = ""
 ## 天体阵营
 var star_camp : int = 0
 ## 天体舰队
-var this_star_fleets : Array[Dictionary] = []
+var this_star_fleets_dictionaries : Array[Dictionary]
 # [{"camp_id" : ..., "ship_number" : ...}]
-# this_star_fleets = [this_star_fleet1, this_star_fleet2]
+# this_star_fleets_dictionaries = [this_star_fleet1, this_star_fleet2]
 # this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 ## 天体坐标
 var star_position : Vector2 = Vector2.ZERO:
 	set(value):
 		star_position = value
-		
+		_update_map_node_star_position()
 ## 轨道信息
 var orbit_type : String = "no_orbit"
 var orbit_param1 : Vector2 = Vector2.ZERO
@@ -39,6 +37,15 @@ var lasergun_information : Array = []
 # 其它信息
 ## 是否为目标天体
 var is_taget : bool = false
+
+
+func _init() -> void:
+	_update_map_node_star_position()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSFORM_CHANGED:
+		_update_map_node_star_starposition()
 
 
 func copy_information_from_star(base_star : Star) -> void:
@@ -68,8 +75,8 @@ func duplicate_map_node_star() -> MapNodeStar:
 	rt_mapnodestar.tag = self.tag
 	rt_mapnodestar.star_camp = self.star_camp
 	# 复合类型数组，需要拷贝
-	var this_star_fleets_duplicated = self.this_star_fleets.duplicate(true)
-	rt_mapnodestar.this_star_fleets = this_star_fleets_duplicated
+	var this_star_fleets_dictionaries_duplicated = self.this_star_fleets_dictionaries.duplicate(true)
+	rt_mapnodestar.this_star_fleets_dictionaries = this_star_fleets_dictionaries_duplicated
 	
 	rt_mapnodestar.star_position = self.star_position
 	rt_mapnodestar.orbit_type = self.orbit_type
@@ -101,8 +108,8 @@ func copy_map_node_star(map_node_star_copied : MapNodeStar) -> void:
 	self.tag = map_node_star_copied.tag
 	self.star_camp = map_node_star_copied.star_camp
 	# 复合类型数组，需要拷贝
-	var this_star_fleets_duplicated = map_node_star_copied.this_star_fleets.duplicate(true)
-	self.this_star_fleets = this_star_fleets_duplicated
+	var this_star_fleets_dictionaries_duplicated = map_node_star_copied.this_star_fleets_dictionaries.duplicate(true)
+	self.this_star_fleets_dictionaries = this_star_fleets_dictionaries_duplicated
 	
 	self.star_position = map_node_star_copied.star_position
 	self.orbit_type = map_node_star_copied.orbit_type
@@ -123,3 +130,9 @@ func _update_map_node_star_position():
 	var x_axis_flip : Transform2D = Transform2D(Vector2(1, 0), Vector2(0, -1), Vector2.ZERO)
 	var map_position = star_position * MAPUNITLENTH * x_axis_flip
 	self.position = map_position
+
+
+func _update_map_node_star_starposition():
+	var x_axis_flip : Transform2D = Transform2D(Vector2(1, 0), Vector2(0, -1), Vector2.ZERO)
+	var mapnodestar_position = (self.position * x_axis_flip) / MAPUNITLENTH 
+	star_position = mapnodestar_position

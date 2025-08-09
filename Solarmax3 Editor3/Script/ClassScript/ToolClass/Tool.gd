@@ -1,1 +1,1 @@
-class_name Tool extends Object
+class_name Tool extends RefCounted

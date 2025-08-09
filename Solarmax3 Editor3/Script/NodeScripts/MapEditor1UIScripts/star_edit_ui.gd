@@ -38,7 +38,7 @@ const  MAX_RECENT_STARS_NUMBER = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Mapeditor1ShareData.editor_data_updated.connect(_on_global_data_updated)
+	Mapeditor1ShareData.shared_data_updated.connect(_on_global_data_updated)
 	map_node.create_star.connect(_create_star_feedback)
 	ui_node.feedback.connect(_on_get_feedback)
 	$StarInformation.show_orbit_setting_window.connect(_on_change_object_visibility)
