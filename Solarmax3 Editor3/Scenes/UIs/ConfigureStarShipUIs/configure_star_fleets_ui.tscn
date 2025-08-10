@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b2an77g6b6wps" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureStarFleetsUIScripts/star_preview_control_script.gd" id="1_fwcpf"]
 [ext_resource type="Script" uid="uid://bmubu67cugwox" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureStarFleetsUIScripts/configure_star_fleets_ui_script.gd" id="1_uyjqm"]
 [ext_resource type="Script" uid="uid://b52eusxsavpq4" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureStarFleetsUIScripts/fleets_setting_ui_script.gd" id="4_lg6i2"]
-[ext_resource type="PackedScene" uid="uid://d33684bsww03p" path="res://UIs/ConfigureStarShipUIs/new/configue_camp_ship_unit.tscn" id="6_lg6i2"]
+[ext_resource type="PackedScene" uid="uid://d33684bsww03p" path="res://Scenes/UIs/ConfigureStarShipUIs/new/configue_camp_ship_unit.tscn" id="6_lg6i2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwcpf"]
 bg_color = Color(0.380392, 0.639216, 0.768627, 0.607843)
@@ -123,24 +123,6 @@ offset_right = 352.0
 offset_bottom = 518.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FleetsSettingUI/ScrollContainer"]
-layout_mode = 2
-
-[node name="ConfigueCampShipUnit" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
-layout_mode = 2
-
-[node name="ConfigueCampShipUnit2" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
-layout_mode = 2
-
-[node name="ConfigueCampShipUnit3" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
-layout_mode = 2
-
-[node name="ConfigueCampShipUnit4" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
-layout_mode = 2
-
-[node name="ConfigueCampShipUnit5" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
-layout_mode = 2
-
-[node name="ConfigueCampShipUnit6" parent="FleetsSettingUI/ScrollContainer/VBoxContainer" instance=ExtResource("6_lg6i2")]
 layout_mode = 2
 
 [node name="LeaveButton" type="Button" parent="."]

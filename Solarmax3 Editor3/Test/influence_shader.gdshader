@@ -1,20 +1,23 @@
 shader_type canvas_item;
 
-// uniform float blue = 1.0;
+uniform sampler2D render_texture;
+uniform float threshold = 0.8;
+uniform vec4 influence_color : source_color = vec4(0, 0, 1, 1);
 
 void vertex() {
 	// Called for every vertex the material is visible on.
-	// VERTEX += vec2(10.0, 0.0);
-	//VERTEX += vec2(cos(TIME)*100.0, sin(TIME)*100.0);
 }
 
 void fragment() {
-	COLOR = vec4(0, 0, 0, 1);
+	vec4 base_color = texture(TEXTURE, UV);
+	vec4 influence_value = texture(render_texture, UV);
+	
+	if (influence_value.r > threshold){
+		COLOR = mix(base_color, influence_color, 0.7);
+	} else {
+		COLOR = base_color;
+	}
 	// Called for every pixel the material is visible on.
-	/*
-	COLOR = texture(TEXTURE, UV);
-	COLOR.b = blue;
-	*/
 }
 
 //void light() {

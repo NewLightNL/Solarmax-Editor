@@ -9,9 +9,9 @@ var tag : String = ""
 ## 天体阵营
 var star_camp : int = 0
 ## 天体舰队
-var this_star_fleets_dictionaries : Array[Dictionary]
+var this_star_fleet_dictionaries_array : Array[Dictionary]
 # [{"camp_id" : ..., "ship_number" : ...}]
-# this_star_fleets_dictionaries = [this_star_fleet1, this_star_fleet2]
+# this_star_fleet_dictionaries_array = [this_star_fleet1, this_star_fleet2]
 # this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 ## 天体坐标
 var star_position : Vector2 = Vector2.ZERO:
@@ -75,8 +75,8 @@ func duplicate_map_node_star() -> MapNodeStar:
 	rt_mapnodestar.tag = self.tag
 	rt_mapnodestar.star_camp = self.star_camp
 	# 复合类型数组，需要拷贝
-	var this_star_fleets_dictionaries_duplicated = self.this_star_fleets_dictionaries.duplicate(true)
-	rt_mapnodestar.this_star_fleets_dictionaries = this_star_fleets_dictionaries_duplicated
+	var this_star_fleet_dictionaries_array_duplicated = self.this_star_fleet_dictionaries_array.duplicate(true)
+	rt_mapnodestar.this_star_fleet_dictionaries_array = this_star_fleet_dictionaries_array_duplicated
 	
 	rt_mapnodestar.star_position = self.star_position
 	rt_mapnodestar.orbit_type = self.orbit_type
@@ -108,8 +108,8 @@ func copy_map_node_star(map_node_star_copied : MapNodeStar) -> void:
 	self.tag = map_node_star_copied.tag
 	self.star_camp = map_node_star_copied.star_camp
 	# 复合类型数组，需要拷贝
-	var this_star_fleets_dictionaries_duplicated = map_node_star_copied.this_star_fleets_dictionaries.duplicate(true)
-	self.this_star_fleets_dictionaries = this_star_fleets_dictionaries_duplicated
+	var this_star_fleet_dictionaries_array_duplicated = map_node_star_copied.this_star_fleet_dictionaries_array.duplicate(true)
+	self.this_star_fleet_dictionaries_array = this_star_fleet_dictionaries_array_duplicated
 	
 	self.star_position = map_node_star_copied.star_position
 	self.orbit_type = map_node_star_copied.orbit_type

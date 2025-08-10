@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://binldjwnoxwjq"]
+[gd_scene load_steps=8 format=3 uid="uid://binldjwnoxwjq"]
 
 [ext_resource type="Script" uid="uid://cs8xmtqi8yiqy" path="res://Script/NodeScripts/MapNodeScripts/map_node_star_extended.gd" id="1_pgljj"]
 [ext_resource type="Script" uid="uid://dw1ooqdu8mabk" path="res://Script/NodeScripts/MapNodeScripts/map_node_star_sprite_script.gd" id="3_gp0vk"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://btkwj8wb7i2w" path="res://Script/NodeScripts/MapNodeScripts/star_ui.gd" id="4_esgpg"]
 [ext_resource type="Texture2D" uid="uid://sjqksr3gdgfn" path="res://Textures/StarTexture/ErrorStarTexture/ErrorStar .png" id="4_gp0vk"]
 [ext_resource type="Script" uid="uid://xaieehsc3tms" path="res://Script/NodeScripts/MapNodeScripts/map_node_halo_drawing_center.gd" id="4_y1hkh"]
+[ext_resource type="Script" uid="uid://dyjtt7dipxv7f" path="res://Script/NodeScripts/MapNodeScripts/star_fleet_labels_script.gd" id="7_7dyjc"]
 
 [node name="MapNodeStar" type="Node2D"]
 script = ExtResource("1_pgljj")
@@ -31,9 +32,10 @@ offset_bottom = 115.5
 script = ExtResource("4_esgpg")
 metadata/_edit_use_anchors_ = true
 
-[node name="StarFleetsLabel" type="Control" parent="StarUI"]
+[node name="StarFleetLabels" type="Control" parent="StarUI"]
 layout_mode = 1
 anchors_preset = 0
+script = ExtResource("7_7dyjc")
 
 [node name="DeleteButton" type="Button" parent="StarUI"]
 layout_mode = 1

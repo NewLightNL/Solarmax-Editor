@@ -2,9 +2,10 @@ extends Sprite2D
 
 @export var error_star_texture : CompressedTexture2D
 
+
 var star_texture : CompressedTexture2D
-var star_scale : float
-var scale_fix : Vector2
+var star_scale : float = 1.0
+var scale_fix : Vector2 = Vector2.ONE
 var offset_fix : Vector2
 var rotation_fix_degree : float
 var fAngle : float
@@ -36,6 +37,10 @@ func update_sprite(
 func update_sprite_texture():
 	if star_texture == null:
 		texture = error_star_texture
+		# star_scale问题
+		#var star_scale_vector2 : Vector2 = self.star_scale * Vector2.ONE
+		#var real_scale : Vector2 = star_scale_vector2 * scale_fix
+		#self.scale = real_scale
 		push_error("天体纹理为空！")
 	else:
 		self.texture = star_texture

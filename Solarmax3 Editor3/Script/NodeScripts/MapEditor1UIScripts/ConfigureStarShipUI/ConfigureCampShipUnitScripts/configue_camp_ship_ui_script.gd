@@ -15,17 +15,19 @@ var ship_number : int
 
 
 func _ready() -> void:
-	Mapeditor1ShareData.shared_data_updated.connect(_on_mapeditor1_shared_data_updated)
+	MapeditorShareData.shared_data_updated.connect(_on_mapeditor1_shared_data_updated)
 	ship_number_line_edit.value_changed.connect(_on_ship_number_line_edit_value_changed)
 	ship_number_difference_control.ship_number_added_to_difference.connect(_on_ship_number_added_to_difference)
 	_pull_mapeditor_shared_data()
 
 
 func _pull_mapeditor_shared_data():
-	camp_colors = Mapeditor1ShareData.camp_colors
+	camp_colors = MapeditorShareData.camp_colors
 
 
 func _on_mapeditor1_shared_data_updated(key : String, value):
+	
+	
 	match key:
 		"camp_colors":
 			camp_colors = value
@@ -35,8 +37,7 @@ func _on_mapeditor1_shared_data_updated(key : String, value):
 		"stars_dictionary",\
 		"orbit_types",\
 		"chosen_star",\
-		"star_fleets",\
-		"all_basic_information":
+		"star_fleets":
 			pass
 		_:
 			push_error("数据更新出错，请检查要提交的内容名是否正确")
@@ -61,7 +62,7 @@ func initialize_ui():
 		camp_color_panel.add_theme_stylebox_override("panel", camp_color_panel_style_box)
 	else:
 		push_error("阵营颜色信息为空！")
-		camp_colors = Mapeditor1ShareData.camp_colors
+		camp_colors = MapeditorShareData.camp_colors
 		if camp_colors == {}:
 			push_error("获取不到阵营颜色信息！")
 		else:

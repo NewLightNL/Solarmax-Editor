@@ -13,8 +13,8 @@ var stars_dictionary : Dictionary
 
 
 func _ready():
-	#Mapeditor1ShareData.editor_data_updated.connect(_get_information)
-	stars_dictionary = Mapeditor1ShareData.stars_dictionary
+	#MapeditorShareData.editor_data_updated.connect(_get_information)
+	stars_dictionary = MapeditorShareData.stars_dictionary
 	for type_stars_name in stars_dictionary:
 		var stars_slot_node = stars_slot.instantiate()
 		var represent_star : Star = stars_dictionary[type_stars_name][0] # 避免了不同天体类型天体数不同的问题
@@ -28,7 +28,7 @@ func _ready():
 
 
 #func _get_information():
-	#stars_dictionary = Mapeditor1ShareData.stars_dictionary
+	#stars_dictionary = MapeditorShareData.stars_dictionary
 
 
 func _star_chosen(slot_star : Star):

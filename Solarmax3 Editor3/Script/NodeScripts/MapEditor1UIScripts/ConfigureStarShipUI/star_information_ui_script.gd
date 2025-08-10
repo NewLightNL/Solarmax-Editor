@@ -74,7 +74,7 @@ var chosen_star : MapNodeStar
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Mapeditor1ShareData.shared_data_updated.connect(_on_global_data_updated)
+	MapeditorShareData.shared_data_updated.connect(_on_global_data_updated)
 	
 	#_initialize_basic_information()
 	star_position_input_x.value = 0.0
@@ -85,11 +85,11 @@ func _ready():
 
 
 #func _initialize_basic_information():
-	#defined_camp_ids = Mapeditor1ShareData.defined_camp_ids
-	#camp_colors = Mapeditor1ShareData.camp_colors
-	#stars = Mapeditor1ShareData.stars
-	#orbit_types = Mapeditor1ShareData.orbit_types
-	#stars_dictionary = Mapeditor1ShareData.stars_dictionary
+	#defined_camp_ids = MapeditorShareData.defined_camp_ids
+	#camp_colors = MapeditorShareData.camp_colors
+	#stars = MapeditorShareData.stars
+	#orbit_types = MapeditorShareData.orbit_types
+	#stars_dictionary = MapeditorShareData.stars_dictionary
 
 
 func lock_uis():
@@ -114,21 +114,21 @@ func unlock_uis():
 func _on_global_data_updated(key : String):
 	match key:
 		"defined_camp_ids":
-			defined_camp_ids = Mapeditor1ShareData.defined_camp_ids
+			defined_camp_ids = MapeditorShareData.defined_camp_ids
 		"camp_colors":
-			camp_colors = Mapeditor1ShareData.camp_colors
+			camp_colors = MapeditorShareData.camp_colors
 		"stars":
-			stars = Mapeditor1ShareData.stars
+			stars = MapeditorShareData.stars
 		"orbit_types":
-			orbit_types = Mapeditor1ShareData.orbit_types
+			orbit_types = MapeditorShareData.orbit_types
 		"all_basic_information":
-			defined_camp_ids = Mapeditor1ShareData.defined_camp_ids
-			camp_colors = Mapeditor1ShareData.camp_colors
-			stars = Mapeditor1ShareData.stars
-			stars_dictionary = Mapeditor1ShareData.stars_dictionary
-			orbit_types = Mapeditor1ShareData.orbit_types
+			defined_camp_ids = MapeditorShareData.defined_camp_ids
+			camp_colors = MapeditorShareData.camp_colors
+			stars = MapeditorShareData.stars
+			stars_dictionary = MapeditorShareData.stars_dictionary
+			orbit_types = MapeditorShareData.orbit_types
 		"chosen_star":
-			chosen_star = Mapeditor1ShareData.chosen_star
+			chosen_star = MapeditorShareData.chosen_star
 		_:
 			push_error("数据更新出错，请检查要提交的内容名是否正确")
 
@@ -189,7 +189,7 @@ func configure_star_orbit_type_input_option_button():
 				push_error("天体轨道类型信息出错!")
 		star_orbit_type_input_option_button.add_item(orbit_name, star_orbit_type_id)
 	star_orbit_type_input_option_button.select(0)
-	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	MapeditorShareData.data_updated("chosen_star", chosen_star)
 
 
 func update_is_target_check_button():
@@ -205,7 +205,7 @@ func update_switch_star_preview_button():
 
 #func _on_star_size_input_option_button_item_selected(index):
 	#chosen_star.size_type = int(star_size_input_option_button.get_item_text(index))
-	#Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	#MapeditorShareData.data_updated("chosen_star", chosen_star)
 
 
 # 天体阵营输入方式1
@@ -215,13 +215,13 @@ func _on_star_camp_input_spin_box_value_changed(value):
 	else:
 		star_camp_input_option_button.select(defined_camp_ids[-1]+1)
 	chosen_star.star_camp = int(value)
-	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	MapeditorShareData.data_updated("chosen_star", chosen_star)
 
 # 天体阵营输入方式2
 func _on_star_camp_input_option_button_item_selected(index):
 	star_camp_input_spinbox.value = int(star_camp_input_option_button.get_item_text(index))
 	chosen_star.star_camp = int(star_camp_input_spinbox.value)
-	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	MapeditorShareData.data_updated("chosen_star", chosen_star)
 
 # 召唤设置天体飞船UI
 func _on_configure_star_ship_button_button_up():
@@ -232,17 +232,17 @@ func _on_configure_star_ship_button_button_up():
 # 输入天体标签
 func _on_line_edit_text_changed(new_text):
 	chosen_star.tag = new_text
-	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	MapeditorShareData.data_updated("chosen_star", chosen_star)
 
 
 func _star_position_x_input(value):
 	chosen_star.star_position.x = value
-	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	MapeditorShareData.data_updated("chosen_star", chosen_star)
 
 
 func _star_position_y_input(value):
 	chosen_star.star_position.y = value
-	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	MapeditorShareData.data_updated("chosen_star", chosen_star)
 
 
 func _on_star_size_input_option_button_item_selected(index):
@@ -251,13 +251,13 @@ func _on_star_size_input_option_button_item_selected(index):
 	new_type_chosen_star.copy_information_from_star(stars_dictionary[chosen_star.type][index]) 
 	var star_edit_ui = $".."
 	star_edit_ui.call("_choose_star", new_type_chosen_star)
-	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	MapeditorShareData.data_updated("chosen_star", chosen_star)
 
 
 func _on_orbit_type_option_button_item_selected(index: int) -> void:
 	var orbit_type = orbit_types[int(index)]
 	chosen_star.orbit_type = orbit_type
-	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	MapeditorShareData.data_updated("chosen_star", chosen_star)
 
 
 func _on_orbit_edit_button_button_up() -> void:
@@ -268,11 +268,11 @@ func _on_is_target_check_button_button_up() -> void:
 	if chosen_star.is_taget == true:
 		chosen_star.is_taget = false
 		is_target_check_Button.button_pressed = false
-		Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+		MapeditorShareData.data_updated("chosen_star", chosen_star)
 	else:
 		chosen_star.is_taget = true
 		is_target_check_Button.button_pressed = true
-		Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+		MapeditorShareData.data_updated("chosen_star", chosen_star)
 
 
 func _on_star_preview_switch_button_button_up() -> void:

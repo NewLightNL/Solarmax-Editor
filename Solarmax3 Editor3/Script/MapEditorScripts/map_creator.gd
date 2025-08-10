@@ -33,7 +33,7 @@ func _ready() -> void:
 	initial_variants()
 	
 	# ?这里的信号连接方式可能要改一下
-	Mapeditor1ShareData.connect("shared_data_updated", _on_global_data_updated)
+	MapeditorShareData.connect("shared_data_updated", _on_global_data_updated)
 
 
 func initial_variants():
@@ -71,7 +71,7 @@ func create_mapnodestar() -> void:
 
 func _on_global_data_updated(key : String):
 	if key == "chosen_star":
-		chosen_star = Mapeditor1ShareData.chosen_star
+		chosen_star = MapeditorShareData.chosen_star
 
 
 func change_star_preview_visibility(change_to_what_visibility : bool):

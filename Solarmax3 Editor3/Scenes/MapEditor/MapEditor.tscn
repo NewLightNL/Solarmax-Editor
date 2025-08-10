@@ -1,36 +1,36 @@
 [gd_scene load_steps=24 format=3 uid="uid://dy21eddlgx03s"]
 
-[ext_resource type="Script" uid="uid://dyaxw4sxyg15t" path="res://Script/MapEditorsScripts/MapEditor1/MapEditor1.gd" id="1_j6763"]
-[ext_resource type="Texture2D" uid="uid://c0epga0hwembj" path="res://BG3.png" id="1_jrnyp"]
-[ext_resource type="PackedScene" uid="uid://culp22sestpbo" path="res://UIs/MapNodeStarList/map_node_star_list_unit.tscn" id="2_ax0xe"]
-[ext_resource type="Script" uid="uid://csrfmbchehohn" path="res://Script/MapEditorsScripts/MapEditor1/coordinates.gd" id="4_20p2e"]
-[ext_resource type="Script" uid="uid://cw1g6lmq4e53f" path="res://Script/MapEditorsScripts/map_creator.gd" id="4_jc7ik"]
-[ext_resource type="Texture2D" uid="uid://bgmpnhmiqayf1" path="res://UITexture/CreateStarUIs/CreateUI_openButton.png" id="5_fijfr"]
-[ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="5_o276r"]
-[ext_resource type="PackedScene" uid="uid://yec60pvu8b10" path="res://UIs/star_edit_ui.tscn" id="6_3dly0"]
-[ext_resource type="Script" uid="uid://ds8plqd75qv8l" path="res://Script/NodeScripts/ui.gd" id="10_5mykn"]
-[ext_resource type="Texture2D" uid="uid://btbt31disgktw" path="res://Templates/template9.png" id="11_ty323"]
-[ext_resource type="Texture2D" uid="uid://b4v0gkrmxjsa" path="res://Templates/Template3.png" id="11_ub7nj"]
-[ext_resource type="Texture2D" uid="uid://df6nf5hjp3guc" path="res://Templates/template10.png" id="12_ub7nj"]
-[ext_resource type="Texture2D" uid="uid://bphee78vpe4cb" path="res://Textures/StarTexture/Speedship.png" id="13_ax0xe"]
-[ext_resource type="Script" uid="uid://ou2trmgjqi38" path="res://Script/NodeScripts/orbit_setting_window.gd" id="13_j5np3"]
-[ext_resource type="Texture2D" uid="uid://c4c0xeitnjh1m" path="res://Templates/Template5.png" id="13_xi8j7"]
-[ext_resource type="Texture2D" uid="uid://bqs6qqre3qbiu" path="res://Templates/Template6.png" id="14_20p2e"]
-[ext_resource type="Texture2D" uid="uid://cqa2ncy2pb2xt" path="res://Textures/StarTexture/Attackship.png" id="14_ax0xe"]
-[ext_resource type="Texture2D" uid="uid://cvvla8pd7jw7q" path="res://Textures/StarTexture/Captureship.png" id="15_3dly0"]
-[ext_resource type="Texture2D" uid="uid://b141tqmdctiya" path="res://Templates/Template7.png" id="15_jc7ik"]
-[ext_resource type="Texture2D" uid="uid://bnccc4llql326" path="res://Textures/StarTexture/AntiSpeedship.png" id="16_20p2e"]
-[ext_resource type="Texture2D" uid="uid://hxdip42sl23r" path="res://Templates/Template8.png" id="16_xi8j7"]
-[ext_resource type="Texture2D" uid="uid://b25swkj2qo5re" path="res://Textures/StarTexture/hiddenstar.png" id="17_jc7ik"]
-[ext_resource type="Texture2D" uid="uid://ds322bs86iur7" path="res://Textures/StarTexture/Lifeship.png" id="18_o276r"]
+[ext_resource type="Script" uid="uid://dyaxw4sxyg15t" path="res://Script/MapEditorScripts/MapEditor.gd" id="1_b8sba"]
+[ext_resource type="PackedScene" uid="uid://culp22sestpbo" path="res://Scenes/UIs/MapNodeStarList/map_node_star_list_unit.tscn" id="2_trdvf"]
+[ext_resource type="Texture2D" uid="uid://c0epga0hwembj" path="res://BG3.png" id="3_uxmng"]
+[ext_resource type="Script" uid="uid://cw1g6lmq4e53f" path="res://Script/MapEditorScripts/map_creator.gd" id="4_aorhc"]
+[ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="5_g87or"]
+[ext_resource type="Script" uid="uid://csrfmbchehohn" path="res://Script/MapEditorScripts/coordinates.gd" id="6_x3j0q"]
+[ext_resource type="Script" uid="uid://ds8plqd75qv8l" path="res://Script/NodeScripts/ui.gd" id="7_h47r4"]
+[ext_resource type="Texture2D" uid="uid://bgmpnhmiqayf1" path="res://UITexture/CreateStarUIs/CreateUI_openButton.png" id="8_ld42w"]
+[ext_resource type="PackedScene" uid="uid://yec60pvu8b10" path="res://Scenes/UIs/star_edit_ui.tscn" id="9_kvdkc"]
+[ext_resource type="Script" uid="uid://ou2trmgjqi38" path="res://Script/NodeScripts/orbit_setting_window.gd" id="10_ruwma"]
+[ext_resource type="Texture2D" uid="uid://b4v0gkrmxjsa" path="res://Templates/Template3.png" id="11_kdma8"]
+[ext_resource type="Texture2D" uid="uid://c4c0xeitnjh1m" path="res://Templates/Template5.png" id="12_quowi"]
+[ext_resource type="Texture2D" uid="uid://bqs6qqre3qbiu" path="res://Templates/Template6.png" id="13_w38ex"]
+[ext_resource type="Texture2D" uid="uid://b141tqmdctiya" path="res://Templates/Template7.png" id="14_nij6b"]
+[ext_resource type="Texture2D" uid="uid://hxdip42sl23r" path="res://Templates/Template8.png" id="15_4v5uq"]
+[ext_resource type="Texture2D" uid="uid://btbt31disgktw" path="res://Templates/template9.png" id="16_4vcna"]
+[ext_resource type="Texture2D" uid="uid://df6nf5hjp3guc" path="res://Templates/template10.png" id="17_e04je"]
+[ext_resource type="Texture2D" uid="uid://bphee78vpe4cb" path="res://Textures/StarTexture/Speedship.png" id="18_5pc1c"]
+[ext_resource type="Texture2D" uid="uid://cqa2ncy2pb2xt" path="res://Textures/StarTexture/Attackship.png" id="19_8gelf"]
+[ext_resource type="Texture2D" uid="uid://cvvla8pd7jw7q" path="res://Textures/StarTexture/Captureship.png" id="20_pp1ba"]
+[ext_resource type="Texture2D" uid="uid://bnccc4llql326" path="res://Textures/StarTexture/AntiSpeedship.png" id="21_2duds"]
+[ext_resource type="Texture2D" uid="uid://b25swkj2qo5re" path="res://Textures/StarTexture/hiddenstar.png" id="22_tpoo3"]
+[ext_resource type="Texture2D" uid="uid://ds322bs86iur7" path="res://Textures/StarTexture/Lifeship.png" id="23_xlftl"]
 
 [node name="Main1" type="Node"]
-script = ExtResource("1_j6763")
-map_node_star_list_unit = ExtResource("2_ax0xe")
+script = ExtResource("1_b8sba")
+map_node_star_list_unit = ExtResource("2_trdvf")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(-107, -205)
-texture = ExtResource("1_jrnyp")
+texture = ExtResource("3_uxmng")
 centered = false
 
 [node name="Camera" type="Camera2D" parent="."]
@@ -54,20 +54,20 @@ position = Vector2(940, 430)
 
 [node name="Map" type="Node2D" parent="."]
 position = Vector2(940, 530)
-script = ExtResource("4_jc7ik")
-mapnodestar_scene = ExtResource("5_o276r")
+script = ExtResource("4_aorhc")
+mapnodestar_scene = ExtResource("5_g87or")
 
 [node name="Coordinates" type="Node2D" parent="Map"]
 visible = false
-script = ExtResource("4_20p2e")
+script = ExtResource("6_x3j0q")
 
 [node name="Stars" type="Node2D" parent="Map"]
 
 [node name="PreviewStar" type="Node2D" parent="Map"]
 
 [node name="UI" type="CanvasLayer" parent="."]
-script = ExtResource("10_5mykn")
-map_node_star_list_unit = ExtResource("2_ax0xe")
+script = ExtResource("7_h47r4")
+map_node_star_list_unit = ExtResource("2_trdvf")
 
 [node name="EditorUI" type="Control" parent="UI"]
 layout_mode = 3
@@ -90,7 +90,7 @@ offset_left = -0.926147
 offset_top = -0.113007
 offset_right = 41.7198
 offset_bottom = 140.762
-icon = ExtResource("5_fijfr")
+icon = ExtResource("8_ld42w")
 flat = true
 
 [node name="ShowStarListButton" type="Button" parent="UI/EditorUI"]
@@ -180,7 +180,7 @@ theme_override_font_sizes/font_size = 16
 disabled = true
 text = "编辑器设置"
 
-[node name="StarEditUI" parent="UI" instance=ExtResource("6_3dly0")]
+[node name="StarEditUI" parent="UI" instance=ExtResource("9_kvdkc")]
 
 [node name="MapNodeStarListWindow" type="Window" parent="UI"]
 title = "地图天体列表"
@@ -228,7 +228,7 @@ unresizable = true
 ok_button_text = "确认"
 dialog_close_on_escape = false
 cancel_button_text = "取消"
-script = ExtResource("13_j5np3")
+script = ExtResource("10_ruwma")
 
 [node name="Control" type="Control" parent="UI/OrbitSettingWindow"]
 layout_mode = 3
@@ -346,7 +346,7 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template3"]
 position = Vector2(940, 506)
 scale = Vector2(1.072, 1.072)
-texture = ExtResource("11_ub7nj")
+texture = ExtResource("11_kdma8")
 
 [node name="Template5" type="Node2D" parent="Templates"]
 visible = false
@@ -354,7 +354,7 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template5"]
 position = Vector2(940, 506)
 scale = Vector2(1.072, 1.072)
-texture = ExtResource("13_xi8j7")
+texture = ExtResource("12_quowi")
 
 [node name="Template6" type="Node2D" parent="Templates"]
 visible = false
@@ -362,7 +362,7 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template6"]
 position = Vector2(940, 506)
 scale = Vector2(1.072, 1.072)
-texture = ExtResource("14_20p2e")
+texture = ExtResource("13_w38ex")
 
 [node name="Template7" type="Node2D" parent="Templates"]
 visible = false
@@ -370,7 +370,7 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template7"]
 position = Vector2(940, 506)
 scale = Vector2(1.072, 1.072)
-texture = ExtResource("15_jc7ik")
+texture = ExtResource("14_nij6b")
 
 [node name="Template8" type="Node2D" parent="Templates"]
 visible = false
@@ -378,7 +378,7 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template8"]
 position = Vector2(940, 506)
 scale = Vector2(1.072, 1.072)
-texture = ExtResource("16_xi8j7")
+texture = ExtResource("15_4v5uq")
 
 [node name="Template9" type="Node2D" parent="Templates"]
 visible = false
@@ -386,7 +386,7 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template9"]
 position = Vector2(940, 504)
 scale = Vector2(1.05856, 1.05747)
-texture = ExtResource("11_ty323")
+texture = ExtResource("16_4vcna")
 
 [node name="Template10" type="Node2D" parent="Templates"]
 visible = false
@@ -394,7 +394,7 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="Templates/Template10"]
 position = Vector2(940, 504)
 scale = Vector2(1.05856, 1.05747)
-texture = ExtResource("12_ub7nj")
+texture = ExtResource("17_e04je")
 
 [node name="Measures" type="Node" parent="."]
 
@@ -444,26 +444,26 @@ position = Vector2(940, 471)
 visible = false
 position = Vector2(641.8, 231.8)
 rotation = 0.197222
-texture = ExtResource("13_ax0xe")
+texture = ExtResource("18_5pc1c")
 offset = Vector2(0.5, 3)
 
 [node name="Sprite2D2" type="Sprite2D" parent="Measures/StarSizeMeasure"]
 visible = false
 position = Vector2(940, 231.8)
-texture = ExtResource("14_ax0xe")
+texture = ExtResource("19_8gelf")
 offset = Vector2(-1, 9.5)
 
 [node name="Sprite2D3" type="Sprite2D" parent="Measures/StarSizeMeasure"]
 visible = false
 position = Vector2(1238.2, 231.8)
 rotation = 0.197222
-texture = ExtResource("13_ax0xe")
+texture = ExtResource("18_5pc1c")
 offset = Vector2(0.5, 3)
 
 [node name="Sprite2D4" type="Sprite2D" parent="Measures/StarSizeMeasure"]
 visible = false
 position = Vector2(641.8, 530)
-texture = ExtResource("15_3dly0")
+texture = ExtResource("20_pp1ba")
 offset = Vector2(0.5, -3)
 
 [node name="Sprite2D5" type="Sprite2D" parent="Measures/StarSizeMeasure"]
@@ -478,19 +478,19 @@ position = Vector2(1238.2, 530)
 visible = false
 position = Vector2(641.8, 828.2)
 scale = Vector2(0.99, 0.99)
-texture = ExtResource("16_20p2e")
+texture = ExtResource("21_2duds")
 offset = Vector2(0.1, -3.2)
 
 [node name="Sprite2D8" type="Sprite2D" parent="Measures/StarSizeMeasure"]
 visible = false
 position = Vector2(940, 828.2)
-texture = ExtResource("17_jc7ik")
+texture = ExtResource("22_tpoo3")
 offset = Vector2(0, -1.2)
 
 [node name="Sprite2D9" type="Sprite2D" parent="Measures/StarSizeMeasure"]
 visible = false
 position = Vector2(1238.2, 828.2)
-texture = ExtResource("18_o276r")
+texture = ExtResource("23_xlftl")
 offset = Vector2(0, -3)
 
 [node name="ShipNumberLabelLoactionMeasures" type="Node" parent="Measures"]

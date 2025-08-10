@@ -25,11 +25,11 @@ var this_star_fleets : Array #其元素相比于"star_fleets"的元素省略了�
 @onready var star_container : Node2D = $ConfigureStarShipUIRect/StarShipPreview/ContainStar
 
 func _ready():
-	Mapeditor1ShareData.shared_data_updated.connect(_on_global_data_updated)
-	defined_camp_ids = Mapeditor1ShareData.defined_camp_ids
-	camp_colors = Mapeditor1ShareData.camp_colors
-	star_pattern_dictionary = Mapeditor1ShareData.star_pattern_dictionary
-	chosen_star = Mapeditor1ShareData.chosen_star
+	MapeditorShareData.shared_data_updated.connect(_on_global_data_updated)
+	defined_camp_ids = MapeditorShareData.defined_camp_ids
+	camp_colors = MapeditorShareData.camp_colors
+	star_pattern_dictionary = MapeditorShareData.star_pattern_dictionary
+	chosen_star = MapeditorShareData.chosen_star
 	this_star_fleets = chosen_star.this_star_fleets
 	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetShipNumberLabel/StarFleetShipNumberInput.text = "0"
 	$ConfigureStarShipUIRect/AddStarFleetUI/StarFleetCampLabel/StarFleetShipCampInput.text = "0"
@@ -50,13 +50,13 @@ func _ready():
 func _on_global_data_updated(key : String):
 	match key:
 		"defined_camp_ids":
-			defined_camp_ids = Mapeditor1ShareData.defined_camp_ids
+			defined_camp_ids = MapeditorShareData.defined_camp_ids
 		"camp_colors":
-			camp_colors = Mapeditor1ShareData.camp_colors
+			camp_colors = MapeditorShareData.camp_colors
 		"star_pattern_dictionary":
-			star_pattern_dictionary = Mapeditor1ShareData.star_pattern_dictionary
+			star_pattern_dictionary = MapeditorShareData.star_pattern_dictionary
 		"chosen_star":
-			chosen_star = Mapeditor1ShareData.chosen_star
+			chosen_star = MapeditorShareData.chosen_star
 		"stars", "orbit_types", "all_basic_information", "stars_dictionary", "star_fleets":
 			pass
 		_:
@@ -233,7 +233,7 @@ func _on_star_fleet_ship_number_input_text_changed(new_text):
 # 按起离开编辑天体舰队界面按钮
 func _on_leave_configure_star_ship_ui_button_button_up():
 	chosen_star.this_star_fleets = this_star_fleets_ordered
-	Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+	MapeditorShareData.data_updated("chosen_star", chosen_star)
 	queue_free()
 
 # 计算环的参数

@@ -38,7 +38,7 @@ const  MAX_RECENT_STARS_NUMBER = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Mapeditor1ShareData.shared_data_updated.connect(_on_global_data_updated)
+	MapeditorShareData.shared_data_updated.connect(_on_global_data_updated)
 	map_node.create_star.connect(_create_star_feedback)
 	ui_node.feedback.connect(_on_get_feedback)
 	$StarInformation.show_orbit_setting_window.connect(_on_change_object_visibility)
@@ -53,23 +53,23 @@ func _ready():
 func _on_global_data_updated(key : String):
 	match key:
 		"defined_camp_ids":
-			defined_camp_ids = Mapeditor1ShareData.defined_camp_ids
+			defined_camp_ids = MapeditorShareData.defined_camp_ids
 		"camp_colors":
-			camp_colors = Mapeditor1ShareData.camp_colors
+			camp_colors = MapeditorShareData.camp_colors
 		"star_pattern_dictionary":
-			star_pattern_dictionary = Mapeditor1ShareData.star_pattern_dictionary
+			star_pattern_dictionary = MapeditorShareData.star_pattern_dictionary
 		"stars":
-			stars = Mapeditor1ShareData.stars
+			stars = MapeditorShareData.stars
 		"orbit_types":
-			orbit_types = Mapeditor1ShareData.orbit_types
+			orbit_types = MapeditorShareData.orbit_types
 		"all_basic_information":
-			defined_camp_ids = Mapeditor1ShareData.defined_camp_ids
-			camp_colors = Mapeditor1ShareData.camp_colors
-			star_pattern_dictionary = Mapeditor1ShareData.star_pattern_dictionary
-			stars = Mapeditor1ShareData.stars
-			orbit_types = Mapeditor1ShareData.orbit_types
+			defined_camp_ids = MapeditorShareData.defined_camp_ids
+			camp_colors = MapeditorShareData.camp_colors
+			star_pattern_dictionary = MapeditorShareData.star_pattern_dictionary
+			stars = MapeditorShareData.stars
+			orbit_types = MapeditorShareData.orbit_types
 		"chosen_star":
-			chosen_star = Mapeditor1ShareData.chosen_star
+			chosen_star = MapeditorShareData.chosen_star
 		"stars_dictionary":
 			pass
 		_:
@@ -164,11 +164,11 @@ func _update_chosen_star(star : Star):
 	# 赋予被选中的天体属性
 	if star is MapNodeStar:# 应该为最近选择的天体栏单独做一个上传被选择的天体方法
 		chosen_star.copy_map_node_star(star)
-		Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+		MapeditorShareData.data_updated("chosen_star", chosen_star)
 	else:
 		chosen_star.copy_information_from_star(star)
 		
-		Mapeditor1ShareData.data_updated("chosen_star", chosen_star)
+		MapeditorShareData.data_updated("chosen_star", chosen_star)
 	
 	$StarInformation.update_star_information_ui()
 	$StarInformation.unlock_uis()

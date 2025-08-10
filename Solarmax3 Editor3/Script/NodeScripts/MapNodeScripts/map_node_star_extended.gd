@@ -7,7 +7,6 @@ var camp_colors : Dictionary
 @onready var _halo_drawer : Marker2D = $HaloDrawingCenter
 @onready var _map_node_star_sprite : Sprite2D = $MapNodeStarSprite
 @onready var _star_ui : Control = $StarUI
-@onready var _star_fleets_label : Control = $StarUI/StarFleetsLabel
 @onready var _orbit_drawer : Node2D = $OrbitDrawer
 
 
@@ -17,12 +16,8 @@ func _ready():
 
 
 func _pull_map_editor_shared_data():
-	star_pattern_dictionary = Mapeditor1ShareData.star_pattern_dictionary
-	camp_colors = Mapeditor1ShareData.camp_colors
-
-
-func _update_ui_children():
-	_star_fleets_label.position = Vector2(0, 0)
+	star_pattern_dictionary = MapeditorShareData.star_pattern_dictionary
+	camp_colors = MapeditorShareData.camp_colors
 
 
 func update_map_node_star():
@@ -66,13 +61,13 @@ func _call_draw_orbit():
 
 func _call_draw_halo():
 	if _halo_drawer != null:
-		_halo_drawer.draw_halo(this_star_fleets_dictionaries, star_scale)
+		_halo_drawer.draw_halo(self.this_star_fleet_dictionaries_array, star_scale)
 	else:
 		push_error("天体缺少画环节点!")
 
 
 func _update_star_ui():
-	_star_ui.update_star_ui(star_scale, this_star_fleets_dictionaries)
+	_star_ui.update_star_ui(star_scale, self.this_star_fleet_dictionaries_array)
 
 # 不应该直接获取删除按钮发出的信息
 func _on_delete_button_button_up():

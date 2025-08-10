@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://5xrqbdn5jbv0"]
 
 [ext_resource type="Script" uid="uid://3iao4mdtc2bu" path="res://Script/NodeScripts/MapEditor1UIScripts/ChooseStarUIScripts/choose_star_ui.gd" id="1_0tucp"]
-[ext_resource type="PackedScene" uid="uid://6dv10iy8psos" path="res://UIs/ChooseStarsUI/Stars_slot.tscn" id="2_168fl"]
+[ext_resource type="PackedScene" uid="uid://6dv10iy8psos" path="res://Scenes/UIs/ChooseStarsUI/Stars_slot.tscn" id="2_168fl"]
 [ext_resource type="Texture2D" uid="uid://267e471mvflc" path="res://UITexture/ChooseStarUIs/CloseChooseStarUI.tres" id="4_ni36l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0tucp"]

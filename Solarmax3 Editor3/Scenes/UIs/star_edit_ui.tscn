@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://b8yl5hl4l6deh" path="res://Script/NodeScripts/MapEditor1UIScripts/star_edit_ui.gd" id="1_7s2en"]
 [ext_resource type="Texture2D" uid="uid://bryrv3nn37mbm" path="res://UITexture/CreateStarUIs/CreateUI_closeButton.png" id="1_atudw"]
 [ext_resource type="Texture2D" uid="uid://do200ud6pxnaj" path="res://UITexture/CreateStarUIs/CreateStarButtonBG.tres" id="2_ocacw"]
-[ext_resource type="PackedScene" uid="uid://5xrqbdn5jbv0" path="res://UIs/ChooseStarsUI/choose_star_ui.tscn" id="3_6lh6g"]
+[ext_resource type="PackedScene" uid="uid://5xrqbdn5jbv0" path="res://Scenes/UIs/ChooseStarsUI/choose_star_ui.tscn" id="3_6lh6g"]
 [ext_resource type="Texture2D" uid="uid://64r8l66w2ofc" path="res://UITexture/CreateStarUIs/LatelyChosenStarBG.tres" id="3_7s2en"]
 [ext_resource type="Texture2D" uid="uid://dmyu1xsgr8y4e" path="res://UITexture/CreateStarUIs/LatelyChosenStarButtonBG.tres" id="4_etxj5"]
 [ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="4_evo25"]
-[ext_resource type="PackedScene" uid="uid://bflaaarpk23au" path="res://UIs/star_information.tscn" id="6_etxj5"]
+[ext_resource type="PackedScene" uid="uid://bflaaarpk23au" path="res://Scenes/UIs/star_information.tscn" id="6_etxj5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1kjg"]
 bg_color = Color(0.244717, 0.63956, 0.870175, 1)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dg236strhcfuq"]
 
 [ext_resource type="Script" uid="uid://cy8b412rknbyd" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/configure_star_ship_ui.gd" id="1_02urw"]
-[ext_resource type="PackedScene" uid="uid://dlp0enqxnawmv" path="res://UIs/ConfigureStarShipUIs/star_fleet_informaiton_unit.tscn" id="2_lcee4"]
+[ext_resource type="PackedScene" uid="uid://dlp0enqxnawmv" path="res://Scenes/UIs/ConfigureStarShipUIs/star_fleet_informaiton_unit.tscn" id="2_lcee4"]
 [ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="3_hwlnd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugw1q"]

@@ -17,7 +17,14 @@
 	16. 添加使用手册功能
 	17. 天体旋转，自带旋转的天体
 	18. 提升UI，风格: 实线边框，透明填充
-	19. 将相当叫做star_fleets的改为star_fleets_Dictionaries
+	19. 将相当多叫做star_fleets的改为star_fleets_Dictionaries
+	20. 要给一些拉取了_pull_map_editor_shared_information的节点上信号
+	func _on_global_data_updated(key : String):
+		MapEditorSharedDataKeysChecker.check_key(key)
+		
+		match key:
+			"chosen_star":
+				chosen_star = MapeditorShareData.chosen_star
 
 天体选择栏只选择该类天体的第一个size_type居然就避免了不同天体类型有不同天体数的问题!
 

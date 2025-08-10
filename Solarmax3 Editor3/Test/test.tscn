@@ -1,18 +1,75 @@
-[gd_scene load_steps=3 format=3 uid="uid://x1xyl3c2x2mf"]
+[gd_scene load_steps=10 format=3 uid="uid://x1xyl3c2x2mf"]
 
 [ext_resource type="Script" uid="uid://dxg0lqj0f2ic5" path="res://Test/test.gd" id="1_37kl0"]
-[ext_resource type="Script" uid="uid://u6pnpo106qf4" path="res://Test/node_2d.gd" id="2_lxp54"]
+[ext_resource type="Shader" uid="uid://br0yqmt7dy0pr" path="res://Test/test.gdshader" id="1_lxp54"]
+[ext_resource type="Texture2D" uid="uid://c4h03s10yicqg" path="res://Textures/StarTexture/Planets/planet01.png" id="3_1ihti"]
+[ext_resource type="Shader" uid="uid://cqk87utf6uwaq" path="res://Test/influence_shader.gdshader" id="3_su4bj"]
+[ext_resource type="Shader" uid="uid://bl5d71qwuku7o" path="res://Test/compute_influence_shader.gdshader" id="3_wbqg2"]
+[ext_resource type="Script" uid="uid://bulay87vu34we" path="res://Test/sprite_2d.gd" id="4_su4bj"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jda1s"]
+shader = ExtResource("1_lxp54")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hxhys"]
+shader = ExtResource("3_su4bj")
+shader_parameter/threshold = 0.8
+shader_parameter/influence_color = Color(0, 0, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wbqg2"]
+shader = ExtResource("3_wbqg2")
+shader_parameter/node_number = 0
+shader_parameter/node_positions = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/node_camps = PackedInt32Array(0, 0, 0, 0)
+shader_parameter/node_radii = PackedFloat32Array(0, 0, 0, 0)
+shader_parameter/adhesion = 0.8
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodes")]
+material = SubResource("ShaderMaterial_jda1s")
 script = ExtResource("1_37kl0")
+nodes = [NodePath("Node2D/Sprite2D"), NodePath("Node2D/Sprite2D2"), NodePath("Node2D/Sprite2D3"), NodePath("Node2D/Sprite2D4")]
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_hxhys")
+anchors_preset = -1
+offset_right = 2000.0
+offset_bottom = 1500.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="."]
+render_target_update_mode = 4
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport"]
+material = SubResource("ShaderMaterial_wbqg2")
+offset_right = 512.0
+offset_bottom = 512.0
 
 [node name="Node2D" type="Node2D" parent="."]
-script = ExtResource("2_lxp54")
 
-[node name="Button" type="Button" parent="."]
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(364, 306.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_1ihti")
+script = ExtResource("4_su4bj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D"]
+position = Vector2(892, 242.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_1ihti")
+script = ExtResource("4_su4bj")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Node2D"]
+position = Vector2(268, 682.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_1ihti")
+script = ExtResource("4_su4bj")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Node2D"]
+position = Vector2(1164, 514.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_1ihti")
+script = ExtResource("4_su4bj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+centered = false

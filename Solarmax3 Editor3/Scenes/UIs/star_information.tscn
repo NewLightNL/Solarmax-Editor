@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bflaaarpk23au"]
 
 [ext_resource type="Script" uid="uid://b6pa7cxkcsojo" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/star_information_ui_script.gd" id="1_c8s5d"]
-[ext_resource type="PackedScene" uid="uid://dg236strhcfuq" path="res://UIs/ConfigureStarShipUIs/new/configure_star_ship_ui.tscn" id="2_g55r5"]
+[ext_resource type="PackedScene" uid="uid://dg236strhcfuq" path="res://Scenes/UIs/ConfigureStarShipUIs/new/configure_star_ship_ui.tscn" id="2_g55r5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psej3"]
 bg_color = Color(0.310617, 0.310617, 0.310617, 1)
