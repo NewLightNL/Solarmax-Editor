@@ -11,12 +11,12 @@ var initial_orbit_settings : Dictionary
 
 
 func _ready() -> void:
-	MapeditorShareData.shared_data_updated.connect(_on_global_data_updated)
+	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 
 
 func _on_global_data_updated(key : String):
 	if key == "chosen_star":
-		chosen_star = MapeditorShareData.chosen_star
+		chosen_star = MapEditorSharedData.chosen_star
 	update_star_position()
 
 
@@ -29,22 +29,22 @@ func update_star_position():
 
 func _on_orbit_param1_x_input_value_changed(value: float) -> void:
 	chosen_star.orbit_param1.x = value
-	MapeditorShareData.data_updated("chosen_star", chosen_star)
+	MapEditorSharedData.data_updated("chosen_star", chosen_star)
 
 
 func _on_orbit_param1_y_input_value_changed(value: float) -> void:
 	chosen_star.orbit_param1.y = value
-	MapeditorShareData.data_updated("chosen_star", chosen_star)
+	MapEditorSharedData.data_updated("chosen_star", chosen_star)
 
 
 func _on_orbit_param2_x_input_value_changed(value: float) -> void:
 	chosen_star.orbit_param2.x = value
-	MapeditorShareData.data_updated("chosen_star", chosen_star)
+	MapEditorSharedData.data_updated("chosen_star", chosen_star)
 
 
 func _on_orbit_param2_y_input_value_changed(value: float) -> void:
 	chosen_star.orbit_param2.y = value
-	MapeditorShareData.data_updated("chosen_star", chosen_star)
+	MapEditorSharedData.data_updated("chosen_star", chosen_star)
 
 
 func _on_visibility_changed() -> void:

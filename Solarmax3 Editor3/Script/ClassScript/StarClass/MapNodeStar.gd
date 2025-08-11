@@ -5,30 +5,58 @@ const MAPUNITLENTH = 99.4
 
 # 地图添加信息
 ## 天体标签
-var tag : String = ""
+@export var tag : String = "":
+	set(value):
+		tag = value
+		emit_signal("star_property_changed")
 ## 天体阵营
-var star_camp : int = 0
+@export var star_camp : int = 0:
+	set(value):
+		star_camp = value
+		emit_signal("star_property_changed")
 ## 天体舰队
-var this_star_fleet_dictionaries_array : Array[Dictionary]
+@export var this_star_fleet_dictionaries_array : Array[Dictionary]:
+	set(value):
+		this_star_fleet_dictionaries_array = value
+		emit_signal("star_property_changed")
 # [{"camp_id" : ..., "ship_number" : ...}]
 # this_star_fleet_dictionaries_array = [this_star_fleet1, this_star_fleet2]
 # this_star_fleet = [阵营id(int), 舰队中的飞船数量(int)]
 ## 天体坐标
-var star_position : Vector2 = Vector2.ZERO:
+@export var star_position : Vector2 = Vector2.ZERO:
 	set(value):
 		star_position = value
 		_update_map_node_star_position()
+		emit_signal("star_property_changed")
 ## 轨道信息
-var orbit_type : String = "no_orbit"
-var orbit_param1 : Vector2 = Vector2.ZERO
-var orbit_param2 : Vector2 = Vector2.ZERO
+@export var orbit_type : String = "no_orbit":
+	set(value):
+		orbit_type = value
+		emit_signal("star_property_changed")
+@export var orbit_param1 : Vector2 = Vector2.ZERO:
+	set(value):
+		orbit_param1 = value
+		emit_signal("star_property_changed")
+@export var orbit_param2 : Vector2 = Vector2.ZERO:
+	set(value):
+		orbit_param2 = value
+		emit_signal("star_property_changed")
 ## 旋转角度
-var fAngle : float = 0.0
+@export var fAngle : float = 0.0:
+	set(value):
+		fAngle = value
+		emit_signal("star_property_changed")
 # 特殊天体信息
 ## 变形装置变形的天体的id们
-var transformBulidingID : Array = []
+@export var transformBulidingID : Array = []:
+	set(value):
+		transformBulidingID = value
+		emit_signal("star_property_changed")
 ## 射线炮数据(Array)
-var lasergun_information : Array = []
+@export var lasergun_information : Array = []:
+	set(value):
+		lasergun_information = value
+		emit_signal("star_property_changed")
 # [lasergunAngle : int, lasergunRotateSkip : int, lasergunRange : int]
 # lasergunAngle="" 表示射线炮的初始旋转角度。
 # lasergunRotateSkip="" 表示射线炮的单次旋转角度。
@@ -36,7 +64,10 @@ var lasergun_information : Array = []
 # 注意，如果想让射线炮不旋转，不可以在两个属性同时填0，因为0不能除以0。正确的填法是在lasergunRotateSkip=""中填写一个比lasergunRange=""中大的数字。
 # 其它信息
 ## 是否为目标天体
-var is_taget : bool = false
+@export var is_taget : bool = false:
+	set(value):
+		is_taget = value
+		emit_signal("star_property_changed")
 
 
 func _init() -> void:
@@ -97,7 +128,9 @@ func duplicate_map_node_star() -> MapNodeStar:
 
 func copy_map_node_star(map_node_star_copied : MapNodeStar) -> void:
 	self.pattern_name = map_node_star_copied.pattern_name
+	
 	self.star_scale = map_node_star_copied.star_scale
+	print("self: %s, copied: %s" % [self.star_scale, map_node_star_copied.star_scale])
 	self.type = map_node_star_copied.type
 	self.size_type = map_node_star_copied.size_type
 	self.star_name = map_node_star_copied.star_name
@@ -122,7 +155,6 @@ func copy_map_node_star(map_node_star_copied : MapNodeStar) -> void:
 	
 	var lasergun_information_duplicated = map_node_star_copied.lasergun_information.duplicate(true)
 	self.lasergun_information = lasergun_information_duplicated
-	
 	self.is_taget = map_node_star_copied.is_taget
 
 

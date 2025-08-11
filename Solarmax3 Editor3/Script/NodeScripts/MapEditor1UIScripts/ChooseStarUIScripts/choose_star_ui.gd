@@ -13,8 +13,9 @@ var stars_dictionary : Dictionary
 
 
 func _ready():
-	#MapeditorShareData.editor_data_updated.connect(_get_information)
-	stars_dictionary = MapeditorShareData.stars_dictionary
+	_pull_map_editor_information()
+	
+	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 	for type_stars_name in stars_dictionary:
 		var stars_slot_node = stars_slot.instantiate()
 		var represent_star : Star = stars_dictionary[type_stars_name][0] # 避免了不同天体类型天体数不同的问题
@@ -27,17 +28,22 @@ func _ready():
 			stars_slot_node.get_child(0).get_child(0).rotation = PI
 
 
-#func _get_information():
-	#stars_dictionary = MapeditorShareData.stars_dictionary
+func _pull_map_editor_information():
+	stars_dictionary = MapEditorSharedData.stars_dictionary
+
+
+func _on_global_data_updated(key : String):
+	MapEditorSharedDataKeysChecker.check_key(key)
+	
+	match key:
+		"stars_dictionary":
+			stars_dictionary = MapEditorSharedData.stars_dictionary
 
 
 func _star_chosen(slot_star : Star):
 	var star_edit_ui = $"../StarEditUI"
 	star_edit_ui.call("_choose_star", slot_star)
 
-
-#func get_star_slots() -> Array[Node]:
-	#return star_slots_container.get_children()
 
 
 func _on_close_choose_star_ui_button_button_up():

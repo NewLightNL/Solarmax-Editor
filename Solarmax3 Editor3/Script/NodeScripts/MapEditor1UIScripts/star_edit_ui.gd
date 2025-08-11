@@ -38,42 +38,39 @@ const  MAX_RECENT_STARS_NUMBER = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	MapeditorShareData.shared_data_updated.connect(_on_global_data_updated)
+	_pull_map_editor_information()
+	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 	map_node.create_star.connect(_create_star_feedback)
 	ui_node.feedback.connect(_on_get_feedback)
 	$StarInformation.show_orbit_setting_window.connect(_on_change_object_visibility)
 	$StarInformation.change_star_preview_state.connect(_on_change_object_visibility)
-	#$StarInformation.update_star_information_ui()
-	#stars = Load.get_map_editor_basic_information("stars")
-	#star_pattern_dictionary = Load.init_star_pattern_dictionary()
-	#camp_colors = Load.get_map_editor_basic_information("camp_colors")
 	_initialize_recently_chosen_star_button()
 
 
+func _pull_map_editor_information():
+	defined_camp_ids = MapEditorSharedData.defined_camp_ids
+	camp_colors = MapEditorSharedData.camp_colors
+	star_pattern_dictionary = MapEditorSharedData.star_pattern_dictionary
+	stars = MapEditorSharedData.stars
+	orbit_types = MapEditorSharedData.orbit_types
+
+
 func _on_global_data_updated(key : String):
+	MapEditorSharedDataKeysChecker.check_key(key)
+	
 	match key:
 		"defined_camp_ids":
-			defined_camp_ids = MapeditorShareData.defined_camp_ids
+			defined_camp_ids = MapEditorSharedData.defined_camp_ids
 		"camp_colors":
-			camp_colors = MapeditorShareData.camp_colors
+			camp_colors = MapEditorSharedData.camp_colors
 		"star_pattern_dictionary":
-			star_pattern_dictionary = MapeditorShareData.star_pattern_dictionary
+			star_pattern_dictionary = MapEditorSharedData.star_pattern_dictionary
 		"stars":
-			stars = MapeditorShareData.stars
+			stars = MapEditorSharedData.stars
 		"orbit_types":
-			orbit_types = MapeditorShareData.orbit_types
-		"all_basic_information":
-			defined_camp_ids = MapeditorShareData.defined_camp_ids
-			camp_colors = MapeditorShareData.camp_colors
-			star_pattern_dictionary = MapeditorShareData.star_pattern_dictionary
-			stars = MapeditorShareData.stars
-			orbit_types = MapeditorShareData.orbit_types
+			orbit_types = MapEditorSharedData.orbit_types
 		"chosen_star":
-			chosen_star = MapeditorShareData.chosen_star
-		"stars_dictionary":
-			pass
-		_:
-			push_error("数据更新出错，请检查要提交的内容名是否正确")
+			chosen_star = MapEditorSharedData.chosen_star
 
 
 # 初始化最近选择的天体UI按钮
@@ -164,11 +161,11 @@ func _update_chosen_star(star : Star):
 	# 赋予被选中的天体属性
 	if star is MapNodeStar:# 应该为最近选择的天体栏单独做一个上传被选择的天体方法
 		chosen_star.copy_map_node_star(star)
-		MapeditorShareData.data_updated("chosen_star", chosen_star)
+		MapEditorSharedData.data_updated("chosen_star", chosen_star)
 	else:
 		chosen_star.copy_information_from_star(star)
 		
-		MapeditorShareData.data_updated("chosen_star", chosen_star)
+		MapEditorSharedData.data_updated("chosen_star", chosen_star)
 	
 	$StarInformation.update_star_information_ui()
 	$StarInformation.unlock_uis()

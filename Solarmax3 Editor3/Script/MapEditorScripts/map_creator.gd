@@ -33,7 +33,7 @@ func _ready() -> void:
 	initial_variants()
 	
 	# ?这里的信号连接方式可能要改一下
-	MapeditorShareData.connect("shared_data_updated", _on_global_data_updated)
+	MapEditorSharedData.connect("shared_data_updated", _on_global_data_updated)
 
 
 func initial_variants():
@@ -71,7 +71,7 @@ func create_mapnodestar() -> void:
 
 func _on_global_data_updated(key : String):
 	if key == "chosen_star":
-		chosen_star = MapeditorShareData.chosen_star
+		chosen_star = MapEditorSharedData.chosen_star
 
 
 func change_star_preview_visibility(change_to_what_visibility : bool):
@@ -93,8 +93,9 @@ func create_star_preview() -> void:
 		return
 	
 	if previewstar_container.get_child_count() == 0:
-		var star_preview_node = mapnodestar_scene.instantiate()
+		var star_preview_node : MapNodeStar = mapnodestar_scene.instantiate()
 		star_preview_node.copy_map_node_star(chosen_star)
+		star_preview_node.is_star_preview = true
 		previewstar_container.add_child(star_preview_node)
 		previewstar = star_preview_node
 		previewstar.tree_exited.connect(_on_star_preview_queue_freed)
@@ -108,9 +109,8 @@ func update_star_preview():
 		return
 	
 	if previewstar_container.get_child(0) is MapNodeStar:
-		var star_preview = previewstar_container.get_child(0)
+		var star_preview : MapNodeStar = previewstar_container.get_child(0)
 		star_preview.copy_map_node_star(chosen_star)
-		star_preview.update_map_node_star()
 
 
 func _on_star_preview_queue_freed():

@@ -6,11 +6,11 @@ var camp_colors : Dictionary
 
 func _ready() -> void:
 	_pull_map_editor_shared_data()
-	MapeditorShareData.shared_data_updated.connect(_on_global_data_updated)
+	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 
 
 func _pull_map_editor_shared_data():
-	camp_colors = MapeditorShareData.camp_colors
+	camp_colors = MapEditorSharedData.camp_colors
 
 
 func _on_global_data_updated(key : String) -> void:
@@ -18,7 +18,7 @@ func _on_global_data_updated(key : String) -> void:
 	
 	match key:
 		"camp_colors":
-			camp_colors = MapeditorShareData.camp_colors
+			camp_colors = MapEditorSharedData.camp_colors
 
 
 func update_star_ui(star_scale : float, this_star_fleets : Array[Dictionary]):
@@ -68,15 +68,14 @@ class LabelPositionsCalculator:
 	) -> Array[Vector2]:
 		var ship_number_positions : Array[Vector2] = []
 		# 天体中心相对节点(ShipNumberLabels)的位置 = - ShipNumberLabels位置 - StarUI位置
-		var relative_origin_position : Vector2 = -origin_position
 		if camp_ids.size() <= 0:
 			ship_number_positions = []
 		elif camp_ids.size() == 1:
-			var ship_number_position : Vector2 = relative_origin_position + Vector2(0, ONE_CAMP_STANDARD_DISTANCE) * star_scale
+			var ship_number_position : Vector2 = origin_position + Vector2(0, ONE_CAMP_STANDARD_DISTANCE) * star_scale
 			ship_number_positions.append(ship_number_position)
 		elif camp_ids.size() == 2:
-			var ship_number_position1 : Vector2 = relative_origin_position + Vector2(0, MULTI_CAMPS_STANDARD_DISTANCE) * star_scale
-			var ship_number_position2 : Vector2 = relative_origin_position - Vector2(0, MULTI_CAMPS_STANDARD_DISTANCE) * star_scale
+			var ship_number_position1 : Vector2 = origin_position + Vector2(0, MULTI_CAMPS_STANDARD_DISTANCE) * star_scale
+			var ship_number_position2 : Vector2 = origin_position - Vector2(0, MULTI_CAMPS_STANDARD_DISTANCE) * star_scale
 			ship_number_positions.append(ship_number_position1)
 			ship_number_positions.append(ship_number_position2)
 		else:
@@ -87,7 +86,6 @@ class LabelPositionsCalculator:
 						cos(PI/2 + radian_divided * i),
 						-sin(PI/2 + radian_divided * i)
 				) * MULTI_CAMPS_STANDARD_DISTANCE / star_scale
-				ship_number_position = relative_origin_position + relative_ship_number_position
+				ship_number_position = origin_position + relative_ship_number_position
 				ship_number_positions.append(ship_number_position)
-		
 		return ship_number_positions

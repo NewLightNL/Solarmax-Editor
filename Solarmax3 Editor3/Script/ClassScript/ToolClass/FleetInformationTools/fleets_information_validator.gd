@@ -64,21 +64,21 @@ static func _fleet_dictionary_should_filtered(
 ) -> bool:
 		match filter_flag:
 			FilterFlags.NO_FILTER:
-				return true
+				return false
 			FilterFlags.FILTER_CAMP_ZERO:
 				var fleet_information_parser : FleetInformationParser = FleetInformationParser.new()
 				fleet_information_parser.parse_fleet_dicitionary(fleet_dictionary)
 				if fleet_information_parser.camp_id == 0:
-					return false
-				else:
 					return true
+				else:
+					return false
 			FilterFlags.FILTER_SHIPNUMBER_ZERO:
 				var fleet_information_parser : FleetInformationParser = FleetInformationParser.new()
 				fleet_information_parser.parse_fleet_dicitionary(fleet_dictionary)
 				if fleet_information_parser.ship_number == 0:
-					return false
-				else:
 					return true
+				else:
+					return false
 			FilterFlags.FILTER_CAMP_ZERO_AND_SHIP_NUMBER_ZERO:
 				var fleet_information_parser : FleetInformationParser = FleetInformationParser.new()
 				fleet_information_parser.parse_fleet_dicitionary(fleet_dictionary)
@@ -86,12 +86,12 @@ static func _fleet_dictionary_should_filtered(
 						fleet_information_parser.camp_id == 0
 						or fleet_information_parser.ship_number == 0
 				):
-					return false
-				else:
 					return true
+				else:
+					return false
 			_:
 				push_error("未知的过滤标志: " + str(filter_flag))
-				return false
+				return true
 
 
 static func _fleet_array_should_filter(

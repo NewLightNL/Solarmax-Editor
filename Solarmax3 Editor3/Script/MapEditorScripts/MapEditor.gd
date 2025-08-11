@@ -28,7 +28,7 @@ var star_fleets : Array
 func _ready():
 	# 初始化变量
 	# 链接全局变量
-	MapeditorShareData.shared_data_updated.connect(_on_global_data_updated)
+	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 	# 检查初始化
 	#check_initalisation()
 	# 处理变量...
@@ -40,21 +40,21 @@ func _ready():
 func _on_global_data_updated(key : String):
 	match key:
 		"defined_camp_ids":
-			defined_camp_ids = MapeditorShareData.defined_camp_ids
+			defined_camp_ids = MapEditorSharedData.defined_camp_ids
 		"camp_colors":
-			camp_colors = MapeditorShareData.camp_colors
+			camp_colors = MapEditorSharedData.camp_colors
 		"star_pattern_dictionary":
-			star_pattern_dictionary = MapeditorShareData.star_pattern_dictionary
+			star_pattern_dictionary = MapEditorSharedData.star_pattern_dictionary
 		"stars":
-			stars = MapeditorShareData.stars
+			stars = MapEditorSharedData.stars
 		"orbit_types":
-			orbit_types = MapeditorShareData.orbit_types
+			orbit_types = MapEditorSharedData.orbit_types
 		"all_basic_information":
-			defined_camp_ids = MapeditorShareData.defined_camp_ids
-			camp_colors = MapeditorShareData.camp_colors
-			star_pattern_dictionary = MapeditorShareData.star_pattern_dictionary
-			stars = MapeditorShareData.stars
-			orbit_types = MapeditorShareData.orbit_types
+			defined_camp_ids = MapEditorSharedData.defined_camp_ids
+			camp_colors = MapEditorSharedData.camp_colors
+			star_pattern_dictionary = MapEditorSharedData.star_pattern_dictionary
+			stars = MapEditorSharedData.stars
+			orbit_types = MapEditorSharedData.orbit_types
 		"chosen_star", "is_star_chosen", "star_fleets", "stars_dictionary":
 			pass
 		_:

@@ -1,20 +1,39 @@
 @icon("res://Textures/IconTexture/planetRandom.png")
-extends Node2D
-class_name Star
+class_name Star extends Node2D
+
+signal star_property_changed()
 
 # 天体类型信息
 ## 天体图样名
-var pattern_name : String
+@export var pattern_name : String:
+	set(value):
+		pattern_name = value
+		emit_signal("star_property_changed")
 ## 天体缩放比例
-var star_scale : float
+@export var star_scale : float = 1.0:
+	set(value):
+		star_scale = value
+		emit_signal("star_property_changed")
 ## 天体类型
-var type : String
+@export var type : String:
+	set(value):
+		type = value
+		emit_signal("star_property_changed")
 ## 大小类型
-var size_type : int
+@export var size_type : int:
+	set(value):
+		size_type = value
+		emit_signal("star_property_changed")
 ## 名称
-var star_name : String
+@export var star_name : String:
+	set(value):
+		star_name = value
+		emit_signal("star_property_changed")
 ## 特殊天体类型
-var special_star_type : String
+@export var special_star_type : String = "null":
+	set(value):
+		special_star_type = value
+		emit_signal("star_property_changed")
 # 特殊天体类型(special_star_type): 
 	# null(无)
 	# dirt(焦土类)
@@ -23,11 +42,20 @@ var special_star_type : String
 	# barrier(障碍点)
 # 天体修正信息
 ## 缩放修正
-var scale_fix : Vector2
+@export var scale_fix : Vector2 = Vector2.ONE:
+	set(value):
+		scale_fix = value
+		emit_signal("star_property_changed")
 ## 位置修正
-var offset_fix : Vector2
+@export var offset_fix : Vector2 = Vector2.ZERO:
+	set(value):
+		offset_fix = value
+		emit_signal("star_property_changed")
 ## 旋转修正
-var rotation_fix_degree : float
+@export var rotation_fix_degree : float:
+	set(value):
+		rotation_fix_degree = value
+		emit_signal("star_property_changed")
 
 func _init(
 		pattern_name_info : String = "",

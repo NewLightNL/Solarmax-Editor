@@ -11,12 +11,12 @@ var _halo_arguments : Array
 
 # 要修改读取天体舰队方式 
 func _ready() -> void:
-	MapeditorShareData.shared_data_updated.connect(_on_global_data_updated)
+	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 	_pull_map_editor_shared_data()
 
 
 func _pull_map_editor_shared_data():
-	camp_colors = MapeditorShareData.camp_colors
+	camp_colors = MapEditorSharedData.camp_colors
 
 
 # draw_arc(center: Vector2, radius: float, start_angle: float, end_angle: float, point_count: int, color: Color, width: float = -1.0, antialiased: bool = false)
@@ -31,7 +31,7 @@ func _on_global_data_updated(key : String) -> void:
 	MapEditorSharedDataKeysChecker.check_key(key)
 	match key:
 		"camp_colors":
-			camp_colors = MapeditorShareData.camp_colors
+			camp_colors = MapEditorSharedData.camp_colors
 
 
 func draw_halo(this_star_fleets_info : Array[Dictionary], star_scale_info : float) -> void:

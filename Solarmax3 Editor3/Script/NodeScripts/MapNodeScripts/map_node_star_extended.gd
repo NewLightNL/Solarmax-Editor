@@ -1,8 +1,12 @@
 extends MapNodeStar
 
-# 外部输入数据
+
 var star_pattern_dictionary : Dictionary
 var camp_colors : Dictionary
+@export var is_star_preview : bool = false:
+	set(value):
+		is_star_preview = value
+		_set_star_preview()
 
 @onready var _halo_drawer : Marker2D = $HaloDrawingCenter
 @onready var _map_node_star_sprite : Sprite2D = $MapNodeStarSprite
@@ -12,15 +16,18 @@ var camp_colors : Dictionary
 
 func _ready():
 	_pull_map_editor_shared_data()
-	update_map_node_star()
+	self.star_property_changed.connect(_update_map_node_star)
+	if get_parent() == null:
+		_update_map_node_star()
+	_set_star_preview()
 
 
 func _pull_map_editor_shared_data():
-	star_pattern_dictionary = MapeditorShareData.star_pattern_dictionary
-	camp_colors = MapeditorShareData.camp_colors
+	star_pattern_dictionary = MapEditorSharedData.star_pattern_dictionary
+	camp_colors = MapEditorSharedData.camp_colors
 
 
-func update_map_node_star():
+func _update_map_node_star():
 	_update_map_node_star_sprite()
 	_call_draw_halo()
 	_call_draw_orbit()
@@ -68,6 +75,14 @@ func _call_draw_halo():
 
 func _update_star_ui():
 	_star_ui.update_star_ui(star_scale, self.this_star_fleet_dictionaries_array)
+
+
+func _set_star_preview():
+	if is_star_preview:
+		$StarUI/DeleteButton.disabled = true
+	else:
+		$StarUI/DeleteButton.disabled = false
+
 
 # 不应该直接获取删除按钮发出的信息
 func _on_delete_button_button_up():

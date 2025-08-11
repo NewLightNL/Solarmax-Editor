@@ -21,7 +21,6 @@ shader_parameter/node_number = 0
 shader_parameter/node_positions = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/node_camps = PackedInt32Array(0, 0, 0, 0)
 shader_parameter/node_radii = PackedFloat32Array(0, 0, 0, 0)
-shader_parameter/adhesion = 0.8
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodes")]
 material = SubResource("ShaderMaterial_jda1s")
@@ -30,11 +29,38 @@ nodes = [NodePath("Node2D/Sprite2D"), NodePath("Node2D/Sprite2D2"), NodePath("No
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_hxhys")
-anchors_preset = -1
 offset_right = 2000.0
 offset_bottom = 1500.0
-grow_horizontal = 2
-grow_vertical = 2
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(364, 306.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_1ihti")
+offset = Vector2(0, -1)
+script = ExtResource("4_su4bj")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D"]
+position = Vector2(892, 242.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_1ihti")
+offset = Vector2(0, -1)
+script = ExtResource("4_su4bj")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Node2D"]
+position = Vector2(268, 682.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_1ihti")
+offset = Vector2(0, -1)
+script = ExtResource("4_su4bj")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Node2D"]
+position = Vector2(1164, 514.5)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_1ihti")
+offset = Vector2(0, -1)
+script = ExtResource("4_su4bj")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 render_target_update_mode = 4
@@ -43,33 +69,3 @@ render_target_update_mode = 4
 material = SubResource("ShaderMaterial_wbqg2")
 offset_right = 512.0
 offset_bottom = 512.0
-
-[node name="Node2D" type="Node2D" parent="."]
-
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
-position = Vector2(364, 306.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_1ihti")
-script = ExtResource("4_su4bj")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Node2D"]
-position = Vector2(892, 242.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_1ihti")
-script = ExtResource("4_su4bj")
-
-[node name="Sprite2D3" type="Sprite2D" parent="Node2D"]
-position = Vector2(268, 682.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_1ihti")
-script = ExtResource("4_su4bj")
-
-[node name="Sprite2D4" type="Sprite2D" parent="Node2D"]
-position = Vector2(1164, 514.5)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("3_1ihti")
-script = ExtResource("4_su4bj")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
-centered = false

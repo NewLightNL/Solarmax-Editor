@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cuk3gflxdaj76"]
+[gd_scene load_steps=9 format=3 uid="uid://bje75ictw4kcj"]
 
 [ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="1_dpxci"]
 [ext_resource type="Script" uid="uid://b2an77g6b6wps" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureStarFleetsUIScripts/star_preview_control_script.gd" id="1_fwcpf"]
 [ext_resource type="Script" uid="uid://bmubu67cugwox" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureStarFleetsUIScripts/configure_star_fleets_ui_script.gd" id="1_uyjqm"]
 [ext_resource type="Script" uid="uid://b52eusxsavpq4" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureStarFleetsUIScripts/fleets_setting_ui_script.gd" id="4_lg6i2"]
-[ext_resource type="PackedScene" uid="uid://d33684bsww03p" path="res://Scenes/UIs/ConfigureStarShipUIs/new/configue_camp_ship_unit.tscn" id="6_lg6i2"]
+[ext_resource type="PackedScene" uid="uid://d33684bsww03p" path="res://Scenes/UIs/ConfigureStarShipUIs/configue_camp_ship_unit.tscn" id="6_lg6i2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fwcpf"]
 bg_color = Color(0.380392, 0.639216, 0.768627, 0.607843)
@@ -95,6 +95,7 @@ metadata/_edit_lock_ = true
 
 [node name="MapNodeStar" parent="StarPreviewControl" instance=ExtResource("1_dpxci")]
 position = Vector2(172, 172)
+is_star_preview = true
 
 [node name="FleetsSettingUI" type="Control" parent="."]
 anchors_preset = 0
@@ -121,6 +122,7 @@ offset_left = 17.0
 offset_top = 22.0
 offset_right = 352.0
 offset_bottom = 518.0
+metadata/_edit_lock_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="FleetsSettingUI/ScrollContainer"]
 layout_mode = 2
@@ -139,4 +141,5 @@ offset_bottom = -0.164063
 theme_override_font_sizes/font_size = 22
 text = "保存并离开"
 
+[connection signal="fleet_information_changed" from="FleetsSettingUI" to="." method="_on_fleet_information_changed"]
 [connection signal="button_up" from="LeaveButton" to="." method="_on_leave_button_button_up"]

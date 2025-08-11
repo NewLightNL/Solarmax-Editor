@@ -45,3 +45,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
+
+[connection signal="button_up" from="StarUI/DeleteButton" to="." method="_on_delete_button_button_up"]

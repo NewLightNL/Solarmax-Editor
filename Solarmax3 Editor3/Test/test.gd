@@ -28,7 +28,6 @@ func _ready():
 	$ColorRect.size = get_viewport().size
 	$SubViewport/ColorRect.size = get_viewport().size
 	render_texture = viewport.get_texture()
-	$Sprite2D.texture = render_texture
 
 # 差一个粘度
 func _process(delta: float) -> void:
@@ -42,10 +41,12 @@ func _on_node_changed():
 	var node_number : int = nodes.size()
 	var node_positions : PackedVector2Array = []
 	var node_camps : PackedInt32Array = []
+	var node_radii : PackedFloat32Array = []
 	for node in nodes:
 		node_positions.append(node.position)
 		node_camps.append(node.camp)
-	var node_radii : PackedFloat32Array = [90.0, 90.0, 90.0, 90.0]
+		node_radii.append(node.radius)
+	
 	$SubViewport/ColorRect.material.set_shader_parameter("node_number", node_number)
 	$SubViewport/ColorRect.material.set_shader_parameter("node_positions", node_positions)
 	$SubViewport/ColorRect.material.set_shader_parameter("node_camps", node_camps)

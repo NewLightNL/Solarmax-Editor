@@ -8,12 +8,14 @@ func _ready() -> void:
 
 
 func _pull_map_editor_shared_information():
-	camp_colors = MapeditorShareData.camp_colors
+	camp_colors = MapEditorSharedData.camp_colors
 
 func add_ship_number_labels(
 		label_positions : Array[Vector2],
 		star_fleet_dictionaries_array : Array[Dictionary],
 	) -> void:
+		for i in get_children():
+			i.queue_free()
 		var camp_ids = FleetsInformationGetter.get_star_fleets_dictionaries_campids(star_fleet_dictionaries_array)
 		var index : int = -1
 		for camp_id in camp_ids:

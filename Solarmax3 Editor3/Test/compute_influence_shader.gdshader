@@ -5,8 +5,6 @@ uniform vec2 node_positions[4];
 uniform int node_camps[4];
 uniform float node_radii[4];
 
-uniform float adhesion = 1;
-
 void vertex() {
 	// Called for every vertex the material is visible on.
 }
@@ -22,7 +20,7 @@ void fragment() {
 		float node_radius = node_radii[i];
 		
 		float r = distance(screen_pos, node_position);
-		float influence = (r <= node_radius) ? 1.0 : 1.0 / (r - node_radius);
+		float influence = (r <= node_radius) ? 1.0 : 1.0 / sqrt(r - node_radius);
 		
 		total_influence += influence;
 	}
