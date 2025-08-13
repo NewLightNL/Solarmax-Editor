@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bflaaarpk23au"]
 
-[ext_resource type="Script" uid="uid://b6pa7cxkcsojo" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/star_information_ui_script.gd" id="1_c8s5d"]
+[ext_resource type="Script" uid="uid://b6pa7cxkcsojo" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/star_information_ui_script.gd" id="1_c8s5d"]
 [ext_resource type="PackedScene" uid="uid://bje75ictw4kcj" path="res://Scenes/UIs/ConfigureStarShipUIs/configure_star_fleets_ui.tscn" id="2_jlygy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psej3"]
@@ -14,7 +14,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[node name="StarInformation" type="Control" node_paths=PackedStringArray("star_size_input_option_button", "star_camp_input_spinbox", "star_camp_input_option_button", "configure_star_ship_button", "star_tag_input_line_edit", "star_position_input_x", "star_position_input_y", "star_orbit_type_input_option_button", "configure_star_orbit_button", "star_fangle_input", "is_target_node_input", "configure_special_star_button", "is_target_check_Button", "star_preview_switch_button")]
+[node name="StarInformation" type="Control"]
 layout_mode = 3
 anchor_right = 0.204
 anchor_bottom = 0.408
@@ -24,20 +24,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c8s5d")
 configure_star_ship_ui = ExtResource("2_jlygy")
-star_size_input_option_button = NodePath("SizeInputLabel/StarSizeInputOptionButton")
-star_camp_input_spinbox = NodePath("CampInputLabel/StarCampInputSpinBox")
-star_camp_input_option_button = NodePath("CampInputLabel/StarCampInputOptionButton")
-configure_star_ship_button = NodePath("ConfigureStarShipButton")
-star_tag_input_line_edit = NodePath("TagInputLabel/LineEdit")
-star_position_input_x = NodePath("MapNodeStarPositionInputLabel2/x/SpinBox")
-star_position_input_y = NodePath("MapNodeStarPositionInputLabel2/y/SpinBox")
-star_orbit_type_input_option_button = NodePath("OrbitType/OptionButton")
-configure_star_orbit_button = NodePath("OrbitEditButton")
-star_fangle_input = NodePath("FAngle/SpinBox")
-is_target_node_input = NodePath("IsTagetNode/CheckButton")
-configure_special_star_button = NodePath("ConfigureSpecialStarButton")
-is_target_check_Button = NodePath("IsTagetNode/CheckButton")
-star_preview_switch_button = NodePath("StarPreviewSwitchButton")
 
 [node name="StarInformationBG" type="Panel" parent="."]
 layout_mode = 1
@@ -188,12 +174,14 @@ text = "旋转角度(角度制):"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SpinBox" type="SpinBox" parent="FAngle"]
+[node name="StarFAngleInput" type="SpinBox" parent="FAngle"]
 layout_mode = 0
 offset_left = 136.0
 offset_right = 225.0
 offset_bottom = 31.0
-editable = false
+step = 0.001
+allow_greater = true
+allow_lesser = true
 
 [node name="IsTagetNode" type="Label" parent="."]
 layout_mode = 0
@@ -238,5 +226,6 @@ text = "启用天体预览"
 [connection signal="value_changed" from="MapNodeStarPositionInputLabel2/y/SpinBox" to="." method="_star_position_y_input"]
 [connection signal="item_selected" from="OrbitType/OptionButton" to="." method="_on_orbit_type_option_button_item_selected"]
 [connection signal="button_up" from="OrbitEditButton" to="." method="_on_orbit_edit_button_button_up"]
+[connection signal="value_changed" from="FAngle/StarFAngleInput" to="." method="_on_f_angle_spin_box_value_changed"]
 [connection signal="button_up" from="IsTagetNode/CheckButton" to="." method="_on_is_target_check_button_button_up"]
 [connection signal="button_up" from="StarPreviewSwitchButton" to="." method="_on_star_preview_switch_button_button_up"]

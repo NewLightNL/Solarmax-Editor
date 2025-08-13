@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://x1xyl3c2x2mf"]
 
-[ext_resource type="Script" uid="uid://dxg0lqj0f2ic5" path="res://Test/test.gd" id="1_37kl0"]
-[ext_resource type="Shader" uid="uid://br0yqmt7dy0pr" path="res://Test/test.gdshader" id="1_lxp54"]
+[ext_resource type="Script" uid="uid://dxg0lqj0f2ic5" path="res://Test/Test1/test.gd" id="1_37kl0"]
+[ext_resource type="Shader" uid="uid://br0yqmt7dy0pr" path="res://Test/Test1/test.gdshader" id="1_lxp54"]
 [ext_resource type="Texture2D" uid="uid://c4h03s10yicqg" path="res://Textures/StarTexture/Planets/planet01.png" id="3_1ihti"]
-[ext_resource type="Shader" uid="uid://cqk87utf6uwaq" path="res://Test/influence_shader.gdshader" id="3_su4bj"]
-[ext_resource type="Shader" uid="uid://bl5d71qwuku7o" path="res://Test/compute_influence_shader.gdshader" id="3_wbqg2"]
-[ext_resource type="Script" uid="uid://bulay87vu34we" path="res://Test/sprite_2d.gd" id="4_su4bj"]
+[ext_resource type="Shader" uid="uid://cqk87utf6uwaq" path="res://Test/Test1/influence_shader.gdshader" id="3_su4bj"]
+[ext_resource type="Shader" uid="uid://bl5d71qwuku7o" path="res://Test/Test1/compute_influence_shader.gdshader" id="3_wbqg2"]
+[ext_resource type="Script" uid="uid://bulay87vu34we" path="res://Test/Test1/sprite_2d.gd" id="4_su4bj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jda1s"]
 shader = ExtResource("1_lxp54")

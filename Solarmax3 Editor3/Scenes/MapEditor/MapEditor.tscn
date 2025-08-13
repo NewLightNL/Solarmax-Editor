@@ -24,7 +24,7 @@
 [ext_resource type="Texture2D" uid="uid://b25swkj2qo5re" path="res://Textures/StarTexture/hiddenstar.png" id="22_tpoo3"]
 [ext_resource type="Texture2D" uid="uid://ds322bs86iur7" path="res://Textures/StarTexture/Lifeship.png" id="23_xlftl"]
 
-[node name="Main1" type="Node"]
+[node name="MapEditor" type="Node"]
 script = ExtResource("1_b8sba")
 map_node_star_list_unit = ExtResource("2_trdvf")
 
@@ -100,6 +100,7 @@ offset_top = 24.0
 offset_right = 1280.0
 offset_bottom = 112.0
 theme_override_font_sizes/font_size = 30
+disabled = true
 text = "天体"
 
 [node name="ChangeViewButton" type="Button" parent="UI/EditorUI"]

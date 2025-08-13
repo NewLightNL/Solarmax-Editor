@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdnpcse8cdxkd"]
+
+[ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="1_peffp"]
+[ext_resource type="Script" uid="uid://dbgfxgavk5tdt" path="res://Script/ClassScript/DebugTools/map_node_star_properties_setter.gd" id="2_sa47l"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="MapNodeStar" parent="." instance=ExtResource("1_peffp")]
+position = Vector2(945, 563)
+is_star_preview = true
+auto_initializable = true
+pattern_name = "planet"
+
+[node name="MapNodeStarPropertiesSetter" type="Node" parent="." node_paths=PackedStringArray("map_node_star")]
+script = ExtResource("2_sa47l")
+map_node_star = NodePath("../MapNodeStar")
+star_type = "Lasergun"
+size_type = 1
+metadata/_custom_type_script = "uid://dbgfxgavk5tdt"
+
+[node name="Button" type="Button" parent="MapNodeStarPropertiesSetter"]
+offset_left = 78.0
+offset_top = 67.0
+offset_right = 247.0
+offset_bottom = 169.0
+
+[connection signal="button_up" from="MapNodeStarPropertiesSetter/Button" to="MapNodeStarPropertiesSetter" method="set_inherit_star"]

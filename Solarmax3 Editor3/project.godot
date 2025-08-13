@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="Solarmax3 Editor3"
-run/main_scene="uid://dy21eddlgx03s"
+run/main_scene="uid://24y3c2ijrsn2"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/image="uid://gyvpp6chgpo0"
 config/icon="uid://dqvkc1l0577hv"
 
 [autoload]
 
-MapEditorSharedData="*res://Script/ClassScript/MapEditorSharedDataScripts/map_editor_share_data.gd"
+MapEditorSharedData="*res://Script/MapEditorScripts/map_editor_share_data.gd"
 
 [display]
 

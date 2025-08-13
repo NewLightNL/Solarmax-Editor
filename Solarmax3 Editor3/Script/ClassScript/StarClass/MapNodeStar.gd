@@ -3,6 +3,12 @@ class_name MapNodeStar extends Star
 
 const MAPUNITLENTH = 99.4
 
+@export var inherit_star : Star = null:
+	set(value):
+		if value != null:
+			inherit_star = value
+			_copy_information_from_star(inherit_star)
+
 # 地图添加信息
 ## 天体标签
 @export var tag : String = "":
@@ -79,7 +85,7 @@ func _notification(what: int) -> void:
 		_update_map_node_star_starposition()
 
 
-func copy_information_from_star(base_star : Star) -> void:
+func _copy_information_from_star(base_star : Star) -> void:
 	self.pattern_name = base_star.pattern_name
 	self.star_scale = base_star.star_scale
 	self.type = base_star.type
@@ -130,7 +136,6 @@ func copy_map_node_star(map_node_star_copied : MapNodeStar) -> void:
 	self.pattern_name = map_node_star_copied.pattern_name
 	
 	self.star_scale = map_node_star_copied.star_scale
-	print("self: %s, copied: %s" % [self.star_scale, map_node_star_copied.star_scale])
 	self.type = map_node_star_copied.type
 	self.size_type = map_node_star_copied.size_type
 	self.star_name = map_node_star_copied.star_name

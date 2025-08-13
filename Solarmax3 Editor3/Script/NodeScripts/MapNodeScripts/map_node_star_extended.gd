@@ -7,6 +7,8 @@ var camp_colors : Dictionary
 	set(value):
 		is_star_preview = value
 		_set_star_preview()
+@export var auto_initializable : bool = false
+
 
 @onready var _halo_drawer : Marker2D = $HaloDrawingCenter
 @onready var _map_node_star_sprite : Sprite2D = $MapNodeStarSprite
@@ -15,11 +17,23 @@ var camp_colors : Dictionary
 
 
 func _ready():
+	MapEditorSharedData.shared_data_updated.connect( _on_global_data_updated)
 	_pull_map_editor_shared_data()
 	self.star_property_changed.connect(_update_map_node_star)
-	if get_parent() == null:
+	if get_parent() == null or auto_initializable == true:
 		_update_map_node_star()
+	
 	_set_star_preview()
+
+
+func _on_global_data_updated(key : String):
+	MapEditorSharedDataKeysChecker.check_key(key)
+	
+	match key:
+		"star_pattern_dictionary":
+			star_pattern_dictionary = MapEditorSharedData.star_pattern_dictionary
+		"camp_colors":
+			camp_colors = MapEditorSharedData.camp_colors
 
 
 func _pull_map_editor_shared_data():

@@ -10,12 +10,13 @@ var camp_colors : Dictionary
 var star_pattern_dictionary : Dictionary
 # 天体们
 var stars : Array[Star]
-var stars_dictionary : Dictionary
+var stars_dictionary : Dictionary[String, Dictionary]
 # 轨道类型
 var orbit_types : Dictionary
 var chosen_star : MapNodeStar
 var star_fleets : Array
 
+var editor_type : EditorType
 
 func _init() -> void:
 	_initialize_editor_data()
@@ -48,6 +49,8 @@ func data_updated(key : String, value):
 			chosen_star = value
 		"star_fleets":
 			star_fleets = value
+		"editor_type":
+			editor_type = value
 		_:
 			push_error("数据更新出错，请检查要提交的内容名是否正确")
 	emit_signal("shared_data_updated", key)

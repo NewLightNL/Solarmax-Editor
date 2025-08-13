@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://bco5bgwd1epun"]
+
+[ext_resource type="Script" uid="uid://d08i4ndc34s3b" path="res://Script/loading_scene.gd" id="1_twbmk"]
+
+[node name="LoadingScene" type="Node"]
+script = ExtResource("1_twbmk")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1880.0
+offset_bottom = 1058.0
+metadata/_edit_lock_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = 729.0
+offset_top = 468.0
+offset_right = 1165.0
+offset_bottom = 590.0
+theme_override_font_sizes/font_size = 50

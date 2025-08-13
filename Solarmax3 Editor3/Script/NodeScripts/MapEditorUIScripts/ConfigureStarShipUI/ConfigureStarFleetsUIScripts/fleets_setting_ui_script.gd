@@ -12,6 +12,7 @@ func _ready() -> void:
 	if configure_camp_ship_unit == null:
 		push_error("没有配置阵营飞船设置单位!")
 	
+	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 	_pull_map_editor_shared_information()
 
 

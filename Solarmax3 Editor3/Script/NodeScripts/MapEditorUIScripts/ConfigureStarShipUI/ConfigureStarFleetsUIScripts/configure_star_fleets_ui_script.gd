@@ -38,6 +38,8 @@ func _on_fleet_information_changed(
 		ship_number_info,
 		chosen_star.this_star_fleet_dictionaries_array
 	)
+	
+	MapEditorSharedData.data_updated("chosen_star", chosen_star)
 	star_preview_control.update_preview(chosen_star)
 
 

@@ -25,12 +25,12 @@ func _pull_mapeditor_shared_data():
 	camp_colors = MapEditorSharedData.camp_colors
 
 
-func _on_mapeditor_shared_data_updated(key : String, value):
+func _on_mapeditor_shared_data_updated(key : String):
 	MapEditorSharedDataKeysChecker.check_key(key)
 	
 	match key:
 		"camp_colors":
-			camp_colors = value
+			camp_colors = MapEditorSharedData.camp_colors
 
 
 # 实际数字与显示的数字会相同, LineEdit起到了限制器的作用

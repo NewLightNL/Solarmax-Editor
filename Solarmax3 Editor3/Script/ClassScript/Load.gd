@@ -114,7 +114,7 @@ static func _load_stars() -> Array[Star]:
 	return stars
 
 
-static func _load_stars_dictionary() -> Dictionary:
+static func _load_stars_dictionary() -> Dictionary[String, Dictionary]:
 	var stars_data =  _parse_json_data(_STARS_INFORMATION_PATH)
 	# 验证JSON数据结构
 	if stars_data == null:
@@ -124,18 +124,22 @@ static func _load_stars_dictionary() -> Dictionary:
 		push_error("JSON字段缺少\"stars_data\"字段")
 		return {}
 	
-	var stars_dictionary : Dictionary = {}
+	var stars_dictionary : Dictionary[String, Dictionary] = {}
 	
 	# 在stars_data里遍历
 	for star_type in stars_data["stars_data"]:
 		var type_data : Dictionary = stars_data["stars_data"][star_type]
-		var type_stars : Array[Star] = []
+		var type_stars : Dictionary[int, Star] = {}
 		# 在对应的天体类型(star_type)里遍历
 		for star_key in type_data:
 			var star_data = type_data[star_key]
 			var star = _parse_star_data(star_data)
 			if star != null:
-				type_stars.append(star)
+				if star_key as int:
+					type_stars[int(star_key)] = star
+				else:
+					push_error("天体大小类型应当是整数!")
+					continue
 		stars_dictionary[star_type] = type_stars
 	
 	return stars_dictionary
@@ -164,7 +168,7 @@ static func _parse_star_data(star_data: Dictionary) -> Star:
 	star.size_type = star_data["size_type"]
 	star.star_name = star_data["star_name"]
 	star.special_star_type = star_data["special_star_type"]
-	# 未来在这里可能要解决引用问题
+	
 	if star_data["scale_fix"] is Array and star_data["scale_fix"].size() == 2:
 		star.scale_fix = Vector2(star_data["scale_fix"][0], star_data["scale_fix"][1])
 	else:

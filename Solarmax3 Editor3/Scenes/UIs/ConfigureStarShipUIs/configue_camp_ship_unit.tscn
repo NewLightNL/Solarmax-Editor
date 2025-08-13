@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://d33684bsww03p"]
 
-[ext_resource type="Script" uid="uid://saxjemeqfn8x" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/configue_camp_ship_unit_script.gd" id="1_m0f27"]
-[ext_resource type="Script" uid="uid://dudn40350l04k" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/configue_camp_ship_ui_script.gd" id="2_77xcw"]
-[ext_resource type="Script" uid="uid://capcv3711hy4o" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/ship_number_input_line_edit.gd" id="3_lr0t7"]
-[ext_resource type="Script" uid="uid://d3n2r2y45fmyj" path="res://Script/NodeScripts/MapEditor1UIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/ship_number_growth_script.gd" id="4_fhyxo"]
+[ext_resource type="Script" uid="uid://saxjemeqfn8x" path="res://Script/NodeScripts/MapEditorUIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/configue_camp_ship_unit_script.gd" id="1_m0f27"]
+[ext_resource type="Script" uid="uid://dudn40350l04k" path="res://Script/NodeScripts/MapEditorUIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/configue_camp_ship_ui_script.gd" id="2_77xcw"]
+[ext_resource type="Script" uid="uid://capcv3711hy4o" path="res://Script/NodeScripts/MapEditorUIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/ship_number_input_line_edit.gd" id="3_lr0t7"]
+[ext_resource type="Script" uid="uid://d3n2r2y45fmyj" path="res://Script/NodeScripts/MapEditorUIScripts/ConfigureStarShipUI/ConfigureCampShipUnitScripts/ship_number_growth_script.gd" id="4_fhyxo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jda1s"]
 bg_color = Color(0.314316, 0.314316, 0.314316, 1)

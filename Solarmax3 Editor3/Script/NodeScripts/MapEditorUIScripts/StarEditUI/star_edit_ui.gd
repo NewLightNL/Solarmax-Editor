@@ -8,12 +8,12 @@ signal switch_object_visibility(object_name: String)
 @export var choose_star_ui : PackedScene
 @export var map_node_star_scene : PackedScene
 
-# 交流变量
 var star_pattern_dictionary : Dictionary
 var defined_camp_ids : Array
 var camp_colors : Dictionary
 var stars : Array[Star]
 var orbit_types : Dictionary
+var editor_type : EditorType
 
 # 天体编辑共享
 var chosen_star : MapNodeStar
@@ -53,6 +53,7 @@ func _pull_map_editor_information():
 	star_pattern_dictionary = MapEditorSharedData.star_pattern_dictionary
 	stars = MapEditorSharedData.stars
 	orbit_types = MapEditorSharedData.orbit_types
+	editor_type = MapEditorSharedData.editor_type
 
 
 func _on_global_data_updated(key : String):
@@ -108,27 +109,13 @@ func _choose_star(star : Star):
 
 func _add_to_recently_chosen_stars(recent_chosen_star : MapNodeStar) -> void:
 	var chosen_star_duplicate = recent_chosen_star.duplicate_map_node_star()
-	# 移除重复项
-	# 降序检测，防止删了后超范围
-	#for i in range(recently_chosen_stars.size() - 1, -1, -1):
-		#var recently_chosen_star_info : Array = recently_chosen_stars[i].get_star_information()
-		#var star_info : Array = chosen_star_duplicate.get_star_information()
-		#if recently_chosen_star_info.size() == star_info.size():
-			#if (
-				#star_info[2] == recently_chosen_star_info[2]
-				#and star_info[3] == recently_chosen_star_info[3]
-			#):
-				#recently_chosen_stars.remove_at(i)
-		#else:
-			#push_error("最近选择的天体信息或提交的天体信息残缺")
-			#return
 	
 	recently_chosen_stars.append(chosen_star_duplicate)
 	
 	if recently_chosen_stars.size() > MAX_RECENT_STARS_NUMBER:
 		recently_chosen_stars.remove_at(0)
 
-
+# 最近选择的星球框显示(对lately_chosen_star数组从右往左读取)
 func _update_recently_chosen_stars_display():
 	for i in range(min(recently_chosen_stars.size(), MAX_RECENT_STARS_NUMBER)):
 		var slot = recently_chosen_stars_box.get_child(i)
@@ -137,20 +124,18 @@ func _update_recently_chosen_stars_display():
 		slot.get_child(0).texture = star_pattern_dictionary[
 				star_information[0]]
 		var recently_chosen_star = recently_chosen_stars[star_index]
-		if recently_chosen_star.special_star_type == "dirt":
-			slot.get_child(0).flip_v = true
-			slot.get_child(0).flip_h = true
+		if editor_type is NewExpedition:
+			editor_type.obey_dirt_star_rotation_rule_ui(recently_chosen_star, slot.get_child(0))
 		else:
-			slot.get_child(0).flip_v = false
-			slot.get_child(0).flip_h = false
+			pass
 
-# 最近选择的星球框显示(对lately_chosen_star数组从右往左读取)
+
 func _update_star_display(star : Star):
 	var star_infomation = star.get_star_information()
-	if star.special_star_type == "dirt":
-		chosen_star_picture.rotation = PI
+	if editor_type is NewExpedition:
+		editor_type.obey_dirt_star_rotation_rule_ui(star, chosen_star_picture)
 	else:
-		chosen_star_picture.rotation = 0
+		pass
 	chosen_star_picture.texture = star_pattern_dictionary[star_infomation[0]]
 	chosen_star_name_label.text = star_infomation[4]
 
@@ -163,12 +148,9 @@ func _update_chosen_star(star : Star):
 		chosen_star.copy_map_node_star(star)
 		MapEditorSharedData.data_updated("chosen_star", chosen_star)
 	else:
-		chosen_star.copy_information_from_star(star)
+		chosen_star.inherit_star = star
 		
 		MapEditorSharedData.data_updated("chosen_star", chosen_star)
-	
-	$StarInformation.update_star_information_ui()
-	$StarInformation.unlock_uis()
 
 
 # 最近选择的天体按钮被按起

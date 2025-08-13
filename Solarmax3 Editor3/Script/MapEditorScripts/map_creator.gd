@@ -16,9 +16,12 @@ var previewstar : MapNodeStar
 
 var chosen_star : MapNodeStar:
 	set(value):
-		if value is MapNodeStar:
+		chosen_star = value
+		if chosen_star != null:
 			chosen_star = value
-			get_mapnodestar(value)
+			get_mapnodestar(chosen_star)
+			if not chosen_star.star_property_changed.is_connected(update_star_preview):
+				chosen_star.star_property_changed.connect(update_star_preview)
 			if previewstar_container.get_child_count() == 1:
 				update_star_preview()
 			elif previewstar_container.get_child_count() == 0:
@@ -26,7 +29,7 @@ var chosen_star : MapNodeStar:
 			else:
 				push_error("有多个节点在预览节点下面！")
 		else:
-			push_error("提交了一个错误的类型!")
+			push_error("chosen_star为空!")
 
 
 func _ready() -> void:
@@ -49,27 +52,29 @@ func get_mapnodestar(mapnodestar_sent : MapNodeStar):
 
 
 func create_mapnodestar() -> void:
-	if mapnodestar == null:
+	if chosen_star == null:
 		emit_signal("create_star", false, "要创建的天体为空")
 		return
 	
-	if mapnodestar.tag == "":
+	if chosen_star.tag == "":
 		emit_signal("create_star", false, "要创建的天体没有标签")
 		return
 	
 	# tag查重
 	for star_in_map in $Stars.get_children():
 		if star_in_map is MapNodeStar:
-			if star_in_map.tag == mapnodestar.tag:
+			if star_in_map.tag == chosen_star.tag:
 				emit_signal("create_star", false, "tag重复")
 				return
 	
 	var mapnodestar_node = mapnodestar_scene.instantiate()
-	mapnodestar_node.copy_map_node_star(mapnodestar)
+	mapnodestar_node.copy_map_node_star(chosen_star)
 	$Stars.add_child(mapnodestar_node)
 
 
 func _on_global_data_updated(key : String):
+	MapEditorSharedDataKeysChecker.check_key(key)
+	
 	if key == "chosen_star":
 		chosen_star = MapEditorSharedData.chosen_star
 

@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://yec60pvu8b10"]
+[gd_scene load_steps=11 format=3 uid="uid://yec60pvu8b10"]
 
-[ext_resource type="Script" uid="uid://b8yl5hl4l6deh" path="res://Script/NodeScripts/MapEditor1UIScripts/star_edit_ui.gd" id="1_7s2en"]
+[ext_resource type="Script" uid="uid://b8yl5hl4l6deh" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/star_edit_ui.gd" id="1_7s2en"]
 [ext_resource type="Texture2D" uid="uid://bryrv3nn37mbm" path="res://UITexture/CreateStarUIs/CreateUI_closeButton.png" id="1_atudw"]
 [ext_resource type="Texture2D" uid="uid://do200ud6pxnaj" path="res://UITexture/CreateStarUIs/CreateStarButtonBG.tres" id="2_ocacw"]
 [ext_resource type="PackedScene" uid="uid://5xrqbdn5jbv0" path="res://Scenes/UIs/ChooseStarsUI/choose_star_ui.tscn" id="3_6lh6g"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dmyu1xsgr8y4e" path="res://UITexture/CreateStarUIs/LatelyChosenStarButtonBG.tres" id="4_etxj5"]
 [ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="4_evo25"]
 [ext_resource type="PackedScene" uid="uid://bflaaarpk23au" path="res://Scenes/UIs/star_information.tscn" id="6_etxj5"]
+[ext_resource type="Script" uid="uid://bwvidvptx3asy" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/recently_chosen_stars_script.gd" id="7_ta52b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y1kjg"]
 bg_color = Color(0.244717, 0.63956, 0.870175, 1)
@@ -117,40 +118,113 @@ theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RecentlyChosenStarBG" type="TextureRect" parent="."]
-layout_mode = 2
-anchor_left = 0.059
-anchor_top = 0.336
-anchor_right = 0.059
-anchor_bottom = 0.336
-offset_left = 49.314
-offset_top = 4.51199
-offset_right = 433.314
-offset_bottom = 92.512
+[node name="RecentlyChosenStarBar" type="Control" parent="."]
+layout_mode = 1
+anchor_left = 0.146
+anchor_top = 0.34
+anchor_right = 0.832
+anchor_bottom = 0.423
+offset_left = 0.23999
+offset_top = 0.279999
+offset_right = 0.0799866
+offset_bottom = 0.466003
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_ta52b")
+metadata/_edit_lock_ = true
+
+[node name="RecentlyChosenStarBG" type="TextureRect" parent="RecentlyChosenStarBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_7s2en")
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarSlot1" type="Control" parent="RecentlyChosenStarBG"]
-layout_mode = 1
-anchor_left = 0.049
-anchor_top = 0.057
-anchor_right = 0.049
-anchor_bottom = 0.057
-offset_left = -8.816
-offset_top = 2.984
-offset_right = 63.184
-offset_bottom = 74.984
-
-[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot1"]
+[node name="RecentlyChosenStarSlots" type="Control" parent="RecentlyChosenStarBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="RecentlyChosenStarSlot1" type="Control" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots"]
+layout_mode = 1
+anchor_left = 0.026
+anchor_top = 0.091
+anchor_right = 0.214
+anchor_bottom = 0.909
+offset_left = 0.0159998
+offset_top = -0.00799942
+offset_right = -0.176003
+offset_bottom = 0.00800323
+metadata/_edit_lock_ = true
+
+[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(36, 36)
 expand_mode = 1
 stretch_mode = 5
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot1"]
+[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot1"]
+custom_minimum_size = Vector2(55, 77)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+texture = ExtResource("4_etxj5")
+expand_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot1/RecentlyChosenStarButtonBG"]
+custom_minimum_size = Vector2(55, 77)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+metadata/_edit_lock_ = true
+
+[node name="RecentlyChosenStarSlot2" type="Control" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots"]
+layout_mode = 1
+anchor_left = 0.216
+anchor_top = 0.091
+anchor_right = 0.404
+anchor_bottom = 0.909
+offset_left = 0.0559998
+offset_top = -0.00800037
+offset_right = -0.136002
+offset_bottom = 0.00799561
+metadata/_edit_lock_ = true
+
+[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(36, 36)
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_lock_ = true
+
+[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot2"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 1
 anchors_preset = 15
@@ -163,8 +237,9 @@ grow_vertical = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_etxj5")
 expand_mode = 1
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot1/RecentlyChosenStarButtonBG"]
+[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot2/RecentlyChosenStarButtonBG"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 1
 anchors_preset = 15
@@ -173,29 +248,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarSlot2" type="Control" parent="RecentlyChosenStarBG"]
+[node name="RecentlyChosenStarSlot3" type="Control" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots"]
 layout_mode = 1
-anchor_left = 0.049
-anchor_top = 0.057
-anchor_right = 0.049
-anchor_bottom = 0.057
-offset_left = 64.184
-offset_top = 2.984
-offset_right = 136.184
-offset_bottom = 74.984
+anchor_left = 0.406
+anchor_top = 0.091
+anchor_right = 0.594
+anchor_bottom = 0.909
+offset_left = 0.095993
+offset_top = -0.00800037
+offset_right = -0.0960083
+offset_bottom = 0.00799561
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot2"]
+[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(36, 36)
 expand_mode = 1
 stretch_mode = 5
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot2"]
+[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot3"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 1
 anchors_preset = 15
@@ -208,8 +287,9 @@ grow_vertical = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_etxj5")
 expand_mode = 1
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot2/RecentlyChosenStarButtonBG"]
+[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot3/RecentlyChosenStarButtonBG"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 1
 anchors_preset = 15
@@ -218,29 +298,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarSlot3" type="Control" parent="RecentlyChosenStarBG"]
+[node name="RecentlyChosenStarSlot4" type="Control" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots"]
 layout_mode = 1
-anchor_left = 0.049
-anchor_top = 0.057
-anchor_right = 0.049
-anchor_bottom = 0.057
-offset_left = 137.184
-offset_top = 2.984
-offset_right = 209.184
-offset_bottom = 74.984
+anchor_left = 0.596
+anchor_top = 0.091
+anchor_right = 0.784
+anchor_bottom = 0.909
+offset_left = 0.135986
+offset_top = -0.00800037
+offset_right = -0.0560303
+offset_bottom = 0.00799561
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot3"]
+[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot4"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(36, 36)
 expand_mode = 1
 stretch_mode = 5
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot3"]
+[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot4"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 1
 anchors_preset = 15
@@ -253,8 +337,9 @@ grow_vertical = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_etxj5")
 expand_mode = 1
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot3/RecentlyChosenStarButtonBG"]
+[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot4/RecentlyChosenStarButtonBG"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 1
 anchors_preset = 15
@@ -263,29 +348,33 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarSlot4" type="Control" parent="RecentlyChosenStarBG"]
+[node name="RecentlyChosenStarSlot5" type="Control" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots"]
 layout_mode = 1
-anchor_left = 0.049
-anchor_top = 0.057
-anchor_right = 0.049
-anchor_bottom = 0.057
-offset_left = 210.184
-offset_top = 2.984
-offset_right = 282.184
-offset_bottom = 74.984
+anchor_left = 0.786
+anchor_top = 0.091
+anchor_right = 0.974
+anchor_bottom = 0.909
+offset_left = 0.175995
+offset_top = -0.00800037
+offset_right = -0.0160217
+offset_bottom = 0.00799561
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot4"]
+[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot5"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(36, 36)
 expand_mode = 1
 stretch_mode = 5
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot4"]
+[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot5"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 1
 anchors_preset = 15
@@ -298,8 +387,9 @@ grow_vertical = 2
 size_flags_horizontal = 0
 texture = ExtResource("4_etxj5")
 expand_mode = 1
+metadata/_edit_lock_ = true
 
-[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot4/RecentlyChosenStarButtonBG"]
+[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBar/RecentlyChosenStarSlots/RecentlyChosenStarSlot5/RecentlyChosenStarButtonBG"]
 custom_minimum_size = Vector2(55, 77)
 layout_mode = 1
 anchors_preset = 15
@@ -308,51 +398,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 flat = true
-
-[node name="RecentlyChosenStarSlot5" type="Control" parent="RecentlyChosenStarBG"]
-layout_mode = 1
-anchor_left = 0.049
-anchor_top = 0.057
-anchor_right = 0.049
-anchor_bottom = 0.057
-offset_left = 283.184
-offset_top = 2.984
-offset_right = 355.184
-offset_bottom = 74.984
-
-[node name="RecentlyChosenStarPicture" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot5"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-expand_mode = 1
-stretch_mode = 5
-
-[node name="RecentlyChosenStarButtonBG" type="TextureRect" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot5"]
-custom_minimum_size = Vector2(55, 77)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -2.0
-offset_bottom = 3.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 0
-texture = ExtResource("4_etxj5")
-expand_mode = 1
-
-[node name="RecentlyChosenStarButton" type="Button" parent="RecentlyChosenStarBG/RecentlyChosenStarSlot5/RecentlyChosenStarButtonBG"]
-custom_minimum_size = Vector2(55, 77)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-flat = true
+metadata/_edit_lock_ = true
 
 [node name="StarInformation" parent="." instance=ExtResource("6_etxj5")]
 layout_mode = 1

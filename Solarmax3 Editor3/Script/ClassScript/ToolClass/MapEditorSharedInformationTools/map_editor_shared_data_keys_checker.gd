@@ -9,6 +9,7 @@ const keys : Array[String] = [
 	"orbit_types",
 	"chosen_star",
 	"star_fleets",
+	"editor_type",
 ]
 
 

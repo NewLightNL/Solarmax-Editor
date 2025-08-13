@@ -37,10 +37,7 @@ func update_sprite(
 func update_sprite_texture():
 	if star_texture == null:
 		texture = error_star_texture
-		# star_scale问题
-		#var star_scale_vector2 : Vector2 = self.star_scale * Vector2.ONE
-		#var real_scale : Vector2 = star_scale_vector2 * scale_fix
-		#self.scale = real_scale
+		self.scale = Vector2(0.5, 0.5)
 		push_error("天体纹理为空！")
 	else:
 		self.texture = star_texture

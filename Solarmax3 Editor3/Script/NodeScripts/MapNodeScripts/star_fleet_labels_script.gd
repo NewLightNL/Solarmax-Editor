@@ -4,11 +4,21 @@ var camp_colors : Dictionary
 
 
 func _ready() -> void:
+	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 	_pull_map_editor_shared_information()
+
+
+func _on_global_data_updated(key : String):
+	MapEditorSharedDataKeysChecker.check_key(key)
+	
+	match key:
+		"camp_colors":
+			camp_colors = MapEditorSharedData.camp_colors
 
 
 func _pull_map_editor_shared_information():
 	camp_colors = MapEditorSharedData.camp_colors
+
 
 func add_ship_number_labels(
 		label_positions : Array[Vector2],
