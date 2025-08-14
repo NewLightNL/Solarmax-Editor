@@ -18,7 +18,7 @@ config/icon="uid://dqvkc1l0577hv"
 
 [autoload]
 
-MapEditorSharedData="*res://Script/MapEditorScripts/map_editor_share_data.gd"
+MapEditorSharedData="*res://Script/ClassScript/ToolClass/map_editor_share_data.gd"
 
 [display]
 

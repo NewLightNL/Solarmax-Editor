@@ -17,8 +17,8 @@ const _STARS_INFORMATION_PATH : String = "res://GameInformation/stars_data.json"
 # 未来要修改文件夹, 增加在Texture增加文件夹BetaVersion1、3(测试版1、3)
 # 现在的纹理会被放入BetaVersion1(测试版1)
 ## 初始化天体贴图字典
-static func init_star_pattern_dictionary(path:String = _STARTEXTUREPATH) -> Dictionary:
-	var dictionary_result : Dictionary = {}
+static func init_star_pattern_dictionary(path:String = _STARTEXTUREPATH) -> Dictionary[String, CompressedTexture2D]:
+	var dictionary_result : Dictionary[String, CompressedTexture2D] = {}
 	var directory = DirAccess.open(path) # 新建 DirAccess 对象并打开文件系统中的某个现存目录
 	
 	# directory如果返回的是null, 也就是打开失败了

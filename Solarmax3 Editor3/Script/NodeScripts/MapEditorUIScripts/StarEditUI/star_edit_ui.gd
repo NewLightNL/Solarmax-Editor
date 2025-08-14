@@ -27,7 +27,7 @@ const  MAX_RECENT_STARS_NUMBER = 5
 @onready var choose_star = $ChooseStar
 @onready var chosen_star_picture = $ChooseStar/ChosenStarPicture
 @onready var chosen_star_name_label = $ChooseStar/Name_bg/Name
-@onready var recently_chosen_stars_box = $RecentlyChosenStarBG
+@onready var recently_chosen_stars_bar = $RecentlyChosenStarBar
 @onready var create_star_button = $CreateStarButton
 
 
@@ -44,7 +44,6 @@ func _ready():
 	ui_node.feedback.connect(_on_get_feedback)
 	$StarInformation.show_orbit_setting_window.connect(_on_change_object_visibility)
 	$StarInformation.change_star_preview_state.connect(_on_change_object_visibility)
-	_initialize_recently_chosen_star_button()
 
 
 func _pull_map_editor_information():
@@ -74,16 +73,6 @@ func _on_global_data_updated(key : String):
 			chosen_star = MapEditorSharedData.chosen_star
 
 
-# 初始化最近选择的天体UI按钮
-func _initialize_recently_chosen_star_button():
-	for i in range(1, MAX_RECENT_STARS_NUMBER + 1):
-		var slot = recently_chosen_stars_box.get_node("RecentlyChosenStarSlot%d"%i)
-		var button : Button = slot.get_node("RecentlyChosenStarButtonBG/RecentlyChosenStarButton")
-		if button != null:
-			button.button_up.connect(_on_recently_chosen_star_button_up.bind(i))
-		else:
-			push_error("最近选择的天体按钮获取失败")
-
 # 改成发射关闭UI信号更好
 # 关闭UI
 func _on_star_edit_ui_close_button_button_up():
@@ -103,31 +92,6 @@ func _on_choose_star_button_up():
 func _choose_star(star : Star):
 	_update_star_display(star)
 	_update_chosen_star(star)
-	_add_to_recently_chosen_stars(chosen_star)
-	_update_recently_chosen_stars_display()
-
-
-func _add_to_recently_chosen_stars(recent_chosen_star : MapNodeStar) -> void:
-	var chosen_star_duplicate = recent_chosen_star.duplicate_map_node_star()
-	
-	recently_chosen_stars.append(chosen_star_duplicate)
-	
-	if recently_chosen_stars.size() > MAX_RECENT_STARS_NUMBER:
-		recently_chosen_stars.remove_at(0)
-
-# 最近选择的星球框显示(对lately_chosen_star数组从右往左读取)
-func _update_recently_chosen_stars_display():
-	for i in range(min(recently_chosen_stars.size(), MAX_RECENT_STARS_NUMBER)):
-		var slot = recently_chosen_stars_box.get_child(i)
-		var star_index = recently_chosen_stars.size() - i - 1
-		var star_information : Array = recently_chosen_stars[star_index].get_star_information()
-		slot.get_child(0).texture = star_pattern_dictionary[
-				star_information[0]]
-		var recently_chosen_star = recently_chosen_stars[star_index]
-		if editor_type is NewExpedition:
-			editor_type.obey_dirt_star_rotation_rule_ui(recently_chosen_star, slot.get_child(0))
-		else:
-			pass
 
 
 func _update_star_display(star : Star):
@@ -141,16 +105,16 @@ func _update_star_display(star : Star):
 
 
 func _update_chosen_star(star : Star):
-	chosen_star = MapNodeStar.new()
+	# chosen_star应该全局唯一
+	if chosen_star == null:
+		chosen_star = MapNodeStar.new()
 	
 	# 赋予被选中的天体属性
-	if star is MapNodeStar:# 应该为最近选择的天体栏单独做一个上传被选择的天体方法
-		chosen_star.copy_map_node_star(star)
-		MapEditorSharedData.data_updated("chosen_star", chosen_star)
-	else:
-		chosen_star.inherit_star = star
-		
-		MapEditorSharedData.data_updated("chosen_star", chosen_star)
+	# 应该为最近选择的天体栏单独做一个上传被选择的天体方法
+	
+	chosen_star._copy_information_from_star(star)
+	MapEditorSharedData.data_updated("chosen_star", chosen_star)
+	recently_chosen_stars_bar.update_recently_chosen_stars(chosen_star)
 
 
 # 最近选择的天体按钮被按起

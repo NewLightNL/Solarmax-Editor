@@ -7,7 +7,7 @@ var defined_camp_ids : Array[int]
 # 阵营颜色
 var camp_colors : Dictionary
 # 天体贴图字典
-var star_pattern_dictionary : Dictionary
+var star_pattern_dictionary : Dictionary[String, CompressedTexture2D]
 # 天体们
 var stars : Array[Star]
 var stars_dictionary : Dictionary[String, Dictionary]

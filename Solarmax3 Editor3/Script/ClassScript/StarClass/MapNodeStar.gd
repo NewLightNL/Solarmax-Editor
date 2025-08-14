@@ -3,11 +3,6 @@ class_name MapNodeStar extends Star
 
 const MAPUNITLENTH = 99.4
 
-@export var inherit_star : Star = null:
-	set(value):
-		if value != null:
-			inherit_star = value
-			_copy_information_from_star(inherit_star)
 
 # 地图添加信息
 ## 天体标签
