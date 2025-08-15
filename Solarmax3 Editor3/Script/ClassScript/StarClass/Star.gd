@@ -77,27 +77,3 @@ func _init(
 	scale_fix = scale_fix_info
 	offset_fix = offset_fix_info
 	rotation_fix_degree = rotation_fix_degree_info
-
-
-func get_star_information() -> Array:
-	var pattern_name_info = pattern_name
-	var star_scale_info = star_scale
-	var star_type_info = type
-	var star_size_type_info = size_type
-	var star_name_info = star_name
-	var star_special_star_type_info = special_star_type
-	var scale_fix_info = scale_fix
-	var offset_fix_info = offset_fix
-	var rotation_fix_degree_info = rotation_fix_degree
-	var star_information : Array = [
-			pattern_name_info,
-			star_scale_info,
-			star_type_info,
-			star_size_type_info,
-			star_name_info,
-			star_special_star_type_info,
-			scale_fix_info,
-			offset_fix_info,
-			rotation_fix_degree_info,
-	]
-	return star_information

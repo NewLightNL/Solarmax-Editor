@@ -3,10 +3,10 @@
 [ext_resource type="Script" uid="uid://b8yl5hl4l6deh" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/star_edit_ui.gd" id="1_7s2en"]
 [ext_resource type="Texture2D" uid="uid://bryrv3nn37mbm" path="res://UITexture/CreateStarUIs/CreateUI_closeButton.png" id="1_atudw"]
 [ext_resource type="Texture2D" uid="uid://do200ud6pxnaj" path="res://UITexture/CreateStarUIs/CreateStarButtonBG.tres" id="2_ocacw"]
-[ext_resource type="PackedScene" uid="uid://5xrqbdn5jbv0" path="res://Scenes/UIs/ChooseStarsUI/choose_star_ui.tscn" id="3_6lh6g"]
 [ext_resource type="Texture2D" uid="uid://64r8l66w2ofc" path="res://UITexture/CreateStarUIs/LatelyChosenStarBG.tres" id="3_7s2en"]
 [ext_resource type="Texture2D" uid="uid://dmyu1xsgr8y4e" path="res://UITexture/CreateStarUIs/LatelyChosenStarButtonBG.tres" id="4_etxj5"]
 [ext_resource type="PackedScene" uid="uid://binldjwnoxwjq" path="res://MapNode/map_node_star.tscn" id="4_evo25"]
+[ext_resource type="Script" uid="uid://x68qe30f1s6" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/choose_star_script.gd" id="6_e1dp0"]
 [ext_resource type="PackedScene" uid="uid://bflaaarpk23au" path="res://Scenes/UIs/star_information.tscn" id="6_etxj5"]
 [ext_resource type="Script" uid="uid://bwvidvptx3asy" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/recently_chosen_stars_script.gd" id="7_ta52b"]
 
@@ -31,7 +31,6 @@ offset_right = 1880.0
 offset_bottom = 1058.0
 script = ExtResource("1_7s2en")
 star_information_scene = ExtResource("6_etxj5")
-choose_star_ui = ExtResource("3_6lh6g")
 map_node_star_scene = ExtResource("4_evo25")
 
 [node name="StarEditUIbg" type="ColorRect" parent="."]
@@ -55,26 +54,28 @@ icon = ExtResource("1_atudw")
 flat = true
 
 [node name="ChooseStar" type="Button" parent="."]
-layout_mode = 0
-offset_left = 82.0
-offset_top = 48.0
-offset_right = 466.0
-offset_bottom = 296.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.146
+anchor_top = 0.045
+anchor_right = 0.832
+anchor_bottom = 0.28
+offset_left = 0.23999
+offset_top = 0.389999
+offset_right = 0.0799866
+offset_bottom = -0.23999
 flat = true
+script = ExtResource("6_e1dp0")
+metadata/_edit_lock_ = true
 
 [node name="ChooseStarButtonBG" type="TextureRect" parent="ChooseStar"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.066
-anchor_top = 0.015
-anchor_right = 0.066
-anchor_bottom = 0.015
-offset_left = -25.344
-offset_top = -3.72
-offset_right = 358.656
-offset_bottom = 244.28
+anchor_right = 1.0
+anchor_bottom = 1.0
 texture = ExtResource("2_ocacw")
 expand_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="ChosenStarPicture" type="TextureRect" parent="ChooseStar"]
 layout_mode = 1
@@ -92,17 +93,19 @@ grow_vertical = 2
 pivot_offset = Vector2(72, 72)
 expand_mode = 1
 stretch_mode = 5
+metadata/_edit_lock_ = true
 
 [node name="Name_bg" type="Panel" parent="ChooseStar"]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 1
-anchors_preset = 2
+anchors_preset = -1
 anchor_top = 1.0
-anchor_bottom = 1.0
-offset_right = 384.0
-offset_bottom = 48.0
+anchor_right = 1.0
+anchor_bottom = 1.194
+offset_bottom = -0.112
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_y1kjg")
+metadata/_edit_lock_ = true
 
 [node name="Name" type="Label" parent="ChooseStar/Name_bg"]
 layout_mode = 1
@@ -117,6 +120,7 @@ theme_override_colors/font_outline_color = Color(0.370364, 0.370364, 0.370364, 1
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="RecentlyChosenStarBar" type="Control" parent="."]
 layout_mode = 1
@@ -427,5 +431,8 @@ theme_override_font_sizes/font_size = 25
 text = "生成"
 
 [connection signal="button_up" from="StarEditUI_closeButton" to="." method="_on_star_edit_ui_close_button_button_up"]
-[connection signal="button_up" from="ChooseStar" to="." method="_on_choose_star_button_up"]
+[connection signal="button_up" from="ChooseStar" to="ChooseStar" method="_on_choose_star_button_up"]
+[connection signal="request_choose_star" from="ChooseStar" to="." method="_on_choose_star_request_choose_star"]
+[connection signal="switch_chosen_star" from="RecentlyChosenStarBar" to="." method="_on_recently_chosen_star_bar_switch_chosen_star"]
+[connection signal="change_star_size" from="StarInformation" to="." method="_on_star_information_change_star_size"]
 [connection signal="button_up" from="CreateStarButton" to="." method="_on_create_star_button_button_up"]

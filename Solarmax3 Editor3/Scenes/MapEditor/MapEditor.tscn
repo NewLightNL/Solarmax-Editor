@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dy21eddlgx03s"]
+[gd_scene load_steps=25 format=3 uid="uid://dy21eddlgx03s"]
 
 [ext_resource type="Script" uid="uid://dyaxw4sxyg15t" path="res://Script/MapEditorScripts/MapEditor.gd" id="1_b8sba"]
 [ext_resource type="PackedScene" uid="uid://culp22sestpbo" path="res://Scenes/UIs/MapNodeStarList/map_node_star_list_unit.tscn" id="2_trdvf"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://csrfmbchehohn" path="res://Script/MapEditorScripts/coordinates.gd" id="6_x3j0q"]
 [ext_resource type="Script" uid="uid://ds8plqd75qv8l" path="res://Script/NodeScripts/ui.gd" id="7_h47r4"]
 [ext_resource type="Texture2D" uid="uid://bgmpnhmiqayf1" path="res://UITexture/CreateStarUIs/CreateUI_openButton.png" id="8_ld42w"]
+[ext_resource type="PackedScene" uid="uid://5xrqbdn5jbv0" path="res://Scenes/UIs/ChooseStarsUI/choose_star_ui.tscn" id="8_trdvf"]
 [ext_resource type="PackedScene" uid="uid://yec60pvu8b10" path="res://Scenes/UIs/star_edit_ui.tscn" id="9_kvdkc"]
 [ext_resource type="Script" uid="uid://ou2trmgjqi38" path="res://Script/NodeScripts/orbit_setting_window.gd" id="10_ruwma"]
 [ext_resource type="Texture2D" uid="uid://b4v0gkrmxjsa" path="res://Templates/Template3.png" id="11_kdma8"]
@@ -68,6 +69,7 @@ script = ExtResource("6_x3j0q")
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource("7_h47r4")
 map_node_star_list_unit = ExtResource("2_trdvf")
+choose_star_ui_scene = ExtResource("8_trdvf")
 
 [node name="EditorUI" type="Control" parent="UI"]
 layout_mode = 3
@@ -724,6 +726,7 @@ vertical_alignment = 1
 [connection signal="button_up" from="UI/EditorUI/ShowStarListButton" to="UI" method="_on_show_star_list_button_button_up"]
 [connection signal="button_up" from="UI/EditorUI/ShowGridButton" to="UI" method="_on_show_grid_button_button_up"]
 [connection signal="button_up" from="UI/EditorUI/ExportButton" to="UI" method="_on_export_button_button_up"]
+[connection signal="request_choose_star" from="UI/StarEditUI" to="UI" method="_on_star_edit_ui_request_choose_star"]
 [connection signal="close_requested" from="UI/MapNodeStarListWindow" to="UI" method="_on_map_node_star_list_window_close_requested"]
 [connection signal="close_requested" from="UI/SaveWindow" to="UI" method="_on_save_window_close_requested"]
 [connection signal="confirmed" from="UI/SaveWindow" to="UI" method="_on_save_window_confirmed"]

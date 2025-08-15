@@ -80,7 +80,7 @@ func _notification(what: int) -> void:
 		_update_map_node_star_starposition()
 
 
-func _copy_information_from_star(base_star : Star) -> void:
+func copy_information_from_star(base_star : Star) -> void:
 	self.pattern_name = base_star.pattern_name
 	self.star_scale = base_star.star_scale
 	self.type = base_star.type

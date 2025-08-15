@@ -47,11 +47,10 @@ func _on_global_data_updated(key : String):
 		"editor_type":
 			editor_type = MapEditorSharedData.editor_type
 
-
+# 应该改成信号
 func _star_chosen(slot_star : Star):
 	var star_edit_ui = $"../StarEditUI"
-	star_edit_ui.call("_choose_star", slot_star)
-
+	star_edit_ui.call("update_star_edit_ui_on_star_chosen", slot_star)
 
 
 func _on_close_choose_star_ui_button_button_up():

@@ -3,6 +3,7 @@ extends CanvasLayer
 signal feedback(method : String, context : String)
 
 @export var map_node_star_list_unit : PackedScene
+@export var choose_star_ui_scene : PackedScene
 
 
 @onready var star_edit_ui_open_button : Button = $EditorUI/StarEditUIOpenButton
@@ -130,3 +131,11 @@ func _on_show_grid_button_button_up() -> void:
 
 func _on_save_window_close_requested() -> void:
 	$MapNodeStarListWindow.hide()
+
+
+func _on_star_edit_ui_request_choose_star() -> void:
+	if choose_star_ui_scene != null:
+		var choose_star_ui_node : Control = choose_star_ui_scene.instantiate()
+		add_child(choose_star_ui_node)
+	else:
+		push_error("choose_star_ui_scene为空!")

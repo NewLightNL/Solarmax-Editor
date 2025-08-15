@@ -2,13 +2,13 @@ extends Control
 
 signal change_object_visibility(object_name: String, visibile : bool)
 signal switch_object_visibility(object_name: String)
-
+signal request_choose_star
 
 @export var star_information_scene : PackedScene
-@export var choose_star_ui : PackedScene
+
 @export var map_node_star_scene : PackedScene
 
-var star_pattern_dictionary : Dictionary
+var stars_dictionary : Dictionary[String, Dictionary]
 var defined_camp_ids : Array
 var camp_colors : Dictionary
 var stars : Array[Star]
@@ -18,16 +18,12 @@ var editor_type : EditorType
 # 天体编辑共享
 var chosen_star : MapNodeStar
 
-# 内部
-var recently_chosen_stars : Array[Star]
-
-const  MAX_RECENT_STARS_NUMBER = 5
-
 # UI节点引用
-@onready var choose_star = $ChooseStar
+@onready var choose_star_button : Button = $ChooseStar
 @onready var chosen_star_picture = $ChooseStar/ChosenStarPicture
 @onready var chosen_star_name_label = $ChooseStar/Name_bg/Name
 @onready var recently_chosen_stars_bar = $RecentlyChosenStarBar
+@onready var star_information = $StarInformation
 @onready var create_star_button = $CreateStarButton
 
 
@@ -49,7 +45,7 @@ func _ready():
 func _pull_map_editor_information():
 	defined_camp_ids = MapEditorSharedData.defined_camp_ids
 	camp_colors = MapEditorSharedData.camp_colors
-	star_pattern_dictionary = MapEditorSharedData.star_pattern_dictionary
+	stars_dictionary = MapEditorSharedData.stars_dictionary
 	stars = MapEditorSharedData.stars
 	orbit_types = MapEditorSharedData.orbit_types
 	editor_type = MapEditorSharedData.editor_type
@@ -63,14 +59,27 @@ func _on_global_data_updated(key : String):
 			defined_camp_ids = MapEditorSharedData.defined_camp_ids
 		"camp_colors":
 			camp_colors = MapEditorSharedData.camp_colors
-		"star_pattern_dictionary":
-			star_pattern_dictionary = MapEditorSharedData.star_pattern_dictionary
+		"stars_dictionary":
+			stars_dictionary = MapEditorSharedData.stars_dictionary
 		"stars":
 			stars = MapEditorSharedData.stars
 		"orbit_types":
 			orbit_types = MapEditorSharedData.orbit_types
 		"chosen_star":
 			chosen_star = MapEditorSharedData.chosen_star
+
+
+func _on_recently_chosen_star_bar_switch_chosen_star() -> void:
+	_update_star_display(chosen_star)
+	_update_star_information()
+
+
+func _on_star_information_change_star_size(size_type: int) -> void:
+	var type_stars_dictionary : Dictionary[int, Star] = stars_dictionary[chosen_star.type]
+	var type_star : Star = type_stars_dictionary[size_type]
+	chosen_star.copy_information_from_star(type_star)
+	_update_star_display(chosen_star)
+	#_update_recently_chosen_star_bar(star)
 
 
 # 改成发射关闭UI信号更好
@@ -80,28 +89,15 @@ func _on_star_edit_ui_close_button_button_up():
 	ui_node.show_star_edit_ui_open_button()
 
 
-# 当按起选择天体按钮时
-func _on_choose_star_button_up():
-	var choose_star_ui_node = choose_star_ui.instantiate()
-	choose_star_ui_node.star_pattern_dictionary = star_pattern_dictionary
-	choose_star_ui_node.stars = stars
-	var UI_node = $".."
-	UI_node.add_child(choose_star_ui_node)
-
-
-func _choose_star(star : Star):
+func update_star_edit_ui_on_star_chosen(star : Star):
 	_update_star_display(star)
 	_update_chosen_star(star)
+	_add_recently_chosen_star(star)
+	_update_star_information()
 
 
 func _update_star_display(star : Star):
-	var star_infomation = star.get_star_information()
-	if editor_type is NewExpedition:
-		editor_type.obey_dirt_star_rotation_rule_ui(star, chosen_star_picture)
-	else:
-		pass
-	chosen_star_picture.texture = star_pattern_dictionary[star_infomation[0]]
-	chosen_star_name_label.text = star_infomation[4]
+	choose_star_button.update_choosing_star_display(star)
 
 
 func _update_chosen_star(star : Star):
@@ -112,18 +108,18 @@ func _update_chosen_star(star : Star):
 	# 赋予被选中的天体属性
 	# 应该为最近选择的天体栏单独做一个上传被选择的天体方法
 	
-	chosen_star._copy_information_from_star(star)
+	chosen_star.copy_information_from_star(star)
 	MapEditorSharedData.data_updated("chosen_star", chosen_star)
-	recently_chosen_stars_bar.update_recently_chosen_stars(chosen_star)
 
 
-# 最近选择的天体按钮被按起
-func _on_recently_chosen_star_button_up(button_index : int):
-	var index = recently_chosen_stars.size() - button_index
-	if index >= 0 and index < recently_chosen_stars.size():
-		var star = recently_chosen_stars[index]
-		_update_star_display(star)
-		_update_chosen_star(star)
+func _add_recently_chosen_star(star : Star):
+	recently_chosen_stars_bar.add_recently_chosen_star(star)
+
+
+func _update_star_information():
+	star_information.unlock_uis()
+	star_information.update_star_information_ui()
+
 
 # 应移到MapEditor1里
 # 生成天体
@@ -172,3 +168,7 @@ func parse_feedback(what_feedback : String, context : String) -> void:
 			$StarInformation.star_preview_state = star_preview_state
 		_:
 			push_error("未知反馈内容!")
+
+
+func _on_choose_star_request_choose_star() -> void:
+	emit_signal("request_choose_star")

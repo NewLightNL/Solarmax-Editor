@@ -1,7 +1,7 @@
 class_name IMapEditorInformationPuller extends MapEditorInformationSharedTool
 
 
-func _pull_map_editor_information():
+func _pull_map_editor_shared_information():
 	pass
 
 

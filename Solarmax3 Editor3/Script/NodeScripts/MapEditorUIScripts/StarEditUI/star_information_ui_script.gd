@@ -1,7 +1,10 @@
 extends Control
 
+signal modify_star_information
+
 signal show_orbit_setting_window
 signal change_star_preview_state(object_name : String, change_to_what_visibility : bool)
+signal change_star_size(size_type : int)
 
 var editor_type : EditorType
 
@@ -63,13 +66,7 @@ var orbit_types : Dictionary
 var stars_dictionary : Dictionary[String, Dictionary]
 
 # 天体编辑共享
-var chosen_star : MapNodeStar:
-	set(value):
-		chosen_star = value
-		if chosen_star != null:
-			unlock_uis()
-			update_star_information_ui()
-			
+var chosen_star : MapNodeStar
 
 
 # Called when the node enters the scene tree for the first time.
@@ -136,6 +133,9 @@ func _on_global_data_updated(key : String):
 
 
 # 不仅应该在更改选择天体时被召唤，还应该在生成后被召唤
+# 应该直接从这里获取信息，而不是用chosen_star来得到信息
+# update_star_information_ui_on_choosing_star(star : Star):
+
 func update_star_information_ui():
 	configure_star_size_input_option_button()
 	configure_star_camp_input()
@@ -144,10 +144,6 @@ func update_star_information_ui():
 	_update_f_angle_spin_box()
 	update_is_target_check_button()
 	update_switch_star_preview_button()
-
-
-func initialize_ui():
-	pass
 
 
 # 配置天体大小类型选择按钮
@@ -247,9 +243,7 @@ func _on_star_size_input_option_button_item_selected(index):
 	var new_type_chosen_star : MapNodeStar = MapNodeStar.new()
 	var size_types : Array[int] = stars_dictionary[chosen_star.type].keys()
 	var size_type : int = size_types[index]
-	new_type_chosen_star.inherit_star = stars_dictionary[chosen_star.type][size_type]
-	var star_edit_ui = $".."
-	star_edit_ui.call("_choose_star", new_type_chosen_star)
+	emit_signal("change_star_size", size_type)
 
 
 func _on_orbit_type_option_button_item_selected(index: int) -> void:
