@@ -239,7 +239,7 @@ static func _load_mapeditor_basic_information(information_type : String) -> Vari
 				push_error("轨道数据格式出错!")
 				return {}
 			
-			var orbit_types : Dictionary
+			var orbit_types : Dictionary[int, String]
 			for orbit_id in mapeditor_basic_data["orbit_types"]:
 				orbit_types[int(orbit_id)] = mapeditor_basic_data["orbit_types"][orbit_id]
 			return orbit_types

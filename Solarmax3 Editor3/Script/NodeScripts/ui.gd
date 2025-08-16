@@ -6,6 +6,8 @@ signal feedback(method : String, context : String)
 @export var choose_star_ui_scene : PackedScene
 
 
+@onready var star_edit_ui : Control = $StarEditUI
+
 @onready var star_edit_ui_open_button : Button = $EditorUI/StarEditUIOpenButton
 @onready var show_star_list_button : Button = $EditorUI/ShowStarListButton
 @onready var change_view_button : Button = $EditorUI/ChangeViewButton
@@ -137,5 +139,10 @@ func _on_star_edit_ui_request_choose_star() -> void:
 	if choose_star_ui_scene != null:
 		var choose_star_ui_node : Control = choose_star_ui_scene.instantiate()
 		add_child(choose_star_ui_node)
+		choose_star_ui_node.choose_star.connect(_on_choose_star_ui_choose_star)
 	else:
 		push_error("choose_star_ui_scene为空!")
+
+
+func _on_choose_star_ui_choose_star(star : Star):
+	star_edit_ui.update_star_edit_ui_on_choosing_star(star)

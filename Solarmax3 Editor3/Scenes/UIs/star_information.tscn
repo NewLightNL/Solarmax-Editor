@@ -1,7 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bflaaarpk23au"]
+[gd_scene load_steps=11 format=3 uid="uid://bflaaarpk23au"]
 
-[ext_resource type="Script" uid="uid://b6pa7cxkcsojo" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/star_information_ui_script.gd" id="1_c8s5d"]
+[ext_resource type="Script" uid="uid://b6pa7cxkcsojo" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/star_information_ui_script.gd" id="1_c8s5d"]
 [ext_resource type="PackedScene" uid="uid://bje75ictw4kcj" path="res://Scenes/UIs/ConfigureStarShipUIs/configure_star_fleets_ui.tscn" id="2_jlygy"]
+[ext_resource type="Script" uid="uid://bvggihbwb34yo" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/star_size_input_option_button_script.gd" id="3_yg3d1"]
+[ext_resource type="Script" uid="uid://c7ap1t53q26qy" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/camp_input_script.gd" id="4_jm0yg"]
+[ext_resource type="Script" uid="uid://riglau3utkac" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/line_edit_script.gd" id="5_gbmfj"]
+[ext_resource type="Script" uid="uid://b1slps7kdgyrj" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/map_node_star_position_input_label_script.gd" id="6_xt4xb"]
+[ext_resource type="Script" uid="uid://diyj74i1l1x6b" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/option_button_script.gd" id="7_6qedn"]
+[ext_resource type="Script" uid="uid://ca873ch73wsfm" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/star_f_angle_input_script.gd" id="8_dakuj"]
+[ext_resource type="Script" uid="uid://bct6y6lab7lyx" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/is_target_node_check_button_script.gd" id="9_sr3jj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_psej3"]
 bg_color = Color(0.310617, 0.310617, 0.310617, 1)
@@ -45,6 +52,7 @@ layout_mode = 0
 offset_left = 128.0
 offset_right = 176.0
 offset_bottom = 32.0
+script = ExtResource("3_yg3d1")
 
 [node name="CampInputLabel" type="Label" parent="."]
 layout_mode = 0
@@ -54,6 +62,7 @@ offset_right = 193.0
 offset_bottom = 81.0
 text = "天体阵营(camption): "
 vertical_alignment = 1
+script = ExtResource("4_jm0yg")
 
 [node name="StarCampInputSpinBox" type="SpinBox" parent="CampInputLabel"]
 layout_mode = 0
@@ -86,14 +95,15 @@ offset_bottom = 145.0
 text = "天体标签(tag)(必填): "
 vertical_alignment = 1
 
-[node name="LineEdit" type="LineEdit" parent="TagInputLabel"]
+[node name="TagInputLineEdit" type="LineEdit" parent="TagInputLabel"]
 layout_mode = 0
 offset_left = 168.0
 offset_right = 292.0
 offset_bottom = 32.0
 placeholder_text = "请输入天体标签"
+script = ExtResource("5_gbmfj")
 
-[node name="MapNodeStarPositionInputLabel2" type="Label" parent="."]
+[node name="MapNodeStarPositionInputLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 153.0
@@ -101,8 +111,9 @@ offset_right = 90.0
 offset_bottom = 185.0
 text = "天体坐标: "
 vertical_alignment = 1
+script = ExtResource("6_xt4xb")
 
-[node name="x" type="Label" parent="MapNodeStarPositionInputLabel2"]
+[node name="x" type="Label" parent="MapNodeStarPositionInputLabel"]
 layout_mode = 0
 offset_left = 72.0
 offset_right = 90.0
@@ -111,7 +122,7 @@ theme_override_font_sizes/font_size = 17
 text = "x:"
 vertical_alignment = 1
 
-[node name="SpinBox" type="SpinBox" parent="MapNodeStarPositionInputLabel2/x"]
+[node name="SpinBox" type="SpinBox" parent="MapNodeStarPositionInputLabel/x"]
 layout_mode = 0
 offset_left = 32.0
 offset_right = 121.0
@@ -121,7 +132,7 @@ allow_greater = true
 allow_lesser = true
 custom_arrow_step = 1.0
 
-[node name="y" type="Label" parent="MapNodeStarPositionInputLabel2"]
+[node name="y" type="Label" parent="MapNodeStarPositionInputLabel"]
 layout_mode = 0
 offset_left = 192.0
 offset_right = 218.0
@@ -130,7 +141,7 @@ theme_override_font_sizes/font_size = 17
 text = "y:"
 vertical_alignment = 1
 
-[node name="SpinBox" type="SpinBox" parent="MapNodeStarPositionInputLabel2/y"]
+[node name="SpinBox" type="SpinBox" parent="MapNodeStarPositionInputLabel/y"]
 layout_mode = 0
 offset_left = 32.0
 offset_right = 121.0
@@ -155,6 +166,7 @@ layout_mode = 0
 offset_left = 128.0
 offset_right = 208.0
 offset_bottom = 32.0
+script = ExtResource("7_6qedn")
 
 [node name="OrbitEditButton" type="Button" parent="."]
 layout_mode = 0
@@ -182,8 +194,9 @@ offset_bottom = 31.0
 step = 0.001
 allow_greater = true
 allow_lesser = true
+script = ExtResource("8_dakuj")
 
-[node name="IsTagetNode" type="Label" parent="."]
+[node name="IsTargetNode" type="Label" parent="."]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 273.0
@@ -193,12 +206,13 @@ text = "是否为目标天体:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CheckButton" type="CheckButton" parent="IsTagetNode"]
+[node name="CheckButton" type="CheckButton" parent="IsTargetNode"]
 layout_mode = 0
 offset_left = 120.0
 offset_right = 164.0
 offset_bottom = 32.0
 alignment = 1
+script = ExtResource("9_sr3jj")
 
 [node name="ConfigureSpecialStarButton" type="Button" parent="."]
 layout_mode = 0
@@ -221,11 +235,11 @@ text = "启用天体预览"
 [connection signal="value_changed" from="CampInputLabel/StarCampInputSpinBox" to="." method="_on_star_camp_input_spin_box_value_changed"]
 [connection signal="item_selected" from="CampInputLabel/StarCampInputOptionButton" to="." method="_on_star_camp_input_option_button_item_selected"]
 [connection signal="button_up" from="ConfigureStarShipButton" to="." method="_on_configure_star_ship_button_button_up"]
-[connection signal="text_changed" from="TagInputLabel/LineEdit" to="." method="_on_line_edit_text_changed"]
-[connection signal="value_changed" from="MapNodeStarPositionInputLabel2/x/SpinBox" to="." method="_star_position_x_input"]
-[connection signal="value_changed" from="MapNodeStarPositionInputLabel2/y/SpinBox" to="." method="_star_position_y_input"]
+[connection signal="text_changed" from="TagInputLabel/TagInputLineEdit" to="." method="_on_line_edit_text_changed"]
+[connection signal="value_changed" from="MapNodeStarPositionInputLabel/x/SpinBox" to="." method="_star_position_x_input"]
+[connection signal="value_changed" from="MapNodeStarPositionInputLabel/y/SpinBox" to="." method="_star_position_y_input"]
 [connection signal="item_selected" from="OrbitType/OptionButton" to="." method="_on_orbit_type_option_button_item_selected"]
 [connection signal="button_up" from="OrbitEditButton" to="." method="_on_orbit_edit_button_button_up"]
 [connection signal="value_changed" from="FAngle/StarFAngleInput" to="." method="_on_f_angle_spin_box_value_changed"]
-[connection signal="button_up" from="IsTagetNode/CheckButton" to="." method="_on_is_target_check_button_button_up"]
+[connection signal="button_up" from="IsTargetNode/CheckButton" to="." method="_on_is_target_check_button_button_up"]
 [connection signal="button_up" from="StarPreviewSwitchButton" to="." method="_on_star_preview_switch_button_button_up"]

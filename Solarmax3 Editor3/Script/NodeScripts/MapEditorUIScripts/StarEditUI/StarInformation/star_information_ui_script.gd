@@ -24,10 +24,10 @@ var star_preview_state : bool = false :
 ## 天体飞船设置按钮
 @onready var configure_star_ship_button : Button = $ConfigureStarShipButton
 ## 天体标签输入
-@onready var star_tag_input_line_edit : LineEdit = $TagInputLabel/LineEdit
+@onready var star_tag_input_line_edit : LineEdit = $TagInputLabel/TagInputLineEdit
 ## 天体坐标输入
-@onready var star_position_input_x : SpinBox = $MapNodeStarPositionInputLabel2/x/SpinBox
-@onready var star_position_input_y : SpinBox = $MapNodeStarPositionInputLabel2/y/SpinBox
+@onready var star_position_input_x : SpinBox = $MapNodeStarPositionInputLabel/x/SpinBox
+@onready var star_position_input_y : SpinBox = $MapNodeStarPositionInputLabel/y/SpinBox
 ## 天体轨道类型输入
 @onready var star_orbit_type_input_option_button : OptionButton = $OrbitType/OptionButton
 ## 天体轨道设置按钮
@@ -35,7 +35,7 @@ var star_preview_state : bool = false :
 ## 天体旋转角度输入
 @onready var star_fangle_input : SpinBox = $FAngle/StarFAngleInput
 ## 是否为目标天体输入
-@onready var is_target_check_Button : CheckButton = $IsTagetNode/CheckButton
+@onready var is_target_check_Button : CheckButton = $IsTargetNode/CheckButton
 ## 特殊类型天体设置按钮
 @onready var configure_special_star_button : Button = $ConfigureSpecialStarButton
 ## 天体预览开关
@@ -58,6 +58,9 @@ var star_preview_state : bool = false :
 	star_preview_switch_button,
 ]
 
+@onready var camp_input_label : Label = $CampInputLabel
+@onready var map_node_star_position_input_label : Label = $MapNodeStarPositionInputLabel
+
 # 基本信息
 var defined_camp_ids : Array[int]
 var camp_colors : Dictionary
@@ -74,8 +77,6 @@ func _ready():
 	_pull_map_editor_information()
 	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 	
-	star_position_input_x.value = 0.0
-	star_position_input_y.value = 0.0
 	$SizeInputLabel/StarSizeInputOptionButton.clear()
 	
 	lock_uis()
@@ -107,7 +108,7 @@ func unlock_uis():
 			else:
 				i.disabled = false
 		if editor_type is NewExpedition:
-			editor_type.obey_rotation_permission_spin_box(chosen_star, star_fangle_input)
+			editor_type.obey_rotation_rule(chosen_star, star_fangle_input, editor_type.OperationType.PERMISSTION)
 		else:
 			pass
 	else:
@@ -134,7 +135,42 @@ func _on_global_data_updated(key : String):
 
 # 不仅应该在更改选择天体时被召唤，还应该在生成后被召唤
 # 应该直接从这里获取信息，而不是用chosen_star来得到信息
-# update_star_information_ui_on_choosing_star(star : Star):
+func update_star_information_ui_on_choosing_star(star : Star):
+	_initialize_star_size_input_option_button(star)
+	_initialize_camp_input_label()
+	_initialize_tag_input_label()
+	_initialize_orbit_type_option_button()
+	_initialize_star_f_angle_input_spin_box(star)
+	_initialize_is_target_node_check_button()
+
+
+func _initialize_star_size_input_option_button(star : Star):
+	star_size_input_option_button.initialize_size_input_option_button(star)
+
+
+func _initialize_camp_input_label():
+	camp_input_label.initialize_camp_input_ui()
+
+
+func _initialize_tag_input_label():
+	star_tag_input_line_edit.initialize_tag_input_line_edit()
+
+
+func _initialize_map_node_star_position_input():
+	map_node_star_position_input_label.initialize_map_node_star_position_input()
+
+
+func _initialize_orbit_type_option_button():
+	star_orbit_type_input_option_button.initialize_orbit_type_option_button()
+
+
+func _initialize_star_f_angle_input_spin_box(star : Star):
+	star_fangle_input.initialize_star_f_angle_input_spin_box(star)
+
+
+func _initialize_is_target_node_check_button() -> void:
+	is_target_check_Button.initialize_is_target_node_check_button()
+
 
 func update_star_information_ui():
 	configure_star_size_input_option_button()

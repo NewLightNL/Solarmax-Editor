@@ -50,7 +50,8 @@ func update_recently_chosen_stars():
 
 
 func _add_to_recently_chosen_stars(star : Star):
-	var recently_chosen_star : MapNodeStar = star.duplicate()
+	var recently_chosen_star : MapNodeStar = MapNodeStar.new()
+	recently_chosen_star.copy_information_from_star(star)
 	recently_chosen_stars.append(recently_chosen_star)
 	
 	if recently_chosen_stars.size() > MAX_RECENTLY_CHOSEN_STARS_NUMBER:
@@ -81,7 +82,7 @@ func _set_recently_chosen_star_slots():
 		if recently_chosen_star_piciture != null:
 			recently_chosen_star_piciture.texture = star_texture
 			if editor_type is NewExpedition:
-				editor_type.obey_dirt_star_rotation_rule_ui(chosen_star, recently_chosen_star_piciture)
+				editor_type.obey_rotation_rule(chosen_star, recently_chosen_star_piciture, editor_type.OperationType.ROTATION)
 			else:
 				pass
 		else:

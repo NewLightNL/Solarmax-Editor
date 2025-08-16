@@ -12,7 +12,7 @@ var star_pattern_dictionary : Dictionary[String, CompressedTexture2D]
 var stars : Array[Star]
 var stars_dictionary : Dictionary[String, Dictionary]
 # 轨道类型
-var orbit_types : Dictionary
+var orbit_types : Dictionary[int, String]
 var chosen_star : MapNodeStar
 var star_fleets : Array
 

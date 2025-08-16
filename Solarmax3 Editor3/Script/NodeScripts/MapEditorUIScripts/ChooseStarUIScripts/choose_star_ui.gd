@@ -1,11 +1,12 @@
 extends Control
 
+signal choose_star(star : Star)
+
 @export var stars_slot : PackedScene
 
 # 外部输入
 var star_pattern_dictionary : Dictionary
 var stars_dictionary : Dictionary[String, Dictionary]
-var stars : Array[Star]
 var editor_type : EditorType
 # star_type_information = [天体图样名(pattern_name)(String), 天体缩放比例(scale)(float), 天体类型(type)(String), 大小类型(size_type)(int), 名称(String), 特殊天体类型(String)]
 
@@ -28,13 +29,14 @@ func _ready():
 		star_slots_container.add_child(stars_slot_node)
 		stars_slot_node.get_child(2).button_up.connect(_star_chosen.bind(represent_star))
 		if editor_type is NewExpedition:
-			editor_type.obey_dirt_star_rotation_rule_ui(represent_star, stars_slot_node.get_child(0).get_child(0))
+			editor_type.obey_rotation_rule(represent_star, stars_slot_node.get_child(0).get_child(0), editor_type.OperationType.ROTATION)
 		else:
 			pass
 
 
 func _pull_map_editor_information():
 	stars_dictionary = MapEditorSharedData.stars_dictionary
+	star_pattern_dictionary = MapEditorSharedData.star_pattern_dictionary
 	editor_type = MapEditorSharedData.editor_type
 
 
@@ -44,13 +46,14 @@ func _on_global_data_updated(key : String):
 	match key:
 		"stars_dictionary":
 			stars_dictionary = MapEditorSharedData.stars_dictionary
+		"star_pattern_dictionary":
+			star_pattern_dictionary = MapEditorSharedData.star_pattern_dictionary
 		"editor_type":
 			editor_type = MapEditorSharedData.editor_type
 
-# 应该改成信号
+
 func _star_chosen(slot_star : Star):
-	var star_edit_ui = $"../StarEditUI"
-	star_edit_ui.call("update_star_edit_ui_on_star_chosen", slot_star)
+	emit_signal("choose_star", slot_star)
 
 
 func _on_close_choose_star_ui_button_button_up():

@@ -89,11 +89,11 @@ func _on_star_edit_ui_close_button_button_up():
 	ui_node.show_star_edit_ui_open_button()
 
 
-func update_star_edit_ui_on_star_chosen(star : Star):
+func update_star_edit_ui_on_choosing_star(star : Star):
 	_update_star_display(star)
 	_update_chosen_star(star)
 	_add_recently_chosen_star(star)
-	_update_star_information()
+	_initialize_star_information(star)
 
 
 func _update_star_display(star : Star):
@@ -114,6 +114,13 @@ func _update_chosen_star(star : Star):
 
 func _add_recently_chosen_star(star : Star):
 	recently_chosen_stars_bar.add_recently_chosen_star(star)
+
+
+func _initialize_star_information(star):
+	star_information.lock_uis()
+	star_information.unlock_uis()
+	
+	star_information.update_star_information_ui_on_choosing_star(star)
 
 
 func _update_star_information():

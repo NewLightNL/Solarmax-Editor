@@ -1,11 +1,11 @@
 class_name IMapEditorInformationPuller extends MapEditorInformationSharedTool
 
 
-func _pull_map_editor_shared_information():
+func _pull_map_editor_shared_information() -> void:
 	pass
 
 
-func _on_global_data_updated(key : String):
+func _on_global_data_updated(key : String) -> void:
 	MapEditorSharedDataKeysChecker.check_key(key)
 	
 	match key:
