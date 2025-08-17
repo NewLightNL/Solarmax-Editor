@@ -2,6 +2,7 @@ extends OptionButton
 
 
 var orbit_types : Dictionary[int, String]
+var chosen_star : MapNodeStar
 
 
 func _ready() -> void:
@@ -11,6 +12,7 @@ func _ready() -> void:
 
 func _pull_map_editor_shared_information() -> void:
 	orbit_types = MapEditorSharedData.orbit_types
+	chosen_star = MapEditorSharedData.chosen_star
 
 
 func _on_global_data_updated(key : String) -> void:
@@ -19,6 +21,8 @@ func _on_global_data_updated(key : String) -> void:
 	match key:
 		"orbit_types":
 			orbit_types = MapEditorSharedData.orbit_types
+		"chosen_star":
+			chosen_star = MapEditorSharedData.chosen_star
 
 
 func initialize_orbit_type_option_button():
@@ -41,3 +45,8 @@ func initialize_orbit_type_option_button():
 				push_error("天体轨道类型信息出错!")
 		add_item(orbit_name, star_orbit_type_id)
 	select(0)
+	chosen_star.orbit_type = "no_orbit"
+
+
+func update_orbit_type_option_button(map_node_star : MapNodeStar):
+	pass

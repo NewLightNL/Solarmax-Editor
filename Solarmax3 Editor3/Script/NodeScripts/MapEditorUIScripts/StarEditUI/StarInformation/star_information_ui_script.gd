@@ -139,6 +139,7 @@ func update_star_information_ui_on_choosing_star(star : Star):
 	_initialize_star_size_input_option_button(star)
 	_initialize_camp_input_label()
 	_initialize_tag_input_label()
+	_initialize_map_node_star_position_input()
 	_initialize_orbit_type_option_button()
 	_initialize_star_f_angle_input_spin_box(star)
 	_initialize_is_target_node_check_button()
@@ -172,40 +173,30 @@ func _initialize_is_target_node_check_button() -> void:
 	is_target_check_Button.initialize_is_target_node_check_button()
 
 
-func update_star_information_ui():
-	configure_star_size_input_option_button()
-	configure_star_camp_input()
+func update_star_information_ui_on_switching_star(map_node_star : MapNodeStar):
+	_update_star_size_input_option_button(map_node_star)
+	_update_star_camp_input(map_node_star)
 	# 位置也应该修改
+	_update_star_position_input(map_node_star)
 	configure_star_orbit_type_input_option_button()
 	_update_f_angle_spin_box()
 	update_is_target_check_button()
 	update_switch_star_preview_button()
 
 
-# 配置天体大小类型选择按钮
-func configure_star_size_input_option_button():
-	star_size_input_option_button.clear()
-	var type_stars : Dictionary[int, Star] = stars_dictionary[chosen_star.type]
-	if type_stars.size() != 0:
-		for size_type in type_stars:
-			star_size_input_option_button.add_item(str(size_type), size_type)
-		var chosen_star_index = star_size_input_option_button.get_item_index(chosen_star.size_type)
-		star_size_input_option_button.select(chosen_star_index)
+# 更新天体大小类型选择按钮
+func _update_star_size_input_option_button(map_node_star : MapNodeStar):
+	star_size_input_option_button.update_star_size_input_option_button(map_node_star)
 
 
 # 配置天体阵营输入按钮
-func configure_star_camp_input():
-	star_camp_input_option_button.clear()
-	if defined_camp_ids.size() != 0:
-		for i in defined_camp_ids:
-			star_camp_input_option_button.add_item(str(i), i)
-		star_camp_input_option_button.add_item("?", defined_camp_ids[-1]+1)
-		star_camp_input_option_button.set_item_disabled(defined_camp_ids[-1]+1, true)
-		if chosen_star.star_camp in defined_camp_ids:
-			star_camp_input_option_button.select(chosen_star.star_camp)
-		else:
-			star_camp_input_option_button.select(defined_camp_ids[-1]+1)
-		star_camp_input_spinbox.value = chosen_star.star_camp
+func _update_star_camp_input(map_node_star : MapNodeStar):
+	camp_input_label.uptdate_camp_input_ui(map_node_star)
+
+
+func _update_star_position_input(map_node_star : MapNodeStar):
+	map_node_star_position_input_label.update_map_node_star_position_input(map_node_star)
+
 
 # 配置轨道选择按钮
 func configure_star_orbit_type_input_option_button():

@@ -1,6 +1,6 @@
 extends Node
 
-signal switch_chosen_star
+signal switch_chosen_star(map_node_star : MapNodeStar)
 
 const MAX_RECENTLY_CHOSEN_STARS_NUMBER : int = 5
 
@@ -98,7 +98,7 @@ func _on_recently_chosen_star_button_up(slot_index : int):
 	var old_recently_chosen_star_index = recently_chosen_stars.size() - 1 - slot_index
 	var map_node_star_switched_to : MapNodeStar = recently_chosen_stars[old_recently_chosen_star_index]
 	chosen_star.copy_map_node_star(map_node_star_switched_to)
-	emit_signal("switch_chosen_star")
+	emit_signal("switch_chosen_star", map_node_star_switched_to)
 	var recently_chosen_star_popped : MapNodeStar = recently_chosen_stars.pop_at(old_recently_chosen_star_index)
 	if recently_chosen_star_popped != null:
 		recently_chosen_stars.append(recently_chosen_star_popped)

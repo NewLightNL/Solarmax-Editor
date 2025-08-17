@@ -25,13 +25,15 @@ corner_radius_bottom_left = 6
 
 [node name="StarEditUI" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 1320.0
-offset_right = 1880.0
-offset_bottom = 1058.0
+anchor_left = 0.702
+anchor_right = 1.007
+anchor_bottom = 1.0
+offset_left = 0.23999
+offset_right = -13.1602
 script = ExtResource("1_7s2en")
 star_information_scene = ExtResource("6_etxj5")
 map_node_star_scene = ExtResource("4_evo25")
+metadata/_edit_lock_ = true
 
 [node name="StarEditUIbg" type="ColorRect" parent="."]
 layout_mode = 0
