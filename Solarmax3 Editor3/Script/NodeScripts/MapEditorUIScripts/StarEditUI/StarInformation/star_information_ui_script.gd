@@ -1,10 +1,11 @@
 extends Control
 
-signal modify_star_information
+
+signal star_size_changed(size_type : int)
+signal star_information_changed
 
 signal show_orbit_setting_window
 signal change_star_preview_state(object_name : String, change_to_what_visibility : bool)
-signal change_star_size(size_type : int)
 
 var editor_type : EditorType
 
@@ -17,49 +18,42 @@ var star_preview_state : bool = false :
 @export var configure_star_ship_ui : PackedScene
 
 ## 天体大小输入
-@onready var star_size_input_option_button : OptionButton = $SizeInputLabel/StarSizeInputOptionButton
+@onready var star_size_input_control : Control = $SizeInputControl
 ## 天体阵营输入
-@onready var star_camp_input_spinbox : SpinBox = $CampInputLabel/StarCampInputSpinBox
-@onready var star_camp_input_option_button : OptionButton = $CampInputLabel/StarCampInputOptionButton
+@onready var star_camp_input_control : Control = $CampInputControl
 ## 天体飞船设置按钮
 @onready var configure_star_ship_button : Button = $ConfigureStarShipButton
 ## 天体标签输入
-@onready var star_tag_input_line_edit : LineEdit = $TagInputLabel/TagInputLineEdit
+@onready var star_tag_input_control : Control = $TagInputControl
 ## 天体坐标输入
-@onready var star_position_input_x : SpinBox = $MapNodeStarPositionInputLabel/x/SpinBox
-@onready var star_position_input_y : SpinBox = $MapNodeStarPositionInputLabel/y/SpinBox
+@onready var star_position_input_control : Control = $MapNodeStarPositionInputControl
 ## 天体轨道类型输入
-@onready var star_orbit_type_input_option_button : OptionButton = $OrbitType/OptionButton
+@onready var star_orbit_input_control : Control = $OrbitInputControl
 ## 天体轨道设置按钮
-@onready var configure_star_orbit_button : Button = $OrbitEditButton
+@onready var configure_star_orbit_button : Button = $OrbitInputControl/OrbitEditButton
 ## 天体旋转角度输入
-@onready var star_fangle_input : SpinBox = $FAngle/StarFAngleInput
+@onready var star_f_angle_input_control : Control = $FAngleInputControl
 ## 是否为目标天体输入
-@onready var is_target_check_Button : CheckButton = $IsTargetNode/CheckButton
+@onready var star_is_target_control : Control = $IsTargetInputControl
 ## 特殊类型天体设置按钮
 @onready var configure_special_star_button : Button = $ConfigureSpecialStarButton
 ## 天体预览开关
 @onready var star_preview_switch_button : Button = $StarPreviewSwitchButton
 
 @onready var ui_list : Array[Node] = [
-	star_size_input_option_button,
-	star_size_input_option_button,
-	star_camp_input_spinbox,
-	star_camp_input_option_button,
+	star_size_input_control,
+	star_camp_input_control,
 	configure_star_ship_button,
-	star_tag_input_line_edit,
-	star_position_input_x,
-	star_position_input_y,
-	star_orbit_type_input_option_button,
+	star_tag_input_control,
+	star_position_input_control,
+	star_orbit_input_control,
 	configure_star_orbit_button,
-	star_fangle_input,
-	is_target_check_Button,
+	star_f_angle_input_control,
+	star_is_target_control,
 	configure_special_star_button,
 	star_preview_switch_button,
 ]
 
-@onready var camp_input_label : Label = $CampInputLabel
-@onready var map_node_star_position_input_label : Label = $MapNodeStarPositionInputLabel
 
 # 基本信息
 var defined_camp_ids : Array[int]
@@ -77,8 +71,6 @@ func _ready():
 	_pull_map_editor_information()
 	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 	
-	$SizeInputLabel/StarSizeInputOptionButton.clear()
-	
 	lock_uis()
 
 
@@ -94,21 +86,33 @@ func _pull_map_editor_information():
 
 func lock_uis():
 	for i in ui_list:
-		if i is SpinBox or i is LineEdit:
-			i.editable = false
-		else:
-			i.disabled = true
+		if i is Control:
+			if i.has_method("lock_ui"):
+				i.lock_ui()
+			else:
+				if i is Button:
+					i.disabled = true
+				else:
+					push_error("有UI没有lock_ui方法")
 
 
 func unlock_uis():
 	if chosen_star != null:
 		for i in ui_list:
-			if i is SpinBox or i is LineEdit:
-				i.editable = true
-			else:
-				i.disabled = false
+			if i is Control:
+				if i.has_method("unlock_ui"):
+					i.unlock_ui()
+				else:
+					if i is Button:
+						i.disabled = false
+					else:
+						push_error("有UI没有unlock_ui方法")
 		if editor_type is NewExpedition:
-			editor_type.obey_rotation_rule(chosen_star, star_fangle_input, editor_type.OperationType.PERMISSTION)
+			editor_type.obey_rotation_rule(
+					chosen_star,
+					star_f_angle_input_control,
+					editor_type.OperationType.PERMISSTION
+			)
 		else:
 			pass
 	else:
@@ -146,105 +150,83 @@ func update_star_information_ui_on_choosing_star(star : Star):
 
 
 func _initialize_star_size_input_option_button(star : Star):
-	star_size_input_option_button.initialize_size_input_option_button(star)
+	star_size_input_control.initialize_size_input_option_button(star)
 
 
 func _initialize_camp_input_label():
-	camp_input_label.initialize_camp_input_ui()
+	star_camp_input_control.initialize_camp_input_ui()
 
 
 func _initialize_tag_input_label():
-	star_tag_input_line_edit.initialize_tag_input_line_edit()
+	star_tag_input_control.initialize_tag_input_line_edit()
 
 
 func _initialize_map_node_star_position_input():
-	map_node_star_position_input_label.initialize_map_node_star_position_input()
+	star_position_input_control.initialize_map_node_star_position_input()
 
 
 func _initialize_orbit_type_option_button():
-	star_orbit_type_input_option_button.initialize_orbit_type_option_button()
+	star_orbit_input_control.initialize_orbit_type_option_button()
 
 
 func _initialize_star_f_angle_input_spin_box(star : Star):
-	star_fangle_input.initialize_star_f_angle_input_spin_box(star)
+	star_f_angle_input_control.initialize_star_f_angle_input_spin_box(star)
 
 
 func _initialize_is_target_node_check_button() -> void:
-	is_target_check_Button.initialize_is_target_node_check_button()
+	star_is_target_control.initialize_is_target_node_check_button()
 
 
-func update_star_information_ui_on_switching_star(map_node_star : MapNodeStar):
+func update_star_information_ui_on_switching_to_recently_chosen_star(map_node_star : MapNodeStar):
 	_update_star_size_input_option_button(map_node_star)
 	_update_star_camp_input(map_node_star)
-	# 位置也应该修改
 	_update_star_position_input(map_node_star)
-	configure_star_orbit_type_input_option_button()
-	_update_f_angle_spin_box()
-	update_is_target_check_button()
-	update_switch_star_preview_button()
+	_update_star_orbit_type_input_option_button(map_node_star)
+	_update_f_angle_spin_box(map_node_star)
+	_update_is_target_check_button(map_node_star)
 
 
 # 更新天体大小类型选择按钮
 func _update_star_size_input_option_button(map_node_star : MapNodeStar):
-	star_size_input_option_button.update_star_size_input_option_button(map_node_star)
+	star_size_input_control.update_star_size_input_option_button(map_node_star)
+	emit_signal("star_information_changed")
 
 
 # 配置天体阵营输入按钮
 func _update_star_camp_input(map_node_star : MapNodeStar):
-	camp_input_label.uptdate_camp_input_ui(map_node_star)
+	star_camp_input_control.uptdate_camp_input_ui(map_node_star)
+	emit_signal("star_information_changed")
 
 
 func _update_star_position_input(map_node_star : MapNodeStar):
-	map_node_star_position_input_label.update_map_node_star_position_input(map_node_star)
+	star_position_input_control.update_map_node_star_position_input(map_node_star)
+	emit_signal("star_information_changed")
 
 
 # 配置轨道选择按钮
-func configure_star_orbit_type_input_option_button():
-	star_orbit_type_input_option_button.clear()
-	for star_orbit_type_id in orbit_types:
-		var orbit_type : String = orbit_types[star_orbit_type_id]
-		var orbit_name : String = ""
-		match orbit_type:
-			"no_orbit":
-				orbit_name = "无轨道"
-			"circle":
-				orbit_name = "圆形轨道"
-			"triangle":
-				orbit_name = "三角形轨道"
-			"quadrilateral":
-				orbit_name = "正方形轨道"
-			"ellipse":
-				orbit_name = "椭圆轨道"
-			_:
-				push_error("天体轨道类型信息出错!")
-		star_orbit_type_input_option_button.add_item(orbit_name, star_orbit_type_id)
-	star_orbit_type_input_option_button.select(0)
+func _update_star_orbit_type_input_option_button(map_node_star : MapNodeStar):
+	star_orbit_input_control.update_orbit_type_option_button(map_node_star)
+	emit_signal("star_information_changed")
 
 
-func update_is_target_check_button():
-	is_target_check_Button.button_pressed = chosen_star.is_taget
+func _update_f_angle_spin_box(map_node_star : MapNodeStar) -> void:
+	star_f_angle_input_control.update_star_f_angle_input_spin_box(map_node_star)
+	emit_signal("star_information_changed")
 
 
-func update_switch_star_preview_button():
-	if star_preview_state == false:
-		star_preview_switch_button.text = "启用天体预览"
-	else:
-		star_preview_switch_button.text = "关闭天体预览"
+func _update_is_target_check_button(map_node_star : MapNodeStar):
+	star_is_target_control.update_is_target_node_check_button(map_node_star)
+	emit_signal("star_information_changed")
 
 
-# 天体阵营输入方式1
-func _on_star_camp_input_spin_box_value_changed(value):
-	if int(value) in defined_camp_ids:
-		star_camp_input_option_button.select(int(value))
-	else:
-		star_camp_input_option_button.select(defined_camp_ids[-1]+1)
-	chosen_star.star_camp = int(value)
+func _on_size_input_control_star_size_changed(star_size_type: int) -> void:
+	emit_signal("star_size_changed", star_size_type)
 
 
-# 天体阵营输入方式2
-func _on_star_camp_input_option_button_item_selected(index):
-	star_camp_input_spinbox.value = int(star_camp_input_option_button.get_item_text(index))
-	chosen_star.star_camp = int(star_camp_input_spinbox.value)
+func _on_camp_input_control_camp_id_changed(camp: int) -> void:
+	chosen_star.star_camp = camp
+	emit_signal("star_information_changed")
+
 
 # 召唤设置天体飞船UI
 func _on_configure_star_ship_button_button_up():
@@ -252,51 +234,35 @@ func _on_configure_star_ship_button_button_up():
 		var configure_star_ship_ui_node = configure_star_ship_ui.instantiate()
 		$"../..".add_child(configure_star_ship_ui_node)
 
-# 输入天体标签
-func _on_line_edit_text_changed(new_text):
-	chosen_star.tag = new_text
+
+func _on_tag_input_control_star_tag_changed(star_tag: String) -> void:
+	chosen_star.tag = star_tag
+	emit_signal("star_information_changed")
 
 
-func _star_position_x_input(value):
-	chosen_star.star_position.x = value
+func _on_map_node_star_position_input_control_star_position_changed(star_position: Vector2) -> void:
+	chosen_star.star_position = star_position
+	emit_signal("star_information_changed")
 
 
-func _star_position_y_input(value):
-	chosen_star.star_position.y = value
+func _on_orbit_input_control_star_orbit_type_changed(star_orbit_type: String) -> void:
+	chosen_star.orbit_type = star_orbit_type
+	emit_signal("star_information_changed")
 
 
-func _on_star_size_input_option_button_item_selected(index):
-	# 需要研究代码逻辑
-	var new_type_chosen_star : MapNodeStar = MapNodeStar.new()
-	var size_types : Array[int] = stars_dictionary[chosen_star.type].keys()
-	var size_type : int = size_types[index]
-	emit_signal("change_star_size", size_type)
-
-
-func _on_orbit_type_option_button_item_selected(index: int) -> void:
-	var orbit_type = orbit_types[int(index)]
-	chosen_star.orbit_type = orbit_type
-
-
+# 应该把这段整进OrbitInputControl里
 func _on_orbit_edit_button_button_up() -> void:
 	emit_signal("show_orbit_setting_window", "OrbitSettingWindow", true)
 
 
-func _update_f_angle_spin_box() -> void:
-	star_fangle_input.value = chosen_star.fAngle
+func _on_f_angle_input_control_star_f_angle_changed(star_f_angle: float) -> void:
+	chosen_star.fAngle = star_f_angle
+	emit_signal("star_information_changed")
 
 
-func _on_f_angle_spin_box_value_changed(value: float) -> void:
-	chosen_star.fAngle = value
-
-
-func _on_is_target_check_button_button_up() -> void:
-	if chosen_star.is_taget == true:
-		chosen_star.is_taget = false
-		is_target_check_Button.button_pressed = false
-	else:
-		chosen_star.is_taget = true
-		is_target_check_Button.button_pressed = true
+func _on_is_target_input_control_is_target_state_changed(is_target_state: bool) -> void:
+	chosen_star.is_taget = is_target_state
+	emit_signal("star_information_changed")
 
 
 func _on_star_preview_switch_button_button_up() -> void:
@@ -304,4 +270,10 @@ func _on_star_preview_switch_button_button_up() -> void:
 		emit_signal("change_star_preview_state", "PreviewStar", false)
 	else:
 		emit_signal("change_star_preview_state", "PreviewStar", true)
-	
+
+
+func update_switch_star_preview_button():
+	if star_preview_state == false:
+		star_preview_switch_button.text = "启用天体预览"
+	else:
+		star_preview_switch_button.text = "关闭天体预览"

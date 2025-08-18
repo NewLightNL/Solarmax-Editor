@@ -7,7 +7,9 @@ const MAX_RECENTLY_CHOSEN_STARS_NUMBER : int = 5
 var recently_chosen_stars : Array[MapNodeStar]
 var chosen_star : MapNodeStar
 var star_pattern_dictionary : Dictionary
+var camp_color
 var editor_type : EditorType
+var is_switching : bool = false
 
 @onready var recently_chosen_star_slots : Control = $RecentlyChosenStarSlots
 
@@ -46,7 +48,13 @@ func add_recently_chosen_star(star : Star):
 
 
 func update_recently_chosen_stars():
-	pass
+	if is_switching == false:
+		if recently_chosen_stars.size() > 0:
+			var star_modified : MapNodeStar = recently_chosen_stars[-1]
+			star_modified.copy_map_node_star(chosen_star)
+			_update_recently_chosen_star_slots()
+		else:
+			push_error("没有保存最近选了什么天体却要修改它")
 
 
 func _add_to_recently_chosen_stars(star : Star):
@@ -82,22 +90,18 @@ func _set_recently_chosen_star_slots():
 		if recently_chosen_star_piciture != null:
 			recently_chosen_star_piciture.texture = star_texture
 			if editor_type is NewExpedition:
-				editor_type.obey_rotation_rule(chosen_star, recently_chosen_star_piciture, editor_type.OperationType.ROTATION)
+				editor_type.obey_rotation_rule(recently_chosen_star, recently_chosen_star_piciture, editor_type.OperationType.ROTATION)
 			else:
 				pass
 		else:
 			push_error("获取最近选择的天体栏的天体图片节点失败!")
 
 
-func update_recently_chosen_star():
-	if recently_chosen_stars.size() >= 1:
-		recently_chosen_stars[-1].copy_map_node_star(chosen_star)
-
-
 func _on_recently_chosen_star_button_up(slot_index : int):
 	var old_recently_chosen_star_index = recently_chosen_stars.size() - 1 - slot_index
 	var map_node_star_switched_to : MapNodeStar = recently_chosen_stars[old_recently_chosen_star_index]
 	chosen_star.copy_map_node_star(map_node_star_switched_to)
+	is_switching = true
 	emit_signal("switch_chosen_star", map_node_star_switched_to)
 	var recently_chosen_star_popped : MapNodeStar = recently_chosen_stars.pop_at(old_recently_chosen_star_index)
 	if recently_chosen_star_popped != null:
@@ -105,3 +109,4 @@ func _on_recently_chosen_star_button_up(slot_index : int):
 		_update_recently_chosen_star_slots()
 	else: 
 		push_error("获取最近选择的天体失败!")
+	is_switching = false

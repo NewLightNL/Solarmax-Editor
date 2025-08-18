@@ -69,17 +69,16 @@ func _on_global_data_updated(key : String):
 			chosen_star = MapEditorSharedData.chosen_star
 
 
-func _on_recently_chosen_star_bar_switch_chosen_star() -> void:
-	_update_star_display(chosen_star)
-	_update_star_information()
+func update_star_edit_ui_on_choosing_star(star : Star):
+	_update_star_display(star)
+	_update_chosen_star(star)
+	_add_recently_chosen_star(star)
+	_initialize_star_information(star)
 
 
-func _on_star_information_change_star_size(size_type: int) -> void:
-	var type_stars_dictionary : Dictionary[int, Star] = stars_dictionary[chosen_star.type]
-	var type_star : Star = type_stars_dictionary[size_type]
-	chosen_star.copy_information_from_star(type_star)
-	_update_star_display(chosen_star)
-	#_update_recently_chosen_star_bar(star)
+func _on_recently_chosen_star_bar_switch_chosen_star(star_switch_to : MapNodeStar) -> void:
+	_update_star_display(star_switch_to)
+	_update_star_information(star_switch_to)
 
 
 # 改成发射关闭UI信号更好
@@ -87,13 +86,6 @@ func _on_star_information_change_star_size(size_type: int) -> void:
 func _on_star_edit_ui_close_button_button_up():
 	visible = false
 	ui_node.show_star_edit_ui_open_button()
-
-
-func update_star_edit_ui_on_choosing_star(star : Star):
-	_update_star_display(star)
-	_update_chosen_star(star)
-	_add_recently_chosen_star(star)
-	_initialize_star_information(star)
 
 
 func _update_star_display(star : Star):
@@ -123,9 +115,15 @@ func _initialize_star_information(star):
 	star_information.update_star_information_ui_on_choosing_star(star)
 
 
-func _update_star_information():
+func _update_star_information(map_node_star : MapNodeStar):
+	star_information.lock_uis()
 	star_information.unlock_uis()
-	star_information.update_star_information_ui()
+	
+	star_information.update_star_information_ui_on_switching_to_recently_chosen_star(map_node_star)
+
+
+func _on_choose_star_request_choose_star() -> void:
+	emit_signal("request_choose_star")
 
 
 # 应移到MapEditor1里
@@ -177,5 +175,21 @@ func parse_feedback(what_feedback : String, context : String) -> void:
 			push_error("未知反馈内容!")
 
 
-func _on_choose_star_request_choose_star() -> void:
-	emit_signal("request_choose_star")
+func _on_star_information_star_size_changed(size_type: int) -> void:
+	var type_stars_dictionary : Dictionary[int, Star] = stars_dictionary[chosen_star.type]
+	var type_star : Star = type_stars_dictionary[size_type]
+	chosen_star.copy_information_from_star(type_star)
+	_update_star_display(type_star)
+	_update_recently_chosen_stars_bar()
+
+
+func _switch_recently_chosen_stars_bar():
+	pass
+
+
+func _on_star_information_star_information_changed() -> void:
+	_update_recently_chosen_stars_bar()
+
+
+func _update_recently_chosen_stars_bar():
+	recently_chosen_stars_bar.update_recently_chosen_stars()

@@ -1,10 +1,12 @@
-extends Label
+extends Control
+
+
+signal star_tag_changed(star_tag : String)
 
 var chosen_star : MapNodeStar
 
 
-@onready var x_spin_box : SpinBox = $x/SpinBox
-@onready var y_spin_box : SpinBox = $y/SpinBox
+@onready var tag_input_line_edit : LineEdit = $TagInputLineEdit
 
 
 func _ready() -> void:
@@ -24,13 +26,18 @@ func _on_global_data_updated(key : String) -> void:
 			chosen_star = MapEditorSharedData.chosen_star
 
 
-func initialize_map_node_star_position_input():
-	x_spin_box.value = 0.0
-	y_spin_box.value = 0.0
-	chosen_star.star_position = Vector2(0.0, 0.0)
+func lock_ui():
+	tag_input_line_edit.editable = false
 
 
-func update_map_node_star_position_input(map_node_star : MapNodeStar):
-	var star_position : Vector2 = map_node_star.star_position
-	x_spin_box.value = star_position.x
-	y_spin_box.value = star_position.y
+func unlock_ui():
+	tag_input_line_edit.editable = true
+
+
+func initialize_tag_input_line_edit():
+	tag_input_line_edit.text = ""
+	chosen_star.tag = ""
+
+
+func _on_tag_input_line_edit_text_changed(new_text: String) -> void:
+	emit_signal("star_tag_changed", new_text)

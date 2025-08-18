@@ -1,4 +1,6 @@
-extends Label
+extends Control
+
+signal camp_id_changed(camp : int)
 
 var defined_camp_ids : Array[int]
 var chosen_star : MapNodeStar
@@ -16,6 +18,16 @@ func _ready() -> void:
 func _pull_map_editor_shared_information() -> void:
 	defined_camp_ids = MapEditorSharedData.defined_camp_ids
 	chosen_star = MapEditorSharedData.chosen_star
+
+
+func lock_ui():
+	star_camp_input_spin_box.editable = false
+	star_camp_input_option_button.disabled = true
+
+
+func unlock_ui():
+	star_camp_input_spin_box.editable = true
+	star_camp_input_option_button.disabled = false
 
 
 func _on_global_data_updated(key : String) -> void:
@@ -51,3 +63,18 @@ func uptdate_camp_input_ui(map_node_star : MapNodeStar):
 		#else:
 			#star_camp_input_option_button.select(defined_camp_ids[-1]+1)
 		#star_camp_input_spinbox.value = chosen_star.star_camp
+
+# 天体阵营输入方式1
+func _on_star_camp_input_spin_box_value_changed(value: float) -> void:
+	if int(value) in defined_camp_ids:
+		var value_index : int = star_camp_input_option_button.get_item_index(int(value))
+		star_camp_input_option_button.select(value_index)
+	else:
+		var index : int = star_camp_input_option_button.get_item_index(defined_camp_ids[-1])
+		star_camp_input_option_button.select(index + 1)
+	emit_signal("camp_id_changed", int(value))
+
+# 天体阵营输入方式2
+func _on_star_camp_input_option_button_item_selected(index: int) -> void:
+	star_camp_input_spin_box.value = int(star_camp_input_option_button.get_item_text(index))
+	emit_signal("camp_id_changed", int(star_camp_input_spin_box.value))

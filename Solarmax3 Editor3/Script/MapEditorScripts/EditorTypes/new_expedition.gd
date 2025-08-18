@@ -32,11 +32,22 @@ class rotation_rule_apparitor:
 	
 	
 	static func obey_rotation_permission(star : Star, operation_object : Control):
-		if operation_object is SpinBox:
+		#if operation_object is SpinBox:
+			#if star.type == "Gunturret" or star.type == "Mirror":
+				#operation_object.editable = true
+			#else:
+				#operation_object.editable = false
+		if  operation_object is Control:
 			if star.type == "Gunturret" or star.type == "Mirror":
-				operation_object.editable = true
+				if operation_object.has_method("unlock_ui"):
+					operation_object.unlock_ui()
+				else:
+					push_error("操作对象没有unlock_ui方法")
 			else:
-				operation_object.editable = false
+				if operation_object.has_method("lock_ui"):
+					operation_object.lock_ui()
+				else:
+					push_error("操作对象没有lock_ui方法")
 	
 	
 	static func obey_rotation_value_setting_rule(star : Star, operation_object : Control):
