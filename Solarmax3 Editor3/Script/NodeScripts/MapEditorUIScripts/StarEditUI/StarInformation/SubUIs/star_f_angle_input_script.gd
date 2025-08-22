@@ -39,14 +39,16 @@ func unlock_ui():
 
 func initialize_star_f_angle_input_spin_box(star : Star) -> void:
 	if editor_type is NewExpedition:
-		editor_type.obey_rotation_rule(star, self, editor_type.OperationType.SET_VALUE)
-		chosen_star.fAngle = star_f_angle_input.value
+		editor_type.obey_dirt_star_rotation_rule(star, star_f_angle_input, editor_type.OperationType.SET_VALUE)
 	else:
 		pass
 
 
 func update_star_f_angle_input_spin_box(map_node_star : MapNodeStar):
-	star_f_angle_input.value = map_node_star.fAngle
+	if editor_type is NewExpedition:
+		editor_type.obey_dirt_star_rotation_rule(map_node_star, star_f_angle_input, editor_type.OperationType.SET_VALUE)
+	else:
+		pass
 
 
 func _on_star_f_angle_input_value_changed(value: float) -> void:

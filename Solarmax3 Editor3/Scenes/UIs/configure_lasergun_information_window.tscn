@@ -1,0 +1,88 @@
+[gd_scene load_steps=2 format=3 uid="uid://4bfamsge2k6d"]
+
+[ext_resource type="Script" uid="uid://clmr0xo2tslyo" path="res://Script/NodeScripts/MapEditorUIScripts/ConfigureLasergunInformationUI/configure_lasergun_information_window_script.gd" id="1_01ego"]
+
+[node name="ConfigureLasergunInformationWindow" type="Window"]
+auto_translate_mode = 1
+title = "配置射线炮"
+position = Vector2i(0, 36)
+size = Vector2i(500, 300)
+script = ExtResource("1_01ego")
+
+[node name="ConfigureLasergunInformationUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="LasergunAngleSettingControl" type="Control" parent="ConfigureLasergunInformationUI"]
+anchors_preset = 0
+offset_right = 346.0
+offset_bottom = 35.0
+
+[node name="LasergunAngleSettingLabel" type="Label" parent="ConfigureLasergunInformationUI/LasergunAngleSettingControl"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 25
+text = "射线炮的初始旋转角度:"
+
+[node name="LasergunAngleSettingSpinBox" type="SpinBox" parent="ConfigureLasergunInformationUI/LasergunAngleSettingControl"]
+layout_mode = 0
+offset_left = 257.0
+offset_right = 346.0
+offset_bottom = 35.0
+
+[node name="LasergunRotateSkipControl" type="Control" parent="ConfigureLasergunInformationUI"]
+anchors_preset = 0
+offset_top = 40.0
+offset_right = 346.0
+offset_bottom = 75.0
+
+[node name="LasergunRotateSkipLabel" type="Label" parent="ConfigureLasergunInformationUI/LasergunRotateSkipControl"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 25
+text = "射线炮的单次旋转角度:"
+
+[node name="LasergunRotateSkipSpinBox" type="SpinBox" parent="ConfigureLasergunInformationUI/LasergunRotateSkipControl"]
+layout_mode = 0
+offset_left = 257.0
+offset_right = 346.0
+offset_bottom = 35.0
+
+[node name="LasergunRangeControl" type="Control" parent="ConfigureLasergunInformationUI"]
+anchors_preset = 0
+offset_top = 81.0
+offset_right = 40.0
+offset_bottom = 121.0
+
+[node name="LasergunRangeLabel" type="Label" parent="ConfigureLasergunInformationUI/LasergunRangeControl"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 25
+text = "射线炮的总旋转角度:"
+
+[node name="LasergunRangeSpinBox" type="SpinBox" parent="ConfigureLasergunInformationUI/LasergunRangeControl"]
+layout_mode = 0
+offset_left = 233.0
+offset_right = 322.0
+offset_bottom = 35.0
+
+[node name="ButtonControl" type="Control" parent="ConfigureLasergunInformationUI"]
+visible = false
+anchors_preset = 0
+offset_left = 42.0
+offset_top = 173.0
+offset_right = 458.0
+offset_bottom = 270.0
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="value_changed" from="ConfigureLasergunInformationUI/LasergunAngleSettingControl/LasergunAngleSettingSpinBox" to="." method="_on_lasergun_angle_setting_spin_box_value_changed"]
+[connection signal="value_changed" from="ConfigureLasergunInformationUI/LasergunRotateSkipControl/LasergunRotateSkipSpinBox" to="." method="_on_lasergun_rotate_skip_spin_box_value_changed"]
+[connection signal="value_changed" from="ConfigureLasergunInformationUI/LasergunRangeControl/LasergunRangeSpinBox" to="." method="_on_lasergun_range_spin_box_value_changed"]

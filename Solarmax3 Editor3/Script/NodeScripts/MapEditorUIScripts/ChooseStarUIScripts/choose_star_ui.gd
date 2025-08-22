@@ -29,7 +29,7 @@ func _ready():
 		star_slots_container.add_child(stars_slot_node)
 		stars_slot_node.get_child(2).button_up.connect(_star_chosen.bind(represent_star))
 		if editor_type is NewExpedition:
-			editor_type.obey_rotation_rule(represent_star, stars_slot_node.get_child(0).get_child(0), editor_type.OperationType.ROTATION)
+			editor_type.obey_dirt_star_rotation_rule(represent_star, stars_slot_node.get_child(0).get_child(0), editor_type.OperationType.ROTATION)
 		else:
 			pass
 

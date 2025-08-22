@@ -49,12 +49,12 @@ const MAPUNITLENTH = 99.4
 		emit_signal("star_property_changed")
 # 特殊天体信息
 ## 变形装置变形的天体的id们
-@export var transformBulidingID : Array = []:
+@export var transformBuildingID : Array[int] = []:
 	set(value):
-		transformBulidingID = value
+		transformBuildingID = value
 		emit_signal("star_property_changed")
 ## 射线炮数据(Array)
-@export var lasergun_information : Array = []:
+@export var lasergun_information : Dictionary[String, float] = {}:
 	set(value):
 		lasergun_information = value
 		emit_signal("star_property_changed")
@@ -81,6 +81,7 @@ func _notification(what: int) -> void:
 
 
 func copy_information_from_star(base_star : Star) -> void:
+	self.star_id = base_star.star_id
 	self.pattern_name = base_star.pattern_name
 	self.star_scale = base_star.star_scale
 	self.type = base_star.type
@@ -95,6 +96,7 @@ func copy_information_from_star(base_star : Star) -> void:
 func duplicate_map_node_star() -> MapNodeStar:
 	var rt_mapnodestar : MapNodeStar = MapNodeStar.new()
 	
+	rt_mapnodestar.star_id = self.star_id
 	rt_mapnodestar.pattern_name = self.pattern_name
 	rt_mapnodestar.star_scale = self.star_scale
 	rt_mapnodestar.type = self.type
@@ -116,8 +118,8 @@ func duplicate_map_node_star() -> MapNodeStar:
 	rt_mapnodestar.orbit_param2 = self.orbit_param2
 	rt_mapnodestar.fAngle = self.fAngle
 	
-	var transformBulidingID_duplicated = self.transformBulidingID.duplicate(true)
-	rt_mapnodestar.transformBulidingID = transformBulidingID_duplicated
+	var transformBulidingID_duplicated = self.transformBuildingID.duplicate(true)
+	rt_mapnodestar.transformBuildingID = transformBulidingID_duplicated
 	
 	var lasergun_information_duplicated = self.lasergun_information.duplicate(true)
 	rt_mapnodestar.lasergun_information = lasergun_information_duplicated
@@ -128,8 +130,8 @@ func duplicate_map_node_star() -> MapNodeStar:
 
 
 func copy_map_node_star(map_node_star_copied : MapNodeStar) -> void:
+	self.star_id = map_node_star_copied.star_id
 	self.pattern_name = map_node_star_copied.pattern_name
-	
 	self.star_scale = map_node_star_copied.star_scale
 	self.type = map_node_star_copied.type
 	self.size_type = map_node_star_copied.size_type
@@ -150,8 +152,8 @@ func copy_map_node_star(map_node_star_copied : MapNodeStar) -> void:
 	self.orbit_param2 = map_node_star_copied.orbit_param2
 	self.fAngle = map_node_star_copied.fAngle
 	
-	var transformBulidingID_duplicated = map_node_star_copied.transformBulidingID.duplicate(true)
-	self.transformBulidingID = transformBulidingID_duplicated
+	var transformBulidingID_duplicated = map_node_star_copied.transformBuildingID.duplicate(true)
+	self.transformBuildingID = transformBulidingID_duplicated
 	
 	var lasergun_information_duplicated = map_node_star_copied.lasergun_information.duplicate(true)
 	self.lasergun_information = lasergun_information_duplicated

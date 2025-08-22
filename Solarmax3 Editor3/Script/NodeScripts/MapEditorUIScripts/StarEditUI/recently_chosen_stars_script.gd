@@ -42,6 +42,18 @@ func _on_global_data_updated(key : String):
 			chosen_star = MapEditorSharedData.chosen_star
 
 
+func lock_slots():
+	for slot in recently_chosen_star_slots.get_children():
+		var slot_button : Button = slot.get_child(1).get_child(0)
+		slot_button.disabled = true
+
+
+func unlock_slots():
+	for slot in recently_chosen_star_slots.get_children():
+		var slot_button : Button = slot.get_child(1).get_child(0)
+		slot_button.disabled = false
+
+
 func add_recently_chosen_star(star : Star):
 	_add_to_recently_chosen_stars(star)
 	_update_recently_chosen_star_slots()
@@ -90,7 +102,7 @@ func _set_recently_chosen_star_slots():
 		if recently_chosen_star_piciture != null:
 			recently_chosen_star_piciture.texture = star_texture
 			if editor_type is NewExpedition:
-				editor_type.obey_rotation_rule(recently_chosen_star, recently_chosen_star_piciture, editor_type.OperationType.ROTATION)
+				editor_type.obey_dirt_star_rotation_rule(recently_chosen_star, recently_chosen_star_piciture, editor_type.OperationType.ROTATION)
 			else:
 				pass
 		else:

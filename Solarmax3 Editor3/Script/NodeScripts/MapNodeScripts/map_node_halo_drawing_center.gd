@@ -15,10 +15,6 @@ func _ready() -> void:
 	_pull_map_editor_shared_data()
 
 
-func _pull_map_editor_shared_data():
-	camp_colors = MapEditorSharedData.camp_colors
-
-
 # draw_arc(center: Vector2, radius: float, start_angle: float, end_angle: float, point_count: int, color: Color, width: float = -1.0, antialiased: bool = false)
 func _draw():
 	if _is_to_draw_halo == true:
@@ -26,6 +22,9 @@ func _draw():
 		for halo_argument in _halo_arguments:
 			draw_arc(Vector2(0, 0), _halo_radius, -halo_argument[0], -halo_argument[1], 128, halo_argument[2], 1, true)
 
+
+func _pull_map_editor_shared_data():
+	camp_colors = MapEditorSharedData.camp_colors
 
 func _on_global_data_updated(key : String) -> void:
 	MapEditorSharedDataKeysChecker.check_key(key)

@@ -147,7 +147,7 @@ static func _load_stars_dictionary() -> Dictionary[String, Dictionary]:
 
 static func _parse_star_data(star_data: Dictionary) -> Star:
 	# 检验必要字段
-	var required_keys = ["pattern_name", "star_scale", "type", "size_type",
+	var required_keys = ["star_id", "pattern_name", "star_scale", "type", "size_type",
 			"star_name", "special_star_type", "scale_fix", "offset_fix", "rotation_fix_degree"]
 	
 	for key in required_keys:
@@ -162,6 +162,7 @@ static func _parse_star_data(star_data: Dictionary) -> Star:
 	# 缩放修正(scale_fix: scale_fix_x, scale_fix_y)
 	# 偏移修正(offset_fix: offset_fix_x, offset_fix_y)]
 	var star = Star.new()
+	star.star_id = star_data["star_id"]
 	star.pattern_name = star_data["pattern_name"]
 	star.star_scale = star_data["star_scale"]
 	star.type = star_data["type"]

@@ -63,7 +63,7 @@ static func _convert_map_node_stars_to_string(map_node_stars_should_be_saved : A
 	#<mapplayer tag="A" ship="60" camption="1" />
   #</mapplayers>
   #<candidates>
-	#<candidate transformBulidingID="" />
+	#<candidate transformBuildingID="" />
 	#<candidate lasergunAngle="" lasergunRotateSkip="" lasergunRange="" />
 	#<candidate orbit="0" orbitParam1="" orbitParam2="" />
 	#<candidate revospeed="10" />

@@ -2,6 +2,7 @@ extends Sprite2D
 
 @export var error_star_texture : CompressedTexture2D
 
+var is_lasergun : bool = false
 
 var star_texture : CompressedTexture2D
 var star_scale : float = 1.0
@@ -9,24 +10,29 @@ var scale_fix : Vector2 = Vector2.ONE
 var offset_fix : Vector2
 var rotation_fix_degree : float
 var fAngle : float
+var lasergun_angle : float
 var star_color : Color
 
 
 func update_sprite(
+		is_lasergun_info : bool,
 		star_texture_info : CompressedTexture2D,
 		star_scale_info : float,
 		scale_fix_info : Vector2,
 		offset_fix_info : Vector2,
 		rotation_fix_degree_info : float,
 		fAngle_info : float,
+		lasergun_angle_info : float,
 		star_color_info : Color,
 ):
+	is_lasergun = is_lasergun_info
 	star_texture = star_texture_info
 	star_scale = star_scale_info
 	scale_fix = scale_fix_info
 	offset_fix = offset_fix_info
 	rotation_fix_degree = rotation_fix_degree_info
 	fAngle = fAngle_info
+	lasergun_angle = lasergun_angle_info
 	star_color = star_color_info
 	
 	update_sprite_texture()
@@ -53,3 +59,5 @@ func update_sprite_color():
 
 func update_sprite_rotation():
 	self.rotation_degrees = rotation_fix_degree + fAngle
+	if is_lasergun:
+		self.rotation_degrees += lasergun_angle

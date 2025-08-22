@@ -3,9 +3,15 @@ extends Control
 
 signal star_size_changed(size_type : int)
 signal star_information_changed
+signal request_show_ui(ui : Node)
 
-signal show_orbit_setting_window
 signal change_star_preview_state(object_name : String, change_to_what_visibility : bool)
+
+## 天体飞船设置UI
+@export var configure_star_ship_ui : PackedScene
+@export var orbit_setting_window : PackedScene
+@export var configure_lasergun_information_window_scene : PackedScene
+@export var unknown_star_transformation_buildings_setting_window_scene : PackedScene
 
 var editor_type : EditorType
 
@@ -13,9 +19,17 @@ var star_preview_state : bool = false :
 	set(value):
 		star_preview_state = value
 		update_switch_star_preview_button()
+var orbit_setting_window_showing : ConfirmationDialog
+var configure_lasergun_information_window_showing : Window
+var unknown_star_transformation_buildings_setting_window_showing : Window
 
-## 天体飞船设置UI
-@export var configure_star_ship_ui : PackedScene
+# 基本信息
+var defined_camp_ids : Array[int]
+var camp_colors : Dictionary
+var stars : Array[Star]
+var orbit_types : Dictionary
+var stars_dictionary : Dictionary[String, Dictionary]
+var chosen_star : MapNodeStar
 
 ## 天体大小输入
 @onready var star_size_input_control : Control = $SizeInputControl
@@ -53,17 +67,6 @@ var star_preview_state : bool = false :
 	configure_special_star_button,
 	star_preview_switch_button,
 ]
-
-
-# 基本信息
-var defined_camp_ids : Array[int]
-var camp_colors : Dictionary
-var stars : Array[Star]
-var orbit_types : Dictionary
-var stars_dictionary : Dictionary[String, Dictionary]
-
-# 天体编辑共享
-var chosen_star : MapNodeStar
 
 
 # Called when the node enters the scene tree for the first time.
@@ -107,14 +110,22 @@ func unlock_uis():
 						i.disabled = false
 					else:
 						push_error("有UI没有unlock_ui方法")
+		
 		if editor_type is NewExpedition:
-			editor_type.obey_rotation_rule(
+			editor_type.obey_dirt_star_rotation_rule(
 					chosen_star,
 					star_f_angle_input_control,
 					editor_type.OperationType.PERMISSTION
 			)
 		else:
 			pass
+		
+		if (
+				chosen_star.special_star_type != "Lasergun" 
+				and chosen_star.special_star_type != "UnknownStar"
+		):
+			configure_special_star_button.disabled = true
+		
 	else:
 		push_error("天体信息界面没有被选择的天体信息!")
 
@@ -145,8 +156,11 @@ func update_star_information_ui_on_choosing_star(star : Star):
 	_initialize_tag_input_label()
 	_initialize_map_node_star_position_input()
 	_initialize_orbit_type_option_button()
+	_initialize_orbit_setting_window()
 	_initialize_star_f_angle_input_spin_box(star)
 	_initialize_is_target_node_check_button()
+	_initialize_configure_lasergun_information_window()
+	_initialize_unknown_star_transformation_buildings_setting_window()
 
 
 func _initialize_star_size_input_option_button(star : Star):
@@ -169,6 +183,11 @@ func _initialize_orbit_type_option_button():
 	star_orbit_input_control.initialize_orbit_type_option_button()
 
 
+func _initialize_orbit_setting_window():
+	if orbit_setting_window_showing != null:
+		orbit_setting_window_showing.initialize_orbit_setting_window()
+
+
 func _initialize_star_f_angle_input_spin_box(star : Star):
 	star_f_angle_input_control.initialize_star_f_angle_input_spin_box(star)
 
@@ -177,13 +196,26 @@ func _initialize_is_target_node_check_button() -> void:
 	star_is_target_control.initialize_is_target_node_check_button()
 
 
+func _initialize_configure_lasergun_information_window():
+	if configure_lasergun_information_window_showing != null:
+		configure_lasergun_information_window_showing.initialize_configure_lasergun_information_window()
+
+
+func _initialize_unknown_star_transformation_buildings_setting_window() -> void:
+	if unknown_star_transformation_buildings_setting_window_showing != null:
+		unknown_star_transformation_buildings_setting_window_showing.initialize_unknown_star_transformation_buildings_setting_window()
+
+
 func update_star_information_ui_on_switching_to_recently_chosen_star(map_node_star : MapNodeStar):
 	_update_star_size_input_option_button(map_node_star)
 	_update_star_camp_input(map_node_star)
 	_update_star_position_input(map_node_star)
 	_update_star_orbit_type_input_option_button(map_node_star)
+	_update_orbit_setting_window(map_node_star)
 	_update_f_angle_spin_box(map_node_star)
 	_update_is_target_check_button(map_node_star)
+	_update_configure_lasergun_information_window(map_node_star)
+	_update_unknown_star_transformation_buildings_setting_window(map_node_star)
 
 
 # 更新天体大小类型选择按钮
@@ -209,6 +241,11 @@ func _update_star_orbit_type_input_option_button(map_node_star : MapNodeStar):
 	emit_signal("star_information_changed")
 
 
+func _update_orbit_setting_window(map_node_star : MapNodeStar):
+	if orbit_setting_window_showing != null:
+		orbit_setting_window_showing.update_orbit_setting_window(map_node_star)
+
+
 func _update_f_angle_spin_box(map_node_star : MapNodeStar) -> void:
 	star_f_angle_input_control.update_star_f_angle_input_spin_box(map_node_star)
 	emit_signal("star_information_changed")
@@ -217,6 +254,16 @@ func _update_f_angle_spin_box(map_node_star : MapNodeStar) -> void:
 func _update_is_target_check_button(map_node_star : MapNodeStar):
 	star_is_target_control.update_is_target_node_check_button(map_node_star)
 	emit_signal("star_information_changed")
+
+
+func _update_configure_lasergun_information_window(map_node_star : MapNodeStar):
+	if configure_lasergun_information_window_showing != null:
+		configure_lasergun_information_window_showing.update_configure_lasergun_information_window(map_node_star)
+
+
+func _update_unknown_star_transformation_buildings_setting_window(map_node_star : MapNodeStar):
+	if unknown_star_transformation_buildings_setting_window_showing != null:
+		unknown_star_transformation_buildings_setting_window_showing.update_unknown_star_transformation_buildings_setting_window(map_node_star)
 
 
 func _on_size_input_control_star_size_changed(star_size_type: int) -> void:
@@ -233,6 +280,11 @@ func _on_configure_star_ship_button_button_up():
 	if chosen_star.pattern_name != "":
 		var configure_star_ship_ui_node = configure_star_ship_ui.instantiate()
 		$"../..".add_child(configure_star_ship_ui_node)
+		configure_star_ship_ui_node.star_fleets_information_changed.connect(_on_star_fleets_information_changed)
+
+
+func _on_star_fleets_information_changed():
+	emit_signal("star_information_changed")
 
 
 func _on_tag_input_control_star_tag_changed(star_tag: String) -> void:
@@ -250,9 +302,18 @@ func _on_orbit_input_control_star_orbit_type_changed(star_orbit_type: String) ->
 	emit_signal("star_information_changed")
 
 
-# 应该把这段整进OrbitInputControl里
-func _on_orbit_edit_button_button_up() -> void:
-	emit_signal("show_orbit_setting_window", "OrbitSettingWindow", true)
+func _on_orbit_setting_window_star_orbit_information_changed(orbit_parameter1 : Vector2, orbit_parameter2 : Vector2):
+	chosen_star.orbit_param1 = orbit_parameter1
+	chosen_star.orbit_param2 = orbit_parameter2
+	emit_signal("star_information_changed")
+
+
+func _on_orbit_input_control_request_show_orbit_setting_ui() -> void:
+	var orbit_setting_window_instantiated : ConfirmationDialog = orbit_setting_window.instantiate()
+	orbit_setting_window_instantiated.star_orbit_information_changed.connect(_on_orbit_setting_window_star_orbit_information_changed)
+	orbit_setting_window_instantiated.position = Vector2(1500.0, 750.0)
+	orbit_setting_window_showing = orbit_setting_window_instantiated
+	emit_signal("request_show_ui", orbit_setting_window_instantiated)
 
 
 func _on_f_angle_input_control_star_f_angle_changed(star_f_angle: float) -> void:
@@ -262,6 +323,17 @@ func _on_f_angle_input_control_star_f_angle_changed(star_f_angle: float) -> void
 
 func _on_is_target_input_control_is_target_state_changed(is_target_state: bool) -> void:
 	chosen_star.is_taget = is_target_state
+	_update_f_angle_spin_box(chosen_star)
+	emit_signal("star_information_changed")
+
+
+func _on_configure_lasergun_information_window_lasergun_information_changed(lasergun_information : Dictionary[String, float]):
+	chosen_star.lasergun_information = lasergun_information
+	emit_signal("star_information_changed")
+
+
+func _on_unknown_star_transformation_buildings_setting_window(unknown_star_transformation_buildings_ids : Array[int]):
+	chosen_star.transformBuildingID = unknown_star_transformation_buildings_ids
 	emit_signal("star_information_changed")
 
 
@@ -277,3 +349,18 @@ func update_switch_star_preview_button():
 		star_preview_switch_button.text = "启用天体预览"
 	else:
 		star_preview_switch_button.text = "关闭天体预览"
+
+
+func _on_configure_special_star_button_button_up() -> void:
+	match chosen_star.special_star_type:
+		"Lasergun":
+			var configure_lasergun_information_window : Window = configure_lasergun_information_window_scene.instantiate()
+			configure_lasergun_information_window.lasergun_information_changed.connect(_on_configure_lasergun_information_window_lasergun_information_changed)
+			configure_lasergun_information_window_showing = configure_lasergun_information_window
+			emit_signal("request_show_ui", configure_lasergun_information_window)
+		"UnknownStar":
+			var unknown_star_transformation_buildings_setting_window : Window = unknown_star_transformation_buildings_setting_window_scene.instantiate()
+			unknown_star_transformation_buildings_setting_window.unknown_star_transformBuildingID_information_changed.connect(_on_unknown_star_transformation_buildings_setting_window)
+			unknown_star_transformation_buildings_setting_window_showing = unknown_star_transformation_buildings_setting_window
+			emit_signal("request_show_ui", unknown_star_transformation_buildings_setting_window)
+			

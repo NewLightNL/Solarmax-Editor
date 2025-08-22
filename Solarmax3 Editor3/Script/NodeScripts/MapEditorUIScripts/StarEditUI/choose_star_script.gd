@@ -31,7 +31,7 @@ func _on_global_data_updated(key : String):
 
 func update_choosing_star_display(star : Star):
 	if editor_type is NewExpedition:
-		editor_type.obey_rotation_rule(star, chosen_star_picture, editor_type.OperationType.ROTATION)
+		editor_type.obey_dirt_star_rotation_rule(star, chosen_star_picture, editor_type.OperationType.ROTATION)
 	else:
 		pass
 	chosen_star_picture.texture = star_pattern_dictionary[star.pattern_name]

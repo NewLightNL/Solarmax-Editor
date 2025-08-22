@@ -3,6 +3,10 @@ class_name Star extends Node2D
 
 signal star_property_changed()
 
+@export var star_id : int:
+	set(value):
+		star_id = value
+		emit_signal("star_property_changed")
 # 天体类型信息
 ## 天体图样名
 @export var pattern_name : String:
@@ -58,6 +62,7 @@ signal star_property_changed()
 		emit_signal("star_property_changed")
 
 func _init(
+		star_id_info : int = 0,
 		pattern_name_info : String = "",
 		star_scale_info : float = 0.0,
 		type_info : String = "",
@@ -68,6 +73,7 @@ func _init(
 		offset_fix_info : Vector2 = Vector2.ZERO,
 		rotation_fix_degree_info : float = 0,
 ):
+	star_id = star_id_info
 	pattern_name = pattern_name_info
 	star_scale = star_scale_info
 	type = type_info

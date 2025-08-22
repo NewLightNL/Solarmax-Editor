@@ -1,6 +1,7 @@
 extends Control
 
 signal star_orbit_type_changed(star_orbit_type : String)
+signal request_show_orbit_setting_ui
 
 var orbit_types : Dictionary[int, String]
 var chosen_star : MapNodeStar
@@ -69,3 +70,7 @@ func update_orbit_type_option_button(map_node_star : MapNodeStar):
 func _on_orbit_type_input_option_button_item_selected(index: int) -> void:
 	var orbit_type : String = orbit_types[int(index)]
 	emit_signal("star_orbit_type_changed", orbit_type)
+
+
+func _on_orbit_edit_button_button_up() -> void:
+	emit_signal("request_show_orbit_setting_ui")

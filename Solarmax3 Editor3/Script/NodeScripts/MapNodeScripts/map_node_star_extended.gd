@@ -14,6 +14,7 @@ var camp_colors : Dictionary
 @onready var _map_node_star_sprite : Sprite2D = $MapNodeStarSprite
 @onready var _star_ui : Control = $StarUI
 @onready var _orbit_drawer : Node2D = $OrbitDrawer
+@onready var _lasergun_drawer : Marker2D = $LasergunLineDrawer
 
 
 func _ready():
@@ -56,13 +57,22 @@ func _update_map_node_star_sprite():
 		else:
 			push_error("天体图案字典里找不到该天体图案！")
 			star_pattern = null
+		var is_lasergun = (
+				true	 if special_star_type == "Lasergun"
+				else false
+		)
+		var lasergun_angle : float = 0.0
+		if lasergun_information.has("lasergunAngle"):
+			lasergun_angle = lasergun_information["lasergunAngle"]
 		_map_node_star_sprite.update_sprite(
+				is_lasergun,
 				star_pattern,
 				star_scale,
 				scale_fix,
 				offset_fix,
 				rotation_fix_degree,
 				fAngle,
+				lasergun_angle,
 				camp_colors[star_camp],
 		)
 	else:
@@ -85,6 +95,31 @@ func _call_draw_halo():
 		_halo_drawer.draw_halo(self.this_star_fleet_dictionaries_array, star_scale)
 	else:
 		push_error("天体缺少画环节点!")
+
+
+func _call_draw_lasergun_line() -> void:
+	if self.special_star_type == "Lasergun":
+		var is_having_lasergun_information : bool = false
+		var required_keys : Array[String] = [
+			"lasergunAngle",
+			"lasergunRotateSkip",
+			"lasergunRange",
+		]
+		for required_key in required_keys:
+			if lasergun_information.has(required_key):
+				is_having_lasergun_information = true
+			else:
+				is_having_lasergun_information = false
+		if is_having_lasergun_information == false:
+			_lasergun_drawer.lasergun_angle = 0.0
+			_lasergun_drawer.lasergun_rotate_skip = 0.0
+			_lasergun_drawer.lasergun_range = 0.0
+		else:
+			_lasergun_drawer.lasergun_angle = lasergun_information["lasergunAngle"]
+			_lasergun_drawer.lasergun_rotate_skip = lasergun_information["lasergunRotateSkip"]
+			_lasergun_drawer.lasergun_range = lasergun_information["lasergunRange"]
+		
+		_lasergun_drawer.queue_redraw()
 
 
 func _update_star_ui():

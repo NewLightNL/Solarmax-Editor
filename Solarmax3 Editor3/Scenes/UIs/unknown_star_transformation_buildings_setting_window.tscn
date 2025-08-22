@@ -1,0 +1,47 @@
+[gd_scene load_steps=2 format=3 uid="uid://jm1axscgvgwn"]
+
+[ext_resource type="Script" uid="uid://bw364xk5t8kmr" path="res://Script/NodeScripts/MapEditorUIScripts/UnknownStarTransformationBuildingsUI/unknown_star_transformation_buildings_setting_window.gd" id="1_vuj3e"]
+
+[node name="UnknownStarTransformationBuildingsSettingWindow" type="Window"]
+auto_translate_mode = 1
+title = "配置射线炮"
+position = Vector2i(0, 36)
+size = Vector2i(500, 300)
+script = ExtResource("1_vuj3e")
+
+[node name="UnknownStarTransformationBuildingsSettingUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_lock_ = true
+
+[node name="UnknownStarTransformationBuildingsSettingControl" type="Control" parent="UnknownStarTransformationBuildingsSettingUI"]
+anchors_preset = 0
+offset_right = 346.0
+offset_bottom = 35.0
+
+[node name="UnknownStarTransformationBuildingsSettingLabel" type="Label" parent="UnknownStarTransformationBuildingsSettingUI/UnknownStarTransformationBuildingsSettingControl"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+theme_override_font_sizes/font_size = 25
+text = "射线炮的初始旋转角度:"
+
+[node name="UnknownStarTransformationBuildingsSettingLineEdit" type="LineEdit" parent="UnknownStarTransformationBuildingsSettingUI/UnknownStarTransformationBuildingsSettingControl"]
+layout_mode = 0
+offset_right = 70.5
+offset_bottom = 30.0
+
+[node name="ButtonControl" type="Control" parent="UnknownStarTransformationBuildingsSettingUI"]
+visible = false
+anchors_preset = 0
+offset_left = 42.0
+offset_top = 173.0
+offset_right = 458.0
+offset_bottom = 270.0
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="text_changed" from="UnknownStarTransformationBuildingsSettingUI/UnknownStarTransformationBuildingsSettingControl/UnknownStarTransformationBuildingsSettingLineEdit" to="." method="_on_unknown_star_transformation_buildings_setting_line_edit_text_changed"]

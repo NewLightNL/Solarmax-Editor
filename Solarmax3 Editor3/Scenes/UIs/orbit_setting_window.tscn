@@ -1,0 +1,129 @@
+[gd_scene load_steps=2 format=3 uid="uid://blelkh0ovbkm5"]
+
+[ext_resource type="Script" uid="uid://ou2trmgjqi38" path="res://Script/NodeScripts/MapEditorUIScripts/OrbitSettingWindow/orbit_setting_window.gd" id="1_cigk0"]
+
+[node name="OrbitSettingWindow" type="ConfirmationDialog"]
+auto_translate_mode = 1
+title = "设置轨道"
+size = Vector2i(320, 160)
+visible = true
+exclusive = false
+unresizable = true
+ok_button_text = "确认"
+dialog_close_on_escape = false
+cancel_button_text = "取消"
+script = ExtResource("1_cigk0")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchor_top = 0.04
+anchor_right = 0.96
+anchor_bottom = 0.76
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 312.0
+offset_bottom = 112.0
+
+[node name="StarPositionLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 22.0
+text = "天体坐标: (0, 0)"
+
+[node name="OrbitParam1Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 28.0
+offset_right = 78.0
+offset_bottom = 60.0
+text = "焦点1 坐标:"
+vertical_alignment = 1
+
+[node name="x" type="Label" parent="Control/OrbitParam1Label"]
+layout_mode = 0
+offset_left = 88.0
+offset_right = 105.0
+offset_bottom = 32.0
+text = "x:"
+vertical_alignment = 1
+
+[node name="x_input" type="SpinBox" parent="Control/OrbitParam1Label/x"]
+layout_mode = 0
+offset_left = 17.0
+offset_right = 106.0
+offset_bottom = 32.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 1.0
+
+[node name="y" type="Label" parent="Control/OrbitParam1Label"]
+layout_mode = 0
+offset_left = 200.0
+offset_right = 217.0
+offset_bottom = 32.0
+text = "y:"
+vertical_alignment = 1
+
+[node name="y_input" type="SpinBox" parent="Control/OrbitParam1Label/y"]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 105.0
+offset_bottom = 32.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 1.0
+
+[node name="OrbitParam2Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 68.0
+offset_right = 81.0
+offset_bottom = 100.0
+text = "焦点2坐标:"
+vertical_alignment = 1
+
+[node name="x" type="Label" parent="Control/OrbitParam2Label"]
+layout_mode = 0
+offset_left = 87.0
+offset_right = 104.0
+offset_bottom = 32.0
+text = "x:"
+vertical_alignment = 1
+
+[node name="x_input" type="SpinBox" parent="Control/OrbitParam2Label/x"]
+layout_mode = 0
+offset_left = 16.0
+offset_right = 105.0
+offset_bottom = 32.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 1.0
+
+[node name="y" type="Label" parent="Control/OrbitParam2Label"]
+layout_mode = 0
+offset_left = 200.0
+offset_right = 217.0
+offset_bottom = 30.0
+text = "y:"
+vertical_alignment = 1
+
+[node name="y_input" type="SpinBox" parent="Control/OrbitParam2Label/y"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = -2.0
+offset_right = 106.0
+offset_bottom = 30.0
+step = 0.001
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 1.0
+
+[connection signal="canceled" from="." to="." method="_on_canceled"]
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
+[connection signal="value_changed" from="Control/OrbitParam1Label/x/x_input" to="." method="_on_orbit_param1_x_input_value_changed"]
+[connection signal="value_changed" from="Control/OrbitParam1Label/y/y_input" to="." method="_on_orbit_param1_y_input_value_changed"]
+[connection signal="value_changed" from="Control/OrbitParam2Label/x/x_input" to="." method="_on_orbit_param2_x_input_value_changed"]
+[connection signal="value_changed" from="Control/OrbitParam2Label/y/y_input" to="." method="_on_orbit_param2_y_input_value_changed"]

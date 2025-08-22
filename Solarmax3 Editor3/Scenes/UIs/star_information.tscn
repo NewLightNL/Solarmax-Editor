@@ -1,9 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://bflaaarpk23au"]
+[gd_scene load_steps=14 format=3 uid="uid://bflaaarpk23au"]
 
 [ext_resource type="Script" uid="uid://b6pa7cxkcsojo" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/star_information_ui_script.gd" id="1_c8s5d"]
 [ext_resource type="PackedScene" uid="uid://bje75ictw4kcj" path="res://Scenes/UIs/ConfigureStarShipUIs/configure_star_fleets_ui.tscn" id="2_jlygy"]
+[ext_resource type="PackedScene" uid="uid://blelkh0ovbkm5" path="res://Scenes/UIs/orbit_setting_window.tscn" id="3_nwauy"]
 [ext_resource type="Script" uid="uid://bvggihbwb34yo" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/star_size_input_script.gd" id="3_sr3jj"]
+[ext_resource type="PackedScene" uid="uid://4bfamsge2k6d" path="res://Scenes/UIs/configure_lasergun_information_window.tscn" id="4_irk58"]
 [ext_resource type="Script" uid="uid://c7ap1t53q26qy" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/star_camp_input_script.gd" id="4_jm0yg"]
+[ext_resource type="PackedScene" uid="uid://jm1axscgvgwn" path="res://Scenes/UIs/unknown_star_transformation_buildings_setting_window.tscn" id="5_g0n16"]
 [ext_resource type="Script" uid="uid://riglau3utkac" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/star_tag_input_script.gd" id="5_gbmfj"]
 [ext_resource type="Script" uid="uid://b1slps7kdgyrj" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/star_position_input_script.gd" id="6_xt4xb"]
 [ext_resource type="Script" uid="uid://diyj74i1l1x6b" path="res://Script/NodeScripts/MapEditorUIScripts/StarEditUI/StarInformation/SubUIs/star_orbit_input_script.gd" id="7_6qedn"]
@@ -31,6 +34,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c8s5d")
 configure_star_ship_ui = ExtResource("2_jlygy")
+orbit_setting_window = ExtResource("3_nwauy")
+configure_lasergun_information_window_scene = ExtResource("4_irk58")
+unknown_star_transformation_buildings_setting_window_scene = ExtResource("5_g0n16")
 
 [node name="StarInformationBG" type="Panel" parent="."]
 layout_mode = 1
@@ -346,11 +352,13 @@ text = "启用天体预览"
 [connection signal="star_position_changed" from="MapNodeStarPositionInputControl" to="." method="_on_map_node_star_position_input_control_star_position_changed"]
 [connection signal="value_changed" from="MapNodeStarPositionInputControl/XInputControl/XInputSpinBox" to="MapNodeStarPositionInputControl" method="_on_x_input_spin_box_value_changed"]
 [connection signal="value_changed" from="MapNodeStarPositionInputControl/YInputControl/YInputSpinBox" to="MapNodeStarPositionInputControl" method="_on_y_input_spin_box_value_changed"]
+[connection signal="request_show_orbit_setting_ui" from="OrbitInputControl" to="." method="_on_orbit_input_control_request_show_orbit_setting_ui"]
 [connection signal="star_orbit_type_changed" from="OrbitInputControl" to="." method="_on_orbit_input_control_star_orbit_type_changed"]
 [connection signal="item_selected" from="OrbitInputControl/OrbitTypeInputOptionButton" to="OrbitInputControl" method="_on_orbit_type_input_option_button_item_selected"]
-[connection signal="button_up" from="OrbitInputControl/OrbitEditButton" to="." method="_on_orbit_edit_button_button_up"]
+[connection signal="button_up" from="OrbitInputControl/OrbitEditButton" to="OrbitInputControl" method="_on_orbit_edit_button_button_up"]
 [connection signal="star_f_angle_changed" from="FAngleInputControl" to="." method="_on_f_angle_input_control_star_f_angle_changed"]
 [connection signal="value_changed" from="FAngleInputControl/StarFAngleInput" to="FAngleInputControl" method="_on_star_f_angle_input_value_changed"]
 [connection signal="is_target_state_changed" from="IsTargetInputControl" to="." method="_on_is_target_input_control_is_target_state_changed"]
 [connection signal="button_up" from="IsTargetInputControl/IsTargetInputCheckButton" to="IsTargetInputControl" method="_on_is_target_input_check_button_button_up"]
+[connection signal="button_up" from="ConfigureSpecialStarButton" to="." method="_on_configure_special_star_button_button_up"]
 [connection signal="button_up" from="StarPreviewSwitchButton" to="." method="_on_star_preview_switch_button_button_up"]

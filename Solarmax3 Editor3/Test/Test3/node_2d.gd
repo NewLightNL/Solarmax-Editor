@@ -1,6 +1,10 @@
 extends Node2D
 
+@export var osw : PackedScene
+
+var c_list : Array[Callable]
+
 func _ready() -> void:
-	var array : Array[int] = [1, 2, 3]
-	var poped : int = array.pop_at(1)
-	print(poped, array)
+	var text = "1234"
+	text.left(-1)
+	print(text)

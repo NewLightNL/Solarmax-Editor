@@ -8,7 +8,7 @@ enum OperationType {
 }
 
 
-func obey_rotation_rule(star : Star, operation_object : Node, operation_type : OperationType):
+func obey_dirt_star_rotation_rule(star : Star, operation_object : Node, operation_type : OperationType):
 	match operation_type:
 		OperationType.ROTATION:
 			rotation_rule_apparitor.obey_dirt_star_rotation_rule(star, operation_object)
@@ -19,6 +19,8 @@ func obey_rotation_rule(star : Star, operation_object : Node, operation_type : O
 
 
 class rotation_rule_apparitor:
+	
+	
 	# 焦土类要在UI上显示旋转，但目标不用，
 	# 因为焦土类是天体属性，而目标是天体节点属性
 	static func obey_dirt_star_rotation_rule(star : Star, operation_object : Node):
@@ -56,10 +58,21 @@ class rotation_rule_apparitor:
 				operation_object.value = 180.0
 			else:
 				if star is MapNodeStar:
-					if star.is_taget == true:
-						operation_object.value = 90.0
+					if (
+							star.special_star_type == "null"
+							and star.type != "Gunturret"# 自由旋转
+							and star.type != "Mirror"# 自由旋转
+							and star.type != "Cannon"# 不能旋转
+					):
+						if star.is_taget == true:
+							operation_object.value = 90.0
+						else: 
+							operation_object.value = 0.0
+					else:
+						operation_object.value = star.fAngle
 				else:
 					operation_object.value = 0.0
+		
 
 
 # 旋转规则:

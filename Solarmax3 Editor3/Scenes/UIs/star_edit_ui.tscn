@@ -436,6 +436,7 @@ text = "生成"
 [connection signal="button_up" from="ChooseStar" to="ChooseStar" method="_on_choose_star_button_up"]
 [connection signal="request_choose_star" from="ChooseStar" to="." method="_on_choose_star_request_choose_star"]
 [connection signal="switch_chosen_star" from="RecentlyChosenStarBar" to="." method="_on_recently_chosen_star_bar_switch_chosen_star"]
+[connection signal="request_show_ui" from="StarInformation" to="." method="_on_star_information_request_show_ui"]
 [connection signal="star_information_changed" from="StarInformation" to="." method="_on_star_information_star_information_changed"]
 [connection signal="star_size_changed" from="StarInformation" to="." method="_on_star_information_star_size_changed"]
 [connection signal="button_up" from="CreateStarButton" to="." method="_on_create_star_button_button_up"]

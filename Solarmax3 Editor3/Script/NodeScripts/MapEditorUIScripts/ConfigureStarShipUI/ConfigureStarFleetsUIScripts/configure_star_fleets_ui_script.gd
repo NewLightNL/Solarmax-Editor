@@ -1,5 +1,7 @@
 extends Control
 
+signal star_fleets_information_changed
+
 var chosen_star : MapNodeStar
 
 
@@ -40,6 +42,7 @@ func _on_fleet_information_changed(
 	)
 	
 	MapEditorSharedData.data_updated("chosen_star", chosen_star)
+	emit_signal("star_fleets_information_changed")
 	star_preview_control.update_preview(chosen_star)
 
 

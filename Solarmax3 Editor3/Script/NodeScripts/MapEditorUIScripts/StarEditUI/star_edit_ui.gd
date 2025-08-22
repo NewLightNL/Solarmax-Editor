@@ -1,8 +1,8 @@
 extends Control
 
 signal change_object_visibility(object_name: String, visibile : bool)
-signal switch_object_visibility(object_name: String)
 signal request_choose_star
+signal request_show_ui(ui : Node)
 
 @export var star_information_scene : PackedScene
 
@@ -15,8 +15,15 @@ var stars : Array[Star]
 var orbit_types : Dictionary
 var editor_type : EditorType
 
-# 天体编辑共享
 var chosen_star : MapNodeStar
+
+var is_star_information_ui_showing : bool = false:
+	set(value):
+		is_star_information_ui_showing = value
+		if value == true:
+			lock_choose_star_buttoN_and_recently_chosne_star_bar()
+		else:
+			unlock_choose_star_buttoN_and_recently_chosne_star_bar()
 
 # UI节点引用
 @onready var choose_star_button : Button = $ChooseStar
@@ -38,7 +45,6 @@ func _ready():
 	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 	map_node.create_star.connect(_create_star_feedback)
 	ui_node.feedback.connect(_on_get_feedback)
-	$StarInformation.show_orbit_setting_window.connect(_on_change_object_visibility)
 	$StarInformation.change_star_preview_state.connect(_on_change_object_visibility)
 
 
@@ -67,6 +73,16 @@ func _on_global_data_updated(key : String):
 			orbit_types = MapEditorSharedData.orbit_types
 		"chosen_star":
 			chosen_star = MapEditorSharedData.chosen_star
+
+
+func lock_choose_star_buttoN_and_recently_chosne_star_bar() -> void:
+	choose_star_button.disabled = true
+	recently_chosen_stars_bar.lock_slots()
+
+
+func unlock_choose_star_buttoN_and_recently_chosne_star_bar() -> void:
+	choose_star_button.disabled = false
+	recently_chosen_stars_bar.unlock_slots()
 
 
 func update_star_edit_ui_on_choosing_star(star : Star):
@@ -183,13 +199,14 @@ func _on_star_information_star_size_changed(size_type: int) -> void:
 	_update_recently_chosen_stars_bar()
 
 
-func _switch_recently_chosen_stars_bar():
-	pass
-
-
 func _on_star_information_star_information_changed() -> void:
 	_update_recently_chosen_stars_bar()
 
 
 func _update_recently_chosen_stars_bar():
 	recently_chosen_stars_bar.update_recently_chosen_stars()
+
+
+func _on_star_information_request_show_ui(ui: Node) -> void:
+	is_star_information_ui_showing = true
+	emit_signal("request_show_ui", ui)

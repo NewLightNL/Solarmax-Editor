@@ -2,6 +2,7 @@
 	"stars_data": {
 		"star": {
 			"1": {
+				"star_id": 1,
 				"pattern_name": "planet01",
 				"star_scale": 0.4,
 				"type": "star",
@@ -19,6 +20,7 @@
 				"rotation_fix_degree": 0
 			},
 			"2": {
+				"star_id": 2,
 				"pattern_name": "planet02",
 				"star_scale": 0.5,
 				"type": "star",
@@ -36,6 +38,7 @@
 				"rotation_fix_degree": 0
 			},
 			"3": {
+				"star_id": 3,
 				"pattern_name": "planet01",
 				"star_scale": 0.6,
 				"type": "star",
@@ -53,6 +56,7 @@
 				"rotation_fix_degree": 0
 			},
 			"4": {
+				"star_id": 4,
 				"pattern_name": "planet01",
 				"star_scale": 0.7,
 				"type": "star",
@@ -70,6 +74,7 @@
 				"rotation_fix_degree": 0
 			},
 			"5": {
+				"star_id": 5,
 				"pattern_name": "planet01",
 				"star_scale": 0.8,
 				"type": "star",
@@ -87,6 +92,7 @@
 				"rotation_fix_degree": 0
 			},
 			"6": {
+				"star_id": 6,
 				"pattern_name": "planet01",
 				"star_scale": 0.9,
 				"type": "star",
@@ -104,6 +110,7 @@
 				"rotation_fix_degree": 0
 			},
 			"7": {
+				"star_id": 7,
 				"pattern_name": "planet01",
 				"star_scale": 1,
 				"type": "star",
@@ -123,6 +130,7 @@
 		},
 		"teleport": {
 			"1": {
+				"star_id": 8,
 				"pattern_name": "warp",
 				"star_scale": 0.65,
 				"type": "teleport",
@@ -142,6 +150,7 @@
 		},
 		"tower": {
 			"1": {
+				"star_id": 9,
 				"pattern_name": "tower",
 				"star_scale": 0.5,
 				"type": "tower",
@@ -161,6 +170,7 @@
 		},
 		"castle": {
 			"1": {
+				"star_id": 11,
 				"pattern_name": "starbase",
 				"star_scale": 1,
 				"type": "castle",
@@ -180,6 +190,7 @@
 		},
 		"barrier": {
 			"1": {
+				"star_id": 12,
 				"pattern_name": "barrier_new",
 				"star_scale": 0.25,
 				"type": "barrier",
@@ -199,6 +210,7 @@
 		},
 		"defense": {
 			"1": {
+				"star_id": 14,
 				"pattern_name": "magicstar",
 				"star_scale": 0.5,
 				"type": "defense",
@@ -218,6 +230,7 @@
 		},
 		"Lasercannon": {
 			"1": {
+				"star_id": 20,
 				"pattern_name": "Lasercannon_new",
 				"star_scale": 0.5,
 				"type": "Lasercannon",
@@ -237,6 +250,7 @@
 		},
 		"Twist": {
 			"1": {
+				"star_id": 34,
 				"pattern_name": "AntiLifeship",
 				"star_scale": 0.5,
 				"type": "Twist",
@@ -256,6 +270,7 @@
 		},
 		"AddTower": {
 			"1": {
+				"star_id": 35,
 				"pattern_name": "AircraftCarrier",
 				"star_scale": 0.5,
 				"type": "AddTower",
@@ -275,6 +290,7 @@
 		},
 		"UnknownStar": {
 			"1": {
+				"star_id": 40,
 				"pattern_name": "AntiCaptureship",
 				"star_scale": 0.6,
 				"type": "UnknownStar",
@@ -294,6 +310,7 @@
 		},
 		"Lasergun": {
 			"1": {
+				"star_id": 41,
 				"pattern_name": "Speedship",
 				"star_scale": 0.5,
 				"type": "Lasergun",
@@ -313,6 +330,7 @@
 		},
 		"Mirror": {
 			"1": {
+				"star_id": 42,
 				"pattern_name": "Attackship",
 				"star_scale": 0.4,
 				"type": "Mirror",
@@ -332,6 +350,7 @@
 		},
 		"Gunturret": {
 			"1": {
+				"star_id": 44,
 				"pattern_name": "Speedship",
 				"star_scale": 0.5,
 				"type": "Gunturret",
@@ -351,6 +370,7 @@
 		},
 		"Diffusion": {
 			"1": {
+				"star_id": 45,
 				"pattern_name": "Captureship",
 				"star_scale": 0.5,
 				"type": "Diffusion",
@@ -370,6 +390,7 @@
 		},
 		"Cannon": {
 			"1": {
+				"star_id": 47,
 				"pattern_name": "AntiSpeedship",
 				"star_scale": 0.5,
 				"type": "Cannon",
@@ -389,6 +410,7 @@
 		},
 		"shipyard": {
 			"1": {
+				"star_id": 49,
 				"pattern_name": "hiddenstar",
 				"star_scale": 0.5,
 				"type": "shipyard",
@@ -408,6 +430,7 @@
 		},
 		"supplyship": {
 			"1": {
+				"star_id": 50,
 				"pattern_name": "Lifeship",
 				"star_scale": 0.7,
 				"type": "supplyship",
@@ -427,6 +450,7 @@
 		},
 		"dirtstar": {
 			"1": {
+				"star_id": 51,
 				"pattern_name": "planet09",
 				"star_scale": 0.4,
 				"type": "dirtstar",
@@ -444,6 +468,7 @@
 				"rotation_fix_degree": 0
 			},
 			"2": {
+				"star_id": 52,
 				"pattern_name": "planet09",
 				"star_scale": 0.5,
 				"type": "dirtstar",
@@ -461,6 +486,7 @@
 				"rotation_fix_degree": 0
 			},
 			"3": {
+				"star_id": 53,
 				"pattern_name": "planet09",
 				"star_scale": 0.6,
 				"type": "dirtstar",
@@ -478,6 +504,7 @@
 				"rotation_fix_degree": 0
 			},
 			"4": {
+				"star_id": 54,
 				"pattern_name": "planet09",
 				"star_scale": 0.7,
 				"type": "dirtstar",
@@ -495,6 +522,7 @@
 				"rotation_fix_degree": 0
 			},
 			"5": {
+				"star_id": 55,
 				"pattern_name": "planet09",
 				"star_scale": 0.8,
 				"type": "dirtstar",
@@ -512,6 +540,7 @@
 				"rotation_fix_degree": 0
 			},
 			"6": {
+				"star_id": 56,
 				"pattern_name": "planet09",
 				"star_scale": 0.9,
 				"type": "dirtstar",
@@ -529,6 +558,7 @@
 				"rotation_fix_degree": 0
 			},
 			"7": {
+				"star_id": 57,
 				"pattern_name": "planet09",
 				"star_scale": 1,
 				"type": "dirtstar",

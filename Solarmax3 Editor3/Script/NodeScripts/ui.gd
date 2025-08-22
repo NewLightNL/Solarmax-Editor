@@ -5,6 +5,7 @@ signal feedback(method : String, context : String)
 @export var map_node_star_list_unit : PackedScene
 @export var choose_star_ui_scene : PackedScene
 
+var star_information_uis_showing : Array[Node] = []
 
 @onready var star_edit_ui : Control = $StarEditUI
 
@@ -30,7 +31,6 @@ signal feedback(method : String, context : String)
 
 func _ready() -> void:
 	$StarEditUI.change_object_visibility.connect(change_object_visbile)
-	$StarEditUI.switch_object_visibility.connect(switch_object_visibility)
 	$"../Map".feedback.connect(_on_get_feedback)
 
 
@@ -39,16 +39,8 @@ func change_object_visbile(
 		object_visible: bool 
 ):
 	match object_name:
-		"OrbitSettingWindow":
-			$OrbitSettingWindow.visible = object_visible
 		"PreviewStar":
 			$"../Map".change_star_preview_visibility(object_visible)
-		_:
-			pass
-
-
-func switch_object_visibility(object_name : String):
-	match object_name:
 		_:
 			pass
 
@@ -146,3 +138,29 @@ func _on_star_edit_ui_request_choose_star() -> void:
 
 func _on_choose_star_ui_choose_star(star : Star):
 	star_edit_ui.update_star_edit_ui_on_choosing_star(star)
+
+
+func _on_star_edit_ui_request_show_ui(ui: Node) -> void:
+	var ui_children : Array[Node] = get_children()
+	
+	if ui.get("request_type") == null:
+		push_error("要求显示的ui没有request_type!")
+		return
+	
+	for ui_child in ui_children:
+		if ui_child.get("request_type") == null:
+			continue
+		else: 
+			if ui_child.request_type == ui.request_type:
+				ui_child.queue_free()
+	
+	ui.tree_exited.connect(lift_star_edit_ui_is_starinformaiton_ui_showing_state.bind(ui))
+	star_information_uis_showing.append(ui)
+	add_child(ui)
+
+
+func lift_star_edit_ui_is_starinformaiton_ui_showing_state(ui : Node):
+	var ui_index : int = star_information_uis_showing.find(ui)
+	star_information_uis_showing.remove_at(ui_index)
+	if star_information_uis_showing.size() <= 0:
+		star_edit_ui.is_star_information_ui_showing = false
