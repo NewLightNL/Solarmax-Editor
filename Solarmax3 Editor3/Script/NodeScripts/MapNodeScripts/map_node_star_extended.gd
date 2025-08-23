@@ -1,14 +1,11 @@
 extends MapNodeStar
 
-
-var star_pattern_dictionary : Dictionary
-var camp_colors : Dictionary
-@export var is_star_preview : bool = false:
-	set(value):
-		is_star_preview = value
-		_set_star_preview()
+@export var is_star_preview : bool = false
 @export var auto_initializable : bool = false
 
+var is_dragging : bool = false
+var star_pattern_dictionary : Dictionary
+var camp_colors : Dictionary
 
 @onready var _halo_drawer : Marker2D = $HaloDrawingCenter
 @onready var _map_node_star_sprite : Sprite2D = $MapNodeStarSprite
@@ -23,8 +20,11 @@ func _ready():
 	self.star_property_changed.connect(_update_map_node_star)
 	if get_parent() == null or auto_initializable == true:
 		_update_map_node_star()
-	
-	_set_star_preview()
+
+
+func _process(delta: float) -> void:
+	if is_dragging:
+		star_position += get_local_mouse_position() * Transform2D(Vector2(1, 0), Vector2(0, -1), Vector2.ZERO) / MAPUNITLENTH
 
 
 func _on_global_data_updated(key : String):
@@ -43,6 +43,7 @@ func _pull_map_editor_shared_data():
 
 
 func _update_map_node_star():
+	_call_draw_lasergun_line()
 	_update_map_node_star_sprite()
 	_call_draw_halo()
 	_call_draw_orbit()
@@ -92,7 +93,7 @@ func _call_draw_orbit():
 
 func _call_draw_halo():
 	if _halo_drawer != null:
-		_halo_drawer.draw_halo(self.this_star_fleet_dictionaries_array, star_scale)
+		_halo_drawer.draw_halo(self.this_star_fleet_dictionaries_array, star_scale, type)
 	else:
 		push_error("天体缺少画环节点!")
 
@@ -111,28 +112,29 @@ func _call_draw_lasergun_line() -> void:
 			else:
 				is_having_lasergun_information = false
 		if is_having_lasergun_information == false:
+			_lasergun_drawer.is_lasergun = true
 			_lasergun_drawer.lasergun_angle = 0.0
 			_lasergun_drawer.lasergun_rotate_skip = 0.0
 			_lasergun_drawer.lasergun_range = 0.0
 		else:
+			_lasergun_drawer.is_lasergun = true
 			_lasergun_drawer.lasergun_angle = lasergun_information["lasergunAngle"]
 			_lasergun_drawer.lasergun_rotate_skip = lasergun_information["lasergunRotateSkip"]
 			_lasergun_drawer.lasergun_range = lasergun_information["lasergunRange"]
-		
-		_lasergun_drawer.queue_redraw()
+	else:
+		_lasergun_drawer.is_lasergun = false
+	
+	_lasergun_drawer.queue_redraw()
 
 
 func _update_star_ui():
 	_star_ui.update_star_ui(star_scale, self.this_star_fleet_dictionaries_array)
 
 
-func _set_star_preview():
-	if is_star_preview:
-		$StarUI/DeleteButton.disabled = true
-	else:
-		$StarUI/DeleteButton.disabled = false
+func _on_star_ui_request_delete() -> void:
+	if not is_star_preview:
+		queue_free()
 
 
-# 不应该直接获取删除按钮发出的信息
-func _on_delete_button_button_up():
-	queue_free()
+func _on_star_ui_update_drag_state(drag_state: bool) -> void:
+	is_dragging = drag_state

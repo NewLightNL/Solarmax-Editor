@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dy21eddlgx03s"]
+[gd_scene load_steps=25 format=3 uid="uid://dy21eddlgx03s"]
 
 [ext_resource type="Script" uid="uid://dyaxw4sxyg15t" path="res://Script/MapEditorScripts/MapEditor.gd" id="1_b8sba"]
 [ext_resource type="PackedScene" uid="uid://culp22sestpbo" path="res://Scenes/UIs/MapNodeStarList/map_node_star_list_unit.tscn" id="2_trdvf"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bgmpnhmiqayf1" path="res://UITexture/CreateStarUIs/CreateUI_openButton.png" id="8_ld42w"]
 [ext_resource type="PackedScene" uid="uid://5xrqbdn5jbv0" path="res://Scenes/UIs/ChooseStarsUI/choose_star_ui.tscn" id="8_trdvf"]
 [ext_resource type="PackedScene" uid="uid://yec60pvu8b10" path="res://Scenes/UIs/star_edit_ui.tscn" id="9_kvdkc"]
+[ext_resource type="Script" uid="uid://dmdmmuqp5k44a" path="res://Scenes/UIs/EditorUI/editor_ui.gd" id="9_trdvf"]
 [ext_resource type="Texture2D" uid="uid://b4v0gkrmxjsa" path="res://Templates/Template3.png" id="11_kdma8"]
 [ext_resource type="Texture2D" uid="uid://c4c0xeitnjh1m" path="res://Templates/Template5.png" id="12_quowi"]
 [ext_resource type="Texture2D" uid="uid://bqs6qqre3qbiu" path="res://Templates/Template6.png" id="13_w38ex"]
@@ -63,6 +64,8 @@ script = ExtResource("6_x3j0q")
 
 [node name="Stars" type="Node2D" parent="Map"]
 
+[node name="BarrierLinesContainer" type="Node2D" parent="Map"]
+
 [node name="PreviewStar" type="Node2D" parent="Map"]
 
 [node name="UI" type="CanvasLayer" parent="."]
@@ -78,6 +81,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+script = ExtResource("9_trdvf")
 
 [node name="StarEditUIOpenButton" type="Button" parent="UI/EditorUI"]
 visible = false
@@ -606,6 +610,7 @@ vertical_alignment = 1
 [connection signal="button_up" from="UI/EditorUI/StarEditUIOpenButton" to="UI" method="_on_star_edit_ui_open_button_button_up"]
 [connection signal="button_up" from="UI/EditorUI/ShowStarListButton" to="UI" method="_on_show_star_list_button_button_up"]
 [connection signal="button_up" from="UI/EditorUI/ShowGridButton" to="UI" method="_on_show_grid_button_button_up"]
+[connection signal="button_up" from="UI/EditorUI/BarrierLineConnectButton" to="UI/EditorUI" method="_on_barrier_line_connect_button_button_up"]
 [connection signal="button_up" from="UI/EditorUI/ExportButton" to="UI" method="_on_export_button_button_up"]
 [connection signal="request_choose_star" from="UI/StarEditUI" to="UI" method="_on_star_edit_ui_request_choose_star"]
 [connection signal="request_show_ui" from="UI/StarEditUI" to="UI" method="_on_star_edit_ui_request_show_ui"]

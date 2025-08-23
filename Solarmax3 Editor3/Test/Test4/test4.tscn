@@ -1,0 +1,69 @@
+[gd_scene load_steps=4 format=3 uid="uid://sahacpkryln7"]
+
+[ext_resource type="Script" uid="uid://blop27ygc3wuf" path="res://Test/Test4/test_4.gd" id="1_gefju"]
+
+[sub_resource type="Shader" id="Shader_gefju"]
+code = "shader_type canvas_item;
+
+
+
+void vertex() {
+	// Called for every vertex the material is visible on.
+}
+
+void fragment() {
+	if (length(UV) <= 0.1){
+		COLOR.a = 1.0;
+	}
+}
+
+//void light() {
+//	// Called for every pixel for every light affecting the CanvasItem.
+//	// Uncomment to replace the default light processing function with this one.
+//}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s3daa"]
+shader = SubResource("Shader_gefju")
+
+[node name="Test4" type="Node2D"]
+script = ExtResource("1_gefju")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_s3daa")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1880.0
+offset_bottom = 1058.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_s3daa")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1880.0
+offset_bottom = 1058.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+position = Vector2(275, 222)
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D"]
+position = Vector2(670, 440)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Node2D"]
+position = Vector2(936, 244)
+
+[node name="Sprite2D4" type="Sprite2D" parent="Node2D"]
+position = Vector2(845, 536)
+
+[node name="Sprite2D5" type="Sprite2D" parent="Node2D"]
+position = Vector2(1185, 440)

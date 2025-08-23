@@ -28,12 +28,16 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 22.0
 theme_override_font_sizes/font_size = 25
-text = "射线炮的初始旋转角度:"
+text = "变形装置变形ID:"
 
-[node name="UnknownStarTransformationBuildingsSettingLineEdit" type="LineEdit" parent="UnknownStarTransformationBuildingsSettingUI/UnknownStarTransformationBuildingsSettingControl"]
+[node name="UnknownStarTransformationBuildingsSettingTextEdit" type="TextEdit" parent="UnknownStarTransformationBuildingsSettingUI/UnknownStarTransformationBuildingsSettingControl"]
 layout_mode = 0
-offset_right = 70.5
-offset_bottom = 30.0
+offset_top = 35.0
+offset_right = 500.0
+offset_bottom = 300.0
+placeholder_text = "请输入变形装置ID"
+emoji_menu_enabled = false
+wrap_mode = 1
 
 [node name="ButtonControl" type="Control" parent="UnknownStarTransformationBuildingsSettingUI"]
 visible = false
@@ -44,4 +48,4 @@ offset_right = 458.0
 offset_bottom = 270.0
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
-[connection signal="text_changed" from="UnknownStarTransformationBuildingsSettingUI/UnknownStarTransformationBuildingsSettingControl/UnknownStarTransformationBuildingsSettingLineEdit" to="." method="_on_unknown_star_transformation_buildings_setting_line_edit_text_changed"]
+[connection signal="text_changed" from="UnknownStarTransformationBuildingsSettingUI/UnknownStarTransformationBuildingsSettingControl/UnknownStarTransformationBuildingsSettingTextEdit" to="." method="_on_unknown_star_transformation_buildings_setting_text_edit_text_changed"]

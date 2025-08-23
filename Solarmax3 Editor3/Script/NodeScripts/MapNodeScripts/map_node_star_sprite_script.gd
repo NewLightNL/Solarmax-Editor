@@ -56,8 +56,8 @@ func update_sprite_texture():
 func update_sprite_color():
 	self.self_modulate = star_color
 
-
+# rotation_fix_degree顺时针, 而fAngle、lasergun_angle逆时针
 func update_sprite_rotation():
-	self.rotation_degrees = rotation_fix_degree + fAngle
+	self.rotation_degrees = rotation_fix_degree - fAngle
 	if is_lasergun:
-		self.rotation_degrees += lasergun_angle
+		self.rotation_degrees -= lasergun_angle

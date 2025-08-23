@@ -35,6 +35,8 @@ layout_mode = 0
 offset_left = 257.0
 offset_right = 346.0
 offset_bottom = 35.0
+allow_greater = true
+allow_lesser = true
 
 [node name="LasergunRotateSkipControl" type="Control" parent="ConfigureLasergunInformationUI"]
 anchors_preset = 0
@@ -54,6 +56,8 @@ layout_mode = 0
 offset_left = 257.0
 offset_right = 346.0
 offset_bottom = 35.0
+allow_greater = true
+allow_lesser = true
 
 [node name="LasergunRangeControl" type="Control" parent="ConfigureLasergunInformationUI"]
 anchors_preset = 0
@@ -73,6 +77,8 @@ layout_mode = 0
 offset_left = 233.0
 offset_right = 322.0
 offset_bottom = 35.0
+allow_greater = true
+allow_lesser = true
 
 [node name="ButtonControl" type="Control" parent="ConfigureLasergunInformationUI"]
 visible = false

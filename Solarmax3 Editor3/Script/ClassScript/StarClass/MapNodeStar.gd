@@ -159,6 +159,13 @@ func copy_map_node_star(map_node_star_copied : MapNodeStar) -> void:
 	self.lasergun_information = lasergun_information_duplicated
 	self.is_taget = map_node_star_copied.is_taget
 
+# 之所以不全部初始化，是怕循环引用，其它的属性在star_information里初始化了
+func initialize_map_node_special_information():
+	orbit_param1 = Vector2.ZERO
+	orbit_param2 = Vector2.ZERO
+	transformBuildingID = []
+	lasergun_information = {}
+
 
 func _update_map_node_star_position():
 	var x_axis_flip : Transform2D = Transform2D(Vector2(1, 0), Vector2(0, -1), Vector2.ZERO)

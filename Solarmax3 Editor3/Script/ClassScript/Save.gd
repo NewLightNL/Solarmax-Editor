@@ -103,4 +103,50 @@ class AdditionalInformationStringGetter:
 				push_error("错误的轨道类型!")
 		additional_information_string += orbit_information_string
 		
+		if saved_star.special_star_type == "Lasergun":
+			additional_information_string += " "
+			var lasergun_information_string : String = ""
+			
+			var lasergun_angle : float = 0.0
+			var lasergun_rotate_skip : float = 0.0
+			var lasergun_range : float = 0.0
+			
+			var is_having_lasergun_information : bool = false
+			
+			var required_keys : Array[String] = [
+				"lasergunAngle",
+				"lasergunRotateSkip",
+				"lasergunRange",
+			]
+			for required_key in required_keys:
+				if saved_star.lasergun_information.has(required_key):
+					is_having_lasergun_information = true
+				else:
+					is_having_lasergun_information = false
+			
+			if is_having_lasergun_information:
+				lasergun_angle = saved_star.lasergun_information["lasergunAngle"]
+				lasergun_rotate_skip = saved_star.lasergun_information["lasergunRotateSkip"]
+				lasergun_range = saved_star.lasergun_information["lasergunRange"]
+			
+			lasergun_information_string += "lasergunAngle=\"%s\" " % lasergun_angle
+			lasergun_information_string += "lasergunRotateSkip=\"%s\" " % lasergun_rotate_skip
+			lasergun_information_string += "lasergunRange=\"%s\"" % lasergun_range
+			
+			additional_information_string += lasergun_information_string
+		
+		if saved_star.special_star_type == "UnknownStar":
+			additional_information_string += " "
+			var unknown_star_information_string : String = ""
+			
+			var transform_building_id_text : String = ""
+			for transform_building_id in saved_star.transformBuildingID:
+				transform_building_id_text += str(transform_building_id)
+				transform_building_id_text += ","
+			transform_building_id_text = transform_building_id_text.left(-1)
+			
+			unknown_star_information_string += "transformBulidingID=\"%s\"" % transform_building_id_text
+			
+			additional_information_string += unknown_star_information_string
+		
 		return additional_information_string

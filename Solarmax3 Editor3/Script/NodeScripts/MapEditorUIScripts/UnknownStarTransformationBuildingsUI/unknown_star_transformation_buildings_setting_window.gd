@@ -8,14 +8,16 @@ var chosen_star : MapNodeStar
 
 var initial_unknown_star_transformBuildingID_information : Array[int]
 
+var is_typing : bool = false
 # 怎么解决这循环调用lasergun_angle→lasergun_anlge_setting_spin_box→lasergun_angle
 var unknown_star_transformBuildingID_information : Array[int]:
 	set(value):
 		unknown_star_transformBuildingID_information = value
-		var unknown_star_transformBuildingID_information_text : String = UnknownStarInformationTransformer.transform_unknown_star_information_from_array_to_text(unknown_star_transformBuildingID_information)
-		unknown_star_transformBuildingID_setting_line_edit.text = unknown_star_transformBuildingID_information_text
+		if not is_typing:
+			var unknown_star_transformBuildingID_information_text : String = UnknownStarInformationTransformer.transform_unknown_star_information_from_array_to_text(unknown_star_transformBuildingID_information)
+			unknown_star_transformBuildingID_setting_text_edit.text = unknown_star_transformBuildingID_information_text
 
-@onready var unknown_star_transformBuildingID_setting_line_edit : LineEdit = $UnknownStarTransformationBuildingsSettingUI/UnknownStarTransformationBuildingsSettingControl/UnknownStarTransformationBuildingsSettingLineEdit
+@onready var unknown_star_transformBuildingID_setting_text_edit : TextEdit = $UnknownStarTransformationBuildingsSettingUI/UnknownStarTransformationBuildingsSettingControl/UnknownStarTransformationBuildingsSettingTextEdit
 
 # lasergunAngle="" 表示射线炮的初始旋转角度。
 # lasergunRotateSkip="" 表示射线炮的单次旋转角度。
@@ -29,7 +31,7 @@ func _ready() -> void:
 	_pull_map_editor_shared_information()
 	MapEditorSharedData.shared_data_updated.connect(_on_global_data_updated)
 	
-	_initialize_configure_lasergun_information_window_when_ready()
+	_initialize_unknown_star_transformation_buildings_setting_window_when_ready()
 
 
 func _pull_map_editor_shared_information() -> void:
@@ -41,15 +43,11 @@ func _on_global_data_updated(key : String):
 		chosen_star = MapEditorSharedData.chosen_star
 
 
-func _initialize_configure_lasergun_information_window_when_ready() -> void:
+func _initialize_unknown_star_transformation_buildings_setting_window_when_ready() -> void:
 	if chosen_star != null:
 		if chosen_star.special_star_type == "UnknownStar":
 			initial_unknown_star_transformBuildingID_information = chosen_star.transformBuildingID
-
-
-func _on_unknown_star_transformation_buildings_setting_line_edit_text_changed(new_text: String) -> void:
-	unknown_star_transformBuildingID_information = UnknownStarInformationGetter.get_unknown_star_information_from_text(new_text)
-	emit_signal("unknown_star_transformBuildingID_information_changed", unknown_star_transformBuildingID_information)
+			unknown_star_transformBuildingID_information = chosen_star.transformBuildingID
 
 
 func initialize_unknown_star_transformation_buildings_setting_window():
@@ -61,10 +59,22 @@ func update_unknown_star_transformation_buildings_setting_window(map_node_star :
 	emit_signal("unknown_star_transformBuildingID_information_changed", unknown_star_transformBuildingID_information)
 
 
+func _on_unknown_star_transformation_buildings_setting_text_edit_text_changed() -> void:
+	is_typing = true
+	var new_text : String = unknown_star_transformBuildingID_setting_text_edit.text
+	unknown_star_transformBuildingID_information = UnknownStarInformationGetter.get_unknown_star_information_from_text(new_text)
+	emit_signal("unknown_star_transformBuildingID_information_changed", unknown_star_transformBuildingID_information)
+	is_typing = false
+
+
+func _on_close_requested() -> void:
+	queue_free()
+
+
 class UnknownStarInformationGetter:
 	static func get_unknown_star_information_from_text(text : String) -> Array[int]:
 		var unknown_star_transform_building_id : Array[int] = []
-		var text_split : Array[String] = text.split(",")
+		var text_split : PackedStringArray = text.split(",")
 		for text_unit in text_split:
 			if text_unit.is_valid_int():
 				var id : int = int(text_unit)
@@ -81,7 +91,3 @@ class UnknownStarInformationTransformer:
 		text = text.left(-1)
 		
 		return text
-
-
-func _on_close_requested() -> void:
-	queue_free()

@@ -3,10 +3,9 @@ extends Window
 signal lasergun_information_changed(lasergun_information_sent : Dictionary[String, float])
 
 var request_type : String = "LasergunInformationConfiguration"
-
 var chosen_star : MapNodeStar
-
 var initial_lasergun_information : Dictionary[String, float]
+var is_setting_value : bool = false
 
 var lasergun_information : Dictionary[String, float] = {
 	"lasergunAngle" : 0.0,
@@ -14,24 +13,30 @@ var lasergun_information : Dictionary[String, float] = {
 	"lasergunRange" : 0.0,
 }
 # 这里拆分出来的变量以后可以封装
-# 怎么解决这循环调用lasergun_angle→lasergun_anlge_setting_spin_box→lasergun_angle
+# 怎么从根本上解决这循环调用lasergun_angle→lasergun_anlge_setting_spin_box→lasergun_angle
 var lasergun_angle : float:
 	set(value):
+		is_setting_value = true
 		lasergun_angle = value
-		lasergun_information["lasergunAngle"] = lasergun_angle
-		lasergun_anlge_setting_spin_box.value = lasergun_angle
+		lasergun_information["lasergunAngle"] = value
+		lasergun_anlge_setting_spin_box.value = value
+		is_setting_value = false
 
 var lasergun_rotate_skip : float:
 	set(value):
+		is_setting_value = true
 		lasergun_rotate_skip = value
-		lasergun_information["lasergunRotateSkip"] = lasergun_rotate_skip
-		lasergun_rotate_skip_spin_box.value = lasergun_rotate_skip
+		lasergun_information["lasergunRotateSkip"] = value
+		lasergun_rotate_skip_spin_box.value = value
+		is_setting_value = false
 
 var lasergun_range : float:
 	set(value):
+		is_setting_value = true
 		lasergun_range = value
-		lasergun_information["lasergunRange"] = lasergun_range
-		lasergun_range_spin_box.value = lasergun_range
+		lasergun_information["lasergunRange"] = value
+		lasergun_range_spin_box.value = value
+		is_setting_value = false
 
 @onready var lasergun_anlge_setting_spin_box : SpinBox = $ConfigureLasergunInformationUI/LasergunAngleSettingControl/LasergunAngleSettingSpinBox
 @onready var lasergun_rotate_skip_spin_box : SpinBox = $ConfigureLasergunInformationUI/LasergunRotateSkipControl/LasergunRotateSkipSpinBox
@@ -104,14 +109,14 @@ func initialize_configure_lasergun_information_window():
 
 func update_configure_lasergun_information_window(map_node_star : MapNodeStar):
 	initial_lasergun_information = {
-			"lasergunAngle" : map_node_star.lasergun_information["lasergunAngle"],
-			"lasergunRotateSkip" : map_node_star.lasergun_information["lasergunRotateSkip"],
-			"lasergunRange" : map_node_star.lasergun_information["lasergunRange"],
+		"lasergunAngle" : map_node_star.lasergun_information["lasergunAngle"],
+		"lasergunRotateSkip" : map_node_star.lasergun_information["lasergunRotateSkip"],
+		"lasergunRange" : map_node_star.lasergun_information["lasergunRange"],
 	}
 	lasergun_information = {
-			"lasergunAngle" : map_node_star.lasergun_information["lasergunAngle"],
-			"lasergunRotateSkip" : map_node_star.lasergun_information["lasergunRotateSkip"],
-			"lasergunRange" : map_node_star.lasergun_information["lasergunRange"],
+		"lasergunAngle" : map_node_star.lasergun_information["lasergunAngle"],
+		"lasergunRotateSkip" : map_node_star.lasergun_information["lasergunRotateSkip"],
+		"lasergunRange" : map_node_star.lasergun_information["lasergunRange"],
 	}
 	
 	lasergun_angle = map_node_star.lasergun_information["lasergunAngle"]
@@ -121,21 +126,24 @@ func update_configure_lasergun_information_window(map_node_star : MapNodeStar):
 
 
 func _on_lasergun_angle_setting_spin_box_value_changed(value: float) -> void:
-	lasergun_information["lasergunAngle"] = value
-	lasergun_angle = value
-	emit_signal("lasergun_information_changed", lasergun_information)
+	if not is_setting_value:
+		lasergun_information["lasergunAngle"] = value
+		lasergun_angle = value
+		emit_signal("lasergun_information_changed", lasergun_information)
 
 
 func _on_lasergun_rotate_skip_spin_box_value_changed(value: float) -> void:
-	lasergun_information["lasergunRotateSkip"] = value
-	lasergun_rotate_skip = value
-	emit_signal("lasergun_information_changed", lasergun_information)
+	if not is_setting_value:
+		lasergun_information["lasergunRotateSkip"] = value
+		lasergun_rotate_skip = value
+		emit_signal("lasergun_information_changed", lasergun_information)
 
 
 func _on_lasergun_range_spin_box_value_changed(value: float) -> void:
-	lasergun_information["lasergunRange"] = value
-	lasergun_range = value
-	emit_signal("lasergun_information_changed", lasergun_information)
+	if not is_setting_value:
+		lasergun_information["lasergunRange"] = value
+		lasergun_range = value
+		emit_signal("lasergun_information_changed", lasergun_information)
 
 
 func _on_close_requested() -> void:

@@ -1,8 +1,13 @@
 extends Control
 
+signal request_delete
+signal update_drag_state(drag_state : bool)
+
 const UISTANDARDSIZE : Vector2 = Vector2(231.0, 231.0)
 var camp_colors : Dictionary
 @onready var star_fleet_labels_control : Control = $StarFleetLabels
+@onready var input_detection_control : Control = $InputDetectionControl
+
 
 func _ready() -> void:
 	_pull_map_editor_shared_data()
@@ -23,12 +28,18 @@ func _on_global_data_updated(key : String) -> void:
 
 func update_star_ui(star_scale : float, this_star_fleets : Array[Dictionary]):
 	_update_star_ui_rect(star_scale)
+	_update_drag_detection_control(star_scale)
 	_update_star_fleets_label(this_star_fleets, star_scale)
 
 
 func _update_star_ui_rect(star_scale : float):
 	self.position = -(UISTANDARDSIZE / 2) * star_scale
 	self.size = UISTANDARDSIZE * star_scale
+
+
+func _update_drag_detection_control(star_scale : float):
+	input_detection_control.star_scale = star_scale
+
 
 # 计算与生成应该分开
 func _update_star_fleets_label(
@@ -55,7 +66,15 @@ func _update_star_fleets_label(
 		ship_number_positions,
 		this_star_fleets_info,
 	)
-	
+
+
+func _on_input_detection_control_request_delete() -> void:
+	emit_signal("request_delete")
+
+
+func _on_input_detection_control_drag_state_changed(is_dragging: bool) -> void:
+	emit_signal("update_drag_state", is_dragging)
+
 
 class LabelPositionsCalculator:
 	const ONE_CAMP_STANDARD_DISTANCE : float = 79.0

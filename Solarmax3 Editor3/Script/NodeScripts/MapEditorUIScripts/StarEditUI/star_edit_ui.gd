@@ -21,9 +21,9 @@ var is_star_information_ui_showing : bool = false:
 	set(value):
 		is_star_information_ui_showing = value
 		if value == true:
-			lock_choose_star_buttoN_and_recently_chosne_star_bar()
+			lock_choose_star_button_and_recently_chosen_star_bar()
 		else:
-			unlock_choose_star_buttoN_and_recently_chosne_star_bar()
+			unlock_choose_star_button_and_recently_chosen_star_bar()
 
 # UI节点引用
 @onready var choose_star_button : Button = $ChooseStar
@@ -75,12 +75,22 @@ func _on_global_data_updated(key : String):
 			chosen_star = MapEditorSharedData.chosen_star
 
 
-func lock_choose_star_buttoN_and_recently_chosne_star_bar() -> void:
+func lock_add_star_ui() -> void:
+	lock_choose_star_button_and_recently_chosen_star_bar()
+	star_information.lock_uis()
+
+
+func unlock_add_star_ui() -> void:
+	unlock_choose_star_button_and_recently_chosen_star_bar()
+	star_information.unlock_uis()
+
+
+func lock_choose_star_button_and_recently_chosen_star_bar() -> void:
 	choose_star_button.disabled = true
 	recently_chosen_stars_bar.lock_slots()
 
 
-func unlock_choose_star_buttoN_and_recently_chosne_star_bar() -> void:
+func unlock_choose_star_button_and_recently_chosen_star_bar() -> void:
 	choose_star_button.disabled = false
 	recently_chosen_stars_bar.unlock_slots()
 
@@ -117,6 +127,7 @@ func _update_chosen_star(star : Star):
 	# 应该为最近选择的天体栏单独做一个上传被选择的天体方法
 	
 	chosen_star.copy_information_from_star(star)
+	chosen_star.initialize_map_node_special_information()
 	MapEditorSharedData.data_updated("chosen_star", chosen_star)
 
 

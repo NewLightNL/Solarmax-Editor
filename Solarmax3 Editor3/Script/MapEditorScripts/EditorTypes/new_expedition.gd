@@ -23,10 +23,12 @@ class rotation_rule_apparitor:
 	
 	# 焦土类要在UI上显示旋转，但目标不用，
 	# 因为焦土类是天体属性，而目标是天体节点属性
+	# 天体类不需要输入负的角度信息来实现逆时针旋转，但UI类需要
 	static func obey_dirt_star_rotation_rule(star : Star, operation_object : Node):
 		if operation_object is Node2D or operation_object is Control:
 			if star.special_star_type == "dirt":
-				operation_object.rotation = PI
+				
+				operation_object.rotation = -PI
 			else:
 				operation_object.rotation = 0.0
 		else:

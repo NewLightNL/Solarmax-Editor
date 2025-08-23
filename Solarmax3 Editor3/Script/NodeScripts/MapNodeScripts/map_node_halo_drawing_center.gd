@@ -26,6 +26,7 @@ func _draw():
 func _pull_map_editor_shared_data():
 	camp_colors = MapEditorSharedData.camp_colors
 
+
 func _on_global_data_updated(key : String) -> void:
 	MapEditorSharedDataKeysChecker.check_key(key)
 	match key:
@@ -33,20 +34,20 @@ func _on_global_data_updated(key : String) -> void:
 			camp_colors = MapEditorSharedData.camp_colors
 
 
-func draw_halo(this_star_fleets_info : Array[Dictionary], star_scale_info : float) -> void:
+func draw_halo(this_star_fleets_info : Array[Dictionary], star_scale_info : float, star_type : String) -> void:
 	_halo_radius = (STAR_STANDARD_WIDTH - 3)/ 2 * star_scale_info
-	_process_halo_arguments(this_star_fleets_info)
+	_process_halo_arguments(this_star_fleets_info, star_type)
 	self.queue_redraw()
 
 
-func _process_halo_arguments(this_star_fleets_info : Array[Dictionary]) -> void:
+func _process_halo_arguments(this_star_fleets_info : Array[Dictionary], star_type : String) -> void:
 	this_star_fleets_info = FleetsInformationValidator.validate_star_fleets_dictionaries_array(
 			this_star_fleets_info,
 			FleetsInformationValidator.FilterFlags.FILTER_CAMP_ZERO_AND_SHIP_NUMBER_ZERO
 	)
 	
 	# 如果没有阵营有飞船或者只有一个阵营有飞船，就不画环
-	if this_star_fleets_info.size() <= 1:
+	if this_star_fleets_info.size() <= 1 or star_type == "barrier":
 		_is_to_draw_halo = false
 		return
 	else:
